@@ -42,12 +42,13 @@
 	</target>
 
 	<target name="doc" description="make docs" >
-		<javadoc sourcepath="."
+        <javadoc sourcepath="${src}"
 				 packagenames="pal.*"
 				 destdir="${dist}/doc/api"
 				 author="true"
 				 version="true"
 				 use="true">
+                 <fileset dir="${src}" />
 		</javadoc>
 	</target>
 
