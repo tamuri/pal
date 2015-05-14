@@ -1,0 +1,41 @@
+This file is intended as a reference for all important changes made to the PAL source code.
+===========================================================================================
+
+11 Oct 2002
+	- Removed AminoAcidAlignment as it's redundant. (See pal.alignment.DataTranslator for an Alternative)
+	- Removed SimpleAlignment constructors that create null datatype - caused t0o many hard to find bugs (MG) (if datatype not know just pass null - but that's a bad idea)
+
+28 Oct 2002 (Accidentally clicked commit when I wasn't supposed too...)
+	- Changed MinimiserMonitor slightly...
+
+21 March 2003 Lots of changes
+	- DataType includes gap stuff, DataTypeUtils moved to DataType.Utils
+	- Updated web page (begun migration to www.cebl.auckland.ac.nz/pal-project
+
+.....
+	- DatedTipsTree removed - use MutationRateModelTree
+
+23 June 2003 Lots of changes
+	- Added AlignmentReceiver, changed AlignmentReaders to read multiple phylip/clustal
+		alignments from one file
+1 July 2003
+	- Added setResidueFont() to TreePainter stuff
+14 October 2003
+	- Major addition of new Unrooted tree search tool. Includes the addition of pal.algorithmics, and pal.treesearch, and changes to pal.eval.
+	- Also added pal.mep.DeltaModel which is used by new tools to be added soon
+18 October 2003
+	- Added sUPGMA code though no signs of how to use it yet (will add tool class later...)
+	- Yang Codon Models fixed
+5 December 2003
+	- Lots of fixes
+	- New Ant make file (Bruno Afonso)
+	- New windows make batch file (Thomas Keane)
+
+2 November 2004
+	- Bug fixes
+	- New Nexus reading code (Alex Moore)
+	- Partially complete new likelihood framework
+	- New parameterized interface
+	- New substitution models 
+	- Temporal changes in substitution model 
+	- New sample information interface

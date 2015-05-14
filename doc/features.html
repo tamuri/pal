@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta name="KeyWords"
+			 content="PAL, phylogenetic analysis library, molecular phylogenetics,
+					molecular evolution, phylogeny,
+								tree reconstruction, maximum likelihood">
+	<meta name="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>The PAL Project</title>
+</head>
+<body>
+
+<table cellpadding="4" cellspacing="4" border="0" width="100%" height="100%">
+		<tbody>
+			<tr>
+				<td valign="top">
+					<table cellpadding="0" cellspacing="0" border="1" width="130" height = "500">
+						<tbody>
+							<tr>
+								<td valign="top" bgcolor="#cccccc" align="center">
+									<a href = "index.html">About</a>
+									<br>
+									<a href = "people.html"> People Involved </a>
+									<br>
+									<b>Features</b>
+									<br>
+									<a href = "user_interfaces.html">User Interfaces</a>
+									<br>
+									<a href = "related.html">Related Projects</a>
+									<br>
+									<br>
+									<a href = "download.html">Downloads and Installation</a>
+									<br>
+									<a href = "history.html">History</a>
+									<br>
+									<br>
+									<a href = "contributing.html">Contributing</a>
+									<br>
+									<a href = "acknowledgements.html">Acknowledgements</a>
+									<br>
+									<br>
+									<a href = "online.html">Pal Online</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+				<td valign="top">
+	<!-- Start of normal block -->
+
+<img src=pal.gif hspace=10 align=left ALT="PAL icon">
+<strong><font size="+2">PAL: Phylogenetic Analysis Library</font></strong>
+
+<br>
+<br>
+<strong><em>
+<center>Main Features:</center>
+</em></strong>
+<p>
+PAL is entirely written in the <a href="http://www.java.sun.com">Java language</a>.
+This allows for a clean object oriented design while avoiding the complexities of C++.
+Moreover, Java class code runs without needing recompilation on a wide range on
+platforms.  Additionally, PAL also compiles into native code on Unix systems
+(just like C++) using the
+<a href="http://sourceware.cygnus.com/java/">GNU compiler for Java (gcj)</a>,
+part of recent releases of the
+<a href="http://gcc.gnu.org">GNU compiler collection (gcc)</a>.
+Corresponding makefiles  are included with this distribution of PAL.
+<P>
+PAL consists of a rich variety of objects  to facilitate
+the construction of special-purpose tools for phylogenetic analysis.
+PAL contains, e.g., ready-to-use objects for:
+<ul>
+
+<li>
+reading and writing sequence alignments, distance matrices, and trees
+</li>
+
+<li>
+a large variety of substitution models for nucleotides and amino acids
+(REV, TN, HKY, F84, F81, JC; Dayhoff, JTT, MTREV24, BLOSUM, VT, WAG, CPREV)
+as well as for codons (Yang codon model)
+</li>
+
+<li>
+Various models for rate variation over sites (invariable sites, Gamma)
+</li>
+
+<li>
+efficient maximum-likelihood estimation  of pairwise  distances and
+of branch lengths in a tree
+(for unconstrained, clock, and dated-tips clock trees)
+</li>
+
+<li>
+simulating coalescence intervals and estimation of demographic
+parameters
+</li>
+
+<li>
+likelihood ratio and chi-square tests and for
+comparison of phylogenetic hypotheses
+(e.g., Kishino-Hasegawa and Shimodaira-Hasegawa tests)
+</li>
+
+<li>
+manipulating alignments (e.g., bootstrapping)
+and trees and simulating data
+</li>
+
+<li>optimizing uni- and multivariate functions by various methods,
+computing numerical derivatives, random numbers (simulation quality),
+sorting etc.
+</li>
+
+<li>
+creating formatted input and output from/to files,
+standard io streams, and strings, through convenience classes that extend the
+standard Java IO library
+</li>
+
+<li>
+construct neighbor-joining, UPGMA and SUPGMA trees, and estimating least-squares
+branch lengths on trees (weighted and unweighted LS)</li>
+
+<li>translate nucleotide to AA sequences</li>
+
+<li>access mathematical special functions (gamma, error, binomial)
+and pdf, cdf, and quantile functions of statistical distributions
+(gamma, exponential, chi-square, normal, Pareto)</li>
+
+<li>
+create split systems from trees and compute partition distances
+between trees (Robinson-Foulds distance)
+</li>
+
+<li>
+XML interface for PAL objects  (this uses the org.w3c.dom library which
+is included with PAL - please see the
+<a href="COPYRIGHT-org.w3c.dom.html">copyright info</a> of this library)
+</li>
+
+
+<li>...</li>
+
+</ul>
+All classes are members of one of the 16 PAL packages
+(alignment, coalescent, datatype, distance, eval, gui, io, math, mep, misc,
+popgen, statistics,
+substmodel, tree, util, xml). A detailed list of these packages
+along with a description of the public and protected
+interfaces and  functions and the purpose of each single class in the library
+is available in the API Documentation, included with the source archives.
+<font size=-2><br><a href="#top">back to top</a></font>
+
+
+	<!-- End of normal block -->
+
+
+				</td>
+			</tr>
+
+	</tbody>
+</table>
+	<br>
+
+</body>
+</html>

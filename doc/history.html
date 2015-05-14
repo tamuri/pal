@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta name="KeyWords"
+			 content="PAL, phylogenetic analysis library, molecular phylogenetics,
+					molecular evolution, phylogeny,
+								tree reconstruction, maximum likelihood">
+	<meta name="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>The PAL Project</title>
+</head>
+<body>
+
+<table cellpadding="4" cellspacing="4" border="0" width="100%" height="100%">
+		<tbody>
+			<tr>
+				<td valign="top">
+					<table cellpadding="0" cellspacing="0" border="1" width="130" height = "500">
+						<tbody>
+							<tr>
+								<td valign="top" bgcolor="#cccccc" align="center">
+									<a href = "index.html">About</a>
+									<br>
+									<a href = "people.html"> People Involved </a>
+									<br>
+									<a href = "features.html">Features</a>
+									<br>
+									<a href = "user_interfaces.html">User Interfaces</a>
+									<br>
+									<a href = "related.html">Related Projects</a>
+									<br>
+									<br>
+									<a href = "download.html">Downloads and Installation</a>
+									<br>
+									<b>History</b>
+									<br>
+									<br>
+									<a href = "contributing.html">Contributing</a>
+									<br>
+									<a href = "acknowledgements.html">Acknowledgements</a>
+									<br>
+									<br>
+									<a href = "online.html">Pal Online</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+				<td valign="top">
+	<!-- Start of normal block -->
+
+<img src=pal.gif hspace=10 align=left ALT="PAL icon">
+<strong><font size="+2">PAL: Phylogenetic Analysis Library</font></strong>
+<br>
+
+<strong><em>
+<center>PAL Release History</center>
+</em></strong>
+
+PAL was first publicly distributed  in September 1999.
+This and all subsequent releases can be downloaded by clicking
+on the corresponding version number.
+
+<table CELLPADDING=2 >
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-1.5-src.zip">1.5 (src)</a>, or <a href="bin/pal-1.5.jar">1.5 (precompiled jar)</a>
+		<td>
+			Substatial class rearrangement.
+			New alignment reading code.
+			Faster likelihood calculation.
+			ML tree searching for unrooted trees.
+			More comprehensive sUPGMA.
+			New src managment files (newmake.bat, and build.xml for ant).
+			New Codon Tables.
+			New tree rooting classes (with mid-point rooting).
+			Faster evolutionary distance calculation.
+			More Clustering methods.
+			Selection codon models (M2 and M3).
+			Tree label colouring, and font changing.
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-1.4.tar.gz">1.4</a></td>
+
+		<td>
+			Two new packages, pal.popgen and pal.xml.  Estimation of linkage disequilibrium.
+			Faster likelihood calculations.  Improvement of tree classes and associated
+			functions. Many new helper functions. Classes dealing with XML.
+			(January 2002).
+		</td>
+	</tr>
+
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-1.3.tar.gz">1.3</a></td>
+		<td>
+		Change of license from GPL to LGPL.  Otherwise minor changes, e.g., updated
+		skyline plot class.
+		 (July 2001).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-1.2.tar.gz">1.2</a></td>
+		<td>
+			Codon models implemented (rate matrix, alignment, codon translation methods).
+			Utility functions for alignments (score function etc.). Splits, split systems
+			and corresponding tree distances (Robinson-Foulds).  Extended utility
+			functions for trees (incl. Node factory). Pareto distribution.  Classes for "measurably evolving
+			populations" (mep package). (April 2001).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-1.1.tar.gz">1.1</a></td>
+		<td>
+			Improvement of coalescent package: generalized skyline plot, new const.-to-exp.
+			growth demographic model, new features in IntervalsExtractor, new
+			classes DemographicTree/ClockTree.  Reorganization of math and statistics
+			packages: new binomial, error and gamma functions in math package, and
+			bootstrap statistics (BIAS, VAR, CI etc), gamma, exponential, chi-square,
+			and normal distributions with pdf, cdf, and quantiles in statistics
+			package. New features in TreeUtils and NodeUtils, allowing for
+			a smaller SimpleTree class. SUPGMA tree reconstruction and distances.
+			Nucleotide-to-amino acid translation class. More GUI classes, e.g., for
+			circular trees.  (December 2000).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-1.0.tar.gz">1.0</a></td>
+		<td>
+			Tree and Node classes turned into Interfaces implemented by SimpleNode and SimpleTree
+			and controlled by TreeUtils and NodeUtils classes.
+			New ParameterizedTree: Clock-trees with dated tips.
+			Much better accuracy and vast speed-ups in algorithm for
+			ML optimization of branch lengths for UnconstrainedTree, ClockTree, DatedTipsClockTree
+			(optimization delivers now "real-world" performance).
+			New tree comparison tests (e.g., Shimodaira-Hasegawa).
+			New protein models (VT, WAG, CPREV).
+			New classes for demographic models, coalescent simulation and coalescent priors.
+			Package names changed (clearer longer names), some classes reorganized, and two new packages
+			introduced (coalescent and util).
+			Sorting class.
+			Macintosh compatibility (some file names changed). (July 2000).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-0.9.zip">0.9</a></td>
+
+		<td>
+			Formation of PAL Development Core Team. PAL converted to pure library
+			(command applications moved into the Vanilla package). More efficient multivariate
+			minimization classes (non-linear conjugate gradient algorithms, line function
+			with boundaries, conjugate direction method with boundaries etc.) and improved
+			stop criteria. Automatic model selection among amino acids matrices. Inclusion
+			of the VT rate matrix. Estimation of model parameters without a tree. Several
+			smaller bug fixes and changes (alias mapping in Tree reversed plus subsequent
+			changes in TreeDistance and LikelihoodValue). (April 2000).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-0.8.zip">0.8</a></td>
+		<td>
+			All classes are now fully documented using JavaDoc comments. Source
+			code complies to Java 1.0 language standard to allow compilation into native
+			code. Classes for evaluation of evolutionary hypotheses (chi-square and
+			likelihood computation) and interfaces for functions and of Parameterized
+			are reorganized. Detail improvements in a number of other classes. Introduction
+			of clock-constraint on trees. Some minor bug fixes. New platforms: direct
+			support for Windows and Unix-native (includes instructions for compilation
+			into native code using the GNU Compiler for Java). New applications: UPGMA
+			(constructs UPGMA tree), STRIPSITES (strips sites from an alignment according
+			to a given order). LSTREE and MLTREE now enable the estimation of clock-like
+			branch lengths. (February 2000).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-0.7.tar.gz">0.7</a></td>
+		<td>
+			Dog icon. Much improved classes for formatted input and output. PHYLIP
+			sequential format added. Restructuring of alignment package (e.g., removal
+			of TypedAlignment, changes in SitePattern, automatic data type detection).
+			Introduction of getInstance() methods in DataType and RateMatrix. Objects
+			for computing tree-induced distances and (weighted) squared distances between
+			distance matrices. Class for computing least-square branch length estimates.
+			CUI frontend now in a single common class for all CUI programs. New applications:
+			EVOLVE (generation of artificial data sets), LSTREE (least-squares estimates
+			of branch lengths), JUMBLE (randomizes sequence input order). (December
+			1999).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-0.6.tar.gz">0.6</a></td>
+		<td>
+			Complete reorganization of package layout and all classes. Main new
+			classes: ML evaluation of trees, estimation of model and branch parameters,
+			global optimization (genetic algorithm), likelihood ratio and Kishino-Hasegawa-Templeton
+			tests, random number generator, numerical derivatives of vectors. New application:
+			MLTREE (computation of likelihoods given a tree and estimation of model
+			parameters and branch lengths). Improvement of MLDIST program. (November1999).
+		</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td><a href="bin/pal-0.5.tar.gz">0.5</a></td>
+		<td>First public release. (September 1999).</td>
+	</tr>
+
+	<tr VALIGN=TOP>
+		<td>-</td>
+		<td>Project start. (January 1999).</td>
+	</tr>
+</table>
+
+	<!-- End of normal block -->
+
+
+				</td>
+			</tr>
+
+	</tbody>
+</table>
+	<br>
+
+</body>
+</html>

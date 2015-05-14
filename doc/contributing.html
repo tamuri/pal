@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta name="KeyWords"
+			 content="PAL, phylogenetic analysis library, molecular phylogenetics,
+					molecular evolution, phylogeny,
+								tree reconstruction, maximum likelihood">
+	<meta name="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>The PAL Project</title>
+</head>
+<body>
+
+<table cellpadding="4" cellspacing="4" border="0" width="100%" height="100%">
+		<tbody>
+			<tr>
+				<td valign="top">
+					<table cellpadding="0" cellspacing="0" border="1" width="130" height = "500">
+						<tbody>
+							<tr>
+								<td valign="top" bgcolor="#cccccc" align="center">
+									<a href = "index.html">About</a>
+									<br>
+									<a href = "people.html"> People Involved </a>
+									<br>
+									<a href = "features.html">Features</a>
+									<br>
+									<a href = "user_interfaces.html">User Interfaces</a>
+									<br>
+									<a href = "related.html">Related Projects</a>
+									<br>
+									<br>
+									<a href = "download.html">Downloads and Installation</a>
+									<br>
+									<a href = "history.html">History</a>
+									<br>
+									<br>
+									<b>Contributing</b>
+									<br>
+									<a href = "acknowledgements.html">Acknowledgements</a>
+									<br>
+									<br>
+									<a href = "online.html">Pal Online</a>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+				<td valign="top">
+	<!-- Start of normal block -->
+
+<img src=pal.gif hspace=10 align=left ALT="PAL icon">
+<strong><font size="+2">PAL: Phylogenetic Analysis Library</font></strong>
+
+<br>
+<br>
+<strong><em>
+<center>
+Guidelines for Contributing Code
+</center>
+</em></strong>
+<h1></h1>
+
+Contributions to PAL are very welcome.  Basically, there are two main routes:
+<ul>
+
+<li><b>Minor contribution</b>: If you want to contribute a single or few classes only, for example
+those implementing your own favorite method, simply send your tested
+code to one of the core team members.  Your class(es) will then be
+included in the library for publication in the next release.
+Your contribution will be acknowledged in the sources,
+in all documentation, and on the web.
+</li>
+<li>
+<b>Major contribution</b>:
+On the other hand, you may be interested
+in joining the PAL core team in further developing and
+improving PAL in general.  This generally involves a considerable amount
+of continuous (and sometimes boring) work on all parts of the library.
+If you have experience with a similar project before and now would like
+to bring in your expertise in PAL, get in touch and you will be afforded
+full CVS rights.
+</li>
+
+</ul>
+In both cases the following PAL programming guidelines <b>must</b> be followed.
+The aim is to have code that is easy to understand by people other than
+the original author, and that runs on a minimal Java platform:
+<ul>
+
+<li>
+Coding conventions: all code must follow the Java coding conventions.
+In particular, the Java naming conventions for variables, class names,
+constants etc. must be followed strictly.
+</li>
+<li>Access to library features must be restricted to Java 1.1 (no Java 1.2/1.3
+library).
+</li>
+<li>
+All classes and public/protected methods must be
+documented using JavaDoc comments.
+</li>
+<li>Each public class must carry @author and @version tags.</li>
+<li>All code must carry the standard PAL header, assigning copyright
+to the PAL Core Development Team and permitting distribution by the
+GNU LGPL.
+</li>
+<li>Your code must fully comply with the GNU LGPL, i.e. must be your own
+or from some other GNU LGPL or public domain source.  <i>Code containing,
+e.g., portions from Numerical Recipes can not be accepted</i>.
+</li>
+
+<li>In your classes methods from existing PAL packages
+likes pal.io, pal.math, pal.util
+should be preferred over the corresponding SUN packages
+(e.g., for random numbers)</li>
+<li>If you need to change code other than yours be careful not to
+break it!</li>
+<li>Needless to say, all code should be well tested and should actually
+do what it claims ..</li>
+
+
+</ul>
+Please look at the sources of the current PAL distribution for example code.
+
+	<!-- End of normal block -->
+
+
+				</td>
+			</tr>
+
+	</tbody>
+</table>
+	<br>
+
+</body>
+</html>
