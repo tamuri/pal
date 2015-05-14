@@ -15,7 +15,7 @@ package pal.treesearch;
  * Even given the offsourcing of code this class is rather large!
  * Includes the algorithm of [1]
  * </p>
- * [1]  Guindon, Stéphane  Gascuel, Olivier (2003) A Simple, Fast, and Accurate Algorithm to Estimate Large Phylogenies by Maximum Likelihood. Systematic Biology 52:5 pages  696 - 704 / October 2003
+ * [1]  Guindon, Stephane  Gascuel, Olivier (2003) A Simple, Fast, and Accurate Algorithm to Estimate Large Phylogenies by Maximum Likelihood. Systematic Biology 52:5 pages  696 - 704 / October 2003
  * @author Matthew Goode
  * @version 1.0
  */

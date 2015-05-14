@@ -298,7 +298,7 @@ public class UnivariateMinimum
 			}
 			double u = b - ((b - c) * q - (b - a) * r) / 2.0 / (q - r);
 			u = constrain(u, searchToMax, min, max);
-			double fu = 0; // Don´t evaluate now
+			double fu = 0; // Don't evaluate now
 
 			boolean magnify = false;
 
