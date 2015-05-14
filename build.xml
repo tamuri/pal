@@ -1,14 +1,16 @@
 <!-- PAL ant file by Bruno Afonso <brunomiguel@dequim.ist.utl.pt>, 2003 -->
 <project name="PAL" default="dist" basedir=".">
+
 	<description>
 		PAL: Phylogenetic Analysis Library
-		The PAL project (http://www.cebl.auckland.ac.nz/pal-project) is a collaborative effort dedicated to 
+		The PAL project (http://www.cebl.auckland.ac.nz/pal-project) is a collaborative effort dedicated to
 		provide a high quality Java library for use in molecular evolution and phylogenetics.
 		This package may be distributed under the terms of the GNU Lesser General Public License
-		Copyright (c) 1999-2002 PAL Development Core Team. 
+		Copyright (c) 1999-2002 PAL Development Core Team.
 	</description>
+
 	<!-- set global properties for this build -->
-    <property name="src" location="src/pal"/>
+	<property name="src" location="src/pal"/>
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 	<!-- We insert our version here :-) -->
@@ -26,30 +28,30 @@
 
 	<target name="dist" depends="compile" description="generate the distribution">
 		<!-- Create the distribution directory -->
-	<mkdir dir="${dist}/lib"/>
-
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/lib/pal-${version}.jar" basedir="${build}"/>
-  </target>
+		<mkdir dir="${dist}/lib"/>
+		<tstamp>
+			<format property="timenow" pattern="yyMMddHHmm" />
+		</tstamp>
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/lib/pal-${version}-${timenow}.jar" basedir="${build}"/>
+	</target>
 
 	<target name="doc" description="make docs" >
-	<javadoc sourcepath="."
-				packagenames="pal.*"
-             destdir="${dist}/doc/api"
-             author="true"
-             version="true"
-             use="true">
-      </javadoc>
-   </target>
+		<javadoc sourcepath="."
+				 packagenames="pal.*"
+				 destdir="${dist}/doc/api"
+				 author="true"
+				 version="true"
+				 use="true">
+		</javadoc>
+	</target>
 
-	 <target name="clean"
-        description="clean up" >
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/> 
-  </target>
+	<target name="clean"
+			description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
 
-	
-	
 </project>
 
