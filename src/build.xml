@@ -12,7 +12,7 @@
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
 	<!-- We insert our version here :-) -->
-	<property name="version" value="cvs"/>
+	<property name="version" value="tamuri"/>
 
 	<target name="init">
 		<!-- Create the build directory structure used by compile -->
