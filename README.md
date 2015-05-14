@@ -1,3 +1,11 @@
+This branch builds on the most recent PAL source I could find (v1.5.1) 
+
+## Citations
+
+* Drummond, A., & Strimmer, K. (2001). PAL: an object-oriented programming library for molecular evolution and phylogenetics. Bioinformatics (Oxford, England), 17(7), 662–663.
+* Goode, M., Strimmer, K., Drummond, A., Buckler, E., & Rodrigo, A. (2004). A brief introduction to the Phylogenetic Analysis Library version 1.5, 175–179.
+
+## Original README:
 
 Welcome to PAL 1.4!
 
