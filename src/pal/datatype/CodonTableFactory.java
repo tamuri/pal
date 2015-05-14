@@ -214,6 +214,8 @@ class UniversalTranslator implements CodonTable {
 				toAddIndex++;
 			}
 		}
+
+		terminatorIndexes_ = ts;
 	}
 
 	/*
