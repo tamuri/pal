@@ -53,7 +53,7 @@ public class SimpleTree implements Tree, Report, Units, Serializable
 	private int numExternalNodes;
 
 	/** attributes attached to this tree. */
-	private Hashtable[] attributes = null;
+	private List<Map<String, Object>> attributes = null;
 
 	/** holds the units of the trees branches. */
 	private int units = EXPECTED_SUBSTITUTIONS;
@@ -79,7 +79,7 @@ public class SimpleTree implements Tree, Report, Units, Serializable
 			default : {
 				root = (Node)in.readObject();
 				createNodeList();
-				attributes = (Hashtable[])in.readObject();
+				attributes = (List<Map<String, Object>>)in.readObject();
 				units = in.readInt();
 			}
 		}
@@ -291,12 +291,12 @@ public class SimpleTree implements Tree, Report, Units, Serializable
 		} else {
 			int index = getIndex(node);
 			if (attributes == null) {
-				attributes = new Hashtable[getExternalNodeCount() + getInternalNodeCount()];
+				attributes = new ArrayList<>(getExternalNodeCount() + getInternalNodeCount());
 			}
-			if (attributes[index] == null) {
-				attributes[index] = new Hashtable();
+			if (attributes.get(index) == null) {
+				attributes.add(index, new HashMap<>());
 			}
-			attributes[index].put(name, value);
+			attributes.get(index).put(name, value);
 		}
 	}
 
@@ -325,10 +325,10 @@ public class SimpleTree implements Tree, Report, Units, Serializable
 			return ((AttributeNode)node).getAttribute(name);
 		} else {
 			int index = getIndex(node);
-			if (attributes == null || attributes[index] == null) {
+			if (attributes == null || attributes.get(index) == null) {
 				return null;
 			}
-			return attributes[index].get(name);
+			return attributes.get(index).get(name);
 		}
 	}
 

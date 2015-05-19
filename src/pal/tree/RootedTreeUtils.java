@@ -6,8 +6,9 @@
 // terms of the Lesser GNU General Public License (LGPL)
 package pal.tree;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains utility methods. These include: <BR>
@@ -102,7 +103,7 @@ public class RootedTreeUtils {
 
 		if (leafCount1 != leafCount2) return false;
 
-		Hashtable table = new Hashtable(leafCount1+1);
+		Map<String, String> table = new HashMap<>(leafCount1+1);
 		collectTaxa(node1, table);
 		return !containsNovelTaxa(node2, table);
 	}
@@ -113,7 +114,7 @@ public class RootedTreeUtils {
 	 * @param root the root node of the tree.
 	 * @param table a hashtable to hold the taxa names, may already hold some taxa names.
 	 */
-	public static int collectTaxa(Node root, Hashtable table) {
+	public static int collectTaxa(Node root, Map<String, String> table) {
 		int nc = root.getChildCount();
 		if (nc == 0) {
 			String name = root.getIdentifier().getName();
@@ -137,7 +138,7 @@ public class RootedTreeUtils {
 	 * @param root the root node of the tree.
 	 * @param taxa a hashtable holding taxa names.
 	 */
-	public static boolean containsNovelTaxa(Node root, Hashtable taxa) {
+	public static boolean containsNovelTaxa(Node root, Map<String, String> taxa) {
 		int nc = root.getChildCount();
 		if (nc == 0) {
 			return !taxa.containsKey(root.getIdentifier().getName());
@@ -156,7 +157,7 @@ public class RootedTreeUtils {
 	 * @param root the root node of the tree.
 	 * @param table a hashtable holding taxa names.
 	 */
-	private static int newTaxaCount(Node root, Hashtable table) {
+	private static int newTaxaCount(Node root, Map<String, String> table) {
 		int nc = root.getChildCount();
 		if (nc == 0) {
 			return (table.containsKey(root.getIdentifier().getName()) ? 0 : 1);

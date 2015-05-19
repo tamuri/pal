@@ -12,6 +12,7 @@ import pal.misc.*;
 import java.io.*;
 import pal.io.*;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 
 /**
@@ -56,7 +57,7 @@ public interface AttributeNode extends Node {
 	/**
 	 * @return an enumeration of the attributes that this node has.
 	 */
-	Enumeration getAttributeNames();
+	Iterator<String> getAttributeNames();
 	
 }
 

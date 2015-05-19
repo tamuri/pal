@@ -11,8 +11,8 @@ package pal.tree;
 import pal.misc.*;
 import java.io.*;
 import pal.io.*;
-import java.util.Hashtable;
-import java.util.Enumeration;
+
+import java.util.*;
 
 
 /**
@@ -48,7 +48,7 @@ public class SimpleNode implements AttributeNode {
 	private Identifier identifier;
 
 	/** the attributes associated with this node. */
-	private Hashtable attributes = null;
+	private Map<String, Object> attributes = null;
 
 	//
 	// Private stuff
@@ -118,7 +118,7 @@ public class SimpleNode implements AttributeNode {
 						height = in.readDouble();
 						identifier = (Identifier)in.readObject();
 						child = (Node[])in.readObject();
-						attributes = (Hashtable)in.readObject();
+						attributes = (Map)in.readObject();
 					}
 			}
 	 }
@@ -236,11 +236,11 @@ public class SimpleNode implements AttributeNode {
 
 		if (n instanceof AttributeNode) {
 			AttributeNode attNode = (AttributeNode)n;
-			Enumeration e = attNode.getAttributeNames();
-			while ((e != null) && e.hasMoreElements()) {
-				String name = (String)e.nextElement();
-				setAttribute(name, attNode.getAttribute(name));
-			}
+			Iterator<String> e = attNode.getAttributeNames();
+            while (e.hasNext()) {
+                String name = e.next();
+                setAttribute(name, attNode.getAttribute(name));
+            }
 		}
 
 		child = null;
@@ -546,7 +546,7 @@ public class SimpleNode implements AttributeNode {
 	 * @param value the value to set the attribute
 	 */
 	public final void setAttribute(String name, Object value) {
-		if (attributes == null) attributes = new Hashtable();
+		if (attributes == null) attributes = new HashMap<>();
 		attributes.put(name, value);
 	}
 
@@ -563,9 +563,9 @@ public class SimpleNode implements AttributeNode {
 	 * @return an enumeration of the attributes that this node has or null if the
 	 * node has no attributes.
 	 */
-	public final Enumeration getAttributeNames() {
+	public final Iterator<String> getAttributeNames() {
 		if (attributes == null) return null;
-		return attributes.keys();
+		return attributes.keySet().iterator();
 	}
 
 	/**

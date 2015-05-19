@@ -23,7 +23,7 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 
 	private String name;
 	private Identifier[] ids;
-	private Hashtable indices;
+	private Map<String, Integer> indices;
 
 	//
 	// Serialization code
@@ -43,9 +43,9 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 			default : {
 				name = (String)in.readObject();
 				ids = (Identifier[])in.readObject();
-				indices = new Hashtable(ids.length);
+				indices = new HashMap<>(ids.length);
 				for(int i = 0 ; i < ids.length ; i++) {
-					indices.put(ids[i].getName(), new Integer(i));
+					indices.put(ids[i].getName(), i);
 				}
 				break;
 			}
@@ -79,7 +79,7 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 	public SimpleIdGroup(int size, boolean createIDs) {
 
 		ids = new Identifier[size];
-		indices = new Hashtable(size);
+		indices = new HashMap<>(size);
 		if(createIDs) {
 			for(int i = 0 ; i < size ; i++ ) {
 				setIdentifier(i, new Identifier(""+i));
@@ -161,7 +161,7 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 	 */
 	public void setIdentifier(int i, Identifier id) {
 		ids[i] = id;
-		indices.put(id.getName(), new Integer(i));
+		indices.put(id.getName(), i);
 	}
 
 	/**
@@ -169,9 +169,9 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 	 */
 	public int whichIdNumber(String name) {
 
-		Integer index = (Integer)indices.get(name);
+		Integer index = indices.get(name);
 		if (index != null) {
-			return index.intValue();
+			return index;
 		}
 		return -1;
 	}
@@ -185,7 +185,8 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[ ");
 		for (int i = 0; i < getIdCount(); i++) {
-			sb.append(getIdentifier(i) + " ");
+			sb.append(getIdentifier(i));
+			sb.append(" ");
 		}
 		sb.append("]");
 		return new String(sb);

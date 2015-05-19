@@ -320,7 +320,7 @@ public class TreeUtils
 	 * this method replaces the current identifiers in the tree with new
 	 * identifiers.
 	 */
-	public static void renameNodes(Tree tree, Hashtable table) {
+	public static void renameNodes(Tree tree, Map<String, String> table) {
 
 			tree.createNodeList();
 

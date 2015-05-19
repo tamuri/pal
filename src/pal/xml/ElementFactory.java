@@ -150,9 +150,9 @@ public class ElementFactory implements XMLConstants {
 
 		if (node instanceof pal.tree.AttributeNode) {
 			pal.tree.AttributeNode attNode = (pal.tree.AttributeNode)node;
-			Enumeration e = attNode.getAttributeNames();
-			while ((e != null) && e.hasMoreElements()) {
-				String name = (String)e.nextElement();
+			Iterator<String> e = attNode.getAttributeNames();
+			while (e.hasNext()) {
+				String name = e.next();
 				Object value = attNode.getAttribute(name);
 				nodeNode.appendChild(createAttributeElement(new Attribute(name, value), document));
 			}
