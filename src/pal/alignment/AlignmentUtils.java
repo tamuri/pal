@@ -497,7 +497,7 @@ public class AlignmentUtils {
 		String[] newSeqs = new String[a.getSequenceCount()];
 		int numberOfSites = a.getSiteCount();
 		for(int i = 0 ; i < newSeqs.length ; i++) {
-			StringBuffer sb = new StringBuffer(toKeep);
+			StringBuilder sb = new StringBuilder(toKeep);
 			for(int j = 0 ; j < numberOfSites ; j++) {
 				if(keep[j]) {
 					sb.append(a.getData(i,j));

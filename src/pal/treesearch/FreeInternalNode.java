@@ -170,7 +170,7 @@ public class FreeInternalNode implements FreeNode {
 	}
 
 	public String toString(FreeBranch caller) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		boolean printed = false;
 		for(int i = 0 ; i < connections_.length ; i++) {
 			if(connections_[i]!=caller) {

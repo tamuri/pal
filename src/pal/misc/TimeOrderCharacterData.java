@@ -589,7 +589,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
 	 * Returns a string representation of this time order character data.
 	 */
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		sb.append("Identifier\t"+ (hasTimes() ? "Times\t" : "") + "Sample\n");
 		for (int i = 0; i < taxa.getIdCount(); i++) {

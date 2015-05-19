@@ -182,7 +182,7 @@ public class SimpleIdGroup implements IdGroup, Serializable, Nameable {
 	 */
 	public String toString() {
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("[ ");
 		for (int i = 0; i < getIdCount(); i++) {
 			sb.append(getIdentifier(i) + " ");

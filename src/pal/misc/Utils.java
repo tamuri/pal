@@ -235,7 +235,7 @@ public class Utils {
 	 * @param number number of elements to process starting from first element
 	 */
 	public static final String toString(double[] array, int number) {
-		StringBuffer sb = new StringBuffer(array.length*7);
+		StringBuilder sb = new StringBuilder(array.length*7);
 		for(int i = 0 ; i < number ; i++) {
 			sb.append(array[i]);
 			sb.append(' ');
@@ -250,7 +250,7 @@ public class Utils {
 	 * @param number number of elements to process starting from first element
 	 */
 	public static final String toString(Object[] array, int number) {
-		StringBuffer sb = new StringBuffer(array.length*7);
+		StringBuilder sb = new StringBuilder(array.length*7);
 		for(int i = 0 ; i < number ; i++) {
 			sb.append(array[i]);
 			sb.append(' ');
@@ -273,7 +273,7 @@ public class Utils {
 	 * @param number number of elements to process starting from first element
 	 */
 	public static final String toString(Object[] array, String divider, int number) {
-		StringBuffer sb = new StringBuffer(array.length*7);
+		StringBuilder sb = new StringBuilder(array.length*7);
 		for(int i = 0 ; i < number ; i++) {
 			sb.append(array[i]);
 			if(i!=number-1) {
@@ -307,7 +307,7 @@ public class Utils {
 		return toString(array,array.length);
 	}
 	public static final String toString(int[] array, int number) {
-		StringBuffer sb = new StringBuffer(array.length*7);
+		StringBuilder sb = new StringBuilder(array.length*7);
 		for(int i = 0 ; i < number ; i++) {
 			sb.append(array[i]);
 			sb.append(' ');

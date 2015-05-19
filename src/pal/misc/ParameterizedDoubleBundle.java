@@ -43,7 +43,7 @@ public class ParameterizedDoubleBundle implements NeoParameterized {
 		}
 	}
 	public String toString() {
-	  StringBuffer sb = new StringBuffer();
+	  StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < parameters_.length ; i++) {
 		  sb.append(parameters_[i].getName()+" = "+parameters_[i].getValue());
 			if(i!=parameters_.length-1) {

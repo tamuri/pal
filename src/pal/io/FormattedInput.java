@@ -65,7 +65,7 @@ public class FormattedInput implements Serializable
 	public String readLine(PushbackReader in, boolean keepWhiteSpace)
 		throws IOException
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		int EOF = -1;
 		int c;
@@ -147,7 +147,7 @@ public class FormattedInput implements Serializable
 	public String readWord(PushbackReader in)
 		throws IOException
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		int EOF = -1;
 		int c;
@@ -185,7 +185,7 @@ public class FormattedInput implements Serializable
 	public String readLabel(PushbackReader in, int maxLength)
 		throws IOException
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		int EOF = -1;
 		int c;
@@ -227,7 +227,7 @@ public class FormattedInput implements Serializable
 	public String readNumber(PushbackReader in, boolean ignoreNewlineCR)
 		throws IOException
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 
 		int EOF = -1;
 		int c;

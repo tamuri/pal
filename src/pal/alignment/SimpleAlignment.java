@@ -218,7 +218,7 @@ public class SimpleAlignment extends AbstractAlignment
 	private String getAlignedString(String original, String guide,
 		char guideChar, char gapChar) {
 
-		StringBuffer buf = new StringBuffer(guide.length());
+		StringBuilder buf = new StringBuilder(guide.length());
 		int seqcounter = 0;
 		for (int j = 0; j < guide.length(); j++) {
 			if (guide.charAt(j) != guideChar) {
@@ -231,7 +231,7 @@ public class SimpleAlignment extends AbstractAlignment
 		return new String(buf);
 	}
 	private static final String getPadded(String s, int length) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(s);
 		for(int i = s.length() ; i < length ; i++) {
 			sb.append(Alignment.GAP);

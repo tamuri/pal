@@ -528,7 +528,7 @@ public final class NexusTokenizer {
 	 * @return    	Nexus header <code>#NEXUS</code>
 	 */
 	private synchronized String readHeaderToken() throws IOException, NexusParseException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		char c;
 		sb.append((char)pr.read());	// #
 		col++;
@@ -561,7 +561,7 @@ public final class NexusTokenizer {
 	 */
 	private synchronized String readNewLineToken() throws IOException {
 		char c = (char)pr.read();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
 		row++;		// move cursor down a row
 		col = 0;	// reset col cursor to line beginning
@@ -600,7 +600,7 @@ public final class NexusTokenizer {
 	 * @return    	String containing whitespace characters 
 	 */
 	private synchronized String readWhiteSpaceToken() throws IOException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		char c = (char)pr.read();
 		col++;
 		
@@ -624,7 +624,7 @@ public final class NexusTokenizer {
 	 * @return    	String containing word characters 
 	 */
 	private synchronized String readWordToken() throws IOException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		char c = (char)pr.read();
 		col++;
 		
@@ -649,7 +649,7 @@ public final class NexusTokenizer {
 	 * @return    	String containing a comment section 
 	 */
 	private synchronized String readComment() throws IOException, NexusParseException  {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		int unbalanced = 0;
 		char c = (char)pr.read();
 		
@@ -685,10 +685,10 @@ public final class NexusTokenizer {
 	/**
 	 *  Utility method to alter case of a word
 	 *
-	 * @param  s	Input <code>StringBuffer</code>
+	 * @param  s	Input <code>StringBuilder</code>
 	 * @return    	Modified s (lowercase, uppercase, or unmodified)
 	 */
-	private synchronized StringBuffer modWord(StringBuffer sb) {
+	private synchronized StringBuilder modWord(StringBuilder sb) {
 		String temp = sb.toString();
 		
 		switch(wordMod) {
@@ -702,7 +702,7 @@ public final class NexusTokenizer {
 				break;
 		}
 		
-		return new StringBuffer(temp);
+		return new StringBuilder(temp);
 	}
 	
 	

@@ -86,7 +86,7 @@ public class MultiParameterized implements Parameterized {
 	public double getDefaultValue(final int n) {	return bases_[baseLookup_[n]].getDefaultValue(baseParameter_[n]);		}
 
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Multi\n");
 		for(int i = 0 ; i < bases_.length ;i++) {
 			sb.append(i+":"+bases_[i]+"\n");

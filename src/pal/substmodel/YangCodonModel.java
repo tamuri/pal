@@ -575,7 +575,7 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
 		public OrthogonalHints getOrthogonalHints() {	return null; }
 		public String toString() {
 			check();
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			sb.append( "Simple Positive Selection Model [1]\n" );
 			sb.append( "p0 = "+probabilities_[0]+"\n" );
 			sb.append( "p1 = "+probabilities_[1]+"\n" );
@@ -753,7 +753,7 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
 
 		public String toString() {
 			check();
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			sb.append( "Simple Neutral Model [1]\n" );
 			sb.append( "p0 = "+probabilities_[0]+"\n" );
 			sb.append( "p1 = "+probabilities_[1]+"\n" );

@@ -295,7 +295,7 @@ public final class Matrix {
 	}
 
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append('(');
 		sb.append(width_);
 		sb.append(", ");

@@ -116,7 +116,7 @@ public class LikelihoodSummary implements java.io.Serializable {
     return ranking;
   }
   public String toString() {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     sb.append("Likelihood Summary\n\n");
     sb.append("Data Type:"+dataType_+"\n");
     sb.append("Overall Log Likelihood:"+overallLogLikelihood_+"\n");

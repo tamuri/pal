@@ -80,7 +80,7 @@ public class FormattedOutput implements Serializable
 		return number;
 	}
 	public String getSFString(double[] numbers, int sf, String delimiter) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < numbers.length ; i++) {
 			sb.append(getSFString(numbers[i],sf));
 			if(i!=numbers.length-1) {
@@ -195,7 +195,7 @@ public class FormattedOutput implements Serializable
 	 * @param c   character
 	 */
 	public static String space(int size, char c) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < size; i++) {
 			sb.append(c);
 		}

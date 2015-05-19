@@ -32,7 +32,7 @@ public final class AlignmentReaders {
 		String sequenceName = "Unnamed";
 		Vector sequences = new Vector();
 		String line;
-		StringBuffer currentSequence = new StringBuffer();
+		StringBuilder currentSequence = new StringBuilder();
 		BufferedReader br = new BufferedReader(r);
 		while((line = br.readLine())!=null) {
 			line = line.trim();
@@ -83,7 +83,7 @@ public final class AlignmentReaders {
 		String sequenceName = "Unnamed";
 		ArrayList sequences = new ArrayList();
 		String line;
-		StringBuffer currentSequence = new StringBuffer();
+		StringBuilder currentSequence = new StringBuilder();
 		BufferedReader br = new BufferedReader(r);
 		String name = null;
 
@@ -303,7 +303,7 @@ public final class AlignmentReaders {
 	}
 
 	private static final String remove(String target, String lint) {
-		StringBuffer newString = new StringBuffer();
+		StringBuilder newString = new StringBuilder();
 		for (int i = 0; i < target.length(); i++) {
 			if (lint.indexOf(target.charAt(i)) == -1) {
 				newString.append(target.charAt(i));
@@ -335,7 +335,7 @@ public final class AlignmentReaders {
 		return count;
 	}
 	private static final String pad(String s, char toPadWith, int length) {
-		StringBuffer sb = new StringBuffer(length);
+		StringBuilder sb = new StringBuilder(length);
 		sb.append(s);
 		while(sb.length()<length) {
 			sb.append(toPadWith);
@@ -382,7 +382,7 @@ public final class AlignmentReaders {
 	 * @param end the ending index into words
 	 */
 	private static final String concat(String[] words, int start, int end) {
-		StringBuffer sb =new StringBuffer();
+		StringBuilder sb =new StringBuilder();
 		for(int i = start ; i < end ; i++) { sb.append(words[i]); }
 		return sb.toString();
 	}
@@ -493,7 +493,7 @@ public final class AlignmentReaders {
 			public void setIdentifier(int i, Identifier id) { ids_[i] = id;	}
 			public int whichIdNumber(String s) { return IdGroup.Utils.whichIdNumber(this,s); }
 			public String toString() {
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				sb.append("\t");
 				sb.append(getSequenceCount());
 				sb.append(" ");

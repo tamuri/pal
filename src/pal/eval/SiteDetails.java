@@ -123,7 +123,7 @@ public interface SiteDetails {
 				return result;
 			}
 			public String toString() {
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				for( int i = 0; i<numberOfSites_; i++ ) {
 					double[] sitePosteriors = getSitePosteriors( i );
 					sb.append(pal.misc.Utils.argmax(sitePosteriors));

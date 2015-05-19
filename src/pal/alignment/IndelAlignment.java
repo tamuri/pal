@@ -62,11 +62,11 @@ public class IndelAlignment extends AbstractAlignment {
 
 	private void findIndels() {
 		indel=new Vector();
-		StringBuffer[] tempSeq=new StringBuffer[rawAlignment.getSequenceCount()];
+		StringBuilder[] tempSeq=new StringBuilder[rawAlignment.getSequenceCount()];
 		char c0,c1,cc;
 		int rawNumSites=rawAlignment.getSiteCount();
 		for(int i=0; i<rawAlignment.getSequenceCount(); i++)
-			{tempSeq[i]=new StringBuffer();}
+			{tempSeq[i]=new StringBuilder();}
 		for(int j=1; j<rawNumSites; j++)
 				{for(int i=0; i<rawAlignment.getSequenceCount(); i++)
 					{
@@ -89,7 +89,7 @@ public class IndelAlignment extends AbstractAlignment {
 			sequences[i] = tempSeq[i].toString();}
 	}
 
-	private void scoreIndelsInAllSequence(IndelPosition currIndel, StringBuffer[] tempSeq) {
+	private void scoreIndelsInAllSequence(IndelPosition currIndel, StringBuilder[] tempSeq) {
 		int j, forwardSize, backwardSize,size;
 		int nSites=rawAlignment.getSiteCount()-1;
 		NumericDataType theNumericDataType=new NumericDataType();

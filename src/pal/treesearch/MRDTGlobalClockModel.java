@@ -64,7 +64,7 @@ public class MRDTGlobalClockModel implements ConstraintModel, ConstraintModel.Gr
 		return rateChangeTimes;
 	}
 	public String getRateModelSummary() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Multiple Rates Dated Tips");
 		sb.append("<UL>");
 		for(int i = 0 ; i < rateChangeTimes_.length ; i++) {

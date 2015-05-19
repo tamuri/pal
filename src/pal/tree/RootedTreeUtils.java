@@ -260,7 +260,7 @@ public class RootedTreeUtils {
 			Node node = tree.getInternalNode(i);
 			if (!node.isRoot()) {
 				int cladeCount = cladeCount(node, trees);
-				StringBuffer buffer = new StringBuffer();
+				StringBuilder buffer = new StringBuilder();
 				collectLeafNames(node, buffer);
 				double pr = (double)cladeCount / (double)trees.size();
 				tree.setAttribute(node, AttributeNode.CLADE_PROBABILITY, new Double(pr));
@@ -278,7 +278,7 @@ public class RootedTreeUtils {
 	/**
 	 * Fills given string buffer with preorder traversal space-delimited leaf names.
 	 */
-	private static void collectLeafNames(Node node, StringBuffer buffer) {
+	private static void collectLeafNames(Node node, StringBuilder buffer) {
 
 		if (node.isLeaf()) {
 			buffer.append(node.getIdentifier().getName());

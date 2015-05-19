@@ -1430,7 +1430,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
 		}
 
 		public String toString(Connection caller) {
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			boolean printed = false;
 			for(int i = 0 ; i < connections_.length ; i++) {
 				if(connections_[i]!=caller) {

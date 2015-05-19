@@ -230,7 +230,7 @@ public final class ConditionalProbabilityStore implements java.io.Serializable {
 	public String toString() {	return toString(patternCapacity_);	}
 
 	public String toString(int numberOfPatterns) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for(int i = 0 ; i < numberOfCategories_ ; i++) {
 			sb.append(i);
 			sb.append(":");
