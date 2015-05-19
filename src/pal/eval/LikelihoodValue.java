@@ -730,7 +730,7 @@ public class LikelihoodValue
 		while (true);
 	}
 
-	private Vector shortBranches = null;
+	private List<Node> shortBranches = null;
 
 	/** collapse internal branches that are close to zero */
 	private int collapseShortInternalBranches()
@@ -747,9 +747,9 @@ public class LikelihoodValue
 
 				NodeUtils.removeBranch(b);
 
-				if (shortBranches == null) shortBranches = new Vector();
+				if (shortBranches == null) shortBranches = new ArrayList<>();
 
-				shortBranches.addElement(b);
+				shortBranches.add(b);
 			}
 		}
 
@@ -769,11 +769,11 @@ public class LikelihoodValue
 			size = shortBranches.size();
 			for (int i = size-1; i >= 0; i--)
 			{
-				Node node = (Node) shortBranches.elementAt(i);
+				Node node = shortBranches.get(i);
 				NodeUtils.restoreBranch(node);
 				node.setBranchLength(BranchLimits.MINARC);
 				node.setNodeHeight(node.getParent().getNodeHeight()-BranchLimits.MINARC);
-				shortBranches.removeElementAt(i);
+				shortBranches.remove(i);
 			}
 		}
 

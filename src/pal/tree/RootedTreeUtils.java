@@ -6,11 +6,8 @@
 // terms of the Lesser GNU General Public License (LGPL)
 package pal.tree;
 
-import pal.misc.Identifier;
-import pal.datatype.*;
-import pal.tree.*;
 import java.util.Hashtable;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * This class contains utility methods. These include: <BR>
@@ -38,7 +35,7 @@ public class RootedTreeUtils {
 	 * taxa in the given subtree.
 	 *
 	 * @param root the root of the tree in which search for a subtree
-	 * @param taxa the hashtable of taxa.
+	 * @param clade the hashtable of taxa.
 	 */
 	public static boolean containsClade(Node root, Node clade) {
 		return (getClade(root, clade) != null);
@@ -114,7 +111,7 @@ public class RootedTreeUtils {
 	 * Collects all of the names of the taxa in the tree into a hashtable.
 	 * @return the number of new taxa added to the hashtable from this tree.
 	 * @param root the root node of the tree.
-	 * @param taxa a hashtable to hold the taxa names, may already hold some taxa names.
+	 * @param table a hashtable to hold the taxa names, may already hold some taxa names.
 	 */
 	public static int collectTaxa(Node root, Hashtable table) {
 		int nc = root.getChildCount();
@@ -157,7 +154,7 @@ public class RootedTreeUtils {
 	/**
 	 * @return the number of taxa in the given tree that are NOT in the given hashtable.
 	 * @param root the root node of the tree.
-	 * @param taxa a hashtable holding taxa names.
+	 * @param table a hashtable holding taxa names.
 	 */
 	private static int newTaxaCount(Node root, Hashtable table) {
 		int nc = root.getChildCount();
@@ -179,11 +176,11 @@ public class RootedTreeUtils {
 	 * @param subtree the subtree being searched for.
 	 * @param trees a vector of trees to search for the subtree in.
 	 */
-	public static int subtreeCount(Node subtree, Vector trees) {
+	public static int subtreeCount(Node subtree, List<Tree> trees) {
 		int count = 0;
 		Node root;
 		for (int i = 0; i < trees.size(); i++) {
-			root = ((Tree)trees.elementAt(i)).getRoot();
+			root = (trees.get(i)).getRoot();
 			if (containsSubtree(root, subtree)) {
 				count += 1;
 			}
@@ -198,12 +195,12 @@ public class RootedTreeUtils {
 	 * @param subtree the subtree being searched for.
 	 * @param trees a vector of trees to search for the subtree in.
 	 */
-	public static double getMeanSubtreeHeight(Node subtree, Vector trees) {
+	public static double getMeanSubtreeHeight(Node subtree, List<Tree> trees) {
 		int count = 0;
 		double totalHeight = 0.0;
 		Node root;
 		for (int i = 0; i < trees.size(); i++) {
-			root = ((Tree)trees.elementAt(i)).getRoot();
+			root = (trees.get(i)).getRoot();
 			Node match = getSubtree(root, subtree);
 			if (match != null) {
 				count += 1;
@@ -220,12 +217,12 @@ public class RootedTreeUtils {
 	 * @param clade a node containing the clade being searched for.
 	 * @param trees a vector of trees to search for the clade in.
 	 */
-	public static double getMeanCladeHeight(Node clade, Vector trees) {
+	public static double getMeanCladeHeight(Node clade, List<Tree> trees) {
 		int count = 0;
 		double totalHeight = 0.0;
 		Node root;
 		for (int i = 0; i < trees.size(); i++) {
-			root = ((Tree)trees.elementAt(i)).getRoot();
+			root = (trees.get(i)).getRoot();
 			Node match = getClade(root, clade);
 			if (match != null) {
 				count += 1;
@@ -242,11 +239,11 @@ public class RootedTreeUtils {
 	 * @param subtree a subtree containing the taxaset being searched for.
 	 * @param trees a vector of trees to search for the clade in.
 	 */
-	public static int cladeCount(Node subtree, Vector trees) {
+	public static int cladeCount(Node subtree, List<Tree> trees) {
 		int count = 0;
 		Node root;
 		for (int i = 0; i < trees.size(); i++) {
-			root = ((Tree)trees.elementAt(i)).getRoot();
+			root = (trees.get(i)).getRoot();
 			if (containsClade(root, subtree)) {
 				count += 1;
 			}
@@ -254,7 +251,7 @@ public class RootedTreeUtils {
 		return count;
 	}
 
-	public static void collectProportions(Tree tree, Vector trees) {
+	public static void collectProportions(Tree tree, List<Tree> trees) {
 
 		for (int i =0; i < tree.getInternalNodeCount(); i++) {
 			Node node = tree.getInternalNode(i);

@@ -71,7 +71,7 @@ public class ReadAlignment extends AbstractAlignment
 	//
 
 	private int lineLength;
-	private Vector names, seqs, sites;
+	private List<List<Character>> seqs;
 	private FormattedInput fi = FormattedInput.getInstance();
 
 	// Raw sequence alignment [sequence][site]
@@ -224,13 +224,14 @@ public class ReadAlignment extends AbstractAlignment
 			// Find start block
 			c = fi.readNextChar(in);
 			in.unread(c);
-			names = new Vector();		seqs = new Vector();
+			List<String> names = new ArrayList<>();
+			seqs = new ArrayList<>();
 
 			// Reading first data block
 			c = in.read();
 			while (!Character.isWhitespace((char)c))	{
 				in.unread(c);
-				names.addElement(fi.readLabel(in, 10));
+				names.add(fi.readLabel(in, 10));
 				readSeqLineC(in, seq, pos);
 				seq++;
 				c = in.read();
@@ -280,16 +281,13 @@ public class ReadAlignment extends AbstractAlignment
 			for (int i = 0; i < numSeqs; i++)
 			{
 				idGroup.setIdentifier(i,
-									new Identifier((String)names.elementAt(i)));
+									new Identifier(names.get(i)));
 			}
 			for (int i = 0; i < numSeqs; i++)
 			{
 				for (int j = 0; j < numSites; j++)
 				{
-					data[i][j] =
-						((Character)
-							((Vector) seqs.elementAt(i)
-						).elementAt(j)).charValue();
+					data[i][j] = seqs.get(i).get(j);
 				}
 			}
 
@@ -297,7 +295,7 @@ public class ReadAlignment extends AbstractAlignment
 			names = null;
 			for (int i = 0; i < numSeqs; i++)
 			{
-				((Vector) seqs.elementAt(i)).removeAllElements();
+				seqs.get(i).clear();
 			}
 			seqs = null;
 		}
@@ -314,14 +312,15 @@ public class ReadAlignment extends AbstractAlignment
 
 		int c;
 
+		List<Character> sites;
 		if (pos == 0)
 		{
-			sites = new Vector();
-			seqs.addElement(sites);
+			sites = new ArrayList<>();
+			seqs.add(sites);
 		}
 		else
 		{
-			sites = (Vector) seqs.elementAt(s);
+			sites = seqs.get(s);
 		}
 
 		if (s == 0)
@@ -337,7 +336,7 @@ public class ReadAlignment extends AbstractAlignment
 					throw new AlignmentParseException("Copy character (.) in first sequence not allowed (pos. "
 					+ (i + pos + 1) + ")");
 				}
-				sites.addElement(new Character((char) c));
+				sites.add((char) c);
 			}
 		}
 		else
@@ -347,11 +346,9 @@ public class ReadAlignment extends AbstractAlignment
 				c = fi.readNextChar(in);
 				if (c == '.')
 				{
-					c = ((Character)
-							((Vector) seqs.elementAt(0)
-						).elementAt(pos + i)).charValue();
+					c = seqs.get(0).get(pos + i);
 				}
-				sites.addElement(new Character((char) c));
+				sites.add((char) c);
 			}
 			fi.nextLine(in);
 		}

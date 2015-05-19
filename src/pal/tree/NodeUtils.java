@@ -29,9 +29,9 @@ public class NodeUtils {
 	 * @param root The root node defining tree
 	 * @param store Where leaf nodes are stored (original contents is not touched)
 	 */
-	public static void getExternalNodes(Node root, Vector store) {
+	public static void getExternalNodes(Node root, List<Node> store) {
 		if(root.isLeaf()) {
-			store.addElement(root);
+			store.add(root);
 		} else {
 			for(int i = 0 ; i < root.getChildCount() ; i++) {
 				getExternalNodes(root.getChild(i),store);
@@ -45,10 +45,10 @@ public class NodeUtils {
 	 * of the tree defined by root
 	 */
 	public static Node[] getExternalNodes(Node root) {
-		Vector v = new Vector();
+		List<Node> v = new ArrayList<>();
 		getExternalNodes(root,v);
 		Node[] result = new Node[v.size()];
-		v.copyInto(result);
+		v.toArray(result);
 		return result;
 	}
 	/**
@@ -57,9 +57,9 @@ public class NodeUtils {
 	 * @param store Where internal nodes are stored (original contents is not touched)
 	 * @note Root will be the first node added
 	 */
-	public static void getInternalNodes(Node root, Vector store) {
+	public static void getInternalNodes(Node root, List<Node> store) {
 		if(!root.isLeaf()) {
-			store.addElement(root);
+			store.add(root);
 			for(int i = 0 ; i < root.getChildCount() ; i++) {
 				getInternalNodes(root.getChild(i),store);
 			}
@@ -73,10 +73,10 @@ public class NodeUtils {
 	 * @note Root will be the first node added (if included)
 	 */
 	public static Node[] getInternalNodes(Node root, boolean includeRoot) {
-		Vector v = new Vector();
+		List<Node> v = new ArrayList<>();
 		getInternalNodes(root,v);
 		Node[] result = new Node[v.size()];
-		v.copyInto(result);
+        v.toArray(result);
 		if(includeRoot) {
 			return result;
 		}

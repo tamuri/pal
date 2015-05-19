@@ -31,7 +31,7 @@ public class HeapSort {
 	 * Sorts an array of indices to vector of comparable objects
 	 * into increasing order.
 	 */
-	public static void sort(Vector array, int[] indices) {
+	public static void sort(List<Comparable> array, int[] indices) {
 
 		// ensures we are starting with valid indices
 		for (int i = 0; i < indices.length; i++) {
@@ -59,9 +59,9 @@ public class HeapSort {
 	/**
 	 * Sorts a vector of comparable objects into increasing order.
 	 */
-	public static void sort(Vector array) {
+	public static void sort(List<Comparable> array) {
 
-		Object temp;
+		Comparable temp;
 		int j, n = array.size();
 
 		// turn input array into a heap
@@ -72,9 +72,9 @@ public class HeapSort {
 		// remove largest elements and put them at the end
 		// of the unsorted region until you are finished
 		for (j = n-1; j > 0; j--) {
-			temp = array.elementAt(0);
-			array.setElementAt(array.elementAt(j), 0);
-			array.setElementAt(temp, j);
+			temp = array.get(0);
+			array.add(0, array.get(j));
+			array.add(j, temp);
 			adjust(array, 1, j);
 		}
 	}
@@ -235,16 +235,16 @@ public class HeapSort {
 
 		// test index to Vector of Comparable objects
 
-		Vector testv = new Vector();
+		List<Comparable> testv = new ArrayList<>();
 		int[] indices = new int[testSize];
 
 		for (int i = 0; i < testSize; i++) {
-			testv.addElement(new pal.util.ComparableDouble(m.nextInt(testSize * 10)));
+			testv.add(new pal.util.ComparableDouble(m.nextInt(testSize * 10)));
 		}
 
 		sort(testv, indices);
 		for (int i = 0; i < test.length; i++) {
-			System.out.print(testv.elementAt(indices[i]) + " ");
+			System.out.print(testv.get(indices[i]) + " ");
 		}
 		System.out.println();
 
@@ -276,7 +276,7 @@ public class HeapSort {
 	 * already in heap form and then puts array[lower] to
 	 * array[upper] in heap form.
 	 */
-	private static void adjust(Vector array, int[] indices, int lower, int upper) {
+	private static void adjust(List<Comparable> array, int[] indices, int lower, int upper) {
 
 		int j, k;
 		int temp;
@@ -285,10 +285,10 @@ public class HeapSort {
 		k = lower * 2;
 
 		while (k <= upper) {
-			if ((k < upper) && (((pal.util.Comparable)array.elementAt(indices[k-1])).compareTo(array.elementAt(indices[k])) < 0)) {
+			if ((k < upper) && ((array.get(indices[k-1])).compareTo(array.get(indices[k])) < 0)) {
 				k += 1;
 			}
-			if (((pal.util.Comparable)array.elementAt(indices[j-1])).compareTo(array.elementAt(indices[k-1])) < 0) {
+			if ((array.get(indices[j-1])).compareTo(array.get(indices[k - 1])) < 0) {
 				temp = indices[j-1];
 				indices[j-1] = indices[k-1];
 				indices[k-1] = temp;
@@ -304,22 +304,22 @@ public class HeapSort {
 	 * already in heap form and then puts array[lower] to
 	 * array[upper] in heap form.
 	 */
-	private static void adjust(Vector array, int lower, int upper) {
+	private static void adjust(List<Comparable> array, int lower, int upper) {
 
 		int j, k;
-		Object temp;
+		Comparable temp;
 
 		j = lower;
 		k = lower * 2;
 
 		while (k <= upper) {
-			if ((k < upper) && (((pal.util.Comparable)array.elementAt(k-1)).compareTo(array.elementAt(k)) < 0)) {
+			if ((k < upper) && ((array.get(k-1)).compareTo(array.get(k)) < 0)) {
 				k += 1;
 			}
-			if (((pal.util.Comparable)array.elementAt(j-1)).compareTo(array.elementAt(k-1)) < 0) {
-				temp = array.elementAt(j-1);
-				array.setElementAt(array.elementAt(k-1), j-1);
-				array.setElementAt(temp, k-1);
+			if ((array.get(j-1)).compareTo(array.get(k - 1)) < 0) {
+				temp = array.get(j - 1);
+				array.add(j - 1, array.get(k - 1));
+				array.add(k - 1, temp);
 			}
 			j = k;
 			k *= 2;

@@ -207,7 +207,7 @@ public class ElementParser implements XMLConstants {
 	 * @returns an array of double representing the equilibrium base frequencies.
 	 */
 	public static final double[] parseFrequencies(Element element) throws XmlParseException {
-		Vector freqs = new Vector();
+		List<Double> freqs = new ArrayList<>();
 		validateTagName(element, FREQUENCIES);
 
 		NodeList nodes = element.getChildNodes();
@@ -218,13 +218,13 @@ public class ElementParser implements XMLConstants {
 				StringTokenizer tokens = new StringTokenizer(text);
 				while (tokens.hasMoreElements()) {
 					String token = (String)tokens.nextElement();
-					freqs.addElement(new Double(token));
+					freqs.add(new Double(token));
 				}
 			}
 		}
 		double[] frequencies = new double[freqs.size()];
 		for (int i =0 ; i < frequencies.length; i++) {
-			frequencies[i] = ((Double)freqs.elementAt(i)).doubleValue();
+			frequencies[i] = freqs.get(i);
 		}
 		return frequencies;
 	}
@@ -383,8 +383,8 @@ public class ElementParser implements XMLConstants {
 
 		units = getUnitsAttr(e);
 		NodeList nodes = e.getElementsByTagName(TIME);
-		Vector names = new Vector();
-		Vector times = new Vector();
+		List<String> names = new ArrayList<>();
+		List<Double> times = new ArrayList<>();
 
 		for (int i = 0; i < nodes.getLength(); i++) {
 			Element timeElement = (Element)nodes.item(i);
@@ -393,16 +393,16 @@ public class ElementParser implements XMLConstants {
 			if (children.item(0) instanceof Text) {
 				StringTokenizer tokens = new StringTokenizer(children.item(0).getNodeValue());
 				while (tokens.hasMoreTokens()) {
-					names.addElement(tokens.nextToken());
-					times.addElement(time);
+					names.add(tokens.nextToken());
+					times.add(time);
 				}
 			} else throw new XmlParseException("Non-text node found in time element!");
 		}
 		String[] nameArray = new String[names.size()];
 		double[] timeArray = new double[names.size()];
 		for (int i =0 ; i < nameArray.length; i++) {
-			nameArray[i] = (String)names.elementAt(i);
-			timeArray[i] = ((Double)times.elementAt(i)).doubleValue();
+			nameArray[i] = names.get(i);
+			timeArray[i] = times.get(i);
 		}
 
 		tocd = new TimeOrderCharacterData(new SimpleIdGroup(nameArray), units);

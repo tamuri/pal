@@ -159,14 +159,14 @@ public class Identifier implements Serializable,
 	}
 	/**
 	 * Translates an IDgroup into an array of strings, with optional removal of particular identifier
-	 * @param toIgnoreIndex the indexes of an idetifier to ignore, does not need to be sorted	 */
+	 * @param toIgnore the indexes of an idetifier to ignore, does not need to be sorted	 */
 	public final static String[] getNames(IdGroup ids, int[] toIgnore) {
 		if(toIgnore==null) {
 			return getNames(ids);
 		}
 
 		int numberOfIDS = ids.getIdCount();
-		Vector names = new Vector(numberOfIDS);
+		List<String> names = new ArrayList<>(numberOfIDS);
 
 		for(int i = 0 ; i < numberOfIDS ; i++) {
 			boolean ignore = false;
@@ -177,11 +177,11 @@ public class Identifier implements Serializable,
 				}
 			}
 			if(!ignore) {
-				names.addElement(ids.getIdentifier(i).getName());
+				names.add(ids.getIdentifier(i).getName());
 			}
 		}
 		String[] namesFinal = new String[names.size()];
-		names.copyInto(namesFinal);
+		names.toArray(namesFinal);
 		return namesFinal;
 	}
 }

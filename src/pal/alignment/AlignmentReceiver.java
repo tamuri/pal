@@ -34,17 +34,17 @@ public interface AlignmentReceiver {
 	 * The SingleReceiver only keeps track of one alignment, the last one it received
 	 */
 	public static final class BucketReceiver implements AlignmentReceiver {
-		private Vector receivedAlignments_ = new Vector();
+		private List<Alignment> receivedAlignments_ = new ArrayList<>();
 		public void newAlignment(Alignment a) {
-			receivedAlignments_.addElement(a);
+			receivedAlignments_.add(a);
 		}
-		public void clear() { receivedAlignments_.removeAllElements(); }
+		public void clear() { receivedAlignments_.clear(); }
 		/**
 		 * @return last received alignment, or null if no alignments have been received
 		 */
 		public Alignment[] getReceivedAlignments() {
 			Alignment[] as = new Alignment[receivedAlignments_.size()];
-			receivedAlignments_.copyInto(as);
+			receivedAlignments_.toArray(as);
 			return as;
 		}
 	}

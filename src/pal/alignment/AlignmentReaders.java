@@ -30,7 +30,7 @@ public final class AlignmentReaders {
 	 */
 	public static final Alignment readFastaSequences(Reader r, DataType dt) throws IOException {
 		String sequenceName = "Unnamed";
-		Vector sequences = new Vector();
+		List<ConstructionSequence> sequences = new ArrayList<>();
 		String line;
 		StringBuilder currentSequence = new StringBuilder();
 		BufferedReader br = new BufferedReader(r);
@@ -39,7 +39,7 @@ public final class AlignmentReaders {
 			if(line.length()>0) {
 				if(line.startsWith(">")) {
 					if(currentSequence.length()!=0) {
-						sequences.addElement(new ConstructionSequence(sequenceName,currentSequence.toString(),dt));
+						sequences.add(new ConstructionSequence(sequenceName, currentSequence.toString(), dt));
 						currentSequence.setLength(0);
 					}
 					sequenceName = line.substring(1).trim();
@@ -51,10 +51,10 @@ public final class AlignmentReaders {
 
 		}
 		if(currentSequence.length()>0) {
-			sequences.addElement(new ConstructionSequence(sequenceName,currentSequence.toString(),dt));
+			sequences.add(new ConstructionSequence(sequenceName, currentSequence.toString(), dt));
 		}
 		ConstructionSequence[] seqs = new ConstructionSequence[sequences.size()];
-		sequences.copyInto(seqs);
+		sequences.toArray(seqs);
 		return
 			new UnalignedAlignment(
 				ConstructionSequence.getNames(seqs),
@@ -235,7 +235,7 @@ public final class AlignmentReaders {
 	 * The current state of an alignment building process
 	 */
 	private static final class AlignmentBuilder {
-		private final Vector sequences_ = new Vector();
+		private final List<ConstructionSequence> sequences_ = new ArrayList<>();
 		private DataType dt_;
 		private boolean foundRepeat_ = false;
 		private int suggestedNumberOfSequences_;
@@ -269,7 +269,7 @@ public final class AlignmentReaders {
 			ConstructionSequence cs = ConstructionSequence.getConstructionSequence(sequences_,sequenceName);
 			if(cs==null) {
 				cs = new ConstructionSequence(sequenceName,sequence,dt_);
-				sequences_.addElement(cs);
+				sequences_.add(cs);
 
 				if(foundRepeat_) {
 					throw new AlignmentParseException("New sequence found after interleaved sequence - cound mean two sequences with same name ("+sequenceName+")");
@@ -286,14 +286,14 @@ public final class AlignmentReaders {
 			this.dt_ = dt;
 			this.foundRepeat_ = false;
 			this.expectedSequenceSegmentSize_ =-1;
-			sequences_.removeAllElements();
+			sequences_.clear();
 		}
 		public final boolean hasSequences() { return sequences_.size()!=0; }
 
 		public Alignment generateAlignment() throws AlignmentParseException {
 			if(sequences_.size()==0) { return null; }
 			ConstructionSequence[] seqs = new ConstructionSequence[sequences_.size()];
-			sequences_.copyInto(seqs);
+            sequences_.toArray(seqs);
 			if(ConstructionSequence.isAllSameLength(seqs)) {
 				ConstructionSequence.fillInDots(seqs);
 				return new PhylipClustalAlignment(ConstructionSequence.getNames(seqs),	ConstructionSequence.getSequences(seqs),dt_);
@@ -600,21 +600,21 @@ public final class AlignmentReaders {
 				seqs[i].fillInDotsBasedOn(template);
 			}
 		}
-		public static final ConstructionSequence getConstructionSequence(Vector sequences, String sequenceName) {
+		public static final ConstructionSequence getConstructionSequence(List<ConstructionSequence> sequences, String sequenceName) {
 			ConstructionSequence cs = null;
 			for(int i = 0 ; i < sequences.size() ;i++) {
-				ConstructionSequence currentCS = (ConstructionSequence)sequences.elementAt(i);
+				ConstructionSequence currentCS = sequences.get(i);
 				if(currentCS.hasSameName(sequenceName)) {
 					return currentCS;
 				}
 			}
 			return null;
 		}
-		public static final ConstructionSequence findShortest(final Vector sequences) {
+		public static final ConstructionSequence findShortest(final List<ConstructionSequence> sequences) {
 			ConstructionSequence cs = null;
 			int minimumLength = -1;
 			for(int i = 0 ; i < sequences.size() ;i++) {
-				final ConstructionSequence currentCS = (ConstructionSequence)sequences.elementAt(i);
+				final ConstructionSequence currentCS = sequences.get(i);
 				final int currentLength = currentCS.getSequenceLength();
 				if((minimumLength<0)||(currentLength<minimumLength)) {
 					cs = currentCS;

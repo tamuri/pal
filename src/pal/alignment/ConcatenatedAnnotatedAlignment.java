@@ -96,34 +96,34 @@ public class ConcatenatedAnnotatedAlignment extends AbstractAlignment implements
 
         private void initMergeByID(boolean union) {
 		numSites = 0;
-                Vector idVector=new Vector();
+                List<Identifier> idVector=new ArrayList<>();
 
                 //make a combined list of all Identifiers
 		for (int i = 0; i < numAlignments; i++)
 		  {numSites += alignmentList[i].getSiteCount();
                   for (int j = 0; j <alignmentList[i].getSequenceCount(); j++) {
                     if(!idVector.contains(alignmentList[i].getIdentifier(j)))
-                      {idVector.addElement(alignmentList[i].getIdentifier(j));}
+                      {idVector.add(alignmentList[i].getIdentifier(j));}
                     }
 		  }
                 Identifier[] ids;
                 if(!union)
                   //this is not the most efficient way, but it works well with other code I use and heck it is plenty fast
                   {boolean inAll;
-                  Vector intersectionVector=new Vector();
+                  List<Identifier> intersectionVector=new ArrayList<>();
                   for (int i = 0; i < idVector.size(); i++)
 		    {inAll=true;
-                    String id=((Identifier)idVector.elementAt(i)).getName();
+                    String id=(idVector.get(i)).getName();
                     for (int j = 0; j <numAlignments; j++)
                       {if(alignmentList[j].whichIdNumber(id)<0) inAll=false;}
-                    if(inAll) intersectionVector.addElement(idVector.elementAt(i));
+                    if(inAll) intersectionVector.add(idVector.get(i));
                     }
                   ids=new Identifier[intersectionVector.size()];
-                  for(int i=0; i<ids.length; i++) {ids[i]=(Identifier)intersectionVector.elementAt(i);}
+                  for(int i=0; i<ids.length; i++) {ids[i]=intersectionVector.get(i);}
                   }
                  else
                   {ids=new Identifier[idVector.size()];
-                  for(int i=0; i<ids.length; i++) {ids[i]=(Identifier)idVector.elementAt(i);}
+                  for(int i=0; i<ids.length; i++) {ids[i]=idVector.get(i);}
                   }
 //                Identifier[] ids=new Identifier[idVector.size()];
 //                for(int i=0; i<ids.length; i++) {ids[i]=(Identifier)idVector.get(i);}

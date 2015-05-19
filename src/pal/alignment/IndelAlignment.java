@@ -40,7 +40,7 @@ public class IndelAlignment extends AbstractAlignment {
 	/**
 	 * Vector that contains IndelPositions, which has start, end and anchored information.
 	 */
-	Vector indel;
+	List<IndelPosition> indel;
 
 
 	private Alignment rawAlignment = null;
@@ -61,7 +61,7 @@ public class IndelAlignment extends AbstractAlignment {
 	}
 
 	private void findIndels() {
-		indel=new Vector();
+		indel=new ArrayList<>();
 		StringBuilder[] tempSeq=new StringBuilder[rawAlignment.getSequenceCount()];
 		char c0,c1,cc;
 		int rawNumSites=rawAlignment.getSiteCount();
@@ -77,7 +77,7 @@ public class IndelAlignment extends AbstractAlignment {
 							while((rawAlignment.getData(i,p)==GAP)&&(p<(rawNumSites-1))) {p++;}
 							IndelPosition currIndel=new IndelPosition(j,p-1,anchored);
 							if(!indel.contains(currIndel))
-								{indel.addElement(currIndel);
+								{indel.add(currIndel);
 								scoreIndelsInAllSequence(currIndel, tempSeq);
 								}
 							}
@@ -164,7 +164,7 @@ public class IndelAlignment extends AbstractAlignment {
 		}
 
 	 IndelPosition getIndelPosition(int i) {
-		return (IndelPosition)indel.elementAt(i);
+		return indel.get(i);
 		}
 
 }

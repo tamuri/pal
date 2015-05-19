@@ -456,15 +456,15 @@ public class FastLikelihoodCalculator implements PalObjectListener, LikelihoodCa
 		 * Not the most efficient way of doing things... shouldn't be called often!
 		 */
 		public LeafNode[] getLeafNodes() {
-			Vector v = new Vector();
+			List<LeafNode> v = new ArrayList<>();
 			for(int i = 0 ; i < children_.length ; i++) {
 				LeafNode[] clns = children_[i].getLeafNodes();
 				for(int j = 0 ; j < clns.length ; j++) {
-					v.addElement(clns[j]);
+					v.add(clns[j]);
 				}
 			}
 			LeafNode[] lns = new LeafNode[v.size()];
-			v.copyInto(lns);
+			v.toArray(lns);
 			return lns;
 		}
 	}

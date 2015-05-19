@@ -120,51 +120,51 @@ public class PalEventMulticaster {
 //==========================================================================================
 
 	private static class POLMulti implements PalObjectListener {
-		Vector v = new Vector(10);
+		List<PalObjectListener> v = new ArrayList<>(10);
 		public POLMulti(PalObjectListener polOne, PalObjectListener polTwo) {
-			v.addElement(polOne);
-			v.addElement(polTwo);
+			v.add(polOne);
+			v.add(polTwo);
 		}
 		public void add(PalObjectListener toAdd) {
-			v.addElement(toAdd);
+			v.add(toAdd);
 		}
 		public PalObjectListener remove(PalObjectListener toRemove) {
-			v.removeElement(toRemove);
+			v.remove(toRemove);
 			if(v.size()==1) {
-				return (PalObjectListener)v.firstElement();
+				return v.get(0);
 			}
 			return this;
 		}
 		public void parametersChanged(PalObjectEvent pe) {
 			for(int i = 0 ; i < v.size() ;  i++) {
-				((PalObjectListener)v.elementAt(i)).parametersChanged(pe);
+				(v.get(i)).parametersChanged(pe);
 			}
 		}
 		public void structureChanged(PalObjectEvent pe) {
 			for(int i = 0 ; i < v.size() ;  i++) {
-				((PalObjectListener)v.elementAt(i)).structureChanged(pe);
+				(v.get(i)).structureChanged(pe);
 			}
 		}
 	}
 	private static class EPLMulti implements ExternalParameterListener {
-		Vector v = new Vector(10);
+		List<ExternalParameterListener> v = new ArrayList<>(10);
 		public EPLMulti(ExternalParameterListener eplOne, ExternalParameterListener eplTwo) {
-			v.addElement(eplOne);
-			v.addElement(eplTwo);
+			v.add(eplOne);
+			v.add(eplTwo);
 		}
 		public void add(ExternalParameterListener toAdd) {
-			v.addElement(toAdd);
+			v.add(toAdd);
 		}
 		public ExternalParameterListener remove(ExternalParameterListener toRemove) {
-			v.removeElement(toRemove);
+			v.remove(toRemove);
 			if(v.size()==1) {
-				return (ExternalParameterListener)v.firstElement();
+				return v.get(0);
 			}
 			return this;
 		}
 		public void parameterChanged(ParameterEvent pe) {
 			for(int i = 0 ; i < v.size() ;  i++) {
-				((ExternalParameterListener)v.elementAt(i)).parameterChanged(pe);
+				(v.get(i)).parameterChanged(pe);
 			}
 		}
 	}
