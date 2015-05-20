@@ -198,7 +198,7 @@ public interface ThetaHandler {
             }
 
             public final int getNumberOfParameters(TimeOrderCharacterData tocd) {
-                return tocd.getSampleCount();
+                return tocd.getOrdinalCount();
             }
 
             public boolean isCICompatible() {

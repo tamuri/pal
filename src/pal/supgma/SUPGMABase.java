@@ -216,7 +216,7 @@ public class SUPGMABase {
         }
 
         private static int getNumberOfDeltas(TimeOrderCharacterData tocd) {
-            return tocd.getSampleCount() - 1;
+            return tocd.getOrdinalCount() - 1;
         }
 
         protected static final NoTimePopulationParameters analyseImpl(final Analyser analyser, final ThetaHandler thetaHandler, final DistanceMatrix dm, final TimeOrderCharacterData tocd, final LMSSolver solver) {

@@ -113,7 +113,7 @@ public interface DeltaModel extends Serializable {
                 }
 
                 public Tree generateAlternativeRepresentation(Tree expectedSubstitutionsTree) {
-                    return TreeUtils.scale(expectedSubstitutionsTree, model_, model_.getUnits());
+                    return TreeUtils.getScaled(expectedSubstitutionsTree, model_, model_.getUnits());
                 }
 
                 public double getExpectedSubstitutionsToTime(double time) throws UnsupportedOperationException {
@@ -279,7 +279,7 @@ public interface DeltaModel extends Serializable {
 
                     this.maxIntervalWidth_ = maxIntervalWidth;
 
-                    intervalRates_ = new double[tocd_.getSampleCount() - 1];
+                    intervalRates_ = new double[tocd_.getOrdinalCount() - 1];
                     if (initalDeltas != null) {
                         int maxIndex = Math.min(intervalRates_.length, initalDeltas.length);
                         System.arraycopy(initalDeltas, 0, intervalRates_, 0, Math.min(intervalRates_.length, initalDeltas.length));

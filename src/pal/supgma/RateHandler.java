@@ -194,7 +194,7 @@ public interface RateHandler {
             }
 
             public final int getNumberOfParameters(TimeOrderCharacterData tocd) {
-                return tocd.getSampleCount() - 1;
+                return tocd.getOrdinalCount() - 1;
             }
 
             public boolean isCICompatible() {
