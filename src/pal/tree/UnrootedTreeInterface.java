@@ -17,71 +17,71 @@ package pal.tree;
 
 public interface UnrootedTreeInterface {
 
-    public BaseBranch createBase();
+    BaseBranch createBase();
 
     // ================
     // == Instructee ==
     // ================
-    public static interface Instructee {
-        public void instruct(UnrootedTreeInterface treeInterface);
+    interface Instructee {
+        void instruct(UnrootedTreeInterface treeInterface);
     }
 
     // ==========
     // == Node ==
     // ==========
-    public static interface UNode {
+    interface UNode {
         /**
          * Get the branch closest to the base (or maybe even the base)
          *
          * @return
          */
-        public UBranch getParentUBranch();
+        UBranch getParentUBranch();
 
-        public void setLabel(String label);
-
-
-        public void setAnnotation(Object annotation);
+        void setLabel(String label);
 
 
-        public void resetChildren();
+        void setAnnotation(Object annotation);
+
+
+        void resetChildren();
 
         /**
          * Create a child that is further from the base
          *
          * @return
          */
-        public UNode createUChild();
+        UNode createUChild();
 
     }
 
     // ====================
     // == General Branch ==
     // ====================
-    public static interface GeneralBranch {
-        public void setLength(double length);
+    interface GeneralBranch {
+        void setLength(double length);
 
-        public void setAnnotation(Object annotation);
+        void setAnnotation(Object annotation);
     }
 
     // ============
     // == Branch ==
     // ============
-    public static interface UBranch extends GeneralBranch {
-        public UNode getCloserNode();
+    interface UBranch extends GeneralBranch {
+        UNode getCloserNode();
 
-        public UNode getFartherNode();
+        UNode getFartherNode();
     }
     // =======================
     // == Idea Base Branch ==
     // =======================
 
-    public static interface BaseBranch extends GeneralBranch {
-        public UNode getLeftNode();
+    interface BaseBranch extends GeneralBranch {
+        UNode getLeftNode();
 
-        public UNode getRightNode();
+        UNode getRightNode();
     }
 
-    public static final class Utils {
+    final class Utils {
         /**
          * Recursively build tree
          *

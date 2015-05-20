@@ -27,64 +27,64 @@ public interface CodonTable extends java.io.Serializable {
     /**
      * TypeID for Universal
      */
-    static final int UNIVERSAL = 0;
+    int UNIVERSAL = 0;
     /**
      * TypeID for Vertebrate Mitochondrial
      */
-    static final int VERTEBRATE_MITOCHONDRIAL = 1;
+    int VERTEBRATE_MITOCHONDRIAL = 1;
     /**
      * TypeID for Yeast
      */
-    static final int YEAST = 2;
+    int YEAST = 2;
     /**
      * TypeID for Mold Protozoan Mitochondrial
      */
-    static final int MOLD_PROTOZOAN_MITOCHONDRIAL = 3;
+    int MOLD_PROTOZOAN_MITOCHONDRIAL = 3;
     /**
      * TypeID for Mycoplasma
      */
-    static final int MYCOPLASMA = 4;
+    int MYCOPLASMA = 4;
     /**
      * TypeID for Invertebrate Mitochondrial
      */
-    static final int INVERTEBRATE_MITOCHONDRIAL = 5;
+    int INVERTEBRATE_MITOCHONDRIAL = 5;
     /**
      * TypeID for Cilate
      */
-    static final int CILATE = 6;
+    int CILATE = 6;
     /**
      * TypeID for Echinoderm Mitochondrial
      */
-    static final int ECHINODERM_MITOCHONDRIAL = 7;
+    int ECHINODERM_MITOCHONDRIAL = 7;
     /**
      * TypeID for Euplotid Nuclear
      */
-    static final int EUPLOTID_NUCLEAR = 8;
+    int EUPLOTID_NUCLEAR = 8;
     /**
      * TypeID for Ascidian Mitochondrial
      */
-    static final int ASCIDIAN_MITOCHONDRIAL = 9;
+    int ASCIDIAN_MITOCHONDRIAL = 9;
     /**
      * TypeID for Flatworm Mitochondrial
      */
-    static final int FLATWORM_MITOCHONDRIAL = 10;
+    int FLATWORM_MITOCHONDRIAL = 10;
     /**
      * TypeID for Blepharisma Nuclear
      */
-    static final int BLEPHARISMA_NUCLEAR = 11;
+    int BLEPHARISMA_NUCLEAR = 11;
     /**
      * TypeID for Bacterial
      */
-    static final int BACTERIAL = 12;
+    int BACTERIAL = 12;
     /**
      * TypeID for Alternative Yeast
      */
-    static final int ALTERNATIVE_YEAST = 13;
+    int ALTERNATIVE_YEAST = 13;
 
     /**
      * A textual version of an organism type - type is index into array
      */
-    static final String[] ORGANISM_TYPE_NAMES = {
+    String[] ORGANISM_TYPE_NAMES = {
             "Universal",
             "Vertebrate Mitochondrial",
             "Yeast",

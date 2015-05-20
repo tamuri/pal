@@ -32,18 +32,18 @@ public interface OrderEnumerator {
      */
     void reset();
 
-    public static interface OEFactory {
+    interface OEFactory {
         /**
          * For generating an ordering from 0..size-1. Enumerator doesn't have to actually produce
          */
-        public OrderEnumerator createOrderEnumerator(int size);
+        OrderEnumerator createOrderEnumerator(int size);
     }
 
 //=====================================================================================================
 //================================= Utilities, and hidden classes =====================================
 //=====================================================================================================
 
-    public static class Utils {
+    class Utils {
         private static final Constant ZERO = new Constant(0);
 
         /**

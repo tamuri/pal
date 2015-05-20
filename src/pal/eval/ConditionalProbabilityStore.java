@@ -279,12 +279,12 @@ public final class ConditionalProbabilityStore implements java.io.Serializable {
     }
 
     // ====================================================================================
-    public static interface ExtraProcessor {
-        public ExtraProcessor getCopy();
+    public interface ExtraProcessor {
+        ExtraProcessor getCopy();
 
-        public void setNewNumberOfPatterns(int numberOfPatterns);
+        void setNewNumberOfPatterns(int numberOfPatterns);
 
-        public void setParent(ConditionalProbabilityStore parent);
+        void setParent(ConditionalProbabilityStore parent);
     }
 
 }

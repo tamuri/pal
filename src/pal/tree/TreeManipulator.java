@@ -1143,8 +1143,8 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     }
 // =-=-=-=-=-=-=----==-=-=--==--=-==-=--=-==--==--==--=-=--=----==-=-=-=-=-==-=
 
-    private static interface ConnectionMethodCaller {
-        public void callOn(Connection c, UndirectedNode callingNode);
+    private interface ConnectionMethodCaller {
+        void callOn(Connection c, UndirectedNode callingNode);
     }
 
     private static final ConnectionMethodCaller ASSERT_PATH_INFO_CALLER =
@@ -1724,60 +1724,60 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
      * The branch access objects allow specific operations on a particular branch (refered to as connections
      * internally to confuse and bewilder)
      */
-    public static interface BranchAccess {
+    public interface BranchAccess {
         /**
          * Create a new TreeManipulator object that has sub grafted on (half way across this branch)
          * @param subTree The sub tree, as normal Node object.
          * @return A new TreeManipulator
          */
-        public TreeManipulator attachSubTree(Node subTree, int constructionMode);
+        TreeManipulator attachSubTree(Node subTree, int constructionMode);
 
         /**
          * Obtain the split of the labels around this branch.
          * @return A two dimensional array of string arrays (the first element is the label names of one side of the split, the second element is the remainder)
          */
-        public String[][] getLabelSplit();
+        String[][] getLabelSplit();
 
         /**
          * Set the annotation for this branch (will be used when instructing a TreeInterface
          * @param annotation the annotation object (is dependent on the TreeInterface instructed)
          */
-        public void setAnnotation(Object annotation);
+        void setAnnotation(Object annotation);
     }
 // ==============================================================================================
 // ================================== Support Classes ===========================================
 // ==============================================================================================
 
-    private static interface SimpleNode {
-        public boolean isLeaf();
+    private interface SimpleNode {
+        boolean isLeaf();
 
-        public int getNumberOfChildren();
+        int getNumberOfChildren();
 
-        public SimpleNode getChild(int child);
+        SimpleNode getChild(int child);
 
-        public SimpleBranch getParentBranch();
+        SimpleBranch getParentBranch();
 
-        public Object getAnnotation();
+        Object getAnnotation();
 
-        public String getLabel();
+        String getLabel();
 
         /**
          * Obtain the length of the parent branch (or 0 if no parent branch)
          * @return the approriate length
          */
-        public double getParentBranchLength();
+        double getParentBranchLength();
 
-        public Node getPALPeer();
+        Node getPALPeer();
     }
 
-    private static interface SimpleBranch {
-        public double getBranchLength();
+    private interface SimpleBranch {
+        double getBranchLength();
 
-        public Object getAnnotation();
+        Object getAnnotation();
 
-        public SimpleNode getParentNode();
+        SimpleNode getParentNode();
 
-        public SimpleNode getChildNode();
+        SimpleNode getChildNode();
     }
 
     private static final class RootedInterfaceImpl implements RootedTreeInterface {

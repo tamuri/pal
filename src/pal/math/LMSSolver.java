@@ -17,7 +17,7 @@ package pal.math;
 
 public interface LMSSolver {
 
-    public double[] solve(double[][] xMatrix, double[] dMatrix);
+    double[] solve(double[][] xMatrix, double[] dMatrix);
 
 // -=-=-==-=-=-=-=-=-=-=--=-=-=-==--==-=--=-==-=-=-=-=-=--==-=--=
 
@@ -25,7 +25,7 @@ public interface LMSSolver {
      * <p>Title: Utils</p>
      * A store of LMSSolver related utiltiies
      */
-    public static final class Utils {
+    final class Utils {
         /**
          * Obtain a simple LMSSolver that uses the "traditional" method for LMS stuff (IE, using row reduction to find the inverse,  with poor numerical accuracy)
          *

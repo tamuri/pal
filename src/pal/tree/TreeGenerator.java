@@ -22,12 +22,12 @@ import pal.distance.DistanceMatrixGenerator;
 import pal.util.AlgorithmCallback;
 
 public interface TreeGenerator {
-    public Tree getNextTree(AlgorithmCallback callback);
+    Tree getNextTree(AlgorithmCallback callback);
 
     // ==============================================================================
     // ==================== Utilities ===============================================
     // ==============================================================================
-    public static final class Utils {
+    final class Utils {
         public static final TreeGenerator createNeighbourJoiningGenerator(DistanceMatrixGenerator dataGenerator, String[] outgroupNames) {
             return new NJGenerator(dataGenerator, outgroupNames);
         }

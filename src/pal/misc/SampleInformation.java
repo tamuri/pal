@@ -16,18 +16,18 @@ package pal.misc;
  */
 
 public interface SampleInformation {
-    public int getHeightUnits();
+    int getHeightUnits();
 
-    public int getNumberOfSamples();
+    int getNumberOfSamples();
 
-    public int getSampleOrdinal(String leafID);
+    int getSampleOrdinal(String leafID);
 
-    public double getHeight(int sample);
+    double getHeight(int sample);
 
-    public double getMaxHeight();
+    double getMaxHeight();
 
-    public static interface Factory {
-        public SampleInformation createSampleInformation(String[] allLeafIDs);
+    interface Factory {
+        SampleInformation createSampleInformation(String[] allLeafIDs);
     }
 
 }

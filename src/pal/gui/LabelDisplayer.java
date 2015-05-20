@@ -21,10 +21,10 @@ import java.awt.*;
 
 public interface LabelDisplayer {
 
-    public void display(Graphics g, String label, int x, int y);
+    void display(Graphics g, String label, int x, int y);
 
     //=--=-=-=-=-=-==--=-=-=-=-==--==-=-=--==--==--=-==--=-==--==-=-=-=-=--=-==--=
-    public static final class Utils {
+    final class Utils {
         public static final LabelDisplayer buildDisplay(Color c) {
             return new ColourDisplay(c);
         }

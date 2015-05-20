@@ -27,9 +27,9 @@ public interface MolecularClockLikelihoodModel {
      * The External calculator does not maintain any state and is approapriate for
      * calculation where a store is provided
      */
-    public static interface External {
+    interface External {
 
-        public void calculateSingleDescendentExtendedConditionals(
+        void calculateSingleDescendentExtendedConditionals(
                 double topBaseHeight, double bottomBaseHeight,
                 PatternInfo centerPattern,
                 ConditionalProbabilityStore descendentConditionalProbabilities
@@ -37,7 +37,7 @@ public interface MolecularClockLikelihoodModel {
 
         /**
          */
-        public void calculateSingleAscendentExtendedConditionalsDirect(
+        void calculateSingleAscendentExtendedConditionalsDirect(
                 double topBaseHeight, double bottomBaseHeight,
                 PatternInfo centerPattern,
                 ConditionalProbabilityStore ascendentConditionalProbabilityProbabilties
@@ -45,7 +45,7 @@ public interface MolecularClockLikelihoodModel {
 
         /**
          */
-        public void calculateSingleAscendentExtendedConditionalsIndirect(
+        void calculateSingleAscendentExtendedConditionalsIndirect(
                 double topBaseHeight, double bottomBaseHeight,
                 PatternInfo centerPattern,
                 ConditionalProbabilityStore baseAscendentConditionalProbabilityProbabilties,
@@ -64,7 +64,7 @@ public interface MolecularClockLikelihoodModel {
          * @return true if built on cached information
          * @note calls to getLastConditionalProbabilities() does not have to be valid after call this method
          */
-        public void calculateExtendedConditionals(double topBaseHeight, double bottomBaseHeight,
+        void calculateExtendedConditionals(double topBaseHeight, double bottomBaseHeight,
                                                   PatternInfo centerPattern,
                                                   ConditionalProbabilityStore
                                                           leftConditionalProbabilities,
@@ -79,7 +79,7 @@ public interface MolecularClockLikelihoodModel {
          * @param rightConditionalProbabilities Assumed to be extended to the rootHeight
          * @return the Log likelihood
          */
-        public double calculateLogLikelihood(double rootHeight, PatternInfo centerPattern,
+        double calculateLogLikelihood(double rootHeight, PatternInfo centerPattern,
                                              ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                                              ConditionalProbabilityStore rightConditionalProbabilitiesStore);
 
@@ -91,18 +91,18 @@ public interface MolecularClockLikelihoodModel {
          * @param descendentConditionalProbabilities Assumed to be extended (upwards) to the nodeHeight
          * @return the Log likelihood
          */
-        public double calculateLogLikelihoodNonRoot(double nodeHeight, PatternInfo centerPattern,
+        double calculateLogLikelihoodNonRoot(double nodeHeight, PatternInfo centerPattern,
                                                     ConditionalProbabilityStore ascendentConditionalProbabilitiesStore,
                                                     ConditionalProbabilityStore descendentConditionalProbabilitiesStore);
 
-        public double calculateLogLikelihoodSingle(double rootHeight, PatternInfo centerPattern,
+        double calculateLogLikelihoodSingle(double rootHeight, PatternInfo centerPattern,
                                                    ConditionalProbabilityStore conditionalProbabilitiesStore);
 
-        public SiteDetails calculateSiteDetails(double rootHeight, PatternInfo centerPattern,
+        SiteDetails calculateSiteDetails(double rootHeight, PatternInfo centerPattern,
                                                 ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                                                 ConditionalProbabilityStore rightConditionalProbabilitiesStore);
 
-        public void calculateFlatConditionals(double rootHeight, PatternInfo centerPattern,
+        void calculateFlatConditionals(double rootHeight, PatternInfo centerPattern,
                                               ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                                               ConditionalProbabilityStore rightConditionalProbabilitiesStore,
                                               ConditionalProbabilityStore resultConditionalProbabilitiesStore);
@@ -112,7 +112,7 @@ public interface MolecularClockLikelihoodModel {
      * The Internal calculator may maintain state and is approapriate permanent attachment
      * to internal nodes of the tree structure
      */
-    public static interface Internal {
+    interface Internal {
 
         /**
          *
@@ -123,7 +123,7 @@ public interface MolecularClockLikelihoodModel {
          * @return true if result build on cached information
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculateExtendedConditionals(double topBaseHeight, double bottomBaseHeight, PatternInfo centerPattern,
+        ConditionalProbabilityStore calculateExtendedConditionals(double topBaseHeight, double bottomBaseHeight, PatternInfo centerPattern,
                                                                          ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
                                                                          ConditionalProbabilityStore rightConditionalProbabilityProbabilties);
 
@@ -136,20 +136,20 @@ public interface MolecularClockLikelihoodModel {
          * @return true if result build on cached information
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculatePostExtendedFlatConditionals(double topBaseHeight, double bottomBaseHeight, PatternInfo centerPattern,
+        ConditionalProbabilityStore calculatePostExtendedFlatConditionals(double topBaseHeight, double bottomBaseHeight, PatternInfo centerPattern,
                                                                                  ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
                                                                                  ConditionalProbabilityStore rightConditionalProbabilityProbabilties);
 
 
         /**
          */
-        public ConditionalProbabilityStore calculateAscendentExtendedConditionals(double topBaseHeight, double bottomBaseHeight, PatternInfo centerPattern,
+        ConditionalProbabilityStore calculateAscendentExtendedConditionals(double topBaseHeight, double bottomBaseHeight, PatternInfo centerPattern,
                                                                                   ConditionalProbabilityStore ascendentConditionalProbabilityProbabilties,
                                                                                   ConditionalProbabilityStore otherConditionalProbabilityProbabilties);
 
         /**
          */
-        public ConditionalProbabilityStore calculateAscendentFlatConditionals(PatternInfo centerPattern,
+        ConditionalProbabilityStore calculateAscendentFlatConditionals(PatternInfo centerPattern,
                                                                               ConditionalProbabilityStore ascenedentConditionalProbabilityProbabilties,
                                                                               ConditionalProbabilityStore otherConditionalProbabilityProbabilties);
 
@@ -161,7 +161,7 @@ public interface MolecularClockLikelihoodModel {
          * @return true if result build on cached information
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculateFlatConditionals(PatternInfo centerPattern,
+        ConditionalProbabilityStore calculateFlatConditionals(PatternInfo centerPattern,
                                                                      ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
                                                                      ConditionalProbabilityStore rightConditionalProbabilityProbabilties);
     } //End of Internal
@@ -170,43 +170,43 @@ public interface MolecularClockLikelihoodModel {
      * A ConstrainedLHCalculator.Leaf object is attached to each leaf node and can be used to calculated conditional probabilities across the related branch.
      * Allows for quick implementations as well as implementations that cope correctly with ambiguous characters
      */
-    public static interface Leaf {
-        public ConditionalProbabilityStore calculateExtendedConditionals(double topHeight, double bottomHeight);
+    interface Leaf {
+        ConditionalProbabilityStore calculateExtendedConditionals(double topHeight, double bottomHeight);
 
-        public ConditionalProbabilityStore calculateFlatConditionals(double height);
+        ConditionalProbabilityStore calculateFlatConditionals(double height);
 
     }
 
-    public static interface Simulator {
-        public int[] getSimulated(int[] baseSequence, double topBaseHeight, double bottomBaseHeight);
+    interface Simulator {
+        int[] getSimulated(int[] baseSequence, double topBaseHeight, double bottomBaseHeight);
 
-        public void simulated(int[] baseSequence, double topBaseHeight, double bottomBaseHeight, int[] newSequence);
+        void simulated(int[] baseSequence, double topBaseHeight, double bottomBaseHeight, int[] newSequence);
 
-        public int[] generateRoot(double sampleHeight);
+        int[] generateRoot(double sampleHeight);
 
-        public void resetDistributions();
+        void resetDistributions();
     }
 
-    public static interface HeightConverter {
-        public double getExpectedSubstitutionHeight(double baseHeight);
+    interface HeightConverter {
+        double getExpectedSubstitutionHeight(double baseHeight);
 
-        public double getExpectedSubstitutionDistance(double lower, double upper);
+        double getExpectedSubstitutionDistance(double lower, double upper);
     }
 
-    public static interface Instance extends java.io.Serializable {
+    interface Instance extends java.io.Serializable {
 
-        public String getSubstitutionModelSummary();
+        String getSubstitutionModelSummary();
 
-        public Leaf createNewLeaf(HeightConverter converter, PatternInfo pattern, int[] patternStateMatchup);
+        Leaf createNewLeaf(HeightConverter converter, PatternInfo pattern, int[] patternStateMatchup);
 
-        public External createNewExternal(HeightConverter converter);
+        External createNewExternal(HeightConverter converter);
 
         //		public Simulator createNewSimulator(int sequenceLength, boolean stochasticDistribution);
-        public Internal createNewInternal(HeightConverter converter);
+        Internal createNewInternal(HeightConverter converter);
 
-        public ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
+        ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
 
-        public NeoParameterized getParameterAccess();
+        NeoParameterized getParameterAccess();
     }
 
 }

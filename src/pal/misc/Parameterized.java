@@ -79,7 +79,7 @@ public interface Parameterized {
      * A Utility class for using as the superclass to subclasses which work by adding functionality to
      * a general Parameterized object (the base Parameterized object)
      */
-    abstract public static class ParameterizedUser extends PalObjectListener.EventGenerator {
+    abstract class ParameterizedUser extends PalObjectListener.EventGenerator {
         private Parameterized base_;
 
         protected ParameterizedUser(Parameterized base) {
@@ -159,7 +159,7 @@ public interface Parameterized {
     /**
      * A Utility class for using as the superclass to subclasses which are based on double arrays
      */
-    abstract public static class ParameterizedBase extends PalObjectListener.EventGenerator {
+    abstract class ParameterizedBase extends PalObjectListener.EventGenerator {
         private double[] parameters_;
         private double[] lowerLimits_;
         private double[] upperLimits_;
@@ -295,7 +295,7 @@ public interface Parameterized {
      * NullParameterized Object
      * Can be used by subclasses to implement parameterized without actually having paramters
      */
-    abstract public static class Null implements Parameterized {
+    abstract class Null implements Parameterized {
         protected Null() {
         }
 
@@ -334,7 +334,7 @@ public interface Parameterized {
 
     // ============================================================================
 // ============ Utils ==========================================================
-    public static final class Utils {
+    final class Utils {
         /**
          * @return the current paramters of source in a double array
          */

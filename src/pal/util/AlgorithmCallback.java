@@ -26,19 +26,19 @@ public interface AlgorithmCallback {
     /**
      * Should be called intermittedly to check if algorithm should stop (should return null if has output)
      */
-    public boolean isPleaseStop();
+    boolean isPleaseStop();
 
     /**
      * @param progress between 0..1
      */
-    public void updateProgress(double progress);
+    void updateProgress(double progress);
 
-    public void clearProgress();
+    void clearProgress();
 
     /**
      * Inform caller of current status
      */
-    public void updateStatus(String statusString);
+    void updateStatus(String statusString);
 
     // ==========================================================================
     // ==== Static utility class
@@ -47,7 +47,7 @@ public interface AlgorithmCallback {
      * A Utility class that provides some simple implementations of AlgorithmCallback
      * that can be used for manipulating callback results
      */
-    public static final class Utils {
+    final class Utils {
         /**
          * @return an AlgorithmCallback object that never says it is time to stop,
          * and ignores all status/progress calls

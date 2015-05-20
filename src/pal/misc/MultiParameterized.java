@@ -128,7 +128,7 @@ public class MultiParameterized implements Parameterized {
     /**
      * An interface for classes that wish to find out about particular parameter access
      */
-    public static interface ParameterAccessWatcher {
-        public void parameterSet(Parameterized baseParameterized, double param, int localParameter);
+    public interface ParameterAccessWatcher {
+        void parameterSet(Parameterized baseParameterized, double param, int localParameter);
     }
 }

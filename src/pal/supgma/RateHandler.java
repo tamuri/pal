@@ -20,20 +20,20 @@ import pal.mep.SteppedMutationRate;
 import pal.misc.TimeOrderCharacterData;
 
 public interface RateHandler {
-    public int getNumberOfParameters(TimeOrderCharacterData tocd);
+    int getNumberOfParameters(TimeOrderCharacterData tocd);
 
-    public void adjustDistances(double[][] matrix, TimeOrderCharacterData tocd);
+    void adjustDistances(double[][] matrix, TimeOrderCharacterData tocd);
 
-    public boolean isCICompatible();
+    boolean isCICompatible();
 
-    public String getInfo();
+    String getInfo();
 
-    public void fillInLSInfo(double[] mRow, int startingIndex, int minSample, int maxSample, double[] sampleTimes);
+    void fillInLSInfo(double[] mRow, int startingIndex, int minSample, int maxSample, double[] sampleTimes);
 
-    public MutationRateModel.Factory generateRateModelFactory(double[] deltas, TimeOrderCharacterData tocd);
+    MutationRateModel.Factory generateRateModelFactory(double[] deltas, TimeOrderCharacterData tocd);
 
     // ======== Utils =================
-    public static final class Utils {
+    final class Utils {
         public static final RateHandler getSingleRateHandler() {
             return SingleRateHandler.INSTANCE;
         }

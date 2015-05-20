@@ -120,12 +120,12 @@ public class TreeRestricter {
         return new InternalNode(realChildren, branchLength);
     }
 
-    private static interface RNode {
-        public Node constructPAL();
+    private interface RNode {
+        Node constructPAL();
 
-        public void increaseBranchLength(double amount);
+        void increaseBranchLength(double amount);
 
-        public void zeroBranchLength();
+        void zeroBranchLength();
     }
 
     private static final class LeafNode implements RNode {

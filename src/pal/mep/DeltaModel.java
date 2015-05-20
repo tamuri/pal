@@ -27,31 +27,31 @@ import pal.treesearch.ConstraintModel;
 import java.io.Serializable;
 
 public interface DeltaModel extends Serializable {
-    public Instance generateInstance(TimeOrderCharacterData tocd);
+    Instance generateInstance(TimeOrderCharacterData tocd);
 
-    public boolean canGenerateAlternativeTreeRepresentation();
+    boolean canGenerateAlternativeTreeRepresentation();
 
-    public ConstraintModel buildConstraintModel(SampleInformation si, MolecularClockLikelihoodModel.Instance likelihoodModel);
+    ConstraintModel buildConstraintModel(SampleInformation si, MolecularClockLikelihoodModel.Instance likelihoodModel);
 
-    public static interface Instance extends Parameterized, Serializable {
-        public double getExpectedSubstitutions(int taxon);
+    interface Instance extends Parameterized, Serializable {
+        double getExpectedSubstitutions(int taxon);
 
-        public double getExpectedSubstitutionsToTime(double time) throws UnsupportedOperationException;
+        double getExpectedSubstitutionsToTime(double time) throws UnsupportedOperationException;
 
-        public OrthogonalHints getOrthogonalHints();
+        OrthogonalHints getOrthogonalHints();
 
-        public Tree generateAlternativeRepresentation(Tree expectedSubstitutionsTree);
+        Tree generateAlternativeRepresentation(Tree expectedSubstitutionsTree);
 
-        public String getHTMLInfo();
+        String getHTMLInfo();
 
-        public void addPalObjectListener(PalObjectListener pol);
+        void addPalObjectListener(PalObjectListener pol);
 
-        public void removePalObjectListener(PalObjectListener pol);
+        void removePalObjectListener(PalObjectListener pol);
 
 
     }
 
-    public static final class Utils {
+    final class Utils {
         /**
          * For interfacing with time based mutation rate models
          */

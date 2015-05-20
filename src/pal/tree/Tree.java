@@ -100,10 +100,10 @@ public interface Tree extends IdGroup, Units, Serializable, UnitsProvider {
     /**
      * @return a clone of this tree
      */
-    public Tree getCopy();
+    Tree getCopy();
 
     //====== Abstract Implementation ============================
-    public static abstract class TreeBase implements Tree, Report, Units, Serializable {
+    abstract class TreeBase implements Tree, Report, Units, Serializable {
         //
         // This class has explicit serialization code so if you alter any fields please alter
         // the serialization code too (make sure you use a new version number - see readObject/writeObject

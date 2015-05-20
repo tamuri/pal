@@ -23,7 +23,7 @@ public interface OrthogonalHints {
      * @param defaultOrdering The ordering suggested by the optimiser, may be null!
      * @return null, or default ordering if no known best ordering
      */
-    public OrderEnumerator getSuggestedOrdering(OrderEnumerator defaultOrdering);
+    OrderEnumerator getSuggestedOrdering(OrderEnumerator defaultOrdering);
 
     /**
      * A boundary is a value of a parameter for which values lower than the boundary and values
@@ -34,13 +34,13 @@ public interface OrthogonalHints {
      * @return the number of boundary locations stored in storage, or -1 if not enough
      * room, or 0 if there are no boundaries (other than the normal parameter range)
      */
-    public int getInternalParameterBoundaries(int parameter, double[] storage);
+    int getInternalParameterBoundaries(int parameter, double[] storage);
 
 //=====================================================================================================
 //================================= Utilities, and hidden classes =====================================
 //=====================================================================================================
 
-    public static class Utils {
+    class Utils {
         /**
          * @return a new OrthogonalHints object base on toAdjust that works with parameters from adjustmentFactor + what toAdjust worked with
          * That is if the value x is the parameter will be passed toAdjust as x-adjustmentFactor, and

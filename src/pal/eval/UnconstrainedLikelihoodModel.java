@@ -31,7 +31,7 @@ public interface UnconstrainedLikelihoodModel {
      * The External calculator does not maintain any state and is approapriate for
      * calculation where a store is provided
      */
-    public static interface External extends java.io.Serializable {
+    interface External extends java.io.Serializable {
         /**
          *
          * @param centerPattern the pattern information
@@ -40,7 +40,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param resultStore Where to stick the created categoryPatternState information
          * @note calls to getLastConditionalProbabilities() does not have to be valid after call this method
          */
-        public void calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities, ConditionalProbabilityStore resultStore);
+        void calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities, ConditionalProbabilityStore resultStore);
 
         /**
          *
@@ -51,7 +51,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param resultStore Where to stick the created categoryPatternState information
          * @note calls to getLastConditionalProbabilities() does not have to be valid after call this method
          */
-        public void calculateExtended(double distance,
+        void calculateExtended(double distance,
                                       PatternInfo centerPattern,
                                       ConditionalProbabilityStore
                                               leftConditionalProbabilities,
@@ -65,7 +65,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param numberOfPatterns the number of patterns
          * @param conditionalProbabilities The probabilities to extend
          */
-        public void calculateSingleExtendedDirect(
+        void calculateSingleExtendedDirect(
                 double distance,
                 int numberOfPatterns,
                 ConditionalProbabilityStore conditionalProbabilities
@@ -78,7 +78,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param baseConditionalProbabilities The probabilities to extend
          * @param resultConditionalProbabilities The probabilities to extend
          */
-        public void calculateSingleExtendedIndirect(
+        void calculateSingleExtendedIndirect(
                 double distance,
                 int numberOfPatterns,
                 ConditionalProbabilityStore baseConditionalProbabilities,
@@ -94,7 +94,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param tempStore may be used internally to calculate likelihood
          * @return the log likelihood
          */
-        public double calculateLogLikelihood(double distance,
+        double calculateLogLikelihood(double distance,
                                              PatternInfo centerPattern,
                                              ConditionalProbabilityStore leftFlatConditionalProbabilities,
                                              ConditionalProbabilityStore rightFlatConditionalProbabilities,
@@ -108,7 +108,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param rightConditionalProbabilities The right conditional probabilities
          * @return the Log likelihood
          */
-        public double calculateLogLikelihood(PatternInfo centerPattern,
+        double calculateLogLikelihood(PatternInfo centerPattern,
                                              ConditionalProbabilityStore leftConditionalProbabilities,
                                              ConditionalProbabilityStore rightConditionalProbabilities);
 
@@ -118,7 +118,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param numberOfPatterns the number of patterns
          * @return the Log likelihood
          */
-        public double calculateLogLikelihoodSingle(int[] patternWeights, int numberOfPatterns,
+        double calculateLogLikelihoodSingle(int[] patternWeights, int numberOfPatterns,
                                                    ConditionalProbabilityStore conditionalProbabilityStore);
 
 
@@ -128,7 +128,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param leftConditionalProbabilitiesStore The left conditional probabilities
          * @param rightConditionalProbabilitiesStore The right conditional probabilities
          */
-        public SiteDetails calculateSiteDetailsRooted(
+        SiteDetails calculateSiteDetailsRooted(
                 PatternInfo centerPattern,
                 ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                 ConditionalProbabilityStore rightConditionalProbabilitiesStore
@@ -142,7 +142,7 @@ public interface UnconstrainedLikelihoodModel {
          * @param rightConditionalProbabilitiesStore The right conditional probabilities
          * @param tempStore after call will hold a matrix of values in the form [cat][pattern], where [cat][pattern] represents the site probability under a particular category/class, *not* multiplied by the category probability or pattern weights
          */
-        public SiteDetails calculateSiteDetailsUnrooted(double distance,
+        SiteDetails calculateSiteDetailsUnrooted(double distance,
                                                         PatternInfo centerPattern,
                                                         ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                                                         ConditionalProbabilityStore rightConditionalProbabilitiesStore,
@@ -157,7 +157,7 @@ public interface UnconstrainedLikelihoodModel {
      * The Internal calculator may maintain state and is approapriate permanent attachment
      * to internal nodes of the tree structure
      */
-    public static interface Internal {
+    interface Internal {
         /**
          * calculate flat probability information (not extended over a branch).
          * @param centerPattern the pattern information
@@ -166,7 +166,7 @@ public interface UnconstrainedLikelihoodModel {
          * @return true if results built from cached information
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities);
+        ConditionalProbabilityStore calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities);
 
         /**
          *
@@ -177,7 +177,7 @@ public interface UnconstrainedLikelihoodModel {
          * @return resulting conditional probabilities
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculateExtended(double distance, PatternInfo centerPattern, final ConditionalProbabilityStore leftConditionalProbabilities,
+        ConditionalProbabilityStore calculateExtended(double distance, PatternInfo centerPattern, final ConditionalProbabilityStore leftConditionalProbabilities,
                                                              final ConditionalProbabilityStore rightConditionalProbabilities);
 
     } //End of Internal
@@ -191,20 +191,20 @@ public interface UnconstrainedLikelihoodModel {
      * Allows for quick implementations as well as implementations that cope correctly with ambiguous characters
      * @note Should not be made serializable!
      */
-    public static interface Leaf {
-        public ConditionalProbabilityStore getFlatConditionalProbabilities();
+    interface Leaf {
+        ConditionalProbabilityStore getFlatConditionalProbabilities();
 
-        public ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance);
+        ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance);
 
         /**
          * Create a new Leaf calculator that has exactly the same properties as this one (but is different such that it may be used independently)
          * @return a copy of this leaf calculator
          */
-        public Leaf getCopy();
+        Leaf getCopy();
     }
 
 
-    public static interface Instance extends java.io.Serializable {
+    interface Instance extends java.io.Serializable {
         /**
          * Create anew leaf calculator
          * @param patternStateMatchup The sequence as reduced to patterns. This should just be one state per pattern.
@@ -214,25 +214,25 @@ public interface UnconstrainedLikelihoodModel {
          * @param numberOfPatterns The number of patterns in the patternStateMatchup array
          * @return a leaf calculator object
          */
-        public Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns);
+        Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns);
 
-        public External createNewExternal();
+        External createNewExternal();
 
-        public Internal createNewInternal();
+        Internal createNewInternal();
 
         /**
          * If true, then user can assume that areas of trees that haven't changed, and the model parameters haven't be altered,
          * can have their conditionals cached.
          * @return
          */
-        public boolean isAllowCaching();
+        boolean isAllowCaching();
 
 
-        public ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
+        ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
 
-        public String getSubstitutionModelSummary();
+        String getSubstitutionModelSummary();
 
-        public NeoParameterized getParameterAccess();
+        NeoParameterized getParameterAccess();
 
 
     }

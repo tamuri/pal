@@ -20,7 +20,7 @@ public interface MinimiserMonitor {
     /**
      * Inform monitor of current progress (as a number between 0 and 1), or -1 to reset
      */
-    public void updateProgress(double progress);
+    void updateProgress(double progress);
 
     /**
      * Inform monitor of a new minimum, along with the current arguments. Monitors should NOT
@@ -28,11 +28,11 @@ public interface MinimiserMonitor {
      * This should be called in the same thread as the minimisation so that beingOptimized may be accessed
      * within this call with out worry of conflicting with the optimisation process!
      */
-    public void newMinimum(double value, double[] parameterValues, MultivariateFunction beingOptimized);
+    void newMinimum(double value, double[] parameterValues, MultivariateFunction beingOptimized);
 //=====================================================================
 //=====================================================================
 
-    public static class Utils {
+    class Utils {
 
         /**
          * Creates a MinimiserMonitor that outputs current minimum to a print stream

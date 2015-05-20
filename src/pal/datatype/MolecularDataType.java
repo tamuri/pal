@@ -52,7 +52,7 @@ public interface MolecularDataType extends DataType {
     /**
      * Utilities relating to MolecularDataType stuff
      */
-    public static final class Utils {
+    final class Utils {
         /**
          * Converts (if possible) a DataType into a MolecularDataType. This is done by
          * either casting (if input is already a MolecularDataType) or, if the DataType

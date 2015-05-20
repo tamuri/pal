@@ -32,7 +32,7 @@ public interface ParameterizedTree extends Parameterized, Tree {
     /**
      * Factory interface
      */
-    static interface Factory {
+    interface Factory {
         /**
          * Generate a new parameterized tree wrapped around base
          */
@@ -45,7 +45,7 @@ public interface ParameterizedTree extends Parameterized, Tree {
      *
      * @note it should implment ParameterizedTree but, it that causes funny problems with my compiler ... I don't know why MG)
      */
-    static abstract class ParameterizedTreeBase implements Parameterized, Tree {
+    abstract class ParameterizedTreeBase implements Parameterized, Tree {
         /**
          * The non-parameterized tree that this parameterized tree is
          * based on.

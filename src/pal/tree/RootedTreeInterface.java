@@ -17,55 +17,55 @@ package pal.tree;
 
 public interface RootedTreeInterface {
 
-    public RNode createRoot();
+    RNode createRoot();
 
     // ================
     // == Instructee ==
     // ================
-    public static interface Instructee {
-        public void instruct(RootedTreeInterface treeInterface);
+    interface Instructee {
+        void instruct(RootedTreeInterface treeInterface);
     }
 
     // ==========
     // == Node ==
     // ==========
-    public static interface RNode {
+    interface RNode {
         /**
          * Get the parent branch (or null if the root)
          *
          * @return
          */
-        public RBranch getParentRBranch();
+        RBranch getParentRBranch();
 
-        public void setLabel(String label);
+        void setLabel(String label);
 
-        public void setAnnotation(Object annotation);
+        void setAnnotation(Object annotation);
 
-        public void resetChildren();
+        void resetChildren();
 
         /**
          * Create a child that is further from the base
          *
          * @return
          */
-        public RNode createRChild();
+        RNode createRChild();
 
     }
 
     // ============
     // == Branch ==
     // ============
-    public static interface RBranch {
-        public void setLength(double length);
+    interface RBranch {
+        void setLength(double length);
 
-        public void setAnnotation(Object annotation);
+        void setAnnotation(Object annotation);
 
-        public RNode getMoreRecentNode();
+        RNode getMoreRecentNode();
 
-        public RNode getLessRecentNode();
+        RNode getLessRecentNode();
     }
 
-    public static final class Utils {
+    final class Utils {
         /**
          * Recursively build tree
          *

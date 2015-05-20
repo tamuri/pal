@@ -122,8 +122,8 @@ public class SUPGMABase {
 // ==================================================================
 
 
-    private static interface Analyser {
-        public PopulationParameters analyse(DistanceMatrix dm, TimeOrderCharacterData tocd, LMSSolver solver);
+    private interface Analyser {
+        PopulationParameters analyse(DistanceMatrix dm, TimeOrderCharacterData tocd, LMSSolver solver);
     }
 
     // =================================================================
@@ -618,31 +618,31 @@ public class SUPGMABase {
 // ========================= Public Interfaces/Classes ========================
 // ============================================================================
 
-    public static interface PopulationParameters {
+    public interface PopulationParameters {
         /**
          * @return true if it possible to do Confidence Interval stuff
          */
-        public boolean isCICompatible();
+        boolean isCICompatible();
 
         /**
          * @returns an object capable of calculating the CI information (null if not possible)
          */
-        public CISummary inferCI(AlgorithmCallback callback, int numberOfReplicates, SimulatedAlignment.Factory alignmentFactory, SubstitutionModel evolutionaryModel, LMSSolver solver);
+        CISummary inferCI(AlgorithmCallback callback, int numberOfReplicates, SimulatedAlignment.Factory alignmentFactory, SubstitutionModel evolutionaryModel, LMSSolver solver);
 
-        public Tree generateSUPGMATree(ClusterTree.ClusteringMethod cm);
+        Tree generateSUPGMATree(ClusterTree.ClusteringMethod cm);
 
-        public Tree generateSUPGMATree(AlgorithmCallback callback, ClusterTree.ClusteringMethod cm, DistanceMatrixGenerator replicateSource, int numberOfAlignmentBootstrapReplicates, LMSSolver solver);
+        Tree generateSUPGMATree(AlgorithmCallback callback, ClusterTree.ClusteringMethod cm, DistanceMatrixGenerator replicateSource, int numberOfAlignmentBootstrapReplicates, LMSSolver solver);
 
-        public Tree[] simulateTrees(int numberOfTreesToSimulate, AlgorithmCallback callback, LMSSolver solver);
+        Tree[] simulateTrees(int numberOfTreesToSimulate, AlgorithmCallback callback, LMSSolver solver);
 
-        public Tree simulateTree();
+        Tree simulateTree();
 
-        public String generateHTML();
+        String generateHTML();
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    public static interface CISummary {
-        public String toSummary(double alphaLevel);
+    public interface CISummary {
+        String toSummary(double alphaLevel);
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

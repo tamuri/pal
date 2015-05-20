@@ -10,23 +10,23 @@ package pal.misc;
  * @version 1.0
  */
 public interface IndividualParameterHandler extends java.io.Serializable {
-    public void setParameter(double value);
+    void setParameter(double value);
 
-    public void setParameterSE(double value);
+    void setParameterSE(double value);
 
-    public double getParameter();
+    double getParameter();
 
-    public double getLowerLimit();
+    double getLowerLimit();
 
-    public double getUpperLimit();
+    double getUpperLimit();
 
-    public double getDefaultValue();
+    double getDefaultValue();
 
-    public static interface Listener {
-        public void parameterChanged(Parameterized base, int parameterIndex, double value);
+    interface Listener {
+        void parameterChanged(Parameterized base, int parameterIndex, double value);
     }
 
-    public static final class Utils {
+    final class Utils {
         public static final IndividualParameterHandler createSimple(Parameterized base, int parameterIndex) {
             return new SimpleParameter(base, parameterIndex);
         }

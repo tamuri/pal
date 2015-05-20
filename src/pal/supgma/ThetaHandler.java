@@ -20,26 +20,26 @@ import pal.misc.TimeOrderCharacterData;
 import pal.misc.Units;
 
 public interface ThetaHandler {
-    public int getNumberOfParameters(TimeOrderCharacterData tocd);
+    int getNumberOfParameters(TimeOrderCharacterData tocd);
 
-    public void adjustDistances(double[][] matrix, TimeOrderCharacterData tocd);
+    void adjustDistances(double[][] matrix, TimeOrderCharacterData tocd);
 
-    public boolean isCICompatible();
+    boolean isCICompatible();
 
-    public String getInfo();
+    String getInfo();
 
-    public void fillInLSInfo(double[] mRow, int startingIndex, int minSample, int maxSample);
+    void fillInLSInfo(double[] mRow, int startingIndex, int minSample, int maxSample);
 
     /**
      * May return null if not possible to infer demographic model
      * @note most if not all models will use units of Expected Substitutions
      */
-    public DemographicModel generateDemographicModel(double[] deltas, double[] thetas, TimeOrderCharacterData tocd);
+    DemographicModel generateDemographicModel(double[] deltas, double[] thetas, TimeOrderCharacterData tocd);
 
-    public boolean canGenerateDemogrpahicModel();
+    boolean canGenerateDemogrpahicModel();
 
     // ======== Utils =================
-    public static final class Utils {
+    final class Utils {
         public static final ThetaHandler getSingleThetaHandler() {
             return SingleThetaHandler.INSTANCE;
         }

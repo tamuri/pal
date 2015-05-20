@@ -160,7 +160,7 @@ public class OrthogonalSearch extends MultivariateMinimum {
         /**
          * @param monitor - may be null;
          */
-        public double doRound(double[] xvec, UnivariateMinimum um, double tolx, double fx, MinimiserMonitor monitor);
+        double doRound(double[] xvec, UnivariateMinimum um, double tolx, double fx, MinimiserMonitor monitor);
     }
 
     protected final boolean isUseCurrentInUnivariateMinimisation() {

@@ -21,7 +21,7 @@ public interface NeoParameterized {
      *
      * @return number of parameters
      */
-    public int getNumberOfParameters();
+    int getNumberOfParameters();
 
     /**
      * set model parameter
@@ -29,7 +29,7 @@ public interface NeoParameterized {
      * @param parameters the array holding the parameters
      * @param startIndex the index into the array that the related parameters start at
      */
-    public void setParameters(double[] parameters, int startIndex);
+    void setParameters(double[] parameters, int startIndex);
 
     /**
      * get model parameter
@@ -37,7 +37,7 @@ public interface NeoParameterized {
      * @param parameters the array holding the parameters
      * @param startIndex the index into the array that the related parameters start at
      */
-    public void getParameters(double[] parameterStore, int startIndex);
+    void getParameters(double[] parameterStore, int startIndex);
 
     /**
      * get lower parameter limit
@@ -45,7 +45,7 @@ public interface NeoParameterized {
      * @param n parameter number
      * @return lower bound
      */
-    public double getLowerLimit(int n);
+    double getLowerLimit(int n);
 
     /**
      * get upper parameter limit
@@ -53,7 +53,7 @@ public interface NeoParameterized {
      * @param n parameter number
      * @return upper bound
      */
-    public double getUpperLimit(int n);
+    double getUpperLimit(int n);
 
 
     /**
@@ -61,6 +61,6 @@ public interface NeoParameterized {
      *
      * @return default value
      */
-    public void getDefaultValues(double[] store, int startIndex);
+    void getDefaultValues(double[] store, int startIndex);
 
 }

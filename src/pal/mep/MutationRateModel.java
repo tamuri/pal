@@ -201,9 +201,9 @@ public abstract class MutationRateModel implements Units,
         /**
          * Request a new MutationRateModel instance
          */
-        public MutationRateModel generateNewModel();
+        MutationRateModel generateNewModel();
 
-        public ConstraintModel buildConstraintModel(SampleInformation si, MolecularClockLikelihoodModel.Instance likelihoodModel);
+        ConstraintModel buildConstraintModel(SampleInformation si, MolecularClockLikelihoodModel.Instance likelihoodModel);
     }
 
 }

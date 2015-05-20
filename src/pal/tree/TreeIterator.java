@@ -22,5 +22,5 @@ public interface TreeIterator extends TreeGenerator {
     /**
      * @return true if more trees to come
      */
-    public boolean isMoreTrees();
+    boolean isMoreTrees();
 }

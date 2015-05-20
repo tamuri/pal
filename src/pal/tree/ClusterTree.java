@@ -147,9 +147,9 @@ public class ClusterTree extends SimpleTree {
      * An interface for describing Clustering methods
      * To be updated to cope with Ward's method and others...
      */
-    public static interface ClusteringMethod {
+    public interface ClusteringMethod {
 
-        public double computeDistance(
+        double computeDistance(
                 int separateClusterSize,
                 int firstToCombineClusterSize,
                 double firstToCombineClusterToSeparateClusterDistance,
@@ -157,12 +157,12 @@ public class ClusterTree extends SimpleTree {
                 double secondToCombineClusterToSeparateClusterDistance
         );
 
-        public double computeHeight(
+        double computeHeight(
                 int firstToCombineClusterSize,
                 int secondToCombineClusterSize,
                 double distance);
 
-        public String getMethodName();
+        String getMethodName();
     }
 
     //===========

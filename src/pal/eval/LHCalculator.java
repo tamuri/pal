@@ -31,7 +31,7 @@ public interface LHCalculator {
      * The External calculator does not maintain any state and is approapriate for
      * calculation where a store is provided
      */
-    public static interface External extends java.io.Serializable {
+    interface External extends java.io.Serializable {
         /**
          *
          * @param centerPattern the pattern information
@@ -40,7 +40,7 @@ public interface LHCalculator {
          * @param resultStore Where to stick the created categoryPatternState information
          * @note calls to getLastConditionalProbabilities() does not have to be valid after call this method
          */
-        public void calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities, ConditionalProbabilityStore resultStore);
+        void calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities, ConditionalProbabilityStore resultStore);
 
         /**
          *
@@ -52,7 +52,7 @@ public interface LHCalculator {
          * @param resultStore Where to stick the created categoryPatternState information
          * @note calls to getLastConditionalProbabilities() does not have to be valid after call this method
          */
-        public void calculateExtended(double distance, SubstitutionModel model,
+        void calculateExtended(double distance, SubstitutionModel model,
                                       PatternInfo centerPattern,
                                       ConditionalProbabilityStore
                                               leftConditionalProbabilities,
@@ -66,7 +66,7 @@ public interface LHCalculator {
          * @param model The model to use
          * @param conditionalProbabilities The probabilities to extend
          */
-        public void calculateSingleExtendedDirect(
+        void calculateSingleExtendedDirect(
                 double distance, SubstitutionModel model,
                 int numberOfPatterns,
                 ConditionalProbabilityStore conditionalProbabilities
@@ -79,7 +79,7 @@ public interface LHCalculator {
          * @param baseConditionalProbabilities The probabilities to extend
          * @param resultConditionalProbabilities The probabilities to extend
          */
-        public void calculateSingleExtendedIndirect(
+        void calculateSingleExtendedIndirect(
                 double distance, SubstitutionModel model,
                 int numberOfPatterns,
                 ConditionalProbabilityStore baseConditionalProbabilities,
@@ -96,7 +96,7 @@ public interface LHCalculator {
          * @param tempStore may be used internally to calculate likelihood
          * @return the log likelihood
          */
-        public double calculateLogLikelihood(double distance, SubstitutionModel model,
+        double calculateLogLikelihood(double distance, SubstitutionModel model,
                                              PatternInfo centerPattern,
                                              ConditionalProbabilityStore leftFlatConditionalProbabilities,
                                              ConditionalProbabilityStore rightFlatConditionalProbabilities,
@@ -111,7 +111,7 @@ public interface LHCalculator {
          * @param rightConditionalProbabilities
          * @return the Log likelihood
          */
-        public double calculateLogLikelihood(SubstitutionModel model, PatternInfo centerPattern,
+        double calculateLogLikelihood(SubstitutionModel model, PatternInfo centerPattern,
                                              ConditionalProbabilityStore leftConditionalProbabilities,
                                              ConditionalProbabilityStore rightConditionalProbabilities);
 
@@ -123,7 +123,7 @@ public interface LHCalculator {
          * @param conditionalProbabilities The conditionals
          * @return the Log likelihood
          */
-        public double calculateLogLikelihoodSingle(SubstitutionModel model, int[] patternWeights, int numberOfPatterns,
+        double calculateLogLikelihoodSingle(SubstitutionModel model, int[] patternWeights, int numberOfPatterns,
                                                    ConditionalProbabilityStore conditionalProbabilityStore);
 
 
@@ -135,7 +135,7 @@ public interface LHCalculator {
          * @param rightConditionalProbabilities
          * @param categoryPatternLogLikelihoodStore after call will hold a matrix of values in the form [cat][pattern], where [cat][pattern] represents the site probability under a particular category/class, *not* multiplied by the category probability or pattern weights
          */
-        public SiteDetails calculateSiteDetailsRooted(SubstitutionModel model,
+        SiteDetails calculateSiteDetailsRooted(SubstitutionModel model,
                                                       PatternInfo centerPattern,
                                                       ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                                                       ConditionalProbabilityStore rightConditionalProbabilitiesStore
@@ -150,7 +150,7 @@ public interface LHCalculator {
          * @param rightConditionalProbabilities
          * @param categoryPatternLogLikelihoodStore after call will hold a matrix of values in the form [cat][pattern], where [cat][pattern] represents the site probability under a particular category/class, *not* multiplied by the category probability or pattern weights
          */
-        public SiteDetails calculateSiteDetailsUnrooted(double distance, SubstitutionModel model,
+        SiteDetails calculateSiteDetailsUnrooted(double distance, SubstitutionModel model,
                                                         PatternInfo centerPattern,
                                                         ConditionalProbabilityStore leftConditionalProbabilitiesStore,
                                                         ConditionalProbabilityStore rightConditionalProbabilitiesStore,
@@ -165,7 +165,7 @@ public interface LHCalculator {
      * The Internal calculator may maintain state and is approapriate permanent attachment
      * to internal nodes of the tree structure
      */
-    public static interface Internal {
+    interface Internal {
         /**
          * calculate flat probability information (not extended over a branch).
          * @param centerPattern the pattern information
@@ -174,7 +174,7 @@ public interface LHCalculator {
          * @return true if results built from cached information
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities);
+        ConditionalProbabilityStore calculateFlat(PatternInfo centerPattern, ConditionalProbabilityStore leftConditionalProbabilities, ConditionalProbabilityStore rightConditionalProbabilities);
 
         /**
          *
@@ -187,10 +187,10 @@ public interface LHCalculator {
          * @return resulting conditional probabilities
          * @note An assumption may be made that after a call to this method the leftConditionals and rightConditionals are not used again!
          */
-        public ConditionalProbabilityStore calculateExtended(double distance, SubstitutionModel model, PatternInfo centerPattern, final ConditionalProbabilityStore leftConditionalProbabilities,
+        ConditionalProbabilityStore calculateExtended(double distance, SubstitutionModel model, PatternInfo centerPattern, final ConditionalProbabilityStore leftConditionalProbabilities,
                                                              final ConditionalProbabilityStore rightConditionalProbabilities, boolean modelChangedSinceLastCall);
 
-        public ConditionalProbabilityStore calculatePostExtendedFlat(double distance, SubstitutionModel model, PatternInfo centerPattern, final ConditionalProbabilityStore leftConditionalProbabilities,
+        ConditionalProbabilityStore calculatePostExtendedFlat(double distance, SubstitutionModel model, PatternInfo centerPattern, final ConditionalProbabilityStore leftConditionalProbabilities,
                                                                      final ConditionalProbabilityStore rightConditionalProbabilities, boolean modelChangedSinceLastCall);
 
     } //End of Internal
@@ -204,23 +204,23 @@ public interface LHCalculator {
      * Allows for quick implementations as well as implementations that cope correctly with ambiguous characters
      * @note Should not be made serializable!
      */
-    public static interface Leaf {
-        public ConditionalProbabilityStore getFlatConditionalProbabilities();
+    interface Leaf {
+        ConditionalProbabilityStore getFlatConditionalProbabilities();
 
-        public ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged);
+        ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged);
 
         /**
          * Create a new Leaf calculator that has exactly the same properties as this one (but is different such that it may be used independently)
          * @return a copy of this leaf calculator
          */
-        public Leaf getCopy();
+        Leaf getCopy();
     }
 
-    public static interface Factory extends java.io.Serializable {
-        public Generator createSeries(int numberOfCategories, DataType dt);
+    interface Factory extends java.io.Serializable {
+        Generator createSeries(int numberOfCategories, DataType dt);
     }
 
-    public static interface Generator extends java.io.Serializable {
+    interface Generator extends java.io.Serializable {
         /**
          * Create anew leaf calculator
          * @param patternStateMatchup The sequence as reduced to patterns. This should just be one state per pattern.
@@ -230,24 +230,15 @@ public interface LHCalculator {
          * @param numberOfPatterns The number of patterns in the patternStateMatchup array
          * @return a leaf calculator object
          */
-        public Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns);
+        Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns);
 
-        public Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns, Generator parentGenerator);
+        Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns, Generator parentGenerator);
 
-        public External createNewExternal();
+        External createNewExternal();
 
-        public Internal createNewInternal();
+        Internal createNewInternal();
 
-        public boolean isAllowCaching();
-
-        /**
-         * An obscure method, primarily used by the High Accuracy calculator
-         * @param parentGenerator A reference to an encompasing generator (that may for example
-         * wish to impose it's own choice on the creation of ConditionalProbabilityStores)
-         * @throws IllegalArgumentException Generator does not allow being a subserviant generator
-         * @return
-         */
-        public External createNewExternal(Generator parentGenerator) throws IllegalArgumentException;
+        boolean isAllowCaching();
 
         /**
          * An obscure method, primarily used by the High Accuracy calculator
@@ -256,14 +247,23 @@ public interface LHCalculator {
          * @throws IllegalArgumentException Generator does not allow being a subserviant generator
          * @return
          */
-        public Internal createNewInternal(Generator patentGenerator) throws IllegalArgumentException;
+        External createNewExternal(Generator parentGenerator) throws IllegalArgumentException;
 
-        public ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
+        /**
+         * An obscure method, primarily used by the High Accuracy calculator
+         * @param parentGenerator A reference to an encompasing generator (that may for example
+         * wish to impose it's own choice on the creation of ConditionalProbabilityStores)
+         * @throws IllegalArgumentException Generator does not allow being a subserviant generator
+         * @return
+         */
+        Internal createNewInternal(Generator patentGenerator) throws IllegalArgumentException;
+
+        ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
 
     }
 
     // ======================================================================================
-    public abstract class AbstractExternal {
+    abstract class AbstractExternal {
         public final SiteDetails calculateSiteDetailsUnrooted(double distance,
                                                               SubstitutionModel model,
                                                               PatternInfo centerPattern,

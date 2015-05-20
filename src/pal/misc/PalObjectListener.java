@@ -32,7 +32,7 @@ public interface PalObjectListener {
     /**
      * A base class for classes that fire PalObject events
      */
-    abstract public static class EventGenerator {
+    abstract class EventGenerator {
 
         private transient PalObjectListener listeners_ = null;
 

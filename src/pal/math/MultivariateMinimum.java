@@ -223,7 +223,7 @@ public abstract class MultivariateMinimum {
     /**
      * A factory interface for MultivariateMinimums (because they aren't statefree)
      */
-    public static interface Factory {
+    public interface Factory {
         /**
          * Generate a new Multivariate Minimum
          */

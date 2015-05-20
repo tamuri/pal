@@ -23,14 +23,14 @@ public interface TreeOperation {
      * @param tree The input tree.
      * @return the A new tree, or the input tree
      */
-    public Tree operateOn(Tree tree);
+    Tree operateOn(Tree tree);
 
 // -==--=-=-=======-==--=-=-=-=-=-=-==-=--==--=-=-==-=--==-=-=--=-==--=-=
 
     /**
      * Utility class
      */
-    public static final class Utils {
+    final class Utils {
         /**
          * Create a tree operation that scales the input tree and changes the units
          *

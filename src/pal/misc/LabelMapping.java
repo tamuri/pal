@@ -154,7 +154,7 @@ public class LabelMapping implements java.io.Serializable {
 
     // Static classes
 
-    public static interface Relabeller {
-        public String getNewLabel(String oldLabel);
+    public interface Relabeller {
+        String getNewLabel(String oldLabel);
     }
 }

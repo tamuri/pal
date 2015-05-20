@@ -181,7 +181,7 @@ public interface DataType extends Serializable {
     /**
      * Some useful methods for implmenting classes and for DataType users
      */
-    public static final class Utils {
+    final class Utils {
         /**
          * Useful for implementing classes to check if a character is a suggest gap character
          * Users of datatypes should query the datatype to see if a character is a gap - not
