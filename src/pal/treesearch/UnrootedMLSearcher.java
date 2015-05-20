@@ -32,6 +32,7 @@ import pal.tree.*;
 import pal.util.AlgorithmCallback;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTreeInterface.Instructee {
     //The initial value of the update id (when not updated)
@@ -1258,7 +1259,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
 
         ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
 
-        void getLeafNames(ArrayList store, Connection caller);
+        void getLeafNames(List<String> store, Connection caller);
 
         void getSplitInformation(int[] splitStore, String[] leafNames, int splitIndex, Connection caller);
 
@@ -1521,7 +1522,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             topologyChanged();
         }
 
-        public void getLeafNames(ArrayList store, Connection caller) {
+        public void getLeafNames(List<String> store, Connection caller) {
             for (int i = 0; i < connections_.length; i++) {
                 if (connections_[i] != caller) {
                     connections_[i].getLeafNames(store, this);
@@ -1828,7 +1829,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             }
         }
 
-        public void getLeafNames(ArrayList store, Connection caller) {
+        public void getLeafNames(List<String> store, Connection caller) {
             if (caller != parentConnection_) {
                 throw new RuntimeException("Unknown caller!");
             }
@@ -1871,7 +1872,6 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
          * @param numberOfSites The number of sites
          * @param sitePatternMatchup Should be of length numberOfSites
          * @param patternStateMatchup Should be of length numberOfStates+1
-         * @return
          */
         private int createMatchups(final int numberOfSites, final int numberOfStates, final int[] sitePatternMatchup, final int[] patternStateMatchup) {
             final int[] stateCount = new int[numberOfStates + 1];
@@ -2430,7 +2430,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
         }
 
         private String[] getLeafNames(UNode base) {
-            ArrayList al = new ArrayList();
+            List<String> al = new ArrayList<>();
             base.getLeafNames(al, this);
             String[] result = new String[al.size()];
             al.toArray(result);
@@ -2469,7 +2469,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             return false;
         }
 
-        public void getLeafNames(ArrayList store, UNode caller) {
+        public void getLeafNames(List<String> store, UNode caller) {
             if (caller == leftNode_) {
                 rightNode_.getLeafNames(store, this);
             } else if (caller == rightNode_) {

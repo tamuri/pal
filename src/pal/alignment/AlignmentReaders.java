@@ -89,7 +89,7 @@ public final class AlignmentReaders {
      */
     public static final Alignment readNewLineSeperatedSequences(Reader r, DataType dt) throws IOException {
         String sequenceName = "Unnamed";
-        ArrayList sequences = new ArrayList();
+        List<ConstructionSequence> sequences = new ArrayList<>();
         String line;
         StringBuilder currentSequence = new StringBuilder();
         BufferedReader br = new BufferedReader(r);

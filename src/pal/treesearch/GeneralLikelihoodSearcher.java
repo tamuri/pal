@@ -26,6 +26,7 @@ import pal.tree.Tree;
 import pal.util.AlgorithmCallback;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GeneralLikelihoodSearcher {
     public static final int OPTIMISE_ALL = 0;
@@ -372,21 +373,23 @@ public class GeneralLikelihoodSearcher {
         private final GeneralConstructionTool tool_;
 
         public GeneralOptimiser(GeneralConstructionTool tool, RootAccess rootAccess) {
-            ArrayList al = new ArrayList();
+            List<GeneralOptimisable> al = new ArrayList<>();
             rootAccess.getAllComponents(al, GeneralOptimisable.class);
             GeneralOptimisable[] generalOptimisables = new GeneralOptimisable[al.size()];
             al.toArray(generalOptimisables);
             al.clear();
+
+            List<OptimisationHandler> al2 = new ArrayList<>();
             for (int i = 0; i < generalOptimisables.length; i++) {
                 int numberOfTypes = generalOptimisables[i].getNumberOfOptimisationTypes();
 //				int numberOfTypes =1 ;
 
                 for (int j = 0; j < numberOfTypes; j++) {
-                    al.add(new OptimisationHandler(generalOptimisables[i], j));
+                    al2.add(new OptimisationHandler(generalOptimisables[i], j));
                 }
             }
-            optimisations_ = new OptimisationHandler[al.size()];
-            al.toArray(optimisations_);
+            optimisations_ = new OptimisationHandler[al2.size()];
+            al2.toArray(optimisations_);
 
             this.random_ = new MersenneTwisterFast();
             this.tool_ = tool;
