@@ -15,10 +15,11 @@ import pal.tree.Node;
 import pal.tree.NodeUtils;
 import pal.tree.Tree;
 import pal.tree.TreeUtils;
-import pal.util.ComparableDouble;
-import pal.util.HeapSort;
+import pal.util.*;
+import pal.util.Comparable;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A series of coalescent intervals representing the time
@@ -57,8 +58,8 @@ public class IntervalsExtractor implements Units {
         //}
 
 
-        Vector times = new Vector();
-        Vector childs = new Vector();
+        List<Comparable> times = new ArrayList<>();
+        List<Integer> childs = new ArrayList<>();
         collectInternalNodeHeights(tree.getRoot(), times, childs);
         int[] indices = new int[times.size()];
 
@@ -68,7 +69,7 @@ public class IntervalsExtractor implements Units {
 
         double currentTime = 0.0;
         for (int i = 0; i < times.size(); i++) {
-            double time = ((ComparableDouble) times.elementAt(indices[i])).doubleValue();
+            double time = ((ComparableDouble) times.get(indices[i])).doubleValue();
             if (Math.abs(time - currentTime) > minSize) {
                 uniqueIntervals += 1;
             }
@@ -85,8 +86,8 @@ public class IntervalsExtractor implements Units {
         int count = 0;
         int coalescences = 0;
         for (int i = 0; i < times.size(); i++) {
-            double finish = ((ComparableDouble) times.elementAt(indices[i])).doubleValue();
-            int childCount = ((Integer) childs.elementAt(indices[i])).intValue();
+            double finish = ((ComparableDouble) times.get(indices[i])).doubleValue();
+            int childCount = childs.get(indices[i]);
 
             double length = Math.abs(finish - start);
             coalescences += childCount - 1;
@@ -129,12 +130,12 @@ public class IntervalsExtractor implements Units {
             NodeUtils.lengths2Heights(tree.getRoot());
         }
 
-        Vector times = new Vector();
-        Vector childs = new Vector();
+        List<pal.util.Comparable> times = new ArrayList<>();
+        List<Integer> childs = new ArrayList<>();
         collectAllTimes(tree.getRoot(), times, childs);
         int[] indices = new int[times.size()];
-        Vector lineages = new Vector();
-        Vector intervals = new Vector();
+        List<Integer>lineages = new ArrayList<>();
+        List<Double> intervals = new ArrayList<>();
 
         HeapSort.sort(times, indices);
 
@@ -146,11 +147,11 @@ public class IntervalsExtractor implements Units {
             int lineagesRemoved = 0;
             int lineagesAdded = 0;
 
-            double finish = ((ComparableDouble) times.elementAt(indices[i])).doubleValue();
+            double finish = ((ComparableDouble) times.get(indices[i])).doubleValue();
             double next = finish;
 
             while (Math.abs(next - finish) < MULTIFURCATION_LIMIT) {
-                int children = ((Integer) childs.elementAt(indices[i])).intValue();
+                int children = childs.get(indices[i]);
                 if (children == 0) {
                     lineagesAdded += 1;
                 } else {
@@ -158,15 +159,15 @@ public class IntervalsExtractor implements Units {
                 }
                 i += 1;
                 if (i < times.size()) {
-                    next = ((ComparableDouble) times.elementAt(indices[i])).doubleValue();
+                    next = ((ComparableDouble) times.get(indices[i])).doubleValue();
                 } else break;
             }
             //System.out.println("time = " + finish + " removed = " + lineagesRemoved + " added = " + lineagesAdded);
             if (lineagesAdded > 0) {
 
                 if ((intervals.size() > 0) || ((finish - start) > MULTIFURCATION_LIMIT)) {
-                    intervals.addElement(new Double(finish - start));
-                    lineages.addElement(new Integer(numLines));
+                    intervals.add(finish - start);
+                    lineages.add(numLines);
                 }
 
                 start = finish;
@@ -176,8 +177,8 @@ public class IntervalsExtractor implements Units {
 
             if (lineagesRemoved > 0) {
 
-                intervals.addElement(new Double(finish - start));
-                lineages.addElement(new Integer(numLines));
+                intervals.add(finish - start);
+                lineages.add(numLines);
                 start = finish;
             }
             // coalescent event
@@ -188,8 +189,8 @@ public class IntervalsExtractor implements Units {
 
         CoalescentIntervals ci = new CoalescentIntervals(intervals.size());
         for (i = 0; i < intervals.size(); i++) {
-            ci.setInterval(i, ((Double) intervals.elementAt(i)).doubleValue());
-            ci.setNumLineages(i, ((Integer) lineages.elementAt(i)).intValue());
+            ci.setInterval(i, intervals.get(i));
+            ci.setNumLineages(i, lineages.get(i));
         }
 
         // Same Units as tree
@@ -204,10 +205,10 @@ public class IntervalsExtractor implements Units {
     /**
      * extract coalescent times and tip information into Vector times from tree.
      */
-    private static void collectAllTimes(Node node, Vector times, Vector childs) {
+    private static void collectAllTimes(Node node, List<Comparable> times, List<Integer> childs) {
 
-        times.addElement(new ComparableDouble(node.getNodeHeight()));
-        childs.addElement(new Integer(node.getChildCount()));
+        times.add(new ComparableDouble(node.getNodeHeight()));
+        childs.add(node.getChildCount());
 
         for (int i = 0; i < node.getChildCount(); i++) {
             collectAllTimes(node.getChild(i), times, childs);
@@ -217,10 +218,10 @@ public class IntervalsExtractor implements Units {
     /**
      * extract internal node heights Vector times from tree.
      */
-    private static void collectInternalNodeHeights(Node node, Vector times, Vector childs) {
+    private static void collectInternalNodeHeights(Node node, List<Comparable> times, List<Integer> childs) {
         if (!node.isLeaf()) {
-            times.addElement(new ComparableDouble(node.getNodeHeight()));
-            childs.addElement(new Integer(node.getChildCount()));
+            times.add(new ComparableDouble(node.getNodeHeight()));
+            childs.add(node.getChildCount());
 
             for (int i = 0; i < node.getChildCount(); i++) {
                 collectInternalNodeHeights(node.getChild(i), times, childs);

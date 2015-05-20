@@ -13,7 +13,8 @@ import pal.tree.*;
 import pal.util.HeapSort;
 
 import java.io.Serializable;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simulates a set of coalescent intervals given a demographic model.
@@ -39,7 +40,7 @@ public class SerialCoalescentSimulator implements Serializable {
             boolean createTree) {
 
         // nodes used to build tree if necessary
-        Vector currentTreeNodes = null;
+        List<Node> currentTreeNodes = null;
         Node[] nodes = null;
 
         double[] times = tocd.getCopyOfTimes();
@@ -55,7 +56,7 @@ public class SerialCoalescentSimulator implements Serializable {
                 nodes[i] = new SimpleNode();
                 nodes[i].setIdentifier(tocd.getIdentifier(i));
             }
-            currentTreeNodes = new Vector();
+            currentTreeNodes = new ArrayList<>();
         }
 
         if (tocd.getUnits() != model.getUnits()) {
@@ -129,7 +130,7 @@ public class SerialCoalescentSimulator implements Serializable {
 
                     Node newNode = nodes[indices[i]];
                     newNode.setNodeHeight(nextTipTime);
-                    currentTreeNodes.addElement(newNode);
+                    currentTreeNodes.add(newNode);
                 }
 
                 count += 1;
@@ -141,7 +142,7 @@ public class SerialCoalescentSimulator implements Serializable {
                 if (createTree) {
                     Node newNode = nodes[indices[i]];
                     newNode.setNodeHeight(currentTime);
-                    currentTreeNodes.addElement(newNode);
+                    currentTreeNodes.add(newNode);
                 }
             }
         }
@@ -170,7 +171,7 @@ public class SerialCoalescentSimulator implements Serializable {
             if (size > 1) {
                 System.err.println("ERROR: currentTreeNodes.size() = " + size);
             }
-            Node root = (Node) currentTreeNodes.elementAt(0);
+            Node root = currentTreeNodes.get(0);
             NodeUtils.heights2Lengths(root);
 
             tree = new SimpleTree(root);
@@ -180,7 +181,7 @@ public class SerialCoalescentSimulator implements Serializable {
         return ci;
     }
 
-    private void addInternalNode(Vector currentTreeNodes, int numLines, double newTime) {
+    private void addInternalNode(List<Node> currentTreeNodes, int numLines, double newTime) {
 
         if (numLines != currentTreeNodes.size()) {
             System.err.println("ERROR: Wrong number of nodes available!");
@@ -191,17 +192,17 @@ public class SerialCoalescentSimulator implements Serializable {
             node2 = rand.nextInt(currentTreeNodes.size());
         }
 
-        Node left = (Node) currentTreeNodes.elementAt(node1);
-        Node right = (Node) currentTreeNodes.elementAt(node2);
+        Node left = currentTreeNodes.get(node1);
+        Node right = currentTreeNodes.get(node2);
 
         Node newNode = new SimpleNode();
         newNode.setNodeHeight(newTime);
         newNode.addChild(left);
         newNode.addChild(right);
 
-        currentTreeNodes.removeElement(left);
-        currentTreeNodes.removeElement(right);
-        currentTreeNodes.addElement(newNode);
+        currentTreeNodes.remove(left);
+        currentTreeNodes.remove(right);
+        currentTreeNodes.add(newNode);
     }
 
     public Tree getTree() {

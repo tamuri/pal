@@ -19,8 +19,9 @@ import pal.statistics.FisherExact;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * This class calculates D' and r^2 estimates of linkage disequilibrium.  It also
@@ -47,7 +48,7 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
     protected Alignment theAlignment;
     protected AnnotationAlignment theAnnotationAlignment = null;
     boolean annotated = false;
-    Vector[] stateVector;
+    List<List<Character>> stateVector;
     boolean rapidPermute = true;
     int numberOfPermutations = 1000;
 
@@ -115,20 +116,20 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
      */
     byte[][] determineNumberOfStates() {
         System.out.println("States starting to be loaded into S");
-        stateVector = new Vector[theAlignment.getSiteCount()];
+        stateVector = new ArrayList<>(theAlignment.getSiteCount());
         byte[][] S = new byte[theAlignment.getSequenceCount()][theAlignment.getSiteCount()];
         char c;
         for (int i = 0; i < theAlignment.getSiteCount(); i++) {
-            stateVector[i] = new Vector();
+            stateVector.add(i, new ArrayList<>());
             for (int j = 0; j < theAlignment.getSequenceCount(); j++) {
                 c = theAlignment.getData(j, i);
                 if ((c == Alignment.GAP) || (c == DataType.UNKNOWN_CHARACTER)) {
                     S[j][i] = -99;
-                } else if (!stateVector[i].contains(new Character(c))) {
-                    stateVector[i].add(new Character(c));
-                    S[j][i] = (byte) stateVector[i].indexOf(new Character(c));
+                } else if (!stateVector.get(i).contains(new Character(c))) {
+                    stateVector.get(i).add(c);
+                    S[j][i] = (byte) stateVector.get(i).indexOf(c);
                 } else {
-                    S[j][i] = (byte) stateVector[i].indexOf(new Character(c));
+                    S[j][i] = (byte) stateVector.get(i).indexOf(c);
                 }
             }
         }
@@ -150,13 +151,13 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
 
         for (int r = 0; r < theAlignment.getSiteCount(); r++) {
             currentProgress = 100 * r * r / (theAlignment.getSiteCount() * theAlignment.getSiteCount());
-            rows = stateVector[r].size();
+            rows = stateVector.get(r).size();
 //       System.out.println("r="+rows);
             pDiseq[r][r] = 0.0;
             diseq[r][r] = 1.0;
 //       System.out.println(r+"'s states="+rows);
             for (int c = 0; c < r; c++) {
-                cols = stateVector[c].size();
+                cols = stateVector.get(c).size();
                 contig = new int[rows][cols];
                 n = 0;
                 for (int sample = 0; sample < theAlignment.getSequenceCount(); sample++) {//rChar=theAlignment.getData(sample,r);
@@ -377,9 +378,9 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
                 for (int c = 0; c <= r; c++) {
                     String cState = getStatesForPrint(c);
                     out.print(theAnnotationAlignment.getLocusName(r) + "\t" + theAnnotationAlignment.getChromosome(r) + "\t" + theAnnotationAlignment.getChromosomePosition(r) + "\t");
-                    out.print(theAnnotationAlignment.getLocusPosition(r) + "\t" + stateVector[r].size() + "\t" + rState + "\t" + "NotDone" + "\t");
+                    out.print(theAnnotationAlignment.getLocusPosition(r) + "\t" + stateVector.get(r).size() + "\t" + rState + "\t" + "NotDone" + "\t");
                     out.print(theAnnotationAlignment.getLocusName(c) + "\t" + theAnnotationAlignment.getChromosome(c) + "\t" + theAnnotationAlignment.getChromosomePosition(c) + "\t");
-                    out.print(theAnnotationAlignment.getLocusPosition(c) + "\t" + stateVector[c].size() + "\t" + cState + "\t" + "NotDone" + "\t");
+                    out.print(theAnnotationAlignment.getLocusPosition(c) + "\t" + stateVector.get(c).size() + "\t" + cState + "\t" + "NotDone" + "\t");
                     out.print(ld.getRSqr(r, c) + "\t" + ld.getDPrime(r, c) + "\t" + ld.getP(r, c) + "\t" + ld.getN(r, c));
                     out.println();
                 }
@@ -394,8 +395,8 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
                 String rState = getStatesForPrint(r);
                 for (int c = 0; c <= r; c++) {
                     String cState = getStatesForPrint(c);
-                    out.print(r + "\t" + stateVector[r].size() + "\t" + rState + "\t" + "NotDone" + "\t");
-                    out.print(c + "\t" + stateVector[c].size() + "\t" + cState + "\t" + "NotDone" + "\t");
+                    out.print(r + "\t" + stateVector.get(r).size() + "\t" + rState + "\t" + "NotDone" + "\t");
+                    out.print(c + "\t" + stateVector.get(c).size() + "\t" + cState + "\t" + "NotDone" + "\t");
                     out.print(ld.getRSqr(r, c) + "\t" + ld.getDPrime(r, c) + "\t" + ld.getP(r, c) + "\t" + ld.getN(r, c));
                     out.println();
                 }
@@ -422,13 +423,13 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
             dt = theAlignment.getDataType();
         }
         if (dt.getDescription().equals("Numeric")) {
-            for (int i = 0; i < stateVector[site].size(); i++) {
-                C = (Character) stateVector[site].get(i);
-                s += dt.getState(C.charValue()) + " ";
+            for (int i = 0; i < stateVector.get(site).size(); i++) {
+                C = stateVector.get(site).get(i);
+                s += dt.getState(C) + " ";
             }
         } else {
-            for (int i = 0; i < stateVector[site].size(); i++) {
-                C = (Character) stateVector[site].get(i);
+            for (int i = 0; i < stateVector.get(site).size(); i++) {
+                C = stateVector.get(site).get(i);
                 s += C.toString() + " ";
             }
         }
@@ -481,7 +482,7 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
                 } else {
                     data[i][labelOffset++] = "" + r;
                 }
-                data[i][labelOffset++] = "" + stateVector[r].size();
+                data[i][labelOffset++] = "" + stateVector.get(r).size();
                 data[i][labelOffset++] = "" + rState;
                 data[i][labelOffset++] = "NotImplemented";
                 if (annotated) {
@@ -492,13 +493,13 @@ public class LinkageDisequilibrium extends Thread implements Serializable, Table
                 } else {
                     data[i][labelOffset++] = "" + c;
                 }
-                data[i][labelOffset++] = "" + stateVector[c].size();
+                data[i][labelOffset++] = "" + stateVector.get(c).size();
                 data[i][labelOffset++] = "" + cState;
                 data[i][labelOffset++] = "NotImplemented";
                 data[i][labelOffset++] = nf.format(getRSqr(r, c));
                 data[i][labelOffset++] = nf.format(getDPrime(r, c));
                 data[i][labelOffset++] = nf.format(getP(r, c));
-                data[i][labelOffset++] = "" + getN(r, c);
+                data[i][labelOffset] = "" + getN(r, c);
                 i++;
             }
             //System.out.println("r="+r);
