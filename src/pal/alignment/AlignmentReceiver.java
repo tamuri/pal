@@ -15,38 +15,40 @@ package pal.alignment;
  */
 import java.util.*;
 public interface AlignmentReceiver {
-	public void newAlignment(Alignment a);
+    void newAlignment(Alignment a);
 
-	/**
-	 * The SingleReceiver only keeps track of one alignment, the last one it received
-	 */
-	public static final class SingleReceiver implements AlignmentReceiver {
-		private Alignment lastReceivedAlignment_ = null;
-		public void newAlignment(Alignment a) {
-			this.lastReceivedAlignment_ = a;
-		}
-		/**
-		 * @return last received alignment, or null if no alignments have been received
-		 */
-		public Alignment getLastReceivedAlignment() { return lastReceivedAlignment_; }
-	}
-	/**
-	 * The SingleReceiver only keeps track of one alignment, the last one it received
-	 */
-	public static final class BucketReceiver implements AlignmentReceiver {
-		private List<Alignment> receivedAlignments_ = new ArrayList<>();
-		public void newAlignment(Alignment a) {
-			receivedAlignments_.add(a);
-		}
-		public void clear() { receivedAlignments_.clear(); }
-		/**
-		 * @return last received alignment, or null if no alignments have been received
-		 */
-		public Alignment[] getReceivedAlignments() {
-			Alignment[] as = new Alignment[receivedAlignments_.size()];
-			receivedAlignments_.toArray(as);
-			return as;
-		}
-	}
+    /**
+     * The SingleReceiver only keeps track of one alignment, the last one it received
+     */
+    final class SingleReceiver implements AlignmentReceiver {
+        private Alignment lastReceivedAlignment_ = null;
+        public void newAlignment(Alignment a) {
+            this.lastReceivedAlignment_ = a;
+        }
+        /**
+         * @return last received alignment, or null if no alignments have been received
+         */
+        public Alignment getLastReceivedAlignment() { return lastReceivedAlignment_; }
+    }
+
+    /**
+     * The SingleReceiver only keeps track of one alignment, the last one it received
+     */
+    final class BucketReceiver implements AlignmentReceiver {
+        private List<Alignment> receivedAlignments_ = new ArrayList<>();
+        public void newAlignment(Alignment a) {
+            receivedAlignments_.add(a);
+        }
+        public void clear() { receivedAlignments_.clear(); }
+
+        /**
+         * @return last received alignment, or null if no alignments have been received
+         */
+        public Alignment[] getReceivedAlignments() {
+            Alignment[] as = new Alignment[receivedAlignments_.size()];
+            receivedAlignments_.toArray(as);
+            return as;
+        }
+    }
 
 }

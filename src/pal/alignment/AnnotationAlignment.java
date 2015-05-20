@@ -25,27 +25,27 @@ import pal.misc.*;
  */
 public interface AnnotationAlignment extends Alignment, Report {
 
-   /** Return the position along chromosome */
-   float getChromosomePosition(int site);
+    /** Return the position along chromosome */
+    float getChromosomePosition(int site);
 
-   /** Returns chromosome */
-   int getChromosome(int site);
+    /** Returns chromosome */
+    int getChromosome(int site);
 
-   /** Return the weighted position along the locus (handles gaps) */
-   float getWeightedLocusPosition(int site);
+    /** Return the weighted position along the locus (handles gaps) */
+    float getWeightedLocusPosition(int site);
 
-   /** Return the position along the locus (ignores gaps) */
-   int getLocusPosition(int site);
+    /** Return the position along the locus (ignores gaps) */
+    int getLocusPosition(int site);
 
-   /** Returns position type (eg.  I=intron, E=exon, P=promoter, 1=first, 2=second, 3=third, etc.*/
-   char getPositionType(int site);
+    /** Returns position type (eg.  I=intron, E=exon, P=promoter, 1=first, 2=second, 3=third, etc.*/
+    char getPositionType(int site);
 
-   /** Returns the name of the locus */
-   String getLocusName(int site);
+    /** Returns the name of the locus */
+    String getLocusName(int site);
 
     /** Returns the datatype for a specific site, which could differ by site in complex alignments */
-   DataType getDataType(int site);
+    DataType getDataType(int site);
 
-   /** Returns a report for the alignment */
-   void report(PrintWriter out);
+    /** Returns a report for the alignment */
+    void report(PrintWriter out);
 }

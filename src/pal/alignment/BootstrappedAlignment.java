@@ -18,58 +18,55 @@ import pal.math.*;
  *
  * @author Korbinian Strimmer
  */
-public class BootstrappedAlignment extends AbstractAlignment
-{
-	//
-	// Public stuff
-	//
+public class BootstrappedAlignment extends AbstractAlignment {
+    //
+    // Public stuff
+    //
 
-	/**
-	 * Constructor
-	 *
-	 * @param raw original alignment
-	 */
-	public BootstrappedAlignment(Alignment raw)
-	{
-		rawAlignment = raw;
+    /**
+     * Constructor
+     *
+     * @param raw original alignment
+     */
+    public BootstrappedAlignment(Alignment raw) {
+        rawAlignment = raw;
 
-		numSeqs = raw.getSequenceCount();
-		idGroup = raw;
-		numSites = raw.getSiteCount();
-		setDataType(raw.getDataType());
+        numSeqs = raw.getSequenceCount();
+        idGroup = raw;
+        numSites = raw.getSiteCount();
+        setDataType(raw.getDataType());
 
-		alias = new int[numSites];
-		urn = new UrnModel(numSites);
+        alias = new int[numSites];
+        urn = new UrnModel(numSites);
 
-		bootstrap();
-	}
+        bootstrap();
+    }
 
-	// Implementation of abstract Alignment method
+    // Implementation of abstract Alignment method
 
-	/** sequence alignment at (sequence, site) */
-	public char getData(int seq, int site)
-	{
-		return rawAlignment.getData(seq, alias[site]);
-	}
+    /** sequence alignment at (sequence, site) */
+    public char getData(int seq, int site)
+    {
+        return rawAlignment.getData(seq, alias[site]);
+    }
 
 
-	/** bootstrap alignment */
-	public void bootstrap()
-	{
-		for (int i = 0; i < numSites; i++)
-		{
-			alias[i] = urn.drawPutBack();
-		}
-	}
+    /** bootstrap alignment */
+    public void bootstrap() {
+        for (int i = 0; i < numSites; i++)
+        {
+            alias[i] = urn.drawPutBack();
+        }
+    }
 
 
-	//
-	// Private stuff
-	//
+    //
+    // Private stuff
+    //
 
-	private UrnModel urn;
-	private Alignment rawAlignment;
-	private int[] alias;
+    private UrnModel urn;
+    private Alignment rawAlignment;
+    private int[] alias;
 
 
 }
