@@ -21,11 +21,12 @@ package pal.gui;
 import pal.misc.Identifier;
 
 import java.awt.*;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class NameColouriser implements java.io.Serializable {
 
-    private final Hashtable displayMappings_ = new Hashtable();
+    private final Map<String, LabelDisplayer> displayMappings_ = new HashMap<>();
 
     public NameColouriser() {
     }
@@ -77,7 +78,7 @@ public final class NameColouriser implements java.io.Serializable {
         if (name == null || !displayMappings_.containsKey(name)) {
             return defaultDisplay;
         }
-        return (LabelDisplayer) displayMappings_.get(name);
+        return displayMappings_.get(name);
     }
 
     public LabelDisplayer getDisplay(Identifier id, LabelDisplayer defaultDisplay) {

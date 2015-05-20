@@ -18,10 +18,11 @@ package pal.gui;
 import pal.misc.Identifier;
 
 import java.awt.*;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LayoutTracker {
-    Hashtable layoutMappings_ = new Hashtable();
+    Map<String, Rectangle> layoutMappings_ = new HashMap<>();
 
     public LayoutTracker() {
     }
@@ -40,7 +41,7 @@ public class LayoutTracker {
         if (name == null || !layoutMappings_.containsKey(name)) {
             return null;
         }
-        return (Rectangle) layoutMappings_.get(name);
+        return layoutMappings_.get(name);
     }
 
     public Rectangle getBounds(Identifier id) {
