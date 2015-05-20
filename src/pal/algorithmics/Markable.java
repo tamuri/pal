@@ -15,6 +15,6 @@ package pal.algorithmics;
  */
 
 public interface Markable {
-	public void mark();
-	public void undoToMark();
+	void mark();
+	void undoToMark();
 }
