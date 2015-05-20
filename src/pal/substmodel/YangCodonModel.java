@@ -711,11 +711,11 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
             check();
             StringBuilder sb = new StringBuilder();
             sb.append("Simple Positive Selection Model [1]\n");
-            sb.append("p0 = " + probabilities_[0] + "\n");
-            sb.append("p1 = " + probabilities_[1] + "\n");
-            sb.append("p2 = " + probabilities_[2] + "\n");
-            sb.append("Free Omega = " + freeOmega_ + "\n");
-            sb.append("Kappa = " + kappa_ + "\n");
+            sb.append("p0 = ").append(probabilities_[0]).append("\n");
+            sb.append("p1 = ").append(probabilities_[1]).append("\n");
+            sb.append("p2 = ").append(probabilities_[2]).append("\n");
+            sb.append("Free Omega = ").append(freeOmega_).append("\n");
+            sb.append("Kappa = ").append(kappa_).append("\n");
             sb.append(
                     "\n[1] Nielsen, R., Yang Z., 1998  Likelihood Models for Detecting Positively Selected " +
                             "Amino Acid Sites and Applications to the HIV-1 Envelope Gene. Genetics 148: 929-936."
@@ -917,9 +917,9 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
             check();
             StringBuilder sb = new StringBuilder();
             sb.append("Simple Neutral Model [1]\n");
-            sb.append("p0 = " + probabilities_[0] + "\n");
-            sb.append("p1 = " + probabilities_[1] + "\n");
-            sb.append("Kappa = " + kappa_ + "\n");
+            sb.append("p0 = ").append(probabilities_[0]).append("\n");
+            sb.append("p1 = ").append(probabilities_[1]).append("\n");
+            sb.append("Kappa = ").append(kappa_).append("\n");
             sb.append(
                     "\n[1] Nielsen, R., Yang Z., 1998  Likelihood Models for Detecting Positively Selected " +
                             "Amino Acid Sites and Applications to the HIV-1 Envelope Gene. Genetics 148: 929-936."
