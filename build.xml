@@ -1,32 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
 <!-- PAL ant file by Bruno Afonso <brunomiguel@dequim.ist.utl.pt>, 2003 -->
 <project name="PAL" default="dist" basedir=".">
 
-	<description>
-		PAL: Phylogenetic Analysis Library
-		The PAL project (http://www.cebl.auckland.ac.nz/pal-project) is a collaborative effort dedicated to
-		provide a high quality Java library for use in molecular evolution and phylogenetics.
-		This package may be distributed under the terms of the GNU Lesser General Public License
-		Copyright (c) 1999-2002 PAL Development Core Team.
-	</description>
+    <description>
+        PAL: Phylogenetic Analysis Library
+        The PAL project (http://www.cebl.auckland.ac.nz/pal-project) is a collaborative effort dedicated to
+        provide a high quality Java library for use in molecular evolution and phylogenetics.
+        This package may be distributed under the terms of the GNU Lesser General Public License
+        Copyright (c) 1999-2002 PAL Development Core Team.
+    </description>
 
-	<!-- set global properties for this build -->
-	<property name="src" location="src/pal"/>
-	<property name="build" location="build"/>
-	<property name="dist"  location="dist"/>
-	<!-- We insert our version here :-) -->
-	<property name="version" value="tamuri"/>
+    <!-- set global properties for this build -->
+    <property name="src" location="src/pal"/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <!-- We insert our version here :-) -->
+    <property name="version" value="tamuri"/>
     <!-- target jvm 1.6 
     <property name="ant.build.javac.source" value="1.6"/>
     <property name="ant.build.javac.target" value="1.6"/>
     -->
 
-	<target name="init">
-		<!-- Create the build directory structure used by compile -->
-		<mkdir dir="${build}"/>
-	</target>
+    <target name="init">
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
 
-	<target name="compile" depends="init" description="compile the source">
-		<!-- Compile the java code from ${src} into ${build} -->
+    <target name="compile" depends="init" description="compile the source">
+        <!-- Compile the java code from ${src} into ${build} -->
         <!-- for jvm 1.6: <javac srcdir="${src}" destdir="${build}" includeantruntime="false" bootclasspath="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Classes/classes.jar" /> -->
         <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
             <!-- warnings:
@@ -34,35 +37,35 @@
             <compilerarg value="-Xlint:unchecked" />
             -->
         </javac>
-	</target>
+    </target>
 
-	<target name="dist" depends="compile" description="generate the distribution">
-		<!-- Create the distribution directory -->
-		<mkdir dir="${dist}/lib"/>
-		<tstamp>
-			<format property="timenow" pattern="yyMMddHHmm" />
-		</tstamp>
-		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${dist}/lib/pal-${version}-${timenow}.jar" basedir="${build}"/>
-	</target>
+    <target name="dist" depends="compile" description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib"/>
+        <tstamp>
+            <format property="timenow" pattern="yyMMddHHmm" />
+        </tstamp>
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/pal-${version}-${timenow}.jar" basedir="${build}"/>
+    </target>
 
-	<target name="doc" description="make docs" >
+    <target name="doc" description="make docs" >
         <javadoc sourcepath="${src}"
-				 packagenames="pal.*"
-				 destdir="${dist}/doc/api"
-				 author="true"
-				 version="true"
-				 use="true">
-                 <fileset dir="${src}" />
-		</javadoc>
-	</target>
+                 packagenames="pal.*"
+                 destdir="${dist}/doc/api"
+                 author="true"
+                 version="true"
+                 use="true">
+            <fileset dir="${src}" />
+        </javadoc>
+    </target>
 
-	<target name="clean"
-			description="clean up" >
-		<!-- Delete the ${build} and ${dist} directory trees -->
-		<delete dir="${build}"/>
-		<delete dir="${dist}"/>
-	</target>
+    <target name="clean"
+            description="clean up" >
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
 
 </project>
 
