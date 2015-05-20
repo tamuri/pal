@@ -334,7 +334,6 @@ public class CoalescentIntervals implements Units, Report, Serializable {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
-            System.out.println(e);
             System.out.println(this);
         }
         return total;
