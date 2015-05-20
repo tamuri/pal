@@ -482,9 +482,7 @@ public class SimpleNode implements AttributeNode {
 
         Node[] newChild = new Node[numChildren + 1];
 
-        for (int i = 0; i < pos; i++) {
-            newChild[i] = child[i];
-        }
+        System.arraycopy(child, 0, newChild, 0, pos);
         newChild[pos] = n;
         for (int i = pos; i < numChildren; i++) {
             newChild[i + 1] = child[i];

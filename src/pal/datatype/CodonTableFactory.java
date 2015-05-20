@@ -250,9 +250,7 @@ class UniversalTranslator implements CodonTable {
     private void addTerminalIndex(int index) {
         int[] ts = new int[terminatorIndexes_.length + 1];
 
-        for (int i = 0; i < terminatorIndexes_.length; i++) {
-            ts[i] = terminatorIndexes_[i];
-        }
+        System.arraycopy(terminatorIndexes_, 0, ts, 0, terminatorIndexes_.length);
         ts[ts.length - 1] = index;
         terminatorIndexes_ = ts;
     }

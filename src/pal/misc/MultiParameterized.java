@@ -119,7 +119,7 @@ public class MultiParameterized implements Parameterized {
         StringBuilder sb = new StringBuilder();
         sb.append("Multi\n");
         for (int i = 0; i < bases_.length; i++) {
-            sb.append(i + ":" + bases_[i] + "\n");
+            sb.append(i).append(":").append(bases_[i]).append("\n");
         }
         return sb.toString();
     }

@@ -85,6 +85,7 @@ public final class Matrix {
         double[][] otherData = other.data_;
         double[][] newData = new double[height_][width_ + other.width_];
         for (int y = 0; y < height_; y++) {
+
             for (int x = 0; x < width_; x++) {
                 newData[y][x] = data_[y][x];
             }

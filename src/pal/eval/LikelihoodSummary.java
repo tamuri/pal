@@ -127,18 +127,18 @@ public class LikelihoodSummary implements java.io.Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Likelihood Summary\n\n");
-        sb.append("Data Type:" + dataType_ + "\n");
-        sb.append("Overall Log Likelihood:" + overallLogLikelihood_ + "\n");
-        sb.append("Number of sites:" + sitePatternMatchup_.length + "\n\n");
+        sb.append("Data Type:").append(dataType_).append("\n");
+        sb.append("Overall Log Likelihood:").append(overallLogLikelihood_).append("\n");
+        sb.append("Number of sites:").append(sitePatternMatchup_.length).append("\n\n");
 
         for (int i = 0; i < sitePatternMatchup_.length; i++) {
             double[] sitePosteriors = generateSitePosteriors(i);
             int[] ranking = generateCategoryRanking(i);
-            sb.append("Site:" + i);
-            sb.append(' ');
+            sb.append("Site:").append(i);
+            sb.append(" ");
             sb.append(Utils.toString(ranking));
             sb.append("\n");
-            sb.append(" posteriors:" + Utils.toString(sitePosteriors));
+            sb.append(" posteriors:").append(Utils.toString(sitePosteriors));
             sb.append("\n");
         }
         return sb.toString();

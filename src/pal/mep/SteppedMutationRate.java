@@ -388,9 +388,7 @@ public class SteppedMutationRate extends MutationRateModel implements Report, Su
 
     public double[] getMus() {
         double[] newMus = new double[mus.length];
-        for (int i = 0; i < newMus.length; i++) {
-            newMus[i] = mus[i];
-        }
+        System.arraycopy(mus, 0, newMus, 0, newMus.length);
         return newMus;
     }
 
