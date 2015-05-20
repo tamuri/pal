@@ -256,7 +256,7 @@ public class FormattedInput implements Serializable {
             throw new IOException("End of file/stream");
         }
 
-        return Double.valueOf(w).doubleValue();
+        return Double.valueOf(w);
     }
 
 
@@ -286,7 +286,7 @@ public class FormattedInput implements Serializable {
             throw new IOException("End of file/stream");
         }
 
-        return Integer.valueOf(w).intValue();
+        return Integer.valueOf(w);
     }
 
 

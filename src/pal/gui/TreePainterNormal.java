@@ -155,19 +155,24 @@ public class TreePainterNormal extends TreePainter {
             g.drawString(label, x, p.y - halfWidth - 1);
         }
 
-        Object att = null;
+        Object att;
         if (attName != null) {
-            if (attName.equals("node height")) {
-                att = new Double(node.getNodeHeight());
-            } else if (attName.equals("branch length")) {
-                att = new Double(node.getBranchLength());
-            } else {
-                att = node.getAttribute(attName);
+            switch (attName) {
+                case "node height":
+                    att = node.getNodeHeight();
+                    break;
+                case "branch length":
+                    att = node.getBranchLength();
+                    break;
+                default:
+                    att = node.getAttribute(attName);
+                    break;
             }
+            
             if (att != null) {
-                String label = null;
+                String label;
                 if (att instanceof Double) {
-                    label = FormattedOutput.getInstance().getDecimalString(((Double) att).doubleValue(), 3);
+                    label = FormattedOutput.getInstance().getDecimalString((Double) att, 3);
                 } else label = att.toString();
 
                 int width = g.getFontMetrics().stringWidth(label);

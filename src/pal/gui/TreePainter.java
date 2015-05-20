@@ -137,7 +137,7 @@ abstract public class TreePainter implements Painter {
         if (o == null) {
             return -1;
         }
-        return ((Integer) o).intValue();
+        return (Integer) o;
     }
 
     /**
