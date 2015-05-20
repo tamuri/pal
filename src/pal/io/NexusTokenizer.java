@@ -737,7 +737,7 @@ public final class NexusTokenizer {
     /**
      * Utility method to alter case of a word
      *
-     * @param s Input <code>StringBuilder</code>
+     * @param sb Input <code>StringBuilder</code>
      * @return Modified s (lowercase, uppercase, or unmodified)
      */
     private synchronized StringBuilder modWord(StringBuilder sb) {
@@ -860,18 +860,7 @@ public final class NexusTokenizer {
      * @return True if <code>c</code> is a word character
      */
     private synchronized boolean isWordChar(char c) {
-        if (isPunctuation(c)) {
-            return false;
-        }
-        if (isWhiteSpace(c)) {
-            return false;
-        }
-        if (isNewLine(c)) {
-            return false;
-        }
-
-        return true;
+        return !isPunctuation(c) && !isWhiteSpace(c) && !isNewLine(c);
     }
-
 }
 

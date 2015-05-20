@@ -364,11 +364,8 @@ public class MatrixExponential implements Cloneable, java.io.Serializable {
                     }
                 }
                 for (k = m; k <= na; k++) {
-                    if (k == na) {
-                        notLast = false;
-                    } else {
-                        notLast = true;
-                    }
+                    notLast = k != na;
+
                     if (k != m) {
                         p = h[k - 1][k - 2];
                         q = h[k][k - 2];

@@ -306,10 +306,6 @@ public class FormattedInput implements Serializable {
     }
 
     private static boolean isNewlineCR(int c) {
-        if (c == '\n' || c == 'r') {
-            return true;
-        } else {
-            return false;
-        }
+        return c == '\n' || c == 'r';
     }
 }

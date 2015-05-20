@@ -245,11 +245,7 @@ public class CoalescentIntervals implements Units, Report, Serializable {
             throw new IllegalArgumentException("Array length incompatible");
 
         for (int i = 0; i < intervals.length; i++) {
-            if (intervals[i] > minSize) {
-                smallInterval[i] = false;
-            } else {
-                smallInterval[i] = true;
-            }
+            smallInterval[i] = intervals[i] <= minSize;
         }
     }
 
