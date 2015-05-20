@@ -62,8 +62,6 @@ public class DemographicValue implements MultivariateFunction {
 
     /**
      * define coalescent tree.
-     *
-     * @param t tree
      */
     public void setCoalescentIntervals(CoalescentIntervals ci) {
         intervals = ci;

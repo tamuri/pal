@@ -60,7 +60,6 @@ public class SplitUtils {
      *
      * @param idGroup      order of labels
      * @param internalNode Node
-     * @param boolean[]    split
      */
     public static void getSplit(IdGroup idGroup, Node internalNode, boolean[] split) {
         if (internalNode.isLeaf() || internalNode.isRoot()) {

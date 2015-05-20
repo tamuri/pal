@@ -108,16 +108,15 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
         /**
          * Calculate the likelihood given a non root node
          * @param nodeHeight the height of node doing the likelihood calculation
-         * @param centerPatter assumed left is ascendent component, right is descendent
-         * @param ascendentConditionalProbabilities Assumed to be extended (downwards) to the nodeHeight
-         * @param descendentConditionalProbabilities Assumed to be extended (upwards) to the nodeHeight
+         * @param centerPattern assumed left is ascendent component, right is descendent
+         * @param ascendentConditionalProbabilitiesStore Assumed to be extended (downwards) to the nodeHeight
+         * @param descendentConditionalProbabilitiesStore Assumed to be extended (upwards) to the nodeHeight
          * @return the Log likelihood
          */
-        public double calculateLogLikelihoodNonRoot(
-                double nodeHeight, PatternInfo centerPattern,
-                ConditionalProbabilityStore ascendentConditionalProbabilitiesStore,
-                ConditionalProbabilityStore descendentConditionalProbabilitiesStore
-        ) {
+        public double calculateLogLikelihoodNonRoot (double nodeHeight,
+                                                     PatternInfo centerPattern,
+                                                     ConditionalProbabilityStore ascendentConditionalProbabilitiesStore,
+                                                     ConditionalProbabilityStore descendentConditionalProbabilitiesStore) {
             model_.setup(nodeHeight, heightConverter_, false);
             return base_.calculateLogLikelihood(model_, centerPattern, ascendentConditionalProbabilitiesStore, descendentConditionalProbabilitiesStore);
         }
@@ -125,8 +124,8 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
         /**
          * Calculate the likelihood given two sub trees (left, right) and their extended likeihood probabilities
          * @param rootHeight the height of the likelihood calculation
-         * @param leftConditionalProbabilities Assumed to be extended to the rootHeight
-         * @param rightConditionalProbabilities Assumed to be extended to the rootHeight
+         * @param leftConditionalProbabilitiesStore Assumed to be extended to the rootHeight
+         * @param rightConditionalProbabilitiesStore Assumed to be extended to the rootHeight
          * @return the Log likelihood
          */
         public double calculateLogLikelihood(double rootHeight, PatternInfo centerPattern,

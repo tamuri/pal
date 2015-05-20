@@ -68,9 +68,6 @@ public interface RootedTreeInterface {
     final class Utils {
         /**
          * Recursively build tree
-         *
-         * @param palNode
-         * @param displayNode
          */
         private static void create(Node palNode, RNode rNode) {
 
@@ -91,9 +88,6 @@ public interface RootedTreeInterface {
 
         /**
          * Build a tree display based on a normal pal node.
-         *
-         * @param root
-         * @param display
          */
         public static final void instruct(Node palRoot, RootedTreeInterface treeInterface) {
             create(palRoot, treeInterface.createRoot());

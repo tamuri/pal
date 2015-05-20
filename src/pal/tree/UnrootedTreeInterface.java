@@ -86,7 +86,6 @@ public interface UnrootedTreeInterface {
          * Recursively build tree
          *
          * @param palNode
-         * @param displayNode
          */
         private static void create(Node palNode, UNode uNode) {
 
@@ -109,7 +108,6 @@ public interface UnrootedTreeInterface {
          * Build a tree display based on a normal pal node.
          *
          * @param root
-         * @param display
          */
         public static final void instruct(Node root, UnrootedTreeInterface treeInterface) {
             if (root.getChildCount() != 2) {

@@ -240,9 +240,6 @@ public class SimpleLHCalculator implements LHCalculator {
         }
 
         /**
-         *
-         * @param patternLookup
-         * @param numberOfPatterns
          * @param leftConditionalProbabilityProbabilties
          * @param rightConditionalProbabilityProbabilties
          * @param resultStore Where to stick the created categoryPatternState information
@@ -414,8 +411,8 @@ public class SimpleLHCalculator implements LHCalculator {
         /**
          * Calculate the likelihood given the conditional probabilites at the root
          * @param model The substitution model used
-         * @param centerPattern the pattern information
-         * @param conditionalProbabilities The conditionals
+         * @param patternWeights the pattern information
+         * @param conditionalProbabilityStore The conditionals
          * @return the Log likelihood
          */
         public double calculateLogLikelihoodSingle(SubstitutionModel model, int[] patternWeights, int numberOfPatterns,

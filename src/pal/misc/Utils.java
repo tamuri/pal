@@ -330,8 +330,6 @@ public class Utils {
      * A simple toString method for an array of objects.
      * No fancy formating.
      * Puts user defined string between each value
-     *
-     * @param number number of elements to process starting from first element
      */
     public static final String toString(Object[] array, String divider) {
         return toString(array, divider, array.length);
@@ -418,7 +416,6 @@ public class Utils {
     }
 
     /**
-     * @see getArgmax()
      * @deprecated
      */
     public static final int argmax(int[] array) {

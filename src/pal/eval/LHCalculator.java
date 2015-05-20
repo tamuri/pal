@@ -120,7 +120,7 @@ public interface LHCalculator {
          * @param model The substitution model used
          * @param patternWeights the weights of each pattern
          * @param numberOfPatterns the number of patterns
-         * @param conditionalProbabilities The conditionals
+         * @param conditionalProbabilityStore The conditionals
          * @return the Log likelihood
          */
         double calculateLogLikelihoodSingle(SubstitutionModel model, int[] patternWeights, int numberOfPatterns,
@@ -131,9 +131,8 @@ public interface LHCalculator {
          * Calculate the conditional probabilities of each pattern for each category
          * @param model
          * @param centerPattern the pattern information
-         * @param leftConditionalProbabilities
-         * @param rightConditionalProbabilities
-         * @param categoryPatternLogLikelihoodStore after call will hold a matrix of values in the form [cat][pattern], where [cat][pattern] represents the site probability under a particular category/class, *not* multiplied by the category probability or pattern weights
+         * @param leftConditionalProbabilitiesStore
+         * @param rightConditionalProbabilitiesStore
          */
         SiteDetails calculateSiteDetailsRooted(SubstitutionModel model,
                                                       PatternInfo centerPattern,
@@ -146,9 +145,8 @@ public interface LHCalculator {
          * @param distance The distance between the two nodes
          * @param model
          * @param centerPattern the pattern information
-         * @param leftConditionalProbabilities
-         * @param rightConditionalProbabilities
-         * @param categoryPatternLogLikelihoodStore after call will hold a matrix of values in the form [cat][pattern], where [cat][pattern] represents the site probability under a particular category/class, *not* multiplied by the category probability or pattern weights
+         * @param leftConditionalProbabilitiesStore
+         * @param rightConditionalProbabilitiesStore
          */
         SiteDetails calculateSiteDetailsUnrooted(double distance, SubstitutionModel model,
                                                         PatternInfo centerPattern,
@@ -256,7 +254,7 @@ public interface LHCalculator {
          * @throws IllegalArgumentException Generator does not allow being a subserviant generator
          * @return
          */
-        Internal createNewInternal(Generator patentGenerator) throws IllegalArgumentException;
+        Internal createNewInternal(Generator parentGenerator) throws IllegalArgumentException;
 
         ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
 

@@ -32,8 +32,6 @@ public class TreeRestricter {
     }
 
     /**
-     * @param root The root of the tree
-     * @param units the units of the tree
      * @param names the names of the nodes to either exclude, or include
      * @param inclusion if true the names supplied mark leaves to include, else mark leaves to exclude
      */

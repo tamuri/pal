@@ -100,7 +100,7 @@ public class Identifier implements Serializable,
     /**
      * Translates an array of identifiers into an array of strings, with optional removal of particular identifier
      *
-     * @param toIgnoreIndex the index of an idetifier to ignore, if <0 no element is ignored
+     * @param toIgnore the index of an idetifier to ignore, if <0 no element is ignored
      */
     public final static String[] getNames(Identifier[] ids, int toIgnore) {
         if (toIgnore < 0 || toIgnore >= ids.length) {
@@ -153,7 +153,7 @@ public class Identifier implements Serializable,
     /**
      * Translates an IDgroup into an array of strings, with optional removal of particular identifier
      *
-     * @param toIgnoreIndex the index of an idetifier to ignore, if <0 no element is ignored
+     * @param toIgnore the index of an idetifier to ignore, if <0 no element is ignored
      */
     public final static String[] getNames(IdGroup ids, int toIgnore) {
         if (toIgnore < 0 || toIgnore >= ids.getIdCount()) {

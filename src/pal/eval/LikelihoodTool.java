@@ -46,7 +46,7 @@ public final class LikelihoodTool {
      * @param model The substitution model to use (is changed if optimisation of the model is choosen)
      * @param optimiseModel if true the model is also optimised, otherwise just the tree
      * @return The optimised tree
-     * @see pal.treesearch.optimiseUnrootedFixed() for an equivalient, but potentially faster method.
+     * @see {@link pal.treesearch.TreeSearchTool#optimiseUnrootedFixed(Tree, Alignment, SubstitutionModel, boolean)} for an equivalient, but potentially faster method.
      * @note If the alignment uses IUPACNucleotides and the model uses Nucleotides see getMatchingDataType()
      */
     public final static Tree optimiseUnrooted(Tree tree, Alignment alignment, SubstitutionModel model, boolean optimiseModel) {

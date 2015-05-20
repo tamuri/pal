@@ -17,8 +17,6 @@ package pal.math;
 public interface UnivariateFunction {
     /**
      * compute function value
-     *
-     * @param function argument
      * @return function value
      */
     double evaluate(double argument);

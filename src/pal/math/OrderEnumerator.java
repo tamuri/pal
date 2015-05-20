@@ -72,7 +72,7 @@ public interface OrderEnumerator {
 
         /**
          * @param primary  The primary OrderEnumerator, one index is taken from this enumertor than an entire sequence of the secondary is taken
-         * @param secondar The primary OrderEnumerator, the entire sequence of a secondary enumerator is taken for every single index from the primary enumerator
+         * @param secondary The primary OrderEnumerator, the entire sequence of a secondary enumerator is taken for every single index from the primary enumerator
          * @return an OrderEnumerator object that combines two sub enumerators
          */
         public static final OrderEnumerator getBiasAlternating(OrderEnumerator primary, OrderEnumerator secondary) {
@@ -81,7 +81,7 @@ public interface OrderEnumerator {
 
         /**
          * @param primary  The primary OrderEnumerator
-         * @param secondar The primary OrderEnumerator
+         * @param secondary The primary OrderEnumerator
          * @return an OrderEnumerator object that combines two sub enumerators, by alternating between outputs
          */
         public static final OrderEnumerator getAlternating(OrderEnumerator primary, OrderEnumerator secondary) {
@@ -301,7 +301,7 @@ public interface OrderEnumerator {
             boolean hasMore_;
 
             /**
-             * @param adjusment amount - how much adjust a value by, should be positive
+             * @param toAdjust amount - how much adjust a value by, should be positive
              *                  (for example adjustment of 1 will mean when sub returns 5, this will return 6)
              */
             public Restricted(OrderEnumerator toAdjust, int minimum, int range) {
@@ -364,7 +364,7 @@ public interface OrderEnumerator {
             int adjustmentAmount_;
 
             /**
-             * @param adjusment amount - how much adjust a value by, should be positive
+             * @param adjustmentAmount amount - how much adjust a value by, should be positive
              *                  (for example adjustment of 1 will mean when sub returns 5, this will return 6)
              */
             public Adjust(OrderEnumerator toAdjust, int adjustmentAmount) {

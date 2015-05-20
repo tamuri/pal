@@ -106,7 +106,7 @@ public class Codons extends SimpleDataType implements MolecularDataType {
 //==========================================================
 
     /**
-     * @param residue states an array of states corresponding to states of <emph>this</emph> datatype
+     * @param residueStates states an array of states corresponding to states of <emph>this</emph> datatype
      * @return the corresponding IUPAC states
      */
     public int[] getNucleotideStates(int[] residueStates) {
@@ -247,7 +247,6 @@ public class Codons extends SimpleDataType implements MolecularDataType {
      * The codon index is a number between 0 and 64 assigned to each different codon type
      *
      * @param codon            a 3 element array of characters which contain Nucleotide states
-     * @param startingPosition an offset into the array to start examining
      * @return -1 if the codon has unknowns, or gaps in it, or is length is less than 3
      */
     public static final int getCodonIndexFromIUPACNucleotideStates(int[] codon) {
@@ -299,7 +298,7 @@ public class Codons extends SimpleDataType implements MolecularDataType {
     /**
      * Translates an index into a codon
      *
-     * @param index the codon index
+     * @param codonIndex the codon index
      * @return an int array contain 3 nucleotide states
      */
     public static final int[] getNucleotideStatesFromCodonIndex(int codonIndex) {

@@ -181,7 +181,7 @@ public class CladeSystem {
      *
      * @param idGroup      order of labels
      * @param internalNode Node
-     * @param boolean[]    clade
+     * @param clade    clade
      */
     public static void getClade(IdGroup idGroup, Node internalNode, boolean[] clade) {
         if (internalNode.isLeaf() || internalNode.isRoot()) {

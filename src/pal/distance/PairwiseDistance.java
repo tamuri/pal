@@ -123,8 +123,7 @@ public class PairwiseDistance implements java.io.Serializable {
 
     /**
      * update model of substitution
-     *
-     * @param model of substitution
+     * @param m model of substitution
      */
     public void updateModel(SubstitutionModel m) {
         if (of == null) {
@@ -139,8 +138,7 @@ public class PairwiseDistance implements java.io.Serializable {
 
     /**
      * update site pattern
-     *
-     * @param site pattern
+     * @param sp pattern
      */
     public void updateSitePattern(SitePattern sp) {
         sitePattern = sp;

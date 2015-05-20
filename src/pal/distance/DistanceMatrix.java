@@ -297,7 +297,7 @@ public class DistanceMatrix implements Serializable, IdGroup {
 
     /**
      * @param fromID    the thing (taxa,sequence) from which we want to find the closest (excluding self)
-     * @param exlcusion indexes of things that should not be considered, may be null
+     * @param exclusion indexes of things that should not be considered, may be null
      * @return the index of the thing closest to the specified
      * @note if fromID not a valid name then return -1
      */
@@ -332,7 +332,7 @@ public class DistanceMatrix implements Serializable, IdGroup {
 
     /**
      * @param fromIndex the index of the thing (taxa,sequence) from which we want to find the closest (excluding self)
-     * @param exlcusion indexes of things that should not be considered, may be null
+     * @param exclusion indexes of things that should not be considered, may be null
      * @return the index of the member closes to the specified
      */
     public int getClosestIndex(int fromIndex, int[] exclusion) {

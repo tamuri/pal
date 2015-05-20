@@ -370,7 +370,7 @@ public class IUPACNucleotides extends SimpleDataType implements MolecularDataTyp
     /**
      * Converts an IUPAC State array to either a A,T,G,C state (eg. if state represents either C or G, state becomes C - an arbitary choice is made to take "lowest" letter)
      *
-     * @param staringIndex amount to skip at beginning of input array
+     * @param startingIndex amount to skip at beginning of input array
      * @return new array containing only simple states (orignal is not altered)
      */
     public static final int[] getSimpleStates(int[] states, int startingIndex) {

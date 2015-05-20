@@ -119,7 +119,7 @@ public class NodeUtils {
      * <li>The third element is the second most maximum length path from root to leaf.</li>
      * <li>The forth element is the maximum length path from root to leaf.</li>
      * </ul>
-     * @see getMaxNodeDepth()
+     * @see #getMaxNodeDepth(Node)
      */
     public static final double[] getPathLengthInfo(Node root) {
         double[] lengthInfo = new double[]{Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY};
@@ -365,8 +365,7 @@ public class NodeUtils {
 
     /**
      * remove child
-     *
-     * @param node child node to be removed
+     * @param child child node to be removed
      */
     public static void removeChild(Node parent, Node child) {
         int rm = -1;

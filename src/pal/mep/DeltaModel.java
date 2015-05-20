@@ -70,8 +70,8 @@ public interface DeltaModel extends Serializable {
          * For serial sampled analysis when no time information is available.
          * @param initialDeltas, if not of required length (for given tocd) uses subset (or sets remainder to zero)
          */
-        public static final DeltaModel getUntimedBased(double[] initalDeltas) {
-            return new UntimedDeltaModel(initalDeltas);
+        public static final DeltaModel getUntimedBased(double[] initialDeltas) {
+            return new UntimedDeltaModel(initialDeltas);
         }
 
         public static final DeltaModel getDisjointBased(

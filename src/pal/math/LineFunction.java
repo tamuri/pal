@@ -16,8 +16,6 @@ public class LineFunction implements UnivariateFunction {
      * construct univariate function from multivariate function
      *
      * @param func  multivariate function
-     * @param start start point
-     * @param dir   direction vector
      */
     public LineFunction(MultivariateFunction func) {
         f = func;
@@ -143,7 +141,7 @@ public class LineFunction implements UnivariateFunction {
      *
      * @param p    coordinates of point
      * @param grad gradient at that point
-     * @param list of active variables (on return)
+     * @param active list of active variables (on return)
      * @return number of active variables
      */
     public int checkVariables(double[] p, double[] grad, boolean[] active) {
