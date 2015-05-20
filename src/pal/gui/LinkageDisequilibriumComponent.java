@@ -299,39 +299,39 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
 
     private Color getMagnitudeColor(int r, int c) {
         if (r == c) {
-            return theColor.getHSBColor(0.999f, (float) diseq[r][c], 1f);
+            return Color.getHSBColor(0.999f, (float) diseq[r][c], 1f);
         }
         if (diseq[r][c] > 0.999) {
-            return theColor.getHSBColor(1f, 1f, 1f);
+            return Color.getHSBColor(1f, 1f, 1f);
         }
         if (diseq[r][c] < -998.0) {
-            return theColor.lightGray;
+            return Color.lightGray;
         }
-        return theColor.getHSBColor((float) diseq[r][c], (float) diseq[r][c], 1f);
+        return Color.getHSBColor((float) diseq[r][c], (float) diseq[r][c], 1f);
     }
 
     private Color getProbabilityColor(int r, int c) {
         double p1 = 0.01, p2 = 0.001, p3 = 0.0001;
         if (diseq[r][c] < -998.0) {
-            return theColor.lightGray;
+            return Color.lightGray;
         }
         if (diseq[r][c] > p1) {
-            return theColor.white;
+            return Color.white;
         }
         if (diseq[r][c] > p2) {
-            return theColor.blue;
+            return Color.blue;
         }
         if (diseq[r][c] > p3) {
-            return theColor.green;
+            return Color.green;
         }
-        return theColor.red;
+        return Color.red;
     }
 
     private void addPolymorphismLabels(Graphics g, int ih) {
         int gr = 0;
         String s;
         g.setFont(new java.awt.Font("Dialog", 0, 9));
-        g.setColor(theColor.black);
+        g.setColor(Color.black);
         for (int r = 0; r < totalVariableSites; r++) {
             if (chromosomalScale) {
                 s = theAA.getChromosome(r) + "c" + Math.round(theAA.getChromosomePosition(r));
@@ -359,7 +359,7 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
             yPos[r] = (int) ((startPos[r] * ySize) + (float) voff);
             //xEndPos[r]=Math.round((endPos[r]*xSize)+hoff);
         }  //end of going through sites
-        xPos[totalVariableSites] = (int) d.width - h2off;
+        xPos[totalVariableSites] = d.width - h2off;
         yPos[totalVariableSites] = (int) ySize + voff;
         if (includeBlockSchematic) {
             for (int r = 0; r < totalVariableSites; r++) {
@@ -380,24 +380,24 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
         int hue;
         Dimension d = this.getSize();
         calculateCoordinates(g);
-        g.setColor(theColor.white);
+        g.setColor(Color.white);
         g.fillRect(0, 0, d.width, d.height);
         System.out.println("UpperProb=" + upperProb + "  LowerProb=" + lowerProb);
-        g.setColor(theColor.darkGray);
+        g.setColor(Color.darkGray);
         g.fillRect(xPos[0], yPos[0], xPos[totalVariableSites] - xPos[0], yPos[totalVariableSites] - yPos[0] + 2);
         for (int r = 0; r < totalVariableSites; r++) {
             for (int c = 0; c < totalVariableSites; c++) {
                 if (((c < r) && (upperProb)) || ((c > r) && (lowerProb))) {
                     g.setColor(getProbabilityColor(r, c));
                 } else if (r == c) {
-                    g.setColor(theColor.black);
+                    g.setColor(Color.black);
                 } else {
                     g.setColor(getMagnitudeColor(r, c));
                 }
                 g.fillRect(xPos[r], yPos[c], iw + 1, ih + 1);
             }
         }
-        g.setColor(theColor.darkGray);
+        g.setColor(Color.darkGray);
         for (int r = 0; r < totalVariableSites; r++) {
             g.drawLine(xPos[r], yPos[0], xPos[r], yPos[totalVariableSites]);
             g.drawLine(xPos[0], yPos[r], xPos[totalVariableSites], yPos[r]);
@@ -429,25 +429,25 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
         int barWidth = 10;
         if (prob) {
             yInc = (yEnd - yStart) / 4;
-            g.setColor(theColor.white);
+            g.setColor(Color.white);
             g.fillRect(xStart, currY, barWidth, yInc);
             g.setColor(Color.black);
             g.drawRect(xStart, currY, barWidth, yInc);
             g.drawString(">0.01", xStart + barWidth + 5, currY + 10);
             currY += yInc;
-            g.setColor(theColor.blue);
+            g.setColor(Color.blue);
             g.fillRect(xStart, currY, barWidth, yInc);
             g.setColor(Color.black);
             g.drawRect(xStart, currY, barWidth, yInc);
             g.drawString("<0.01", xStart + barWidth + 5, currY + 10);
             currY += yInc;
-            g.setColor(theColor.green);
+            g.setColor(Color.green);
             g.fillRect(xStart, currY, barWidth, yInc);
             g.setColor(Color.black);
             g.drawRect(xStart, currY, barWidth, yInc);
             g.drawString("<0.001", xStart + barWidth + 5, currY + 10);
             currY += yInc;
-            g.setColor(theColor.red);
+            g.setColor(Color.red);
             g.fillRect(xStart, currY, barWidth, yInc);
             g.setColor(Color.black);
             g.drawRect(xStart, currY, barWidth, yInc);
@@ -456,7 +456,7 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
             yInc = (yEnd - yStart) / 11;
             dF = new DecimalFormat("0.00");
             for (float d = 1.0001f; d >= 0; d -= 0.1) {
-                g.setColor(theColor.getHSBColor(d, d, 1f));
+                g.setColor(Color.getHSBColor(d, d, 1f));
                 g.fillRect(xStart, currY, barWidth, yInc);
                 g.setColor(Color.black);
                 g.drawRect(xStart, currY, barWidth, yInc);
@@ -479,7 +479,7 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
         for (int r = 0; r < totalVariableSites; r++) {
             g.drawLine(xPos[r] + halfIW, yOfLinkBlock, xEndPos[r], yOfGene);
         }  //end of going through sites
-        g.setColor(theColor.blue);
+        g.setColor(Color.blue);
         for (int b = 0; b < totalBlocks; b++) {
             g.drawLine(blockBeginX[b], yOfGene, blockEndX[b], yOfGene);
             g.drawLine(blockBeginX[b], yOfGene + 1, blockEndX[b], yOfGene + 1);
