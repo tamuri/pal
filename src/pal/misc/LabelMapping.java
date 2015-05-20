@@ -15,11 +15,11 @@ package pal.misc;
  * @version 1.0
  */
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LabelMapping implements java.io.Serializable {
-    Hashtable mappings_ = new Hashtable();
+    Map<String, String> mappings_ = new HashMap<>();
 
     //
     // Serialization code
@@ -36,18 +36,18 @@ public class LabelMapping implements java.io.Serializable {
         byte version = in.readByte();
         switch (version) {
             default: {
-                mappings_ = (Hashtable) in.readObject();
+                mappings_ = (Map<String, String>) in.readObject();
                 break;
             }
         }
     }
 
-    private LabelMapping(Hashtable mapping) {
+    private LabelMapping(Map<String, String> mapping) {
         this.mappings_ = mapping;
     }
 
     private LabelMapping(LabelMapping toCopy) {
-        this.mappings_ = (Hashtable) toCopy.mappings_.clone();
+        this.mappings_ = new HashMap<>(toCopy.mappings_);
     }
 
     public LabelMapping() {
@@ -64,8 +64,8 @@ public class LabelMapping implements java.io.Serializable {
     }
 
     /**
-     * @param names Names
-     * @param colours associated colours
+     * @param ids Names
+     * @param labels associated colours
      * @note assumes parallel arrays
      */
     public void addMappings(String[] ids, String[] labels) {
@@ -78,7 +78,7 @@ public class LabelMapping implements java.io.Serializable {
         if (id == null || !mappings_.containsKey(id)) {
             return defaultLabel;
         }
-        return mappings_.get(id).toString();
+        return mappings_.get(id);
     }
 
     public String getLabel(Identifier id, String defaultLabel) {
@@ -103,41 +103,43 @@ public class LabelMapping implements java.io.Serializable {
      * If a mapping occurs more than once will rename instance to "x 1", "x 2"... and so on where x is the mapping in question
      */
     public LabelMapping getUniquifiedMappings() {
-        Hashtable totals = new Hashtable();
-        for (Enumeration e = mappings_.keys(); e.hasMoreElements(); ) {
-            Object key = e.nextElement();
-            Object mapping = mappings_.get(key);
+        Map<String, Integer> totals = new HashMap<>();
+
+        for (String key : mappings_.keySet()) {
+            String mapping = mappings_.get(key);
             int count = 1;
             if (totals.containsKey(mapping)) {
-                count = ((Integer) totals.get(mapping)).intValue() + 1;
+                count = totals.get(mapping) + 1;
             }
-            totals.put(mapping, new Integer(count));
+            totals.put(mapping, count);
         }
-        Hashtable counts = new Hashtable();
-        Hashtable result = new Hashtable();
-        for (Enumeration e = mappings_.keys(); e.hasMoreElements(); ) {
-            Object key = e.nextElement();
-            Object mapping = mappings_.get(key);
-            int total = ((Integer) totals.get(mapping)).intValue();
+
+        Map<String, Integer> counts = new HashMap<>();
+        Map<String, String> result = new HashMap<>();
+
+        for (String key : mappings_.keySet()) {
+            String mapping = mappings_.get(key);
+
+            int total = totals.get(mapping);
             if (total == 1) {
                 result.put(key, mapping);
             } else {
                 int count = 1;
                 if (counts.containsKey(mapping)) {
-                    count = ((Integer) counts.get(mapping)).intValue() + 1;
+                    count = counts.get(mapping) + 1;
                 }
-                counts.put(mapping, new Integer(count));
+                counts.put(mapping, count);
                 result.put(key, mapping + " " + count);
             }
         }
+
         return new LabelMapping(result);
     }
 
     public LabelMapping getRelabeled(Relabeller relabeller) {
-        Hashtable newMapping = new Hashtable();
-        for (Enumeration e = mappings_.keys(); e.hasMoreElements(); ) {
-            Object key = e.nextElement();
-            String old = mappings_.get(key).toString();
+        Map<String, String> newMapping = new HashMap<>();
+        for (String key : mappings_.keySet()) {
+            String old = mappings_.get(key);
             newMapping.put(key, relabeller.getNewLabel(old));
         }
         return new LabelMapping(newMapping);
