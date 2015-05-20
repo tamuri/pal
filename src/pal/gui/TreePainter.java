@@ -115,7 +115,6 @@ abstract public class TreePainter implements Painter {
      * @param toDisplay the tree being painted.
      * @param title     the title of the tree.
      * @param showTitle true if a title is being displayed.
-     * @param nc        A name colouriser, may be null.
      */
     public TreePainter(Tree toDisplay, String title, boolean showTitle) {
 

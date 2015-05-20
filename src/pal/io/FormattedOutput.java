@@ -150,7 +150,7 @@ public class FormattedOutput implements Serializable {
     /**
      * print whitespace of length of a string displaying a given integer
      *
-     * @param output stream
+     * @param out output stream
      * @param maxNum number
      */
     public void displayIntegerWhite(PrintWriter out, int maxNum) {

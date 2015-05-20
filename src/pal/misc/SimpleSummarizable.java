@@ -30,7 +30,7 @@ public class SimpleSummarizable implements Summarizable, java.io.Serializable {
 
     /** The Imitation constructor - for immitating another Summarizable object with
      minimum memory requirements
-     @param toImitiate - the Summarizable to imitate. This summarizable with contatin
+     @param toImitate - the Summarizable to imitate. This summarizable with contatin
      the same types and values as toImitate (at the time of construction)
      @note No reference to toImitate is maintained.
      */

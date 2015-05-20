@@ -123,7 +123,7 @@ public class FormattedInput implements Serializable {
     /**
      * read word from stream
      *
-     * @param input stream
+     * @param in input stream
      * @return word read from stream
      */
     public String readWord(PushbackReader in)

@@ -125,7 +125,7 @@ public class TreeComponent extends Component {
     /**
      * Sets the mode of display for this component.
      *
-     * @param the mode to switch to. Valid arguments are NORMAL (for normal tree
+     * @param mode the mode to switch to. Valid arguments are NORMAL (for normal tree
      *            display), and CIRCULAR (for a circular view of the trees)
      */
     public void setMode(int mode) {

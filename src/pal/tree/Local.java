@@ -40,7 +40,7 @@ public class Local {
      * to create a back bone (1,2,3,4). One of the two internal nodes (2,3) is moved
      * to a new random position on backbone and the backbone is scale in size.
      *
-     * @param scale determines whether or not the backbone is scaled
+     * @param scaleFactor determines whether or not the backbone is scaled
      * @return a perturbation of given tree.
      */
     public static Tree local(Tree tree, double scaleFactor) {

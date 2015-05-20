@@ -231,7 +231,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
     /**
      * A means for define a subgroup.
      *
-     * @param subgroups an array indexes
+     * @param subgroup an array indexes
      *                  of the members that for the subgroup
      */
     public final void setSubgroup(final int[] subgroup) {
@@ -241,7 +241,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
     /**
      * A means for define a subgroup.
      *
-     * @param subgroups an array of names that represent the members of the subgroup.Non existent memebers are ignored
+     * @param subgroup an array of names that represent the members of the subgroup.Non existent memebers are ignored
      */
     public final void setSubgroup(final String[] subgroup) {
         this.subgroups_ = SubgroupHandler.create(this, subgroup);
@@ -437,7 +437,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
      * Select ordinals by matching names.
      *
      * @param tocd    to take ordinals from
-     * @param idgroup use these labels to match indices in given tocd.
+     * @param standard use these labels to match indices in given tocd.
      * @param doTimes if set then sets times as well
      */
     public void setOrdinals(TimeOrderCharacterData tocd, IdGroup standard, boolean doTimes) {
