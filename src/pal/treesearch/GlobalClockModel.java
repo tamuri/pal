@@ -124,7 +124,7 @@ public class GlobalClockModel implements ConstraintModel, ConstraintModel.GroupM
 
     public void setParameters(double[] parameters, int startIndex) {
         if (includeScaling_) {
-            this.rate_ = parameters[0 + startIndex];
+            this.rate_ = parameters[startIndex];
         }
     }
 
