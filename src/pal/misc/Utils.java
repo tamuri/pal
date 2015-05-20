@@ -449,8 +449,7 @@ public class Utils {
     }
 
     /**
-     * @see getArgmax()
-     * @deprecated
+     * @deprecated replaced by {@link #getArgmax(double[])}
      */
     public static final int argmax(double[] array) {
         return getArgmax(array);
