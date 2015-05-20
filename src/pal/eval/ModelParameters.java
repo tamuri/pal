@@ -74,7 +74,6 @@ public class ModelParameters implements MultivariateFunction {
         do {
             if (first) {
                 distMat = new AlignmentDistanceMatrix(sitePattern, model);
-                ;
             } else {
                 distMat.recompute(sitePattern, model);
             }

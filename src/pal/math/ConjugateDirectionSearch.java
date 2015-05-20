@@ -89,7 +89,6 @@ public class ConjugateDirectionSearch extends MultivariateMinimum {
         x = xvector;
 
         dim = fun.getNumArguments();
-        ;
 
         checkBounds(x);
         h = step;

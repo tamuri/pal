@@ -369,7 +369,6 @@ public class SimpleModelFastFourStateLHCalculator implements LHCalculator {
             calculateFlatImpl(centerPattern,
                     leftConditionalProbabilityProbabilties,
                     rightConditionalProbabilityProbabilties, resultStore);
-            ;
         }
 
         public double calculateLogLikelihood(final double distance, final SubstitutionModel model,
