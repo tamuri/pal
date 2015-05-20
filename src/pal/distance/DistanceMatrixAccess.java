@@ -23,10 +23,10 @@ import pal.substmodel.SubstitutionModel;
 import pal.util.AlgorithmCallback;
 
 public interface DistanceMatrixAccess {
-    public DistanceMatrix obtainMatrix(AlgorithmCallback callback);
+    DistanceMatrix obtainMatrix(AlgorithmCallback callback);
 
     // ============================================================================
-    public static final class Utils {
+    final class Utils {
         public static DistanceMatrixAccess createSimple(DistanceMatrix base) {
             return new Simple(base);
         }

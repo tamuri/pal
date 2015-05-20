@@ -40,7 +40,7 @@ public interface IdGroup extends java.io.Serializable {
     // ============================================================================
 // =================== Utility Class for IdGroup stuff ========================
 // ============================================================================
-    public static final class Utils {
+    final class Utils {
         /**
          * @return true if <i>sub</i> IdGroup completely contained within <i>full</i>, false otherwise
          */

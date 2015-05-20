@@ -102,27 +102,27 @@ public class TopologyTestEngine {
     // ===========================================================================================
 
 
-    public static interface TestResult {
-        public int[] getSignificantTopologyIndex(double significanceLevel);
+    public interface TestResult {
+        int[] getSignificantTopologyIndex(double significanceLevel);
 
-        public int[] getUnsignificantTopologyIndex(double significanceLevel);
+        int[] getUnsignificantTopologyIndex(double significanceLevel);
 
-        public double getPValue(int topology);
+        double getPValue(int topology);
 
     }
 
     //===================================================================================
     // New Stuff
-    public static interface TopologyPool {
-        public int getNumberOfTopologies();
+    public interface TopologyPool {
+        int getNumberOfTopologies();
 
-        public double[] getOriginalOptimisedLogLikelihoods();
+        double[] getOriginalOptimisedLogLikelihoods();
 
-        public double[] getNewReplicateLogLikelihoods(AlgorithmCallback callback);
+        double[] getNewReplicateLogLikelihoods(AlgorithmCallback callback);
     }
 
-    public static interface StatisticsHandler {
-        public double[] getOriginalTestStatistics(double[] originalOptimisedLogLikelihoods, int numberOfTopologies);
+    public interface StatisticsHandler {
+        double[] getOriginalTestStatistics(double[] originalOptimisedLogLikelihoods, int numberOfTopologies);
 
         /**
          *
@@ -132,7 +132,7 @@ public class TopologyTestEngine {
          * @param numberOfTopologies the number of replicates
          * @return
          */
-        public double[] getPValues(double[] originalOptimisedLogLikelihoods, double[][] replicateLogLikelihoods, int numberOfReplicates, int numberOfTopologies);
+        double[] getPValues(double[] originalOptimisedLogLikelihoods, double[][] replicateLogLikelihoods, int numberOfReplicates, int numberOfTopologies);
 
     }
 }

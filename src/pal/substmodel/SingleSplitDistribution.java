@@ -18,7 +18,7 @@ package pal.substmodel;
 import pal.misc.NeoParameterized;
 
 public interface SingleSplitDistribution extends NeoParameterized {
-    public int getNumberOfBaseTransitionCategories();
+    int getNumberOfBaseTransitionCategories();
 
     /**
      * Obtain the distribution information stored in the following format: [beforeclass][afterclass]
@@ -26,5 +26,5 @@ public interface SingleSplitDistribution extends NeoParameterized {
      *
      * @return an appropriate matrix representing the probability of evolving in the different combinations of before and after classes
      */
-    public double[][] getDistributionInfo();
+    double[][] getDistributionInfo();
 }

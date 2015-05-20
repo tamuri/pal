@@ -20,12 +20,12 @@ public interface NodeAccess {
      * Set the annotation for this branch (will be used when instructing TreeInterfaces
      * @param annotation The annotation object (dependent on the TreeInterface instructed)
      */
-    public void setAnnotation(Object annotation);
+    void setAnnotation(Object annotation);
 
-    public Object getAnnotation();
+    Object getAnnotation();
 
-    public boolean isLeaf();
+    boolean isLeaf();
 
-    public String getLabel();
+    String getLabel();
 
 }

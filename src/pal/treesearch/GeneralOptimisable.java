@@ -18,7 +18,7 @@ package pal.treesearch;
 import pal.math.UnivariateMinimum;
 
 public interface GeneralOptimisable {
-    public int getNumberOfOptimisationTypes();
+    int getNumberOfOptimisationTypes();
 
     /**
      *
@@ -27,6 +27,6 @@ public interface GeneralOptimisable {
      * @param fracDigits the number of fractional digits to converge to
      * @return The optimised log likelihood, or >0 if not optimisation occured
      */
-    public double optimise(int optimisationType, UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits);
+    double optimise(int optimisationType, UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits);
 
 }

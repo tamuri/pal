@@ -29,7 +29,7 @@ public interface NeoRateMatrix extends Serializable {
     /**
      * @return a short unique human-readable identifier for this rate matrix.
      */
-    public String getUniqueName();
+    String getUniqueName();
 
     /**
      * Is the relative rate matrix described by this rate matrix meant to represent a reversible process?
@@ -38,12 +38,12 @@ public interface NeoRateMatrix extends Serializable {
      * @return true if reversible
      * @note I don't know how this will go - MG
      */
-    public boolean isReversible();
+    boolean isReversible();
 
     /**
      * @return the dimension of this rate matrix.
      */
-    public int getDimension();
+    int getDimension();
 
     /**
      * Check the compatibility of a data type to be used with the rate matrix
@@ -51,7 +51,7 @@ public interface NeoRateMatrix extends Serializable {
      * @param dt the data type to test
      * @return true if data type compatible (false otherwise)
      */
-    public boolean isDataTypeCompatible(DataType dt);
+    boolean isDataTypeCompatible(DataType dt);
 
     /**
      * Create the relative rates array
@@ -60,13 +60,13 @@ public interface NeoRateMatrix extends Serializable {
      * @param rateParameters The parameters to be used to construct the rate store
      * @param startIndex     The index into the rateParameters to start reading parameters
      */
-    public void createRelativeRates(double[][] rateStore, double[] rateParameters, int startIndex);
+    void createRelativeRates(double[][] rateStore, double[] rateParameters, int startIndex);
 
-    public int getNumberOfRateParameters();
+    int getNumberOfRateParameters();
 
-    public double getRateParameterLowerBound(int parameter);
+    double getRateParameterLowerBound(int parameter);
 
-    public double getRateParameterUpperBound(int parameter);
+    double getRateParameterUpperBound(int parameter);
 
-    public void getDefaultRateParameters(double[] parameterStore, int startIndex);
+    void getDefaultRateParameters(double[] parameterStore, int startIndex);
 }

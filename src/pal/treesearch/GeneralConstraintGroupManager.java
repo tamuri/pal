@@ -266,12 +266,12 @@ public class GeneralConstraintGroupManager {
         }
     }
 
-    public static interface LikelihoodScoreAccess {
+    public interface LikelihoodScoreAccess {
         /**
          * The likelihood score doesn't exactly have to be the likelihood (well, it should be, but it may be the optimised likelihood)
          * @return the likelihood score (should be negative)
          */
-        public double calculateLikelihoodScore();
+        double calculateLikelihoodScore();
     }
 
 }

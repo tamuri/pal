@@ -27,7 +27,7 @@ public interface ConstraintModel {
      * @param leafLabel the label of the leaf
      * @return the grouping of the leaf, or null if outside the leaf is unconstrained (free)
      */
-    public GroupManager getGlobalClockConstraintGrouping(String[] leafLabelSet);
+    GroupManager getGlobalClockConstraintGrouping(String[] leafLabelSet);
 
     /**
      * Obtain the permanent clade sets. That is, when randomly building the tree, and when tree searching, what labels must always
@@ -35,43 +35,43 @@ public interface ConstraintModel {
      * @param allLabelSet The set of all leaf labels in the tree
      * @return An array of string arrays dividing up the label set
      */
-    public String[][] getCladeConstraints(String[] allLabelSet);
+    String[][] getCladeConstraints(String[] allLabelSet);
 
-    public UnconstrainedLikelihoodModel.Leaf createNewFreeLeaf(int[] patternStateMatchup, int numberOfPatterns);
+    UnconstrainedLikelihoodModel.Leaf createNewFreeLeaf(int[] patternStateMatchup, int numberOfPatterns);
 
-    public UnconstrainedLikelihoodModel.External createNewFreeExternal();
+    UnconstrainedLikelihoodModel.External createNewFreeExternal();
 
-    public UnconstrainedLikelihoodModel.Internal createNewFreeInternal();
+    UnconstrainedLikelihoodModel.Internal createNewFreeInternal();
 
-    public ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
+    ConditionalProbabilityStore createAppropriateConditionalProbabilityStore(boolean isForLeaf);
 
-    public NeoParameterized getGlobalParameterAccess();
+    NeoParameterized getGlobalParameterAccess();
 
-    public String getRateModelSummary();
+    String getRateModelSummary();
 
 // ===================================================================================================
 
-    public static interface GroupManager {
-        public double getLeafBaseHeight(String leafLabel);
+    interface GroupManager {
+        double getLeafBaseHeight(String leafLabel);
 
-        public double getBaseHeight(double originalExpectSubstitutionHeight);
+        double getBaseHeight(double originalExpectSubstitutionHeight);
 
-        public double getExpectedSubstitutionHeight(double baseHeight);
+        double getExpectedSubstitutionHeight(double baseHeight);
 
-        public int getBaseHeightUnits();
+        int getBaseHeightUnits();
 
-        public void initialiseParameters(String[] leafNames, double[] leafHeights);
+        void initialiseParameters(String[] leafNames, double[] leafHeights);
 
-        public NeoParameterized getAllGroupRelatedParameterAccess();
+        NeoParameterized getAllGroupRelatedParameterAccess();
 
-        public NeoParameterized getPrimaryGroupRelatedParameterAccess();
+        NeoParameterized getPrimaryGroupRelatedParameterAccess();
 
-        public NeoParameterized getSecondaryGroupRelatedParameterAccess();
+        NeoParameterized getSecondaryGroupRelatedParameterAccess();
 
-        public MolecularClockLikelihoodModel.Leaf createNewClockLeaf(PatternInfo pattern, int[] patternStateMatchup);
+        MolecularClockLikelihoodModel.Leaf createNewClockLeaf(PatternInfo pattern, int[] patternStateMatchup);
 
-        public MolecularClockLikelihoodModel.External createNewClockExternal();
+        MolecularClockLikelihoodModel.External createNewClockExternal();
 
-        public MolecularClockLikelihoodModel.Internal createNewClockInternal();
+        MolecularClockLikelihoodModel.Internal createNewClockInternal();
     }
 }

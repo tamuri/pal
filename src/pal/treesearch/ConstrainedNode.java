@@ -22,51 +22,51 @@ import pal.tree.Node;
 import java.util.ArrayList;
 
 public interface ConstrainedNode extends GeneralTreeComponent {
-    public ConstrainedNode getLeftChild();
+    ConstrainedNode getLeftChild();
 
-    public ConstrainedNode getRightChild();
+    ConstrainedNode getRightChild();
 
     /**
      * @return the minum distance to a child or zero if no children
      */
-    public double getMinimumDirectChildDistance();
+    double getMinimumDirectChildDistance();
 
-    public void recursivelyAdjustNodeHeight(HeightAdjustment heightAdjustment);
+    void recursivelyAdjustNodeHeight(HeightAdjustment heightAdjustment);
 
-    public void recursivelySetParentPivot(PivotNode parentPivot);
+    void recursivelySetParentPivot(PivotNode parentPivot);
 
-    public void setupInternalNodeHeights(ConstraintModel.GroupManager groupConstraints);
+    void setupInternalNodeHeights(ConstraintModel.GroupManager groupConstraints);
 
-    public double getMinimumChildSeperation(double currentSeperation);
+    double getMinimumChildSeperation(double currentSeperation);
 
-    public double getMinimumLeafChildSeperation(double parentHeight);
+    double getMinimumLeafChildSeperation(double parentHeight);
 
-    public double getMinOriginalDescendentLeafHeight();
+    double getMinOriginalDescendentLeafHeight();
 
-    public double getMaxOriginalDescendentLeafHeight();
+    double getMaxOriginalDescendentLeafHeight();
 
-    public PatternInfo getDescendentPatternInfo(GeneralConstructionTool tool);
+    PatternInfo getDescendentPatternInfo(GeneralConstructionTool tool);
 
 //	public void rebuildDescendentPattern(GeneralConstructionTool tool);
 
-    public void getSubTreeComponents(ArrayList store, Class componentType);
+    void getSubTreeComponents(ArrayList store, Class componentType);
 
-    public void getNonSubTreeComponents(ArrayList store, Class componentType);
+    void getNonSubTreeComponents(ArrayList store, Class componentType);
 
-    public double getNodeHeight();
+    double getNodeHeight();
 
     /**
      * Build node model base units (eg years)
      * @return A normal PAL node
      */
-    public Node buildDescendentPALNodeBase();
+    Node buildDescendentPALNodeBase();
 
     /**
      * Build node with Expected Substitution Units
      * @param groupConstraints The constraints object to do the conversion with
      * @return A normal PAL node
      */
-    public Node buildDescendentPALNodeES(ConstraintModel.GroupManager groupConstraints);
+    Node buildDescendentPALNodeES(ConstraintModel.GroupManager groupConstraints);
 
     /**
      * Obtain information regarding the current state of the leaf heights (called when first constructed).
@@ -74,24 +74,24 @@ public interface ConstrainedNode extends GeneralTreeComponent {
      * height values (see setLeafHeights...())
      * @param user An object that uses the height information
      */
-    public void obtainLeafInformation(HeightInformationUser user);
+    void obtainLeafInformation(HeightInformationUser user);
 
-    public void testLikelihood(GeneralConstructionTool tool);
+    void testLikelihood(GeneralConstructionTool tool);
 
-    public String toStringHeights();
+    String toStringHeights();
 
-    public String toStringLengths(double parentHeight);
+    String toStringLengths(double parentHeight);
 
     // -----------------------------------------------------------------------------------------------
-    public ConditionalProbabilityStore getDescendentExtendedConditionals(double extensionHeight, GeneralConstructionTool tool, boolean allowCaching);
+    ConditionalProbabilityStore getDescendentExtendedConditionals(double extensionHeight, GeneralConstructionTool tool, boolean allowCaching);
 
-    public ConditionalProbabilityStore getDescendentExtendedConditionalsWithAdjustedInternalHeights(double adjustedExtensionHeight, GeneralConstructionTool tool, HeightAdjustment internalNodeHeightAdjuster, boolean allowCaching);
+    ConditionalProbabilityStore getDescendentExtendedConditionalsWithAdjustedInternalHeights(double adjustedExtensionHeight, GeneralConstructionTool tool, HeightAdjustment internalNodeHeightAdjuster, boolean allowCaching);
 
 
-    public ConditionalProbabilityStore getDescendentFlatConditionals(GeneralConstructionTool tool, boolean allowCaching);
+    ConditionalProbabilityStore getDescendentFlatConditionals(GeneralConstructionTool tool, boolean allowCaching);
 
-    public static interface HeightAdjustment {
-        public double getAdjustedHeight(Object relatedNode, double baseHeight);
+    interface HeightAdjustment {
+        double getAdjustedHeight(Object relatedNode, double baseHeight);
     }
 
 }

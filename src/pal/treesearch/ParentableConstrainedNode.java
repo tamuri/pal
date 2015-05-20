@@ -21,13 +21,13 @@ import pal.eval.PatternInfo;
 import java.util.ArrayList;
 
 public interface ParentableConstrainedNode {
-    public double getNodeHeight();
+    double getNodeHeight();
 
-    public void getNonSubTreeOfChildComponents(ArrayList store, Class componentType, ConstrainedNode childCaller);
+    void getNonSubTreeOfChildComponents(ArrayList store, Class componentType, ConstrainedNode childCaller);
 
-    public ConditionalProbabilityStore getAscendentExtended(double baseHeight, ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
+    ConditionalProbabilityStore getAscendentExtended(double baseHeight, ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
 
-    public ConditionalProbabilityStore getAscendentFlat(ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
+    ConditionalProbabilityStore getAscendentFlat(ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
 
-    public PatternInfo getAscendentPatternInfo(ConstrainedNode childCaller, GeneralConstructionTool tool);
+    PatternInfo getAscendentPatternInfo(ConstrainedNode childCaller, GeneralConstructionTool tool);
 }

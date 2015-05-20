@@ -122,8 +122,8 @@ public interface RateMatrix
 
     Object clone();
 
-    public double setParametersNoScale(double[] parameters);
+    double setParametersNoScale(double[] parameters);
 
-    public void scale(double scaleValue);
+    void scale(double scaleValue);
 
 }

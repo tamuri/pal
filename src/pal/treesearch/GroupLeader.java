@@ -17,13 +17,13 @@ package pal.treesearch;
 
 public interface GroupLeader {
 
-    public void obtainLeafInformation(HeightInformationUser user);
+    void obtainLeafInformation(HeightInformationUser user);
 
     /**
      * Tell the group leader that the groupConstraints have been set up (parameter wise),
      * and that internal node heights for example may be calculated
      */
-    public void postSetupNotify(ConstraintModel.GroupManager groupConstraints);
+    void postSetupNotify(ConstraintModel.GroupManager groupConstraints);
 
 //	public void recursivelyMarkHeights(double[] currentHeightComponents);
 //

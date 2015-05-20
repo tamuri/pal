@@ -21,10 +21,10 @@ import pal.tree.Tree;
 import pal.treesearch.UnrootedMLSearcher;
 
 public interface ReplicateLikelihoodEvaluator {
-    public double getReplicateLogLikelihood(Tree tree, Alignment alignment);
+    double getReplicateLogLikelihood(Tree tree, Alignment alignment);
 
     //Utility Class
-    public static final class Utils {
+    final class Utils {
         /**
          * Create a ReplicateLikelihoodEvaluator that based likelihood on original tree (does no optimisation)
          * @param model The subtitution model to use

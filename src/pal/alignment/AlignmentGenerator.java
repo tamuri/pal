@@ -17,12 +17,12 @@ import pal.util.AlgorithmCallback;
  */
 
 public interface AlignmentGenerator {
-    public Alignment getNextAlignment(AlgorithmCallback callback);
+    Alignment getNextAlignment(AlgorithmCallback callback);
 
     // =====================================================================================
     // ============= Utilities =============================================================
     // =====================================================================================
-    public static final class Utils {
+    final class Utils {
         public static final AlignmentGenerator createBootstrapGenerator(Alignment baseAlignment) {
             return new BootstrapGenerator(baseAlignment);
         }

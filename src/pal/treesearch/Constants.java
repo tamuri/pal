@@ -16,17 +16,17 @@ package pal.treesearch;
  */
 
 public interface Constants {
-    public static final double CONSTRUCTED_BRANCH_LENGTH = 0.01;
+    double CONSTRUCTED_BRANCH_LENGTH = 0.01;
 
-    public static final double MINIMUM_BRANCH_LENGTH = 0;
-    public static final double MAXIMUM_BRANCH_LENGTH = 10;
+    double MINIMUM_BRANCH_LENGTH = 0;
+    double MAXIMUM_BRANCH_LENGTH = 10;
 
-    public static final int CONSTRAINED_NODE_COMPONENT_TYPE = 0;
-    public static final int FREE_NODE_COMPONENT_TYPE = 1;
-    public static final int FREE_BRANCH_COMPONENT_TYPE = 2;
-    public static final int FREE_LEAF_COMPONENT_TYPE = 3;
-    public static final int CONSTRAINED_LEAF_COMPONENT_TYPE = 4;
-    public static final int PIVOT_COMPONENT_TYPE = 5;
-    public static final int GENERAL_OPTIMISABLE_TYPE = 6;
+    int CONSTRAINED_NODE_COMPONENT_TYPE = 0;
+    int FREE_NODE_COMPONENT_TYPE = 1;
+    int FREE_BRANCH_COMPONENT_TYPE = 2;
+    int FREE_LEAF_COMPONENT_TYPE = 3;
+    int CONSTRAINED_LEAF_COMPONENT_TYPE = 4;
+    int PIVOT_COMPONENT_TYPE = 5;
+    int GENERAL_OPTIMISABLE_TYPE = 6;
 
 }

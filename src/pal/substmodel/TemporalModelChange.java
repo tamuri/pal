@@ -18,10 +18,10 @@ package pal.substmodel;
 import pal.misc.TimeOrderCharacterData;
 
 public interface TemporalModelChange extends java.io.Serializable {
-    public double getChangeHeight(double[] sampleHeights);
+    double getChangeHeight(double[] sampleHeights);
 
     // =-=-=-=-=-=-=-==-=-
-    public static final class Utils {
+    final class Utils {
         public static final TemporalModelChange getSampleLinked(int sampleNumber) {
             return new SampleLinked(sampleNumber);
         }

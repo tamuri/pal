@@ -20,27 +20,27 @@ import pal.datatype.DataType;
 
 public interface RateMatrixGroup extends java.io.Serializable {
 
-    public DataType getDataType();
+    DataType getDataType();
 
-    public double[] getEquilibriumFrequencies();
+    double[] getEquilibriumFrequencies();
 
     /**
      * Update internal representation based on any parameters (that are specified externally) and the given category probablitilies.
      * The controller (user of this class) should be calling this method after the parameters of an external parameterization object have been set.
      * @param categoryProbabilities the probabilities (summing to one) of each category (class) of substitution
      */
-    public void updateParameters(double[] categoryProbabilities);
+    void updateParameters(double[] categoryProbabilities);
 
-    public int getNumberOfTransitionCategories();
+    int getNumberOfTransitionCategories();
 
-    public void getTransitionProbabilities(double branchLength, double[][][] tableStore);
+    void getTransitionProbabilities(double branchLength, double[][][] tableStore);
 
-    public void getTransitionProbabilitiesTranspose(double branchLength, double[][][] tableStore);
+    void getTransitionProbabilitiesTranspose(double branchLength, double[][][] tableStore);
 
-    public void getTransitionProbabilities(double branchLength, int category, double[][] tableStore);
+    void getTransitionProbabilities(double branchLength, int category, double[][] tableStore);
 
-    public void getTransitionProbabilitiesTranspose(double branchLength, int category, double[][] tableStore);
+    void getTransitionProbabilitiesTranspose(double branchLength, int category, double[][] tableStore);
 
-    public String getSummary(double[] categoryProbabilities);
+    String getSummary(double[] categoryProbabilities);
 
 }

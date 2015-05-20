@@ -28,54 +28,54 @@ import java.io.StringWriter;
  */
 public interface SubstitutionModel extends Parameterized, Report, java.io.Serializable {
 
-    public DataType getDataType();
+    DataType getDataType();
 
-    public int getNumberOfTransitionCategories();
+    int getNumberOfTransitionCategories();
 
-    public double getTransitionCategoryProbability(int category);
+    double getTransitionCategoryProbability(int category);
 
     /**
      * @return all the category probabilites for each category respectively.
      * @note Applications should not alter the returned array in
      * any way!
      */
-    public double[] getTransitionCategoryProbabilities();
+    double[] getTransitionCategoryProbabilities();
 
     /**
      * Table is organized as [transition_group][from][to]
      */
-    public void getTransitionProbabilities(double branchLength, double[][][] tableStore);
+    void getTransitionProbabilities(double branchLength, double[][][] tableStore);
 
     /**
      * Table is organized as [transition_group][to][from]
      */
-    public void getTransitionProbabilitiesTranspose(double branchLength, double[][][] tableStore);
+    void getTransitionProbabilitiesTranspose(double branchLength, double[][][] tableStore);
 
     /**
      * Table is organized as [transition_group][from][to]
      */
-    public void getTransitionProbabilities(double branchLength, int category, double[][] tableStore);
+    void getTransitionProbabilities(double branchLength, int category, double[][] tableStore);
 
     /**
      * Table is organized as [transition_group][to][from]
      */
-    public void getTransitionProbabilitiesTranspose(double branchLength, int category, double[][] tableStore);
+    void getTransitionProbabilitiesTranspose(double branchLength, int category, double[][] tableStore);
 
     /**
      * Should return a double[] array of the related equilibrium frequencies. As a rule, callers should not alter the returned array (it may be used internally)
      */
-    public double[] getEquilibriumFrequencies();
+    double[] getEquilibriumFrequencies();
 
-    public void addPalObjectListener(PalObjectListener l);
+    void addPalObjectListener(PalObjectListener l);
 
-    public void removePalObjectListener(PalObjectListener l);
+    void removePalObjectListener(PalObjectListener l);
 
     /**
      * May return null
      */
-    public OrthogonalHints getOrthogonalHints();
+    OrthogonalHints getOrthogonalHints();
 
-    public Object clone();
+    Object clone();
 
 
     //===========================
@@ -84,7 +84,7 @@ public interface SubstitutionModel extends Parameterized, Report, java.io.Serial
     /**
      * A small Utility class for things relating to Substitution Models in general
      */
-    public static class Utils {
+    class Utils {
         public static final double[][][] generateTransitionProbabilityTables(SubstitutionModel model) {
             int numberOfStates = model.getDataType().getNumStates();
             return new double[model.getNumberOfTransitionCategories()][numberOfStates][numberOfStates];

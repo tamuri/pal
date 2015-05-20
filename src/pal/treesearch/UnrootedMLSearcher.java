@@ -1151,126 +1151,126 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
     // -=-=-=-=-=-==--==--==--=-=-==-=--=-=-=-==-=-=--==-=-=--==--==-=-=--==--==--=
 // == UNode ===
 // =--=-==-=--=-==--=-==--=-=-=-=-==-=-=--=-==-=-=-=--==-=-=-=-=--==-=-=-=-=-=-
-    private static interface UNode {
-        public String toString(Connection caller);
+    private interface UNode {
+        String toString(Connection caller);
 
-        public PatternInfo getPatternInfo(Connection caller);
+        PatternInfo getPatternInfo(Connection caller);
 
-        public Node buildPALNode(double branchLength, Connection caller);
+        Node buildPALNode(double branchLength, Connection caller);
 
-        public void testLikelihood(Connection caller, SubstitutionModel model, ConstructionTool tool);
+        void testLikelihood(Connection caller, SubstitutionModel model, ConstructionTool tool);
 
-        public void getAllConnections(ArrayList store, Connection caller);
+        void getAllConnections(ArrayList store, Connection caller);
 
-        public int getIndex();
+        int getIndex();
 
-        public UNode createAlteredCopy(Connection attachmentPoint, Node newSubtree, Connection originalParentConnection, Connection parentConnection, ConstructionTool tool);
+        UNode createAlteredCopy(Connection attachmentPoint, Node newSubtree, Connection originalParentConnection, Connection parentConnection, ConstructionTool tool);
 
-        public UNode createAlteredCopy(Connection originalParentConnection, Connection parentConnection, ConstructionTool tool);
+        UNode createAlteredCopy(Connection originalParentConnection, Connection parentConnection, ConstructionTool tool);
 
-        public boolean hasDirectConnection(Connection c);
+        boolean hasDirectConnection(Connection c);
 
-        public boolean hasConnection(Connection c, Connection caller);
+        boolean hasConnection(Connection c, Connection caller);
 
-        public void mark();
+        void mark();
 
-        public void undoToMark();
+        void undoToMark();
 
-        public void instruct(UnrootedTreeInterface.UNode node, Connection callingConnection);
+        void instruct(UnrootedTreeInterface.UNode node, Connection callingConnection);
 
-        public boolean isLeaf();
+        boolean isLeaf();
 
-        public boolean hasLabel(String label);
+        boolean hasLabel(String label);
 
-        public void setAnnotation(Object annotation);
+        void setAnnotation(Object annotation);
 
-        public Object getAnnotation();
+        Object getAnnotation();
 
-        public String getLabel();
+        String getLabel();
 
         /**
          * Instruct the node to extract itself from the two connections that aren't the caller
          * One of the other two connections will become redunant.
          * @return the redundant connection, or null of this node can't extract
          */
-        public Connection extract(Connection caller);
+        Connection extract(Connection caller);
 
         /**
          * @return the left connection with reference to the caller
          * @note can return null if not possible (if leaf)
          */
-        public Connection getLeft(Connection caller);
+        Connection getLeft(Connection caller);
 
         /**
          * @return the right connection with reference to the caller
          * @note can return null if not possible (if leaf)
          */
-        public Connection getRight(Connection caller);
+        Connection getRight(Connection caller);
 
         /**
          * Set the connections to this node
          * @param store a temporary store of the connections - node must copy references, do not use store
          * @param number the number of connections to look at (ignore the length of store)
          */
-        public void setConnections(Connection[] store, int number);
+        void setConnections(Connection[] store, int number);
 
         /**
          * Should preserver tree integrity
          */
-        public void swapConnection(Connection original, UNode nodeToReplace, Connection newConnection);
+        void swapConnection(Connection original, UNode nodeToReplace, Connection newConnection);
 
         /**
          * Should not do anything but swap connections around
          */
-        public void swapConnection(Connection original, Connection newConnection);
+        void swapConnection(Connection original, Connection newConnection);
 
         /**
          * Recurse to all neighbours but caller
          * @return the maximum number of patterns from any neighbour
          */
-        public int rebuildPattern(ConstructionTool tool, Connection caller, boolean firstPass);
+        int rebuildPattern(ConstructionTool tool, Connection caller, boolean firstPass);
 
         /**
          * Recurse to all neighbours
          * @return the maximum number of patterns from any neighbour
          */
-        public int rebuildPattern(ConstructionTool tool);
+        int rebuildPattern(ConstructionTool tool);
 
         /**
          * To be used by nodes that cannot properly do a rebuildPattern(tool) call, so they redirect to the other end of a connection
          */
-        public int redirectRebuildPattern(ConstructionTool tool);
+        int redirectRebuildPattern(ConstructionTool tool);
 
-        public ConditionalProbabilityStore getFlatConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, int depth, boolean isForLeft);
+        ConditionalProbabilityStore getFlatConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, int depth, boolean isForLeft);
 
-        public ConditionalProbabilityStore getFlatConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
+        ConditionalProbabilityStore getFlatConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
 
-        public ConditionalProbabilityStore getLeftExtendedConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
+        ConditionalProbabilityStore getLeftExtendedConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
 
-        public ConditionalProbabilityStore getRightExtendedConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
+        ConditionalProbabilityStore getRightExtendedConditionalProbabilities(SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
 
         /**
          *
          * @param caller
          * @return Get the pattern info for the relative left (from the caller's perspective), or null if not left pattern info
          */
-        public PatternInfo getLeftPatternInfo(Connection caller);
+        PatternInfo getLeftPatternInfo(Connection caller);
 
         /**
          *
          * @param caller
          * @return Get the pattern info for the relative right (from the caller's perspective), or null if not right pattern info
          */
-        public PatternInfo getRightPatternInfo(Connection caller);
+        PatternInfo getRightPatternInfo(Connection caller);
 
 
-        public ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged, Connection callingConnection, int depth, boolean isForLeft);
+        ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged, Connection callingConnection, int depth, boolean isForLeft);
 
-        public ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
+        ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, SubstitutionModel model, boolean modelChanged, Connection callingConnection, LHCalculator.External external, ConditionalProbabilityStore resultStore);
 
-        public void getLeafNames(ArrayList store, Connection caller);
+        void getLeafNames(ArrayList store, Connection caller);
 
-        public void getSplitInformation(int[] splitStore, String[] leafNames, int splitIndex, Connection caller);
+        void getSplitInformation(int[] splitStore, String[] leafNames, int splitIndex, Connection caller);
 
     }
 

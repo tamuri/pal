@@ -22,19 +22,19 @@ import pal.treesearch.UnrootedMLSearcher;
 import pal.util.AlgorithmCallback;
 
 public interface LikelihoodEvaluator {
-    public MLResult getMLOptimised(Tree tree, Alignment alignment, AlgorithmCallback callback);
+    MLResult getMLOptimised(Tree tree, Alignment alignment, AlgorithmCallback callback);
 
-    public double calculateLikelihood(Tree tree, Alignment alignment);
+    double calculateLikelihood(Tree tree, Alignment alignment);
 
     // =========================================================================================
 
-    public static interface MLResult {
-        public double getLogLikelihood();
+    interface MLResult {
+        double getLogLikelihood();
 
-        public Tree getOptimisedTree();
+        Tree getOptimisedTree();
     }
 
-    public static final class SimpleMLResult implements MLResult {
+    final class SimpleMLResult implements MLResult {
         private final double logLikelihood_;
         private final Tree optimisedTree_;
 
@@ -53,7 +53,7 @@ public interface LikelihoodEvaluator {
     }
 
     // Utility Class
-    public static final class Utils {
+    final class Utils {
         /**
          * Create a simple evaluator that uses UnrootedTreeSearch
          * @param model The substitution model to use

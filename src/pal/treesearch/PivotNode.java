@@ -428,12 +428,12 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
 
 // - - - - - - - - - - - - - - -- - - - --- - -  -- - ---- -  ------ -- -
 
-    private static interface OptimisationHandler {
-        public double getHeight();
+    private interface OptimisationHandler {
+        double getHeight();
 
-        public double getLogLikelihood();
+        double getLogLikelihood();
 
-        public void optimise(UnivariateMinimum minimiser);
+        void optimise(UnivariateMinimum minimiser);
     }
 
     private static final class NonRootOptimisationHandler implements UnivariateFunction, OptimisationHandler {

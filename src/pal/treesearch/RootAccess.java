@@ -20,16 +20,16 @@ import pal.tree.Node;
 import java.util.ArrayList;
 
 public interface RootAccess {
-    public void getAllComponents(ArrayList store, Class componentType);
+    void getAllComponents(ArrayList store, Class componentType);
 
-    public double calculateLogLikelihood(GeneralConstructionTool tool);
+    double calculateLogLikelihood(GeneralConstructionTool tool);
 
-    public Node buildPALNodeBase();
+    Node buildPALNodeBase();
 
-    public Node buildPALNodeES();
+    Node buildPALNodeES();
 
 
-    public void testLikelihood(GeneralConstructionTool tool);
+    void testLikelihood(GeneralConstructionTool tool);
 
 //	public void rebuildPatterns(GeneralConstructionTool tool);
 

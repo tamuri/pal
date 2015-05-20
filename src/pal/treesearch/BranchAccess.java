@@ -24,16 +24,16 @@ public interface BranchAccess {
      * Set the annotation for this branch (will be used when instructing TreeInterfaces
      * @param annotation The annotation object (dependent on the TreeInterface instructed)
      */
-    public void setAnnotation(Object annotation);
+    void setAnnotation(Object annotation);
 
-    public Object getAnnotation();
+    Object getAnnotation();
 
     /**
      * Test if this branch leads directly to a leaf of a particular label
      * @param leafLabel the label of the leaf
      * @return true if this branch is a leaf branch and the leaf has the right label
      */
-    public boolean isLeafBranch(String leafLabel);
+    boolean isLeafBranch(String leafLabel);
 
     /**
      * Create a new Tree Searcher with a new sub tree attached
@@ -41,7 +41,7 @@ public interface BranchAccess {
      * @param fullAlignment the full alignment including the sequences already part of the base tree
      * @return a new unrooted searcher
      */
-    public UnrootedMLSearcher attach(Node subTree, Alignment fullAlignment);
+    UnrootedMLSearcher attach(Node subTree, Alignment fullAlignment);
 
     /**
      * Create a new Tree Searcher with a new sub tree attached
@@ -49,7 +49,7 @@ public interface BranchAccess {
      * @param fullAlignment the full alignment including the sequences already part of the base tree
      * @return a new unrooted searcher
      */
-    public UnrootedMLSearcher attach(String newSequence, Alignment fullAlignment);
+    UnrootedMLSearcher attach(String newSequence, Alignment fullAlignment);
 
     /**
      * Create a new Tree Searcher with a new sub tree attached
@@ -58,7 +58,7 @@ public interface BranchAccess {
      * @param model the new substitution model to use
      * @return a new unrooted searcher
      */
-    public UnrootedMLSearcher attach(Node subTree, Alignment fullAlignment, SubstitutionModel model);
+    UnrootedMLSearcher attach(Node subTree, Alignment fullAlignment, SubstitutionModel model);
 
     /**
      * Create a new Tree Searcher with a new sub tree attached
@@ -67,29 +67,29 @@ public interface BranchAccess {
      * @param model the new substitution model to use
      * @return a new unrooted searcher
      */
-    public UnrootedMLSearcher attach(String newSequence, Alignment fullAlignment, SubstitutionModel model);
+    UnrootedMLSearcher attach(String newSequence, Alignment fullAlignment, SubstitutionModel model);
 
 
     /**
      * Obtain the leaf names to the "left" of this branch (left/right is an arbitary name to either end of branch - the only guarantee is that left is not right)
      * @return the appropriate leaf names
      */
-    public String[] getLeftLeafNames();
+    String[] getLeftLeafNames();
 
     /**
      * Obtain the leaf names to the "right" of this branch (left/right is an arbitary name to either end of branch - the only guarantee is that left is not right)
      * @return the appropriate leaf names
      */
-    public String[] getRightLeafNames();
+    String[] getRightLeafNames();
 
     /**
      * Constructe an array detailing the split information
      * @param leafNames the names of the leaves
      * @return an array matching the input array length, where each element should have the values -1, 1, or 0 depending on whether the name is in the "left" set, the "right" set, or unknown respectively.
      */
-    public int[] getSplitInformation(String[] leafNames);
+    int[] getSplitInformation(String[] leafNames);
 
-    public static final class Utils {
+    final class Utils {
         private static boolean isContained(String[] set, String query) {
             for (int i = 0; i < set.length; i++) {
                 if (query.equals(set[i])) {

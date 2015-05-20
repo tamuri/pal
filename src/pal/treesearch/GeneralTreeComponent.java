@@ -18,5 +18,5 @@ package pal.treesearch;
 import java.util.ArrayList;
 
 public interface GeneralTreeComponent {
-    public void getAllComponents(ArrayList store, Class componentType);
+    void getAllComponents(ArrayList store, Class componentType);
 }

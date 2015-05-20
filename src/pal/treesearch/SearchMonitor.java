@@ -21,9 +21,9 @@ public interface SearchMonitor {
      *
      * @param logLikelihood
      */
-    public void searchStepComplete(double logLikelihood);
+    void searchStepComplete(double logLikelihood);
 
-    public static final class Utils {
+    final class Utils {
         public static final SearchMonitor createNullMonitor() {
             return Null.INSTANCE;
         }

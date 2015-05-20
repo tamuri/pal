@@ -27,10 +27,10 @@ import pal.tree.Tree;
 import pal.util.AlgorithmCallback;
 
 public interface DistanceMatrixGenerator {
-    public DistanceMatrix generateNextMatrix(AlgorithmCallback callback);
+    DistanceMatrix generateNextMatrix(AlgorithmCallback callback);
 
     // ============================================================================
-    public static final class Utils {
+    final class Utils {
         public static DistanceMatrixGenerator createEvolutionary(Alignment a, SubstitutionModel sm) {
             return new Evolutionary(a, sm);
         }
