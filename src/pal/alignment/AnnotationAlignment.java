@@ -7,45 +7,60 @@
 
 package pal.alignment;
 
-import java.io.*;
+import pal.datatype.DataType;
+import pal.misc.Report;
 
-import pal.datatype.*;
-import pal.misc.*;
+import java.io.PrintWriter;
 
 /**
- *  The AnnotationAlignment interface is designed to provide annotation for an alignment.
- *  This annotation can
- *  include information on chromosomal location, site positions, names of loci, and the
- *  type of position (exon, intron, etc.)  This interface also permits multiple datatypes per
- *  alignment.
- *
- * @version $Id: AnnotationAlignment.java,v 1.2 2001/09/02 13:19:41 korbinian Exp $
+ * The AnnotationAlignment interface is designed to provide annotation for an alignment.
+ * This annotation can
+ * include information on chromosomal location, site positions, names of loci, and the
+ * type of position (exon, intron, etc.)  This interface also permits multiple datatypes per
+ * alignment.
  *
  * @author Ed Buckler
+ * @version $Id: AnnotationAlignment.java,v 1.2 2001/09/02 13:19:41 korbinian Exp $
  */
 public interface AnnotationAlignment extends Alignment, Report {
 
-    /** Return the position along chromosome */
+    /**
+     * Return the position along chromosome
+     */
     float getChromosomePosition(int site);
 
-    /** Returns chromosome */
+    /**
+     * Returns chromosome
+     */
     int getChromosome(int site);
 
-    /** Return the weighted position along the locus (handles gaps) */
+    /**
+     * Return the weighted position along the locus (handles gaps)
+     */
     float getWeightedLocusPosition(int site);
 
-    /** Return the position along the locus (ignores gaps) */
+    /**
+     * Return the position along the locus (ignores gaps)
+     */
     int getLocusPosition(int site);
 
-    /** Returns position type (eg.  I=intron, E=exon, P=promoter, 1=first, 2=second, 3=third, etc.*/
+    /**
+     * Returns position type (eg.  I=intron, E=exon, P=promoter, 1=first, 2=second, 3=third, etc.
+     */
     char getPositionType(int site);
 
-    /** Returns the name of the locus */
+    /**
+     * Returns the name of the locus
+     */
     String getLocusName(int site);
 
-    /** Returns the datatype for a specific site, which could differ by site in complex alignments */
+    /**
+     * Returns the datatype for a specific site, which could differ by site in complex alignments
+     */
     DataType getDataType(int site);
 
-    /** Returns a report for the alignment */
+    /**
+     * Returns a report for the alignment
+     */
     void report(PrintWriter out);
 }

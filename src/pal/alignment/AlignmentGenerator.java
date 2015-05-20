@@ -7,35 +7,37 @@
 
 package pal.alignment;
 
-import pal.util.*;
+import pal.util.AlgorithmCallback;
 
 /**
  * A AlignmentGenerator is an object that can generate alignments! (most probably replicates for statistical tests)
  *
- * @version $Id: AlignmentGenerator.java,v 1.2 2004/04/28 01:03:14 matt Exp $
- *
  * @author Matthew Goode
+ * @version $Id: AlignmentGenerator.java,v 1.2 2004/04/28 01:03:14 matt Exp $
  */
 
 public interface AlignmentGenerator {
-	public Alignment getNextAlignment( AlgorithmCallback callback);
+    public Alignment getNextAlignment(AlgorithmCallback callback);
 
-	// =====================================================================================
-	// ============= Utilities =============================================================
-	// =====================================================================================
-	public static final class Utils {
-	  public static final AlignmentGenerator createBootstrapGenerator(Alignment baseAlignment) {
-		  return new BootstrapGenerator(baseAlignment);
-		}
-		//===========================================================================
-		private static final class BootstrapGenerator implements AlignmentGenerator {
-			private final Alignment baseAlignment_;
-			public BootstrapGenerator(Alignment baseAlignment) {
-				this.baseAlignment_ = baseAlignment;
-			}
-			public Alignment getNextAlignment( AlgorithmCallback callback) {
-			  return new BootstrappedAlignment(baseAlignment_);
-			}
-		}
-	}
+    // =====================================================================================
+    // ============= Utilities =============================================================
+    // =====================================================================================
+    public static final class Utils {
+        public static final AlignmentGenerator createBootstrapGenerator(Alignment baseAlignment) {
+            return new BootstrapGenerator(baseAlignment);
+        }
+
+        //===========================================================================
+        private static final class BootstrapGenerator implements AlignmentGenerator {
+            private final Alignment baseAlignment_;
+
+            public BootstrapGenerator(Alignment baseAlignment) {
+                this.baseAlignment_ = baseAlignment;
+            }
+
+            public Alignment getNextAlignment(AlgorithmCallback callback) {
+                return new BootstrappedAlignment(baseAlignment_);
+            }
+        }
+    }
 }

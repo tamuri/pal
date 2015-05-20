@@ -14,7 +14,8 @@ package pal.coalescent;
  * @author Alexei Drummond
  */
 public interface DemographicTree {
-	double computeDemoLogLikelihood();
-	DemographicModel getDemographicModel();
+    double computeDemoLogLikelihood();
+
+    DemographicModel getDemographicModel();
 }
 

@@ -7,7 +7,8 @@
 
 package pal.gui;
 
-import pal.tree.*;
+import pal.tree.Node;
+import pal.tree.SimpleNode;
 
 
 /**
@@ -18,67 +19,71 @@ import pal.tree.*;
  */
 public class PositionedNode extends SimpleNode {
 
-	protected double x; //Please excuse this - it will be returned to its non public state eventually - MG
+    protected double x; //Please excuse this - it will be returned to its non public state eventually - MG
 
-	boolean highlight_;
-	Node peer_;
+    boolean highlight_;
+    Node peer_;
 
-	/** Builds a tree based on node, but highlights highlightNode */
-	public PositionedNode(Node node, Node highlightNode) {
+    /**
+     * Builds a tree based on node, but highlights highlightNode
+     */
+    public PositionedNode(Node node, Node highlightNode) {
 
-		init(node);
-		this.peer_ = node;
-		if (!node.isLeaf()) {
-			for (int i = 0; i < node.getChildCount(); i++) {
-				addChild(new PositionedNode(node.getChild(i),highlightNode));
-			}
-		}
+        init(node);
+        this.peer_ = node;
+        if (!node.isLeaf()) {
+            for (int i = 0; i < node.getChildCount(); i++) {
+                addChild(new PositionedNode(node.getChild(i), highlightNode));
+            }
+        }
 
-		highlight_ = (node==highlightNode);
-	}
+        highlight_ = (node == highlightNode);
+    }
 
-	public PositionedNode(Node node) {
+    public PositionedNode(Node node) {
 
-		init(node);
-		this.peer_ = node;
+        init(node);
+        this.peer_ = node;
 
-		if (!node.isLeaf()) {
-			for (int i = 0; i < node.getChildCount(); i++) {
-				addChild(new PositionedNode(node.getChild(i)));
-			}
-		}
-	}
+        if (!node.isLeaf()) {
+            for (int i = 0; i < node.getChildCount(); i++) {
+                addChild(new PositionedNode(node.getChild(i)));
+            }
+        }
+    }
 
-	public void calculatePositions() {
+    public void calculatePositions() {
 
-		double[] currentXPos = {0.0};
-		calculateXPositions(currentXPos);
-	}
-	public Node getPeer() {
-		return peer_;
-	}
-	private double calculateXPositions(double[] currentXPos) {
+        double[] currentXPos = {0.0};
+        calculateXPositions(currentXPos);
+    }
 
-		if (!isLeaf()) {
-			// find average x position
-			x = ((PositionedNode)getChild(0)).calculateXPositions(currentXPos);
-			for (int i = 1; i < getChildCount(); i++) {
-				x += ((PositionedNode)getChild(i)).calculateXPositions(currentXPos);
-			}
-			x /= getChildCount();
-		} else {
-			x = currentXPos[0];
-			currentXPos[0] += 1.0;
-		}
+    public Node getPeer() {
+        return peer_;
+    }
 
-		return x;
-	}
+    private double calculateXPositions(double[] currentXPos) {
 
-	public boolean isHighlighted() {
-			return highlight_;
-	}
+        if (!isLeaf()) {
+            // find average x position
+            x = ((PositionedNode) getChild(0)).calculateXPositions(currentXPos);
+            for (int i = 1; i < getChildCount(); i++) {
+                x += ((PositionedNode) getChild(i)).calculateXPositions(currentXPos);
+            }
+            x /= getChildCount();
+        } else {
+            x = currentXPos[0];
+            currentXPos[0] += 1.0;
+        }
 
-	public double getX() {
-			return x;
-	}
+        return x;
+    }
+
+    public boolean isHighlighted() {
+        return highlight_;
+    }
+
+    public double getX() {
+        return x;
+    }
 }

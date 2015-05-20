@@ -15,9 +15,10 @@ package pal.alignment;
  * @author Korbinian Strimmer
  */
 public class AlignmentParseException extends Exception {
-    public AlignmentParseException() {}
-    public AlignmentParseException(String msg)
-    {
+    public AlignmentParseException() {
+    }
+
+    public AlignmentParseException(String msg) {
         super(msg);
     }
 }

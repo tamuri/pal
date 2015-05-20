@@ -17,61 +17,64 @@ package pal.tree;
  * class should be used instead of calling the constructor
  * of an implementation of "Node"
  * (at the moment "SimpleNode") as it may change in the future.</b><p>
- *
+ * <p>
  * Other plans: add features here to recyle old nodes rather than
  * leaving them to the Java garbage collector
  *
  * @author Korbinian Strimmer
  */
+
 import pal.misc.Identifier;
-public class NodeFactory
-{
-	/** create a node */
-	public static final Node createNode()
-	{
-		return new SimpleNode();
-	}
-	/** create a node, with a specified identifier */
-	public static final Node createNode(Identifier id)
-	{
-		return new SimpleNode(id.getName(),0);
-	}
-	/** create a node, with a specified identifier */
-	public static final Node createNode(Identifier id, double height)
-	{
-		SimpleNode sn = new SimpleNode(id.getName(),0);
-		sn.setNodeHeight(height);
-		return sn;
-	}
-		/** create a node, with a specified identifier */
-	public static final Node createNodeBranchLength(double branchLength, Identifier id)
-	{
-		SimpleNode sn = new SimpleNode(id.getName(),0);
-		sn.setBranchLength(branchLength);
-		return sn;
-	}
-	/** constructor used to clone a node and all children */
-	public static final Node createNode(Node node)
-	{
-		return new SimpleNode(node);
-	}
-	public static final Node createNode(Node[] children) {
-		return new SimpleNode(children);
-	}
-	/**
-	 * Create a node with the specified children, and the specified branch height
-	 */
-	public static final Node createNode(Node[] children, double height) {
-		SimpleNode sn = new SimpleNode(children);
-		sn.setNodeHeight(height);
-		return sn;
-	}
-	/**
-	 * Create a node with the specified children, and the specified branch length
-	 */
-	public static final Node createNodeBranchLength(double branchLength, Node[] children) {
-		SimpleNode sn = new SimpleNode(children);
-		sn.setBranchLength(branchLength);
-		return sn;
-	}
+
+public class NodeFactory {
+    /** create a node */
+    public static final Node createNode() {
+        return new SimpleNode();
+    }
+
+    /** create a node, with a specified identifier */
+    public static final Node createNode(Identifier id) {
+        return new SimpleNode(id.getName(), 0);
+    }
+
+    /** create a node, with a specified identifier */
+    public static final Node createNode(Identifier id, double height) {
+        SimpleNode sn = new SimpleNode(id.getName(), 0);
+        sn.setNodeHeight(height);
+        return sn;
+    }
+
+    /** create a node, with a specified identifier */
+    public static final Node createNodeBranchLength(double branchLength, Identifier id) {
+        SimpleNode sn = new SimpleNode(id.getName(), 0);
+        sn.setBranchLength(branchLength);
+        return sn;
+    }
+
+    /** constructor used to clone a node and all children */
+    public static final Node createNode(Node node) {
+        return new SimpleNode(node);
+    }
+
+    public static final Node createNode(Node[] children) {
+        return new SimpleNode(children);
+    }
+
+    /**
+     * Create a node with the specified children, and the specified branch height
+     */
+    public static final Node createNode(Node[] children, double height) {
+        SimpleNode sn = new SimpleNode(children);
+        sn.setNodeHeight(height);
+        return sn;
+    }
+
+    /**
+     * Create a node with the specified children, and the specified branch length
+     */
+    public static final Node createNodeBranchLength(double branchLength, Node[] children) {
+        SimpleNode sn = new SimpleNode(children);
+        sn.setBranchLength(branchLength);
+        return sn;
+    }
 }

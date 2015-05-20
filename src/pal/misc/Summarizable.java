@@ -11,12 +11,11 @@ package pal.misc;
 /**
  * interface for classes that can provide summaries
  *
- * @version $Id: Summarizable.java,v 1.3 2001/07/13 14:39:13 korbinian Exp $
- *
  * @author Alexei Drummond
+ * @version $Id: Summarizable.java,v 1.3 2001/07/13 14:39:13 korbinian Exp $
  */
-public interface Summarizable extends java.io.Serializable
-{
-	String[] getSummaryTypes();
-	double getSummaryValue(int summaryType);
+public interface Summarizable extends java.io.Serializable {
+    String[] getSummaryTypes();
+
+    double getSummaryValue(int summaryType);
 } 

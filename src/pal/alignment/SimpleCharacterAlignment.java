@@ -66,7 +66,7 @@ public class SimpleCharacterAlignment implements CharacterAlignment, Serializabl
     /**
      * Constructor for SimpleCharacterAlignment.  Environment names if be set to default NA.
      *
-     * @param ids       array of taxa identifiers
+     * @param ids         array of taxa identifiers
      * @param traitValues matrix of trait values
      * @param traitNames  array of trait names
      */

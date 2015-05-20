@@ -8,15 +8,14 @@
 
 package pal.alignment;
 
-import pal.math.*;
+import pal.math.UrnModel;
 
 
 /**
  * generates bootstrapped alignments from a raw alignment
  *
- * @version $Id: BootstrappedAlignment.java,v 1.6 2003/03/23 00:12:57 matt Exp $
- *
  * @author Korbinian Strimmer
+ * @version $Id: BootstrappedAlignment.java,v 1.6 2003/03/23 00:12:57 matt Exp $
  */
 public class BootstrappedAlignment extends AbstractAlignment {
     //
@@ -44,17 +43,19 @@ public class BootstrappedAlignment extends AbstractAlignment {
 
     // Implementation of abstract Alignment method
 
-    /** sequence alignment at (sequence, site) */
-    public char getData(int seq, int site)
-    {
+    /**
+     * sequence alignment at (sequence, site)
+     */
+    public char getData(int seq, int site) {
         return rawAlignment.getData(seq, alias[site]);
     }
 
 
-    /** bootstrap alignment */
+    /**
+     * bootstrap alignment
+     */
     public void bootstrap() {
-        for (int i = 0; i < numSites; i++)
-        {
+        for (int i = 0; i < numSites; i++) {
             alias[i] = urn.drawPutBack();
         }
     }

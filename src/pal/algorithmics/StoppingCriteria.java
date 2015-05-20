@@ -10,12 +10,16 @@ package pal.algorithmics;
 /**
  * Title:        StoppingCriteria
  * Description:  A means of deciding when to stop
+ *
  * @author Matthew Goode
  * @version 1.0
  */
+
 import pal.util.AlgorithmCallback;
+
 public interface StoppingCriteria extends java.io.Serializable {
     boolean isTimeToStop();
+
     /**
      * Get an indication of how close to stopping we currently are
      * @return a value between 0 and 1 where zero means not likely to stop soon, and a value of one means likely to stop very soon
@@ -26,6 +30,7 @@ public interface StoppingCriteria extends java.io.Serializable {
      * @param externalStablized if true than other factors have stablized
      */
     void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback);
+
     void reset();
 
     //===========================================
@@ -34,6 +39,7 @@ public interface StoppingCriteria extends java.io.Serializable {
     interface Factory extends java.io.Serializable {
         StoppingCriteria newInstance();
     }
+
     //===========================================
     //=========== Static Util Class =============
     //===========================================
@@ -45,6 +51,7 @@ public interface StoppingCriteria extends java.io.Serializable {
         public static final StoppingCriteria.Factory getIterationCount(int maxIterationCount) {
             return new IterationCountSC.SCFactory(maxIterationCount);
         }
+
         /**
          * A stopping criteria that works by counting how many iterations occur at a given score (either the best score or the
          * current score) and stopping when score does not change after a set number of generations
@@ -54,6 +61,7 @@ public interface StoppingCriteria extends java.io.Serializable {
         public static final StoppingCriteria.Factory getUnchangedScore(int maxIterationCountAtCurrentScore, boolean matchBestScore) {
             return new UnchangedScoreSC.SCFactory(maxIterationCountAtCurrentScore, matchBestScore);
         }
+
         /**
          * A stopping criteria that works by counting how many iterations occur at a given score (either the best score or the
          * current score) and stopping when score does not change after a set number of generations
@@ -81,7 +89,7 @@ public interface StoppingCriteria extends java.io.Serializable {
             //
             // Serialization code
             //
-            private static final long serialVersionUID= -883722345529L;
+            private static final long serialVersionUID = -883722345529L;
 
             private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
                 out.writeByte(1); //Version number
@@ -89,10 +97,10 @@ public interface StoppingCriteria extends java.io.Serializable {
                 out.writeInt(maxIterationCount_);
             }
 
-            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException{
+            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                 byte version = in.readByte();
-                switch(version) {
-                    default : {
+                switch (version) {
+                    default: {
                         count_ = in.readInt();
                         maxIterationCount_ = in.readInt();
                         break;
@@ -107,23 +115,27 @@ public interface StoppingCriteria extends java.io.Serializable {
             public void reset() {
                 count_ = 0;
             }
+
             /**
              * Goes up as the count nears maximum
              * @return
              */
             public double getRelativeStoppingRatio() {
-                return count_/(double)maxIterationCount_;
+                return count_ / (double) maxIterationCount_;
             }
+
             public boolean isTimeToStop() {
-                return count_>=maxIterationCount_;
+                return count_ >= maxIterationCount_;
             }
+
             /**
              * @param externalStablized if true than other factors have stablized
              */
             public void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback) {
                 count_++;
-                callback.updateProgress(count_/(double)maxIterationCount_);
+                callback.updateProgress(count_ / (double) maxIterationCount_);
             }
+
             // ===== Factory ==========
             private static class SCFactory implements Factory {
                 private int maxIterationCount_;
@@ -132,14 +144,14 @@ public interface StoppingCriteria extends java.io.Serializable {
                 //
                 private static final long serialVersionUID = -552478345529L;
 
-                private void writeObject( java.io.ObjectOutputStream out ) throws java.io.IOException {
-                    out.writeByte( 1 ); //Version number
+                private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+                    out.writeByte(1); //Version number
                     out.writeInt(maxIterationCount_);
                 }
 
-                private void readObject( java.io.ObjectInputStream in ) throws java.io.IOException, ClassNotFoundException {
+                private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                     byte version = in.readByte();
-                    switch( version ) {
+                    switch (version) {
                         default: {
                             maxIterationCount_ = in.readInt();
                             break;
@@ -150,29 +162,31 @@ public interface StoppingCriteria extends java.io.Serializable {
                 public SCFactory(int maxIterationCount) {
                     this.maxIterationCount_ = maxIterationCount;
                 }
+
                 public StoppingCriteria newInstance() {
                     return new IterationCountSC(maxIterationCount_);
                 }
             }
         }
+
         //Has Serialization code
         private static class CombinedSC implements StoppingCriteria {
             private StoppingCriteria[] subCriteria_;
             //
             // Serialization code
             //
-            private static final long serialVersionUID= -847823472529L;
+            private static final long serialVersionUID = -847823472529L;
 
             private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
                 out.writeByte(1); //Version number
                 out.writeObject(subCriteria_);
             }
 
-            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException{
+            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                 byte version = in.readByte();
-                switch(version) {
-                    default : {
-                        subCriteria_ = (StoppingCriteria[])in.readObject();
+                switch (version) {
+                    default: {
+                        subCriteria_ = (StoppingCriteria[]) in.readObject();
                         break;
                     }
                 }
@@ -181,36 +195,40 @@ public interface StoppingCriteria extends java.io.Serializable {
             public CombinedSC(StoppingCriteria[] subCriteria) {
                 this.subCriteria_ = subCriteria;
             }
+
             public void reset() {
-                for(int i = 0 ; i < subCriteria_.length ; i++) {
+                for (int i = 0; i < subCriteria_.length; i++) {
                     subCriteria_[i].reset();
                 }
             }
+
             public double getRelativeStoppingRatio() {
                 double max = 0;
-                for(int i = 0 ; i < subCriteria_.length ; i++) {
-                    max = Math.max(max,subCriteria_[i].getRelativeStoppingRatio());
+                for (int i = 0; i < subCriteria_.length; i++) {
+                    max = Math.max(max, subCriteria_[i].getRelativeStoppingRatio());
                 }
                 return max;
             }
 
 
             public boolean isTimeToStop() {
-                for(int i = 0 ; i < subCriteria_.length ; i++) {
-                    if(subCriteria_[i].isTimeToStop()) {
+                for (int i = 0; i < subCriteria_.length; i++) {
+                    if (subCriteria_[i].isTimeToStop()) {
                         return true;
                     }
                 }
                 return false;
             }
+
             /**
              * @param externalStablized if true than other factors have stablized
              */
             public void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback) {
-                for(int i = 0 ; i < subCriteria_.length ; i++) {
-                    subCriteria_[i].newIteration(currentScore,bestScore,maximising,externalStablized, callback);
+                for (int i = 0; i < subCriteria_.length; i++) {
+                    subCriteria_[i].newIteration(currentScore, bestScore, maximising, externalStablized, callback);
                 }
             }
+
             // ===== Factory ==========
             static class SCFactory implements Factory {
                 Factory[] subCriteria_;
@@ -219,33 +237,35 @@ public interface StoppingCriteria extends java.io.Serializable {
                 //
                 private static final long serialVersionUID = -525566345529L;
 
-                private void writeObject( java.io.ObjectOutputStream out ) throws java.io.IOException {
-                    out.writeByte( 1 ); //Version number
+                private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+                    out.writeByte(1); //Version number
                     out.writeObject(subCriteria_);
                 }
 
-                private void readObject( java.io.ObjectInputStream in ) throws java.io.IOException, ClassNotFoundException {
+                private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                     byte version = in.readByte();
-                    switch( version ) {
+                    switch (version) {
                         default: {
-                            subCriteria_ = (Factory[])in.readObject();
+                            subCriteria_ = (Factory[]) in.readObject();
                             break;
                         }
                     }
                 }
 
-                public SCFactory( Factory[] subCriteria ) {
+                public SCFactory(Factory[] subCriteria) {
                     this.subCriteria_ = subCriteria;
                 }
+
                 public StoppingCriteria newInstance() {
                     StoppingCriteria[] subs = new StoppingCriteria[subCriteria_.length];
-                    for(int i = 0 ; i < subs.length ; i++) {
+                    for (int i = 0; i < subs.length; i++) {
                         subs[i] = subCriteria_[i].newInstance();
                     }
                     return new CombinedSC(subs);
                 }
             }
         }
+
         // -=-=-=-=
         //Has Serialization code
         private static class UnchangedScoreSC implements StoppingCriteria {
@@ -256,7 +276,7 @@ public interface StoppingCriteria extends java.io.Serializable {
             //
             // Serialization code
             //
-            private static final long serialVersionUID= -3242345529L;
+            private static final long serialVersionUID = -3242345529L;
 
             private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
                 out.writeByte(1); //Version number
@@ -266,10 +286,10 @@ public interface StoppingCriteria extends java.io.Serializable {
                 out.writeBoolean(matchBestScore_);
             }
 
-            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException{
+            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                 byte version = in.readByte();
-                switch(version) {
-                    default : {
+                switch (version) {
+                    default: {
                         count_ = in.readInt();
                         maxIterationCountAtCurrentScore_ = in.readInt();
                         lastScore_ = in.readDouble();
@@ -288,35 +308,36 @@ public interface StoppingCriteria extends java.io.Serializable {
             public void reset() {
                 count_ = 0;
             }
+
             /**
              * Goes up as the count nears maximum
              * @return
              */
             public double getRelativeStoppingRatio() {
-                return count_/(double)maxIterationCountAtCurrentScore_;
+                return count_ / (double) maxIterationCountAtCurrentScore_;
             }
 
             public boolean isTimeToStop() {
-                return count_>=maxIterationCountAtCurrentScore_;
+                return count_ >= maxIterationCountAtCurrentScore_;
             }
 
             /**
              * @param externalStablized if true than other factors have stablized
              */
-            public void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback){
-                if(!externalStablized) {
+            public void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback) {
+                if (!externalStablized) {
                     return;
                 }
-                if(count_==0) {
+                if (count_ == 0) {
                     lastScore_ = (matchBestScore_ ? bestScore : currentScore);
                 } else {
-                    if(matchBestScore_) {
-                        if((!maximising&&(bestScore<lastScore_))||(maximising&&(bestScore>lastScore_))) {
+                    if (matchBestScore_) {
+                        if ((!maximising && (bestScore < lastScore_)) || (maximising && (bestScore > lastScore_))) {
                             lastScore_ = bestScore;
                             count_ = 0;
                         }
                     } else {
-                        if(lastScore_!=currentScore) {
+                        if (lastScore_ != currentScore) {
                             lastScore_ = currentScore;
                             count_ = 0;
                             callback.updateStatus("Restarting count...");
@@ -325,6 +346,7 @@ public interface StoppingCriteria extends java.io.Serializable {
                 }
                 count_++;
             }
+
             // ===== Factory ==========
             static class SCFactory implements Factory {
                 private int maxIterationCountAtCurrentScore_;
@@ -334,15 +356,15 @@ public interface StoppingCriteria extends java.io.Serializable {
                 //
                 private static final long serialVersionUID = -1234567785529L;
 
-                private void writeObject( java.io.ObjectOutputStream out ) throws java.io.IOException {
-                    out.writeByte( 1 ); //Version number
+                private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+                    out.writeByte(1); //Version number
                     out.writeInt(maxIterationCountAtCurrentScore_);
                     out.writeBoolean(matchBestScore_);
                 }
 
-                private void readObject( java.io.ObjectInputStream in ) throws java.io.IOException, ClassNotFoundException {
+                private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                     byte version = in.readByte();
-                    switch( version ) {
+                    switch (version) {
                         default: {
                             maxIterationCountAtCurrentScore_ = in.readInt();
                             matchBestScore_ = in.readBoolean();
@@ -351,12 +373,13 @@ public interface StoppingCriteria extends java.io.Serializable {
                     }
                 }
 
-                public SCFactory( int maxIterationCountAtCurrentScore, boolean matchBestScore ) {
+                public SCFactory(int maxIterationCountAtCurrentScore, boolean matchBestScore) {
                     this.maxIterationCountAtCurrentScore_ = maxIterationCountAtCurrentScore;
                     this.matchBestScore_ = matchBestScore;
                 }
+
                 public StoppingCriteria newInstance() {
-                    return new UnchangedScoreSC(maxIterationCountAtCurrentScore_,matchBestScore_);
+                    return new UnchangedScoreSC(maxIterationCountAtCurrentScore_, matchBestScore_);
                 }
             }
         }
@@ -374,18 +397,18 @@ public interface StoppingCriteria extends java.io.Serializable {
             //
             private static final long serialVersionUID = -56982234429L;
 
-            private void writeObject( java.io.ObjectOutputStream out ) throws java.io.IOException {
-                out.writeByte( 1 ); //Version number
-                out.writeInt( count_ );
-                out.writeInt( maxIterationCountAtCurrentScore_ );
-                out.writeDouble( lastScore_ );
-                out.writeBoolean( matchBestScore_ );
-                out.writeDouble( tolerance_ );
+            private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+                out.writeByte(1); //Version number
+                out.writeInt(count_);
+                out.writeInt(maxIterationCountAtCurrentScore_);
+                out.writeDouble(lastScore_);
+                out.writeBoolean(matchBestScore_);
+                out.writeDouble(tolerance_);
             }
 
-            private void readObject( java.io.ObjectInputStream in ) throws java.io.IOException, ClassNotFoundException {
+            private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                 byte version = in.readByte();
-                switch( version ) {
+                switch (version) {
                     default: {
                         count_ = in.readInt();
                         maxIterationCountAtCurrentScore_ = in.readInt();
@@ -398,7 +421,7 @@ public interface StoppingCriteria extends java.io.Serializable {
             }
 
 
-            public NonExactUnchangedScoreSC(int maxIterationCountAtCurrentScore, boolean matchBestScore,  double tolerance) {
+            public NonExactUnchangedScoreSC(int maxIterationCountAtCurrentScore, boolean matchBestScore, double tolerance) {
                 this.maxIterationCountAtCurrentScore_ = maxIterationCountAtCurrentScore;
                 this.tolerance_ = tolerance;
                 this.matchBestScore_ = matchBestScore;
@@ -409,33 +432,34 @@ public interface StoppingCriteria extends java.io.Serializable {
             }
 
             public boolean isTimeToStop() {
-                return count_>=maxIterationCountAtCurrentScore_;
+                return count_ >= maxIterationCountAtCurrentScore_;
             }
+
             /**
              * Goes up as the count nears maximum
              * @return
              */
             public double getRelativeStoppingRatio() {
-                return count_/(double)maxIterationCountAtCurrentScore_;
+                return count_ / (double) maxIterationCountAtCurrentScore_;
             }
 
             /**
              * @param externalStablized if true than other factors have stablized
              */
-            public void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback){
-                if(!externalStablized) {
+            public void newIteration(double currentScore, double bestScore, boolean maximising, boolean externalStablized, AlgorithmCallback callback) {
+                if (!externalStablized) {
                     return;
                 }
-                if(count_==0) {
+                if (count_ == 0) {
                     lastScore_ = (matchBestScore_ ? bestScore : currentScore);
                 } else {
-                    if(matchBestScore_) {
-                        if((!maximising&&(bestScore<lastScore_-tolerance_))||(maximising&&(bestScore>lastScore_+tolerance_))) {
+                    if (matchBestScore_) {
+                        if ((!maximising && (bestScore < lastScore_ - tolerance_)) || (maximising && (bestScore > lastScore_ + tolerance_))) {
                             lastScore_ = bestScore;
                             count_ = 0;
                         }
                     } else {
-                        if(Math.abs(lastScore_-currentScore)>tolerance_) {
+                        if (Math.abs(lastScore_ - currentScore) > tolerance_) {
                             lastScore_ = currentScore;
                             count_ = 0;
                         }
@@ -443,6 +467,7 @@ public interface StoppingCriteria extends java.io.Serializable {
                 }
                 count_++;
             }
+
             // ===== Factory ==========
             static class SCFactory implements Factory {
                 private int maxIterationCountAtCurrentScore_;
@@ -453,16 +478,16 @@ public interface StoppingCriteria extends java.io.Serializable {
                 //
                 private static final long serialVersionUID = -4523982234429L;
 
-                private void writeObject( java.io.ObjectOutputStream out ) throws java.io.IOException {
-                    out.writeByte( 1 ); //Version number
-                    out.writeInt( maxIterationCountAtCurrentScore_ );
-                    out.writeBoolean( matchBestScore_ );
-                    out.writeDouble( tolerance_ );
+                private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+                    out.writeByte(1); //Version number
+                    out.writeInt(maxIterationCountAtCurrentScore_);
+                    out.writeBoolean(matchBestScore_);
+                    out.writeDouble(tolerance_);
                 }
 
-                private void readObject( java.io.ObjectInputStream in ) throws java.io.IOException, ClassNotFoundException {
+                private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
                     byte version = in.readByte();
-                    switch( version ) {
+                    switch (version) {
                         default: {
                             maxIterationCountAtCurrentScore_ = in.readInt();
                             matchBestScore_ = in.readBoolean();
@@ -471,13 +496,15 @@ public interface StoppingCriteria extends java.io.Serializable {
                         }
                     }
                 }
+
                 public SCFactory(int maxIterationCountAtCurrentScore, boolean matchBestScore, double tolerance) {
                     this.maxIterationCountAtCurrentScore_ = maxIterationCountAtCurrentScore;
                     this.matchBestScore_ = matchBestScore;
-                    this.tolerance_ =tolerance;
+                    this.tolerance_ = tolerance;
                 }
+
                 public StoppingCriteria newInstance() {
-                    return new NonExactUnchangedScoreSC(maxIterationCountAtCurrentScore_,matchBestScore_, tolerance_);
+                    return new NonExactUnchangedScoreSC(maxIterationCountAtCurrentScore_, matchBestScore_, tolerance_);
                 }
             }
         }

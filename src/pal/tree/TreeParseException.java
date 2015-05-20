@@ -14,12 +14,11 @@ package pal.tree;
  *
  * @author Korbinian Strimmer
  */
-public class TreeParseException extends Exception
-{
-	public TreeParseException() {}
+public class TreeParseException extends Exception {
+    public TreeParseException() {
+    }
 
-	public TreeParseException(String msg)
-	{
-		super(msg);
-	}
+    public TreeParseException(String msg) {
+        super(msg);
+    }
 }

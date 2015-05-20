@@ -13,8 +13,8 @@ package pal.util;
  * pal library. It relies on the administrator of the pal library using the
  * module tagging system in CVS. The method getVersionString() will return
  * the version of the pal library under the following conditions: <BR>
- * 1. the pal library has been tagged with an identifier in the format: 
- * pal-#-# or pal-#-#-#, e.g. pal-1-3-0 for version 1.3.0. 
+ * 1. the pal library has been tagged with an identifier in the format:
+ * pal-#-# or pal-#-#-#, e.g. pal-1-3-0 for version 1.3.0.
  * 2. the pal library has been checked out *by tag* before packaged for
  * distribution.
  *
@@ -24,21 +24,21 @@ package pal.util;
 public class Version {
 
 
-	/** 
-	 * Version string: assumed to be in format projectname-#-#-# 
-	 * surrounded by standard CVS junk. 
-	 */
-	private static String VERSION = "$Name:  $";
+    /**
+     * Version string: assumed to be in format projectname-#-#-#
+     * surrounded by standard CVS junk.
+     */
+    private static String VERSION = "$Name:  $";
 
-	private static String ID = "$Id: Version.java,v 1.1 2001/09/10 01:58:27 alexi Exp $";
+    private static String ID = "$Id: Version.java,v 1.1 2001/09/10 01:58:27 alexi Exp $";
 
-	public static String getVersionString() {
-	
-		if (VERSION.indexOf('-') != -1) {
-			String version = 
-				VERSION.substring(VERSION.indexOf('-') + 1, VERSION.length() - 1);
-			version = version.replace('-', '.');
-			return version;
-		} else return "unknown";
-	}
+    public static String getVersionString() {
+
+        if (VERSION.indexOf('-') != -1) {
+            String version =
+                    VERSION.substring(VERSION.indexOf('-') + 1, VERSION.length() - 1);
+            version = version.replace('-', '.');
+            return version;
+        } else return "unknown";
+    }
 }

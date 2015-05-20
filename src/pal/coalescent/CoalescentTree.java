@@ -7,8 +7,6 @@
 
 package pal.coalescent;
 
-import pal.tree.*;
-
 /**
  * interface defining a parameterized tree that
  * includes demographic information.
@@ -16,6 +14,6 @@ import pal.tree.*;
  * @author Alexei Drummond
  */
 public interface CoalescentTree {
-	CoalescentIntervals getCoalescentIntervals();
+    CoalescentIntervals getCoalescentIntervals();
 }
 

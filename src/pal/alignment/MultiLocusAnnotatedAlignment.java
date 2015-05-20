@@ -16,27 +16,40 @@ import pal.misc.Identifier;
  * loci.  Separate annotation information is stored from each sites.  This would be good SNP
  * SSR type of data, but it would be inefficient for single gene data.
  *
- * @version $Id:
- *
  * @author Ed Buckler
+ * @version $Id:
  */
 
-public class MultiLocusAnnotatedAlignment extends SimpleAlignment implements AnnotationAlignment{
-    /** used to designate position along chromosome */
+public class MultiLocusAnnotatedAlignment extends SimpleAlignment implements AnnotationAlignment {
+    /**
+     * used to designate position along chromosome
+     */
     public float chromosomePosition[];
-    /** used to designate chromosome */
+    /**
+     * used to designate chromosome
+     */
     public int chromosome[];
-    /** used to designate weighted position; accounts for gaps */
+    /**
+     * used to designate weighted position; accounts for gaps
+     */
     public float weightedPosition[];
-    /** used to designate position; do not account for gaps */
+    /**
+     * used to designate position; do not account for gaps
+     */
     public int locusPosition[];
-    /** used to designate position Type */
+    /**
+     * used to designate position Type
+     */
     public char positionType[];
-    /** used to designate locus name */
+    /**
+     * used to designate locus name
+     */
     public String locusName[];
 
-    /** provides datatype for each locus separately*/
-    public DataType[] siteDataType=null;
+    /**
+     * provides datatype for each locus separately
+     */
+    public DataType[] siteDataType = null;
 
     /**
      * Basic constructor.
@@ -58,27 +71,27 @@ public class MultiLocusAnnotatedAlignment extends SimpleAlignment implements Ann
     public MultiLocusAnnotatedAlignment(AnnotationAlignment a) {
         super(a);
         initMatrices();
-        for (int i = 0; i <getSiteCount(); i++) {
-            chromosomePosition[i]=a.getChromosomePosition(i);
-            chromosome[i]=a.getChromosome(i);
-            locusName[i]=a.getLocusName(i);
-            weightedPosition[i]=a.getWeightedLocusPosition(i);
-            positionType[i]=a.getPositionType(i);
+        for (int i = 0; i < getSiteCount(); i++) {
+            chromosomePosition[i] = a.getChromosomePosition(i);
+            chromosome[i] = a.getChromosome(i);
+            locusName[i] = a.getLocusName(i);
+            weightedPosition[i] = a.getWeightedLocusPosition(i);
+            positionType[i] = a.getPositionType(i);
         }
     }
 
     public MultiLocusAnnotatedAlignment(Identifier[] ids, String[] sequences, String gaps, DataType dt) {
-        super(ids, sequences, gaps,dt);
+        super(ids, sequences, gaps, dt);
         initMatrices();
     }
 
     public MultiLocusAnnotatedAlignment(IdGroup group, String[] sequences, DataType dt) {
-        super(group, sequences,dt);
+        super(group, sequences, dt);
         initMatrices();
     }
 
     public MultiLocusAnnotatedAlignment(IdGroup group, String[] sequences, String gaps, DataType dt) {
-        super(group, sequences, gaps,dt);
+        super(group, sequences, gaps, dt);
         initMatrices();
     }
 
@@ -86,31 +99,31 @@ public class MultiLocusAnnotatedAlignment extends SimpleAlignment implements Ann
      * This constructor will subset the alignment based on the taxa in IdGroup
      */
     public MultiLocusAnnotatedAlignment(AnnotationAlignment a, IdGroup newGroup) {
-        sequences=new String[newGroup.getIdCount()];
-        for (int i = 0; i <newGroup.getIdCount(); i++) {
-            int oldI=a.whichIdNumber(newGroup.getIdentifier(i).getName());
-            sequences[i]=a.getAlignedSequenceString(oldI);
+        sequences = new String[newGroup.getIdCount()];
+        for (int i = 0; i < newGroup.getIdCount(); i++) {
+            int oldI = a.whichIdNumber(newGroup.getIdentifier(i).getName());
+            sequences[i] = a.getAlignedSequenceString(oldI);
         }
-        init(newGroup,sequences);
+        init(newGroup, sequences);
         initMatrices();
-        weightedPosition=new float[numSites];
-        positionType=new char[numSites];
-        for (int i = 0; i <numSites; i++) {
-            chromosomePosition[i]=a.getChromosomePosition(i);
-            chromosome[i]=a.getChromosome(i);
-            locusName[i]=a.getLocusName(i);
-            weightedPosition[i]=a.getWeightedLocusPosition(i);
-            positionType[i]=a.getPositionType(i);
+        weightedPosition = new float[numSites];
+        positionType = new char[numSites];
+        for (int i = 0; i < numSites; i++) {
+            chromosomePosition[i] = a.getChromosomePosition(i);
+            chromosome[i] = a.getChromosome(i);
+            locusName[i] = a.getLocusName(i);
+            weightedPosition[i] = a.getWeightedLocusPosition(i);
+            positionType[i] = a.getPositionType(i);
         }
     }
 
     protected void initMatrices() {
-        chromosomePosition=new float[getSiteCount()];
-        chromosome=new int[getSiteCount()];
-        locusName=new String[getSiteCount()];
-        locusPosition=new int[getSiteCount()];
-        weightedPosition=new float[getSiteCount()];
-        positionType=new char[getSiteCount()];
+        chromosomePosition = new float[getSiteCount()];
+        chromosome = new int[getSiteCount()];
+        locusName = new String[getSiteCount()];
+        locusPosition = new int[getSiteCount()];
+        weightedPosition = new float[getSiteCount()];
+        positionType = new char[getSiteCount()];
     }
 
     protected void init(IdGroup group, String[] sequences) {

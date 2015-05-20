@@ -8,7 +8,7 @@
 package pal.util;
 
 /**
- * Interface for all objects that provide a logging facility. 
+ * Interface for all objects that provide a logging facility.
  *
  * @author Alexei Drummond
  * @version $Revision: 1.3 $
@@ -16,9 +16,9 @@ package pal.util;
 
 
 public interface Logger {
-	void log(Object obj);
+    void log(Object obj);
 
-	void debug(Object obj);
+    void debug(Object obj);
 
-   // boolean isDebugging();
+    // boolean isDebugging();
 }

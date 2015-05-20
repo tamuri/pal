@@ -13,23 +13,21 @@ package pal.util;
  * Java 1.2, and it should be superceded by the JDK 1.2 collections
  * framework when PAL is moved to 1.2.
  *
- * @version $Id: Comparable.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
- *
  * @author Alexei Drummond
+ * @version $Id: Comparable.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
  */
-public interface Comparable
-{
-	/**
-	 * Returns a number representing the ordering relationship that
-	 * the object has with the given object.
-	 * A negative number indicates that the object is "smaller" than
-	 * the parameter, a positive number means it is "larger" and zero
-	 * indicates that the objects are equal.
-	 */
-	int compareTo(Object o);
+public interface Comparable {
+    /**
+     * Returns a number representing the ordering relationship that
+     * the object has with the given object.
+     * A negative number indicates that the object is "smaller" than
+     * the parameter, a positive number means it is "larger" and zero
+     * indicates that the objects are equal.
+     */
+    int compareTo(Object o);
 
-	/**
-	 * Returns true if this object is equal to the given object.
-	 */
-	boolean equals(Object o);
+    /**
+     * Returns true if this object is equal to the given object.
+     */
+    boolean equals(Object o);
 }

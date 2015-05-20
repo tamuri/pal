@@ -11,47 +11,44 @@
 
 package pal.eval;
 
-import pal.alignment.*;
-import pal.coalescent.*;
+import pal.alignment.SitePattern;
+import pal.coalescent.DemographicTree;
 
 /**
  * Estimates the likelihood for a tree using a specified
  * model of sequence evolution and a sequence alignment and
  * a specific demographic model as a prior on coalescent intervals.
- *
+ * <p>
  * <em>Must be used in conjunction with DemographicClockTree! </em>
  *
- * @version $Id: DemographicLikelihoodValue.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
- *
  * @author Alexei Drummond
+ * @version $Id: DemographicLikelihoodValue.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
  */
-public class DemographicLikelihoodValue extends LikelihoodValue
-{
-	//
-	// Public stuff
-	//
+public class DemographicLikelihoodValue extends LikelihoodValue {
+    //
+    // Public stuff
+    //
 
-	/**
-	 * Parameter taking a site pattern.
-	 */
-	public DemographicLikelihoodValue(SitePattern sp) {
-		super(sp);
-	}
+    /**
+     * Parameter taking a site pattern.
+     */
+    public DemographicLikelihoodValue(SitePattern sp) {
+        super(sp);
+    }
 
 
-	/**
-	 * compute log-likelihood
-	 * for current branch lengths and model
-	 *
-	 * return negative log-likelihood
-	 */
-	public double compute()
-	{
-		super.compute();
+    /**
+     * compute log-likelihood
+     * for current branch lengths and model
+     * <p>
+     * return negative log-likelihood
+     */
+    public double compute() {
+        super.compute();
 
-		logL += ((DemographicTree)tree).computeDemoLogLikelihood();
+        logL += ((DemographicTree) tree).computeDemoLogLikelihood();
 
-		return -logL;
-	}
+        return -logL;
+    }
 }
 

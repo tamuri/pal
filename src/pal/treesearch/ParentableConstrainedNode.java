@@ -10,19 +10,24 @@ package pal.treesearch;
 /**
  * <p>Title: ParentableConstrainedNode </p>
  * <p>Description: </p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import java.util.*;
-import pal.eval.*;
 
-public interface ParentableConstrainedNode  {
-	public double getNodeHeight();
+import pal.eval.ConditionalProbabilityStore;
+import pal.eval.PatternInfo;
 
-	public void getNonSubTreeOfChildComponents(ArrayList store, Class componentType, ConstrainedNode childCaller);
+import java.util.ArrayList;
 
-	public ConditionalProbabilityStore getAscendentExtended(double baseHeight, ConstrainedNode childCaller, GeneralConstructionTool tool,boolean allowCaching);
-	public ConditionalProbabilityStore getAscendentFlat(ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
+public interface ParentableConstrainedNode {
+    public double getNodeHeight();
 
-	public PatternInfo getAscendentPatternInfo(ConstrainedNode childCaller, GeneralConstructionTool tool);
+    public void getNonSubTreeOfChildComponents(ArrayList store, Class componentType, ConstrainedNode childCaller);
+
+    public ConditionalProbabilityStore getAscendentExtended(double baseHeight, ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
+
+    public ConditionalProbabilityStore getAscendentFlat(ConstrainedNode childCaller, GeneralConstructionTool tool, boolean allowCaching);
+
+    public PatternInfo getAscendentPatternInfo(ConstrainedNode childCaller, GeneralConstructionTool tool);
 }

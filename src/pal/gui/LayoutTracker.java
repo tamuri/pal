@@ -10,40 +10,48 @@ package pal.gui;
 /**
  * Title:        LayoutTracer
  * Description:  A means for tracking the layout of labels
- * @author			 Matthew Goode
+ *
+ * @author Matthew Goode
  * @version 1.0
  */
-import java.util.*;
+
+import pal.misc.Identifier;
+
 import java.awt.*;
-import pal.misc.*;
+import java.util.Hashtable;
 
 public class LayoutTracker {
-	Hashtable layoutMappings_ = new Hashtable();
-	public LayoutTracker() { }
-	public void addMapping(String name, Rectangle bounds) {
-		layoutMappings_.put(name,bounds);
-	}
-	public void addMapping(Identifier id, Rectangle bounds) {
-		if(id!=null&&id.getName()!=null) {
-			layoutMappings_.put(id.getName(),bounds);
-		}
-	}
+    Hashtable layoutMappings_ = new Hashtable();
 
-	public Rectangle getBounds(String name) {
-		if(name==null||!layoutMappings_.containsKey(name)) {
-			return null;
-		}
-		return (Rectangle)layoutMappings_.get(name);
-	}
-	public Rectangle getBounds(Identifier id) {
-		if(id==null) {
-			return null;
-		}
-		return getBounds(id.getName());
-	}
+    public LayoutTracker() {
+    }
 
-	public void reset() {
-		layoutMappings_.clear();
-	}
+    public void addMapping(String name, Rectangle bounds) {
+        layoutMappings_.put(name, bounds);
+    }
+
+    public void addMapping(Identifier id, Rectangle bounds) {
+        if (id != null && id.getName() != null) {
+            layoutMappings_.put(id.getName(), bounds);
+        }
+    }
+
+    public Rectangle getBounds(String name) {
+        if (name == null || !layoutMappings_.containsKey(name)) {
+            return null;
+        }
+        return (Rectangle) layoutMappings_.get(name);
+    }
+
+    public Rectangle getBounds(Identifier id) {
+        if (id == null) {
+            return null;
+        }
+        return getBounds(id.getName());
+    }
+
+    public void reset() {
+        layoutMappings_.clear();
+    }
 
 }

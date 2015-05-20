@@ -8,33 +8,26 @@
 
 package pal.statistics;
 
-import pal.math.*;
-
-
 /**
  * Likelihood ratio test based on chi-square statistics
  *
- * @version $Id: LikelihoodRatioTest.java,v 1.5 2001/07/13 14:39:13 korbinian Exp $ 
- *
  * @author Korbinian Strimmer
+ * @version $Id: LikelihoodRatioTest.java,v 1.5 2001/07/13 14:39:13 korbinian Exp $
  */
-public class LikelihoodRatioTest
-{
-	//
-	// Public stuff
-	//
-	
-	/**
-	 * compute significance level for the differences
-	 * in log-likelihood (based on chi-square distribution)
-	 *
-	 * @param deltaL  difference of Log Likelihood values (>=0)
-	 * @param df      degrees of freedom
-	 *
-	 * @return        significance level
-	 */
-	public static double getSignificance(double deltaL, int df)
-	{
-		return 1.0-ChiSquareDistribution.cdf(2.0*deltaL, df);
-	}
+public class LikelihoodRatioTest {
+    //
+    // Public stuff
+    //
+
+    /**
+     * compute significance level for the differences
+     * in log-likelihood (based on chi-square distribution)
+     *
+     * @param deltaL difference of Log Likelihood values (>=0)
+     * @param df     degrees of freedom
+     * @return significance level
+     */
+    public static double getSignificance(double deltaL, int df) {
+        return 1.0 - ChiSquareDistribution.cdf(2.0 * deltaL, df);
+    }
 }

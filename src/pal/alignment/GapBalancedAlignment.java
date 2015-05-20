@@ -7,21 +7,23 @@
 
 package pal.alignment;
 
-import pal.datatype.*;
-import pal.misc.*;
+import pal.datatype.DataType;
+import pal.misc.SimpleIdGroup;
 
 import java.io.Serializable;
 
 /**
  * Creates a "Gap-Balanced" alignment.
  *
- * @version $Id: GapBalancedAlignment.java,v 1.14 2003/04/10 05:53:47 matt Exp $
- *
  * @author Matthew Goode
+ * @version $Id: GapBalancedAlignment.java,v 1.14 2003/04/10 05:53:47 matt Exp $
  */
 public class GapBalancedAlignment extends AbstractAlignment implements Serializable {
 
-    final static int DEFAULT_CODON_LENGTH = 3; /** Just in case we find some Alien DNA */
+    final static int DEFAULT_CODON_LENGTH = 3;
+    /**
+     * Just in case we find some Alien DNA
+     */
     //
     // Private stuff
     //
@@ -39,11 +41,11 @@ public class GapBalancedAlignment extends AbstractAlignment implements Serializa
         out.writeObject(data_);
     }
 
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException{
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
         byte version = in.readByte();
-        switch(version) {
-            default : {
-                data_ = (char[][])in.readObject();
+        switch (version) {
+            default: {
+                data_ = (char[][]) in.readObject();
                 break;
             }
         }
@@ -56,43 +58,45 @@ public class GapBalancedAlignment extends AbstractAlignment implements Serializa
     /**
      * The standard GapBalanced constructor
      *
-     * @param base on which to based this gap balanced alignment
+     * @param base                  on which to based this gap balanced alignment
      * @param startingCodonPosition estimated startingCodonPosition of the alignment
      */
     public GapBalancedAlignment(Alignment base, int startingCodonPosition, boolean alignGap) {
-        calculateData(base,startingCodonPosition,alignGap, DEFAULT_CODON_LENGTH);
+        calculateData(base, startingCodonPosition, alignGap, DEFAULT_CODON_LENGTH);
     }
 
     /**
      * GapBalanced power user constructor
      *
-     * @param base on which to based this gap balanced alignment
+     * @param base                  on which to based this gap balanced alignment
      * @param startingCodonPosition the starting codon position of the alignment
-     * @param codonLength the length of a codon (to make things general,
-     * - the author is a Computer Scientist)
+     * @param codonLength           the length of a codon (to make things general,
+     *                              - the author is a Computer Scientist)
      * @note Gaps, are "aligned"
      */
     public GapBalancedAlignment(Alignment base, int startingCodonPosition, int codonLength) {
-        calculateData(base,startingCodonPosition,true, codonLength);
+        calculateData(base, startingCodonPosition, true, codonLength);
     }
 
     /**
      * GapBalanced power user constructor
      *
-     * @param base on which to based this gap balanced alignment
+     * @param base                  on which to based this gap balanced alignment
      * @param startingCodonPosition the starting codon position of the alignment
-     * @param alignGap sometimes a large cap may occur in the middle of a sequence's codon. If this is true than no
-     * columns can match up in this area (it's hard to explain - for safety choose true!)
-     * @param codonLength the length of a codon (to make things general,
-     * - the author is a Computer Scientist)
+     * @param alignGap              sometimes a large cap may occur in the middle of a sequence's codon. If this is true than no
+     *                              columns can match up in this area (it's hard to explain - for safety choose true!)
+     * @param codonLength           the length of a codon (to make things general,
+     *                              - the author is a Computer Scientist)
      */
-    public GapBalancedAlignment(Alignment base, int startingCodonPosition,boolean alignGap, int codonLength) {
-        calculateData(base,startingCodonPosition,alignGap, codonLength);
+    public GapBalancedAlignment(Alignment base, int startingCodonPosition, boolean alignGap, int codonLength) {
+        calculateData(base, startingCodonPosition, alignGap, codonLength);
     }
 
-    /** Generates Alignment information by removing sites that have misaligned codon positions */
+    /**
+     * Generates Alignment information by removing sites that have misaligned codon positions
+     */
     private void calculateData(Alignment base, int startingCodonPosition, boolean alignGap, int codonLength) {
-        GapIterator gi = new GapIterator(base,startingCodonPosition, alignGap, codonLength);
+        GapIterator gi = new GapIterator(base, startingCodonPosition, alignGap, codonLength);
         gi.processAllSites();
         data_ = gi.getData();
 
@@ -106,15 +110,17 @@ public class GapBalancedAlignment extends AbstractAlignment implements Serializa
 
     // Implementation of abstract Alignment method
 
-    /** sequence alignment at (sequence, site) */
-    public char getData(int seq, int site)
-    {
+    /**
+     * sequence alignment at (sequence, site)
+     */
+    public char getData(int seq, int site) {
         return data_[seq][site];
     }
 }
 
 
-/** An statefull algorithmic solution.
+/**
+ * An statefull algorithmic solution.
  */
 class GapIterator {
 
@@ -140,7 +146,8 @@ class GapIterator {
     transient boolean acceptSite_ = false;
     transient int predominateCodonPosition_ = -1;
     boolean alignGaps_;
-    public GapIterator(Alignment base, int startingCodonPosition, boolean alignGaps, int codonLength ) {
+
+    public GapIterator(Alignment base, int startingCodonPosition, boolean alignGaps, int codonLength) {
         this.base_ = base;
         this.dataType_ = base.getDataType();
         this.alignGaps_ = alignGaps;
@@ -161,11 +168,11 @@ class GapIterator {
     }
 
     public void reset() {
-        for(int i = 0 ; i < siteAcceptance_.length ; i++) {
+        for (int i = 0; i < siteAcceptance_.length; i++) {
             siteAcceptance_[i] = false;
         }
         numberOfAcceptedSites_ = 0;
-        for(int i = 0 ; i < currentSequenceCodonPosition_.length ; i++) {
+        for (int i = 0; i < currentSequenceCodonPosition_.length; i++) {
             currentSequenceCodonPosition_[i] = startingCodonPosition_;
             gapCount_[i] = startingCodonPosition_;
         }
@@ -174,7 +181,7 @@ class GapIterator {
     }
 
     public final void processAllSites() {
-        while(hasMoreSites()) {
+        while (hasMoreSites()) {
             processAnotherSite();
         }
     }
@@ -187,36 +194,37 @@ class GapIterator {
         return currentSite_;
     }
 
-    /** Proccess a site and sets up instance variables acceptSite_, predominateCodonPosition_, allGaps_
+    /**
+     * Proccess a site and sets up instance variables acceptSite_, predominateCodonPosition_, allGaps_
      */
     private synchronized void processSite(int siteNumber) {
         acceptSite_ = true;
         predominateCodonPosition_ = -1;
-        for(int currentSequence = 0 ; currentSequence < numberOfSequences_ ; currentSequence++) {
-            char c = base_.getData(currentSequence,currentSite_);
-            if(!dataType_.isUnknownChar(c)) {
+        for (int currentSequence = 0; currentSequence < numberOfSequences_; currentSequence++) {
+            char c = base_.getData(currentSequence, currentSite_);
+            if (!dataType_.isUnknownChar(c)) {
                 predominateCodonPosition_ = currentSequenceCodonPosition_[currentSequence];
                 break;
             }
         }
-        if(predominateCodonPosition_<0) {
+        if (predominateCodonPosition_ < 0) {
             acceptSite_ = false;
             return;
         }
-        for(int currentSequence = 0 ; currentSequence < numberOfSequences_ ; currentSequence++) {
-            char c = base_.getData(currentSequence,currentSite_);
+        for (int currentSequence = 0; currentSequence < numberOfSequences_; currentSequence++) {
+            char c = base_.getData(currentSequence, currentSite_);
 
-            if(!dataType_.isUnknownChar(c)) {
-                if(currentSequenceCodonPosition_[currentSequence]!=predominateCodonPosition_) {
+            if (!dataType_.isUnknownChar(c)) {
+                if (currentSequenceCodonPosition_[currentSequence] != predominateCodonPosition_) {
                     acceptSite_ = false;
                 }
-                currentSequenceCodonPosition_[currentSequence] = (currentSequenceCodonPosition_[currentSequence]+1)%codonLength_;
+                currentSequenceCodonPosition_[currentSequence] = (currentSequenceCodonPosition_[currentSequence] + 1) % codonLength_;
                 gapCount_[currentSequence] = currentSequenceCodonPosition_[currentSequence];
 
             } else {
-                if((alignGaps_&&currentSequenceCodonPosition_[currentSequence]!=0)||
-                        (gapCount_[currentSequence]<codonLength_&&
-                                gapCount_[currentSequence]!=predominateCodonPosition_)
+                if ((alignGaps_ && currentSequenceCodonPosition_[currentSequence] != 0) ||
+                        (gapCount_[currentSequence] < codonLength_ &&
+                                gapCount_[currentSequence] != predominateCodonPosition_)
                         ) {
                     acceptSite_ = false;
                 }
@@ -227,32 +235,33 @@ class GapIterator {
     }
 
     private synchronized void acceptCurrentCodon() {
-        for(int i = 0 ; i < 3 ; i ++ ) {
+        for (int i = 0; i < 3; i++) {
             siteAcceptance_[currentCodonSites_[i]] = true;
         }
-        numberOfAcceptedSites_+=3;
+        numberOfAcceptedSites_ += 3;
         removeCurrentCodon();
     }
 
     private synchronized void removeCurrentCodon() {
         currentCodonPosition_ = 0;
     }
+
     public synchronized void processAnotherSite() {
 
         processSite(currentSite_);
-        if(acceptSite_) {
-            if(predominateCodonPosition_!=currentCodonPosition_) {  // If things don't line up we remove the related sites...
-                acceptSite_=false;
+        if (acceptSite_) {
+            if (predominateCodonPosition_ != currentCodonPosition_) {  // If things don't line up we remove the related sites...
+                acceptSite_ = false;
                 removeCurrentCodon();
-            } else if(predominateCodonPosition_>=0) {
+            } else if (predominateCodonPosition_ >= 0) {
                 currentCodonSites_[currentCodonPosition_] = currentSite_;
-                currentCodonPosition_ = currentCodonPosition_+1;
-                if(currentCodonPosition_==3) {
+                currentCodonPosition_ = currentCodonPosition_ + 1;
+                if (currentCodonPosition_ == 3) {
                     acceptCurrentCodon();
                 }
             }
         } else {
-            if(predominateCodonPosition_>=0) {
+            if (predominateCodonPosition_ >= 0) {
                 removeCurrentCodon();
             }
         }
@@ -270,10 +279,10 @@ class GapIterator {
     public synchronized char[][] getData() {
         char[][] data = new char[numberOfSequences_][numberOfAcceptedSites_];
         int currentAcceptedSiteIndex = 0;
-        for(int j = 0 ; j < numberOfSites_ ; j++) {
-            if(siteAcceptance_[j]) {
-                for(int i = 0 ; i < numberOfSequences_; i++) {
-                    data[i][currentAcceptedSiteIndex] = base_.getData(i,j);
+        for (int j = 0; j < numberOfSites_; j++) {
+            if (siteAcceptance_[j]) {
+                for (int i = 0; i < numberOfSequences_; i++) {
+                    data[i][currentAcceptedSiteIndex] = base_.getData(i, j);
                 }
                 currentAcceptedSiteIndex++;
             }

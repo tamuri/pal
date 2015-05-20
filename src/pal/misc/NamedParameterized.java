@@ -8,21 +8,17 @@
 
 package pal.misc;
 
-import java.io.*;
-
-
 /**
  * interface for class with (optimizable) named parameters
  *
- * @version $Id: NamedParameterized.java,v 1.2 2001/11/20 19:58:45 alexi Exp $
- *
  * @author Alexei Drummond
+ * @version $Id: NamedParameterized.java,v 1.2 2001/11/20 19:58:45 alexi Exp $
  */
 public interface NamedParameterized extends Parameterized {
-	
-	/**
-	 * @return a short identifier for this parameter type. Should be the same for 
-	 * all instances of a given class!
-	 */
-	String getParameterName(int i);
+
+    /**
+     * @return a short identifier for this parameter type. Should be the same for
+     * all instances of a given class!
+     */
+    String getParameterName(int i);
 }

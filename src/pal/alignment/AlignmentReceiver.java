@@ -10,10 +10,14 @@ package pal.alignment;
 /**
  * <p>Title: AlignmentReceiver</p>
  * <p>Description: An interface for objects that receive alignments from some source. For use in callback situations.</p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public interface AlignmentReceiver {
     void newAlignment(Alignment a);
 
@@ -22,13 +26,17 @@ public interface AlignmentReceiver {
      */
     final class SingleReceiver implements AlignmentReceiver {
         private Alignment lastReceivedAlignment_ = null;
+
         public void newAlignment(Alignment a) {
             this.lastReceivedAlignment_ = a;
         }
+
         /**
          * @return last received alignment, or null if no alignments have been received
          */
-        public Alignment getLastReceivedAlignment() { return lastReceivedAlignment_; }
+        public Alignment getLastReceivedAlignment() {
+            return lastReceivedAlignment_;
+        }
     }
 
     /**
@@ -36,10 +44,14 @@ public interface AlignmentReceiver {
      */
     final class BucketReceiver implements AlignmentReceiver {
         private List<Alignment> receivedAlignments_ = new ArrayList<>();
+
         public void newAlignment(Alignment a) {
             receivedAlignments_.add(a);
         }
-        public void clear() { receivedAlignments_.clear(); }
+
+        public void clear() {
+            receivedAlignments_.clear();
+        }
 
         /**
          * @return last received alignment, or null if no alignments have been received

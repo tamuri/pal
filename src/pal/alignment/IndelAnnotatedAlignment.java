@@ -15,48 +15,62 @@ import pal.datatype.NumericDataType;
  * an extension of the IndelAlignment that includes annotation.  This should only extract
  * indels from a single locus.
  *
- * @version $Id:
- *
  * @author Ed Buckler
+ * @version $Id:
  */
-public class IndelAnnotatedAlignment extends IndelAlignment implements AnnotationAlignment{
-    /** used to designate position along chromosome */
+public class IndelAnnotatedAlignment extends IndelAlignment implements AnnotationAlignment {
+    /**
+     * used to designate position along chromosome
+     */
     public float chromosomePosition;
-    /** used to designate chromosome */
+    /**
+     * used to designate chromosome
+     */
     public int chromosome;
-    /** used to designate weighted position; accounts for gaps */
+    /**
+     * used to designate weighted position; accounts for gaps
+     */
     public float weightedLocusPosition[];
-    /** used to designate position; do not account for gaps */
+    /**
+     * used to designate position; do not account for gaps
+     */
     public int locusPosition[];
-    /** used to designate position Type */
+    /**
+     * used to designate position Type
+     */
     public char positionType[];
-    /** used to designate locus name */
+    /**
+     * used to designate locus name
+     */
     public String locusName;
 
     /**
      * Basic constructor.  All annotation is based off the first site in the AnnotationAlignment.
      * This Alignment should not span multiple loci.
+     *
      * @param anchored sets to score anchored indels as same position
      */
     public IndelAnnotatedAlignment(AnnotationAlignment a, boolean anchored) {
         super(a, anchored);
         setDataType(new NumericDataType());
-        chromosomePosition=a.getChromosomePosition(0);
-        chromosome=a.getChromosome(0);
-        locusName=a.getLocusName(0);
-        locusPosition=new int[numSites];
-        weightedLocusPosition=new float[numSites];
-        positionType=new char[numSites];
+        chromosomePosition = a.getChromosomePosition(0);
+        chromosome = a.getChromosome(0);
+        locusName = a.getLocusName(0);
+        locusPosition = new int[numSites];
+        weightedLocusPosition = new float[numSites];
+        positionType = new char[numSites];
         IndelPosition ip;
-        for(int i=0; i<numSites; i++)
-        {ip=getIndelPosition(i);
-            locusPosition[i]=ip.start;  //the start of the indel is used for the position
-            weightedLocusPosition[i]=a.getWeightedLocusPosition(ip.start);
-            positionType[i]=a.getPositionType(ip.start);
+        for (int i = 0; i < numSites; i++) {
+            ip = getIndelPosition(i);
+            locusPosition[i] = ip.start;  //the start of the indel is used for the position
+            weightedLocusPosition[i] = a.getWeightedLocusPosition(ip.start);
+            positionType[i] = a.getPositionType(ip.start);
         }
     }
 
-    /** Return the position along chromosome */
+    /**
+     * Return the position along chromosome
+     */
     public float getChromosomePosition(int site) {
         return chromosomePosition;
     }

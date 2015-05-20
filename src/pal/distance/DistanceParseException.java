@@ -14,12 +14,11 @@ package pal.distance;
  *
  * @author Korbinian Strimmer
  */
-public class DistanceParseException extends Exception
-{
-	public DistanceParseException() {}
+public class DistanceParseException extends Exception {
+    public DistanceParseException() {
+    }
 
-	public DistanceParseException(String msg)
-	{
-		super(msg);
-	}
+    public DistanceParseException(String msg) {
+        super(msg);
+    }
 }

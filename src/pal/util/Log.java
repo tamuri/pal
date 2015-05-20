@@ -19,33 +19,33 @@ public class Log implements Logger {
     static Logger defaultLogger = new Log();
 
     private boolean isDebugOn = false;
-    
+
     public void setDebug(boolean on) {
-	
+
         isDebugOn = on;
     }
 
     public boolean isDebugging() {
-	return isDebugOn;
+        return isDebugOn;
     }
-    
+
     public void log(Object s) {
-	System.out.println(s);
+        System.out.println(s);
     }
 
     public void debug(Object s) {
 
         if (isDebugOn) {
-	    log(s);
+            log(s);
         }
     }
 
     public static Logger getDefaultLogger() {
-	return defaultLogger;
+        return defaultLogger;
     }
 
     public static void setDefaultLogger(Logger logger) {
-	defaultLogger = logger;
+        defaultLogger = logger;
     }
 
 }

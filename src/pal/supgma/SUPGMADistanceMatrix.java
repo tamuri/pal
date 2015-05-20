@@ -8,9 +8,9 @@
 
 package pal.supgma;
 
-import pal.distance.*;
-import pal.misc.*;
-import pal.mep.*;
+import pal.distance.DistanceMatrix;
+import pal.mep.DeltaModel;
+import pal.misc.TimeOrderCharacterData;
 
 
 /**
@@ -18,29 +18,28 @@ import pal.mep.*;
  * contemporaneous, given a time/date and rate information for the
  * taxa.
  *
- * @version $Id: SUPGMADistanceMatrix.java,v 1.1 2003/10/19 02:35:26 matt Exp $
- *
  * @author Alexei Drummond
  * @author Matthew Goode
+ * @version $Id: SUPGMADistanceMatrix.java,v 1.1 2003/10/19 02:35:26 matt Exp $
  */
 public class SUPGMADistanceMatrix extends DistanceMatrix {
 
 
-	/**
-	 * Uses date/time information and a constant rate to correct distance matrices.
-	 */
-	public SUPGMADistanceMatrix(DistanceMatrix raw, TimeOrderCharacterData tocd, DeltaModel deltaModel) {
-		super(raw);
-		DeltaModel.Instance deltaModelInstance = deltaModel.generateInstance(tocd);
-		double[] tips = new double[tocd.getIdCount()];
-		for (int i = 0; i < tips.length; i++) {
-			double tipOffset = deltaModelInstance.getExpectedSubstitutions(i);
+    /**
+     * Uses date/time information and a constant rate to correct distance matrices.
+     */
+    public SUPGMADistanceMatrix(DistanceMatrix raw, TimeOrderCharacterData tocd, DeltaModel deltaModel) {
+        super(raw);
+        DeltaModel.Instance deltaModelInstance = deltaModel.generateInstance(tocd);
+        double[] tips = new double[tocd.getIdCount()];
+        for (int i = 0; i < tips.length; i++) {
+            double tipOffset = deltaModelInstance.getExpectedSubstitutions(i);
 
-			for (int j = 0; j < tips.length; j++) {
-				if (i != j) {
-					addDistance(i, j, tipOffset);
-				}
-			}
-		}
-	}
+            for (int j = 0; j < tips.length; j++) {
+                if (i != j) {
+                    addDistance(i, j, tipOffset);
+                }
+            }
+        }
+    }
 }

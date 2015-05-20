@@ -7,11 +7,14 @@
 
 package pal.coalescent;
 
-import pal.math.*;
-import pal.misc.*;
-import pal.io.*;
+import pal.io.OutputTarget;
+import pal.misc.Parameterized;
+import pal.misc.Report;
+import pal.misc.Summarizable;
+import pal.misc.Units;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.Serializable;
 
 /**
  * This class models coalescent intervals for a constant population
@@ -21,150 +24,141 @@ import java.io.*;
  * Also note that if you are dealing with a diploid population
  * N0 will be out by a factor of 2.
  *
- * @version $Id: ConstantPopulation.java,v 1.14 2003/09/14 05:14:15 matt Exp $
- *
  * @author Alexei Drummond
- + @author Korbinian Strimmer
+ *         + @author Korbinian Strimmer
+ * @version $Id: ConstantPopulation.java,v 1.14 2003/09/14 05:14:15 matt Exp $
  */
-public class ConstantPopulation extends DemographicModel implements Report, Summarizable, Parameterized, Serializable
-{
+public class ConstantPopulation extends DemographicModel implements Report, Summarizable, Parameterized, Serializable {
 
-	//
-	// private stuff
-	//
-	/** The summary descriptor stuff for the public values of this
-			class
-			@see Summarizable, getSummaryDescriptors()
-	*/
-	private static final String[] CP_SUMMARY_TYPES = {"N0","N0SE"}; //This is still 1.0 compliant...
+    //
+    // private stuff
+    //
+    /**
+     * The summary descriptor stuff for the public values of this
+     * class
+     *
+     * @see Summarizable, getSummaryDescriptors()
+     */
+    private static final String[] CP_SUMMARY_TYPES = {"N0", "N0SE"}; //This is still 1.0 compliant...
 
-	//
-	// Public stuff
-	//
+    //
+    // Public stuff
+    //
 
-	/** population size */
-	public double N0;
+    /**
+     * population size
+     */
+    public double N0;
 
-	/** standard error of population size */
-	public double N0SE = 0.0;
-
-
-	/**
-	 * Construct demographic model with default settings
-	 */
-	public ConstantPopulation(int units) {
-
-		super();
-
-		setUnits(units);
-
-		N0 = getDefaultValue(0);
-	}
+    /**
+     * standard error of population size
+     */
+    public double N0SE = 0.0;
 
 
-	/**
-	 * Construct demographic model of a constant population size.
-	 */
-	public ConstantPopulation(double size, int units) {
-		super();
-		N0 = size;
-		setUnits(units);
+    /**
+     * Construct demographic model with default settings
+     */
+    public ConstantPopulation(int units) {
+
+        super();
+
+        setUnits(units);
+
+        N0 = getDefaultValue(0);
+    }
 
 
-	}
-
-	public Object clone()
-	{
-		return new ConstantPopulation(getN0(), getUnits());
-	}
-
-	public String[] getSummaryTypes() {
-		return CP_SUMMARY_TYPES;
-	}
-
-	public double getSummaryValue(int summaryType) {
-		switch(summaryType) {
-			case 0 : {
-				return N0;
-			}
-			case 1 : {
-				return N0SE;
-			}
-		}
-		throw new RuntimeException("Assertion error: unknown summary type :"+summaryType);
-	}
-
-	/**
-	 * returns initial population size.
-	 */
-	public double getN0()
-	{
-		return N0;
-	}
+    /**
+     * Construct demographic model of a constant population size.
+     */
+    public ConstantPopulation(double size, int units) {
+        super();
+        N0 = size;
+        setUnits(units);
 
 
-	// Implementation of abstract methods
+    }
 
-	public double getDemographic(double t)
-	{
-		return N0;
-	}
+    public Object clone() {
+        return new ConstantPopulation(getN0(), getUnits());
+    }
 
-	public double getIntensity(double t)
-	{
-		return t/N0;
-	}
+    public String[] getSummaryTypes() {
+        return CP_SUMMARY_TYPES;
+    }
 
-	public double getInverseIntensity(double x)
-	{
-		return N0*x;
-	}
+    public double getSummaryValue(int summaryType) {
+        switch (summaryType) {
+            case 0: {
+                return N0;
+            }
+            case 1: {
+                return N0SE;
+            }
+        }
+        throw new RuntimeException("Assertion error: unknown summary type :" + summaryType);
+    }
 
-	// Parameterized interface
+    /**
+     * returns initial population size.
+     */
+    public double getN0() {
+        return N0;
+    }
 
-	public int getNumParameters()
-	{
-		return 1;
-	}
 
-	public double getParameter(int k)
-	{
-		return N0;
-	}
+    // Implementation of abstract methods
 
-	public double getUpperLimit(int k)
-	{
-		return 1e50;
-	}
+    public double getDemographic(double t) {
+        return N0;
+    }
 
-	public double getLowerLimit(int k)
-	{
-		return 1e-12;
-	}
+    public double getIntensity(double t) {
+        return t / N0;
+    }
 
-	public double getDefaultValue(int k)
-	{
-		//arbitrary default values
-		if (getUnits() == GENERATIONS) {
-			return 1000.0;
-		} else {
-			return 0.2;
-		}
-	}
+    public double getInverseIntensity(double x) {
+        return N0 * x;
+    }
 
-	public void setParameter(double value, int k)
-	{
-		N0 = value;
-	}
+    // Parameterized interface
 
-	public void setParameterSE(double value, int k)
-	{
-		N0SE = value;
-	}
+    public int getNumParameters() {
+        return 1;
+    }
 
-	public String toString()
-	{
-		/*
+    public double getParameter(int k) {
+        return N0;
+    }
+
+    public double getUpperLimit(int k) {
+        return 1e50;
+    }
+
+    public double getLowerLimit(int k) {
+        return 1e-12;
+    }
+
+    public double getDefaultValue(int k) {
+        //arbitrary default values
+        if (getUnits() == GENERATIONS) {
+            return 1000.0;
+        } else {
+            return 0.2;
+        }
+    }
+
+    public void setParameter(double value, int k) {
+        N0 = value;
+    }
+
+    public void setParameterSE(double value, int k) {
+        N0SE = value;
+    }
+
+    public String toString() {
+        /*
 		String s =
 			"Constant Population:\n";
 
@@ -176,48 +170,42 @@ public class ConstantPopulation extends DemographicModel implements Report, Summ
 		return s;
 		*/
 
-		OutputTarget out = OutputTarget.openString();
-		report(out);
-		out.close();
+        OutputTarget out = OutputTarget.openString();
+        report(out);
+        out.close();
 
-		return out.getString();
-	}
+        return out.getString();
+    }
 
-	public void report(PrintWriter out)
-	{
-		out.println("Demographic model: constant population size ");
-		out.println("Demographic function: N(t) = N0");
+    public void report(PrintWriter out) {
+        out.println("Demographic model: constant population size ");
+        out.println("Demographic function: N(t) = N0");
 
-		out.print("Unit of time: ");
-		//Units should either be EXPECTED_SUBSTITUTIONS, or GENERATIONS
-		out.print(Units.UNIT_NAMES[getUnits()]);
-		out.println();
-		out.println();
-		out.println("Parameters of demographic function:");
-		if (getUnits() == GENERATIONS)
-		{
-			out.print(" present day population size N0: ");
-			fo.displayDecimal(out, N0, 6);
-		}
-		else
-		{
-			out.print(" present day Theta (N0 * mu): ");
-			fo.displayDecimal(out, N0, 6);
-		}
-		if (N0SE != 0.0)
-		{
-			out.print(" (S.E. ");
-			fo.displayDecimal(out, N0SE, 6);
-			out.print(")");
-		}
-		out.println();
+        out.print("Unit of time: ");
+        //Units should either be EXPECTED_SUBSTITUTIONS, or GENERATIONS
+        out.print(Units.UNIT_NAMES[getUnits()]);
+        out.println();
+        out.println();
+        out.println("Parameters of demographic function:");
+        if (getUnits() == GENERATIONS) {
+            out.print(" present day population size N0: ");
+            fo.displayDecimal(out, N0, 6);
+        } else {
+            out.print(" present day Theta (N0 * mu): ");
+            fo.displayDecimal(out, N0, 6);
+        }
+        if (N0SE != 0.0) {
+            out.print(" (S.E. ");
+            fo.displayDecimal(out, N0SE, 6);
+            out.print(")");
+        }
+        out.println();
 
-		if (getLogL() != 0.0)
-		{
-			out.println();
-			out.print("log L: ");
-			fo.displayDecimal(out, getLogL(), 6);
-			out.println();
-		}
-	}
+        if (getLogL() != 0.0) {
+            out.println();
+            out.print("log L: ");
+            fo.displayDecimal(out, getLogL(), 6);
+            out.println();
+        }
+    }
 }

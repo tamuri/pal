@@ -10,12 +10,10 @@ package pal.alignment;
 /**
  * concatenates a list of alignments to one single alignment, increasing the number of sites
  *
- * @version $Id: ConcatenatedAlignment.java,v 1.3 2001/07/13 14:39:12 korbinian Exp $
- *
  * @author Korbinian Strimmer
+ * @version $Id: ConcatenatedAlignment.java,v 1.3 2001/07/13 14:39:12 korbinian Exp $
  */
-public class ConcatenatedAlignment extends AbstractAlignment
-{
+public class ConcatenatedAlignment extends AbstractAlignment {
     //
     // Public stuff
     //
@@ -37,12 +35,10 @@ public class ConcatenatedAlignment extends AbstractAlignment
         idGroup = alignmentList[0];
 
         numSites = 0;
-        for (int i = 0; i < numAlignments; i++)
-        {
+        for (int i = 0; i < numAlignments; i++) {
             numSites += alignmentList[i].getSiteCount();
 
-            if (alignmentList[i].getSequenceCount() != numSeqs)
-            {
+            if (alignmentList[i].getSequenceCount() != numSeqs) {
                 throw new IllegalArgumentException("INCOMPATIBLE ALIGNMENTS");
             }
         }
@@ -52,12 +48,10 @@ public class ConcatenatedAlignment extends AbstractAlignment
         siteIndex = new int[numSites];
 
         int s = 0;
-        for (int i = 0; i < numAlignments; i++)
-        {
-            for (int j = 0; j < alignmentList[i].getSiteCount(); j++)
-            {
-                alignmentIndex[s+j] = i;
-                siteIndex[s+j] = j;
+        for (int i = 0; i < numAlignments; i++) {
+            for (int j = 0; j < alignmentList[i].getSiteCount(); j++) {
+                alignmentIndex[s + j] = i;
+                siteIndex[s + j] = j;
             }
             s += alignmentList[i].getSiteCount();
         }
@@ -65,9 +59,10 @@ public class ConcatenatedAlignment extends AbstractAlignment
 
     // Implementation of abstract Alignment method
 
-    /** sequence alignment at (sequence, site) */
-    public char getData(int seq, int site)
-    {
+    /**
+     * sequence alignment at (sequence, site)
+     */
+    public char getData(int seq, int site) {
         return alignmentList[alignmentIndex[site]].getData(seq, siteIndex[site]);
     }
 

@@ -356,7 +356,7 @@ public class ReadAlignment extends AbstractAlignment {
             }
 
             // PHYLIP INTERLEAVED
-            if (interleaved)  {
+            if (interleaved) {
                 // Reading data
                 while (pos < numSites) {
                     // Go to next block
@@ -368,7 +368,7 @@ public class ReadAlignment extends AbstractAlignment {
                     }
                     pos += lineLength;
                 }
-            } else  {
+            } else {
                 // PHYLIP SEQUENTIAL
                 for (seq = 0; seq < numSeqs; seq++) {
                     // Go to next block

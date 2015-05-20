@@ -8,23 +8,21 @@
 
 package pal.util;
 
-import java.io.*;
-
 /**
  * @author Alexei Drummond
  */
 public interface DoubleKeyCache {
 
-	/**
-	 * retrieves the object with the key nearest to given value
-	 */
-	//DoubleKey getNearest(DoubleKey d, double tolerance);
-	Object getNearest(double targetKey, double tolerance);
+    /**
+     * retrieves the object with the key nearest to given value
+     */
+    //DoubleKey getNearest(DoubleKey d, double tolerance);
+    Object getNearest(double targetKey, double tolerance);
 
-	//void addDoubleKey(DoubleKey d);
-	void addDoubleKey(double relatedKey, Object value);
+    //void addDoubleKey(DoubleKey d);
+    void addDoubleKey(double relatedKey, Object value);
 
-	void clearCache();
+    void clearCache();
 
-	Object clone();
+    Object clone();
 }

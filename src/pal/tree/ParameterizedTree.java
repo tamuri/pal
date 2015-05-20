@@ -8,143 +8,184 @@
 
 package pal.tree;
 
-import pal.misc.*;
 import pal.math.OrthogonalHints;
-import java.io.*;
+import pal.misc.Identifier;
+import pal.misc.Parameterized;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 
 /**
  * abstract base class for a tree with an Parameterized interface
  *
- * @version $Id: ParameterizedTree.java,v 1.21 2003/06/04 03:17:52 matt Exp $
- *
  * @author Alexei Drummond
  * @author Korbinian Strimmer
  * @author Matthew Goode
+ * @version $Id: ParameterizedTree.java,v 1.21 2003/06/04 03:17:52 matt Exp $
  */
 public interface ParameterizedTree extends Parameterized, Tree {
-	OrthogonalHints getOrthogonalHints();
-	String getParameterizationInfo();
+    OrthogonalHints getOrthogonalHints();
 
-	/**
-	 * Factory interface
-	 */
-	static interface Factory {
-		/**
-		 * Generate a new parameterized tree wrapped around base
-		 */
-		ParameterizedTree generateNewTree(Tree base);
-	}
+    String getParameterizationInfo();
 
-	/**
-	 * For parameterisations that work by adjusting a base tree (that is, they aren't really
-	 * tree's themselves...)
-	 * @note it should implment ParameterizedTree but, it that causes funny problems with my compiler ... I don't know why MG)
-	 */
-	static abstract class ParameterizedTreeBase implements  Parameterized, Tree{
-		/**
-		 * The non-parameterized tree that this parameterized tree is
-		 * based on.
-		 */
-		private Tree tree;
-		//
-		// Public stuff
-		//
-		/**
-		 * Cloning constructor
-		 */
-		protected ParameterizedTreeBase(ParameterizedTreeBase toCopy) {
-			this.tree = toCopy.tree.getCopy();
-		}
+    /**
+     * Factory interface
+     */
+    static interface Factory {
+        /**
+         * Generate a new parameterized tree wrapped around base
+         */
+        ParameterizedTree generateNewTree(Tree base);
+    }
 
-		public ParameterizedTreeBase() {}
-		public ParameterizedTreeBase(Tree baseTree) {
-			setBaseTree(baseTree);
-		}
+    /**
+     * For parameterisations that work by adjusting a base tree (that is, they aren't really
+     * tree's themselves...)
+     *
+     * @note it should implment ParameterizedTree but, it that causes funny problems with my compiler ... I don't know why MG)
+     */
+    static abstract class ParameterizedTreeBase implements Parameterized, Tree {
+        /**
+         * The non-parameterized tree that this parameterized tree is
+         * based on.
+         */
+        private Tree tree;
+        //
+        // Public stuff
+        //
 
-		protected void setBaseTree(Tree baseTree) {
-			this.tree = baseTree;
-			// make consistent
-			createNodeList();
-		}
+        /**
+         * Cloning constructor
+         */
+        protected ParameterizedTreeBase(ParameterizedTreeBase toCopy) {
+            this.tree = toCopy.tree.getCopy();
+        }
 
-		protected Tree getBaseTree() {		return tree;	}
+        public ParameterizedTreeBase() {
+        }
 
-		// interface tree
+        public ParameterizedTreeBase(Tree baseTree) {
+            setBaseTree(baseTree);
+        }
 
-		/**
-		 * Returns the root node of this tree.
-		 */
-		public final Node getRoot() { return tree.getRoot();	}
+        protected void setBaseTree(Tree baseTree) {
+            this.tree = baseTree;
+            // make consistent
+            createNodeList();
+        }
 
-		public final void setRoot(Node root) {	tree.setRoot(root);	}
+        protected Tree getBaseTree() {
+            return tree;
+        }
 
-		//IdGroup stuff ==========
+        // interface tree
 
-		public final Identifier getIdentifier(int i) {   return tree.getIdentifier(i);	  }
-		public final void setIdentifier(int i,Identifier id) {   tree.setIdentifier(i,id);	  }
-		public final int getIdCount() {		return tree.getIdCount();		}
-		public final int whichIdNumber(String s) {		return tree.whichIdNumber(s);		}
+        /**
+         * Returns the root node of this tree.
+         */
+        public final Node getRoot() {
+            return tree.getRoot();
+        }
 
-	// ===========================================================================================
+        public final void setRoot(Node root) {
+            tree.setRoot(root);
+        }
 
-		/**
-		 * returns a count of the number of external nodes (tips) in this
-		 * tree.
-		 */
-		public final int getExternalNodeCount() {	return tree.getExternalNodeCount();		}
+        //IdGroup stuff ==========
 
-		/**
-		 * returns a count of the number of internal nodes (and hence clades)
-		 * in this tree.
-		 */
-		public final int getInternalNodeCount() {	return tree.getInternalNodeCount();}
-		public final int getNodeCount() {	return tree.getInternalNodeCount()+tree.getExternalNodeCount();	}
+        public final Identifier getIdentifier(int i) {
+            return tree.getIdentifier(i);
+        }
 
-		/**
-		 * returns the ith external node in the tree.
-		 */
-		public final Node getExternalNode(int i) {	return tree.getExternalNode(i);	}
+        public final void setIdentifier(int i, Identifier id) {
+            tree.setIdentifier(i, id);
+        }
 
-		/**
-		 * returns the ith internal node in the tree.
-		 */
-		public final Node getInternalNode(int i) { return tree.getInternalNode(i);	}
+        public final int getIdCount() {
+            return tree.getIdCount();
+        }
 
-		/**
-		 * This method is called to ensure that the calls to other methods
-		 * in this interface are valid.
-		 */
-		public final void createNodeList() { tree.createNodeList();	}
-		public final int getUnits() {	return tree.getUnits();	}
+        public final int whichIdNumber(String s) {
+            return tree.whichIdNumber(s);
+        }
 
-		public final void setAttribute(Node node, String name, Object value) {
-			tree.setAttribute(node, name, value);
-		}
-		public final Object getAttribute(Node node, String name) {
-			return tree.getAttribute(node, name);
-		}
+        // ===========================================================================================
 
-		public String toString() {
-			StringWriter sw = new StringWriter();
-			NodeUtils.printNH(new PrintWriter(sw), getRoot(), true, false, 0, false);
-			sw.write(";");
-			return sw.toString();
-		}
+        /**
+         * returns a count of the number of external nodes (tips) in this
+         * tree.
+         */
+        public final int getExternalNodeCount() {
+            return tree.getExternalNodeCount();
+        }
 
-		/**
-		 * The cheapy copy that just creates a SimpleTree
-		 */
-		public Tree getCopy() {
-			return new SimpleTree((Tree)this);
-		}
-		// interface parameterized (remains abstract)
+        /**
+         * returns a count of the number of internal nodes (and hence clades)
+         * in this tree.
+         */
+        public final int getInternalNodeCount() {
+            return tree.getInternalNodeCount();
+        }
 
-		/**
-		 * @return null by default (implying not hint information)
-		 */
-		public OrthogonalHints getOrthogonalHints() {
-			return null;
-		}
-	} //End of class Abstract
+        public final int getNodeCount() {
+            return tree.getInternalNodeCount() + tree.getExternalNodeCount();
+        }
+
+        /**
+         * returns the ith external node in the tree.
+         */
+        public final Node getExternalNode(int i) {
+            return tree.getExternalNode(i);
+        }
+
+        /**
+         * returns the ith internal node in the tree.
+         */
+        public final Node getInternalNode(int i) {
+            return tree.getInternalNode(i);
+        }
+
+        /**
+         * This method is called to ensure that the calls to other methods
+         * in this interface are valid.
+         */
+        public final void createNodeList() {
+            tree.createNodeList();
+        }
+
+        public final int getUnits() {
+            return tree.getUnits();
+        }
+
+        public final void setAttribute(Node node, String name, Object value) {
+            tree.setAttribute(node, name, value);
+        }
+
+        public final Object getAttribute(Node node, String name) {
+            return tree.getAttribute(node, name);
+        }
+
+        public String toString() {
+            StringWriter sw = new StringWriter();
+            NodeUtils.printNH(new PrintWriter(sw), getRoot(), true, false, 0, false);
+            sw.write(";");
+            return sw.toString();
+        }
+
+        /**
+         * The cheapy copy that just creates a SimpleTree
+         */
+        public Tree getCopy() {
+            return new SimpleTree((Tree) this);
+        }
+        // interface parameterized (remains abstract)
+
+        /**
+         * @return null by default (implying not hint information)
+         */
+        public OrthogonalHints getOrthogonalHints() {
+            return null;
+        }
+    } //End of class Abstract
 }

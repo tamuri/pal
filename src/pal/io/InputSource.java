@@ -15,66 +15,58 @@ import java.io.*;
  * convenience class to open input streams
  * linked to files, stdin, and strings
  *
- * @version $Id: InputSource.java,v 1.4 2001/07/13 14:39:13 korbinian Exp $
- *
  * @author Korbinian Strimmer
+ * @version $Id: InputSource.java,v 1.4 2001/07/13 14:39:13 korbinian Exp $
  */
-public class InputSource extends PushbackReader
-{
-	//
-	// Public stuff
-	//
+public class InputSource extends PushbackReader {
+    //
+    // Public stuff
+    //
 
-	/**
-	 * open file for reading
-	 *
-	 * @param name file name
-	 *
-	 * @return input stream
-	 */
-	public static InputSource openFile(String name)
-		throws FileNotFoundException
-	{
-		return new InputSource(
-			new BufferedReader(
-			new FileReader(name)));
-	}
+    /**
+     * open file for reading
+     *
+     * @param name file name
+     * @return input stream
+     */
+    public static InputSource openFile(String name)
+            throws FileNotFoundException {
+        return new InputSource(
+                new BufferedReader(
+                        new FileReader(name)));
+    }
 
-	/**
-	 * open standard input
-	 *
-	 * @return input stream
-	 */			
-	public static InputSource openStdIn()
-	{
-		return
-			new InputSource(
-			new BufferedReader(
-			new InputStreamReader(System.in)));
-	}
+    /**
+     * open standard input
+     *
+     * @return input stream
+     */
+    public static InputSource openStdIn() {
+        return
+                new InputSource(
+                        new BufferedReader(
+                                new InputStreamReader(System.in)));
+    }
 
-	/**
-	 * "open" string for reading
-	 *
-	 * @param input string serving as source
-	 *
-	 * @return input stream
-	 */
-	public static InputSource openString(String input)
-	{
-		return new InputSource(new StringReader(input));
-	}
-	
-	
-	//
-	// Private stuff
-	//
-	
-	
-	// Private constructor
+    /**
+     * "open" string for reading
+     *
+     * @param input string serving as source
+     * @return input stream
+     */
+    public static InputSource openString(String input) {
+        return new InputSource(new StringReader(input));
+    }
 
-	private InputSource(Reader in)
-	{
-		super(in);
-	}
+
+    //
+    // Private stuff
+    //
+
+
+    // Private constructor
+
+    private InputSource(Reader in) {
+        super(in);
+    }
 }

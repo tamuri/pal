@@ -12,263 +12,246 @@
 
 package pal.alignment;
 
-import pal.datatype.*;
-import pal.misc.*;
+import pal.datatype.DataType;
+import pal.misc.IdGroup;
 
 
 /**
  * takes an Alignment and determines its site patterns
  *
- * @version $Id: SitePattern.java,v 1.11 2002/10/14 06:54:24 matt Exp $
- *
  * @author Korbinian Strimmer
  * @author Alexei Drummond
+ * @version $Id: SitePattern.java,v 1.11 2002/10/14 06:54:24 matt Exp $
  */
-public class SitePattern extends AbstractAlignment
-{
-	//
-	// Public stuff
-	//
+public class SitePattern extends AbstractAlignment {
+    //
+    // Public stuff
+    //
 
 
-	/** number of site patterns */
-	public int numPatterns;
+    /**
+     * number of site patterns
+     */
+    public int numPatterns;
 
-	/** site -> site pattern */
-	public int[] alias;
+    /**
+     * site -> site pattern
+     */
+    public int[] alias;
 
-	/** weights of each site pattern */
-	public int weight[];
+    /**
+     * weights of each site pattern
+     */
+    public int weight[];
 
-	/** site patterns [sequence][site pattern] */
-	public byte[][] pattern;
+    /**
+     * site patterns [sequence][site pattern]
+     */
+    public byte[][] pattern;
 
 
-	// Implementation of abstract Alignment method
+    // Implementation of abstract Alignment method
 
-	/** sequence alignment at (sequence, site) */
-	public char getData(int seq, int site)
-	{
-		return getChar(pattern[seq][alias[site]]);
-	}
+    /**
+     * sequence alignment at (sequence, site)
+     */
+    public char getData(int seq, int site) {
+        return getChar(pattern[seq][alias[site]]);
+    }
 
-	public final char getPatternData(int seq, int patternSite) {
-		return getChar(pattern[seq][patternSite]);
-	}
-	public final int getPatternState(int seq, int patternSite) {
-		return pattern[seq][patternSite];
-	}
+    public final char getPatternData(int seq, int patternSite) {
+        return getChar(pattern[seq][patternSite]);
+    }
 
-	/**
-	 * infer site patterns for a given alignment
-	 *
-	 * @param a alignment
-	 */
-	public SitePattern(Alignment a)
-	{
-		DataType dt = a.getDataType();
-		if (dt == null)
-		{
-			System.out.println("Warning: Input alignment for SitePattern has null datatype");
-			dt = AlignmentUtils.getSuitableInstance(a);
-		}
-		setDataType(dt);
+    public final int getPatternState(int seq, int patternSite) {
+        return pattern[seq][patternSite];
+    }
 
-		// Fields from Alignment
+    /**
+     * infer site patterns for a given alignment
+     *
+     * @param a alignment
+     */
+    public SitePattern(Alignment a) {
+        DataType dt = a.getDataType();
+        if (dt == null) {
+            System.out.println("Warning: Input alignment for SitePattern has null datatype");
+            dt = AlignmentUtils.getSuitableInstance(a);
+        }
+        setDataType(dt);
 
-		numSites = a.getSiteCount();
-		numSeqs = a.getSequenceCount();
-		idGroup = a;
-		makeSitePattern(a);
-	}
+        // Fields from Alignment
 
-	/**
-	 * construct SitePattern from scratch
-	 *
-	 * @param dataType data type
-	 * @param numSites number of sites
-	 * @param numSeqs number of sequences
-	 * @param idGroup sequence identifiers
-	 * @param numPatterns number of site patterns
-	 * @param alias link site -> site pattern
-	 * @param weight frequency of a site pattern
-	 * @param pattern site patterns
-	 */
-	public SitePattern(DataType dataType, int numSites, int numSeqs, IdGroup idGroup,
-		int numPatterns, int[] alias, int[] weight, byte[][] pattern)
-	{
-		setDataType(dataType);
-		this.numSites = numSites;
-		this.numSeqs =  numSeqs;
-		this.idGroup = idGroup;
+        numSites = a.getSiteCount();
+        numSeqs = a.getSequenceCount();
+        idGroup = a;
+        makeSitePattern(a);
+    }
 
-		this.numPatterns = numPatterns;
-		this.alias = alias;
-		this.weight = weight;
-		this.pattern = pattern;
+    /**
+     * construct SitePattern from scratch
+     *
+     * @param dataType    data type
+     * @param numSites    number of sites
+     * @param numSeqs     number of sequences
+     * @param idGroup     sequence identifiers
+     * @param numPatterns number of site patterns
+     * @param alias       link site -> site pattern
+     * @param weight      frequency of a site pattern
+     * @param pattern     site patterns
+     */
+    public SitePattern(DataType dataType, int numSites, int numSeqs, IdGroup idGroup,
+                       int numPatterns, int[] alias, int[] weight, byte[][] pattern) {
+        setDataType(dataType);
+        this.numSites = numSites;
+        this.numSeqs = numSeqs;
+        this.idGroup = idGroup;
 
-		AlignmentUtils.estimateFrequencies(this);  // Bernard Suh <bsuh@tigr.org>
-	}
-	/**
-	 * Accessor method for weight
-	 */
-	public int[] getSiteWeights() {
-		return weight;
-	}
-	/**
-	 * Accessor method for numPatterns
-	 */
-	public int getNumberOfPatterns() {
-		return numPatterns;
-	}
+        this.numPatterns = numPatterns;
+        this.alias = alias;
+        this.weight = weight;
+        this.pattern = pattern;
 
-	//
-	// Private stuff
-	//
+        AlignmentUtils.estimateFrequencies(this);  // Bernard Suh <bsuh@tigr.org>
+    }
 
-	private int[] patSort;
+    /**
+     * Accessor method for weight
+     */
+    public int[] getSiteWeights() {
+        return weight;
+    }
 
-	private void makeSitePattern(Alignment alignment)
-	{
-		alias = new int[numSites];
+    /**
+     * Accessor method for numPatterns
+     */
+    public int getNumberOfPatterns() {
+        return numPatterns;
+    }
 
-		if (numSeqs > 0 && numSites > 0)
-		{
-			patSort = new int[numSites];
+    //
+    // Private stuff
+    //
 
-			getNumpattern(alignment);
-			pattern = new byte[numSeqs][numPatterns];
-			weight = new int[numPatterns];
-			copypattern(alignment);
+    private int[] patSort;
 
-			patSort = null;
-		}
-		else
-		{
-			numPatterns = 0;
-			pattern = null;
-			weight = null;
-		}
-	}
+    private void makeSitePattern(Alignment alignment) {
+        alias = new int[numSites];
 
-	private int stateData(Alignment al, int seq, int site)
-	{
-		int state = getState(al.getData(seq, site));
-		if(isUnknownState(state)) {
-			return getDataType().getNumStates();
-		}
-		return state;
-	}
+        if (numSeqs > 0 && numSites > 0) {
+            patSort = new int[numSites];
 
-	private void getNumpattern(Alignment alignment)
-	{
-		int tpmradix =  getDataType().getNumStates();
+            getNumpattern(alignment);
+            pattern = new byte[numSeqs][numPatterns];
+            weight = new int[numPatterns];
+            copypattern(alignment);
 
-		int[] awork = new int[numSites];
-		int[] count = new int[tpmradix+1];
+            patSort = null;
+        } else {
+            numPatterns = 0;
+            pattern = null;
+            weight = null;
+        }
+    }
 
-		for (int j = 0; j < numSites; j++)
-		{
-			patSort[j] = j;
-		}
-		for (int i = numSeqs - 1; i >= 0; i--)
-		{
-			for (int k = 0; k < tpmradix+1; k++)
-			{
-				count[k] = 0;
-			}
-			for (int j = 0; j < numSites; j++)
-			{
-				count[stateData(alignment, i, patSort[j])]++;
-			}
-			for (int k = 1; k < tpmradix+1; k++)
-			{
-				count[k] += count[k-1];
-			}
-			for (int j = numSites-1; j >= 0; j--)
-			{
-				awork[ --count[stateData(alignment, i, patSort[j])] ] = patSort[j];
-			}
-			for (int j = 0; j < numSites; j++)
-			{
-				patSort[j] = awork[j];
-			}
-		}
-		awork = null;
-		count = null;
+    private int stateData(Alignment al, int seq, int site) {
+        int state = getState(al.getData(seq, site));
+        if (isUnknownState(state)) {
+            return getDataType().getNumStates();
+        }
+        return state;
+    }
 
-		numPatterns = 1;
-		for (int j = 1; j < numSites; j++)
-		{
-			int s = patSort[j-1];
-			int t = patSort[j];
-			for (int i = 0; i < numSeqs; i++)
-			{
-				if (	stateData(alignment, i, t) !=
-					stateData(alignment, i, s))
-				{
-					numPatterns++;
-					break;
-				}
-			}
-		}
-	}
+    private void getNumpattern(Alignment alignment) {
+        int tpmradix = getDataType().getNumStates();
 
-	void copypattern(Alignment alignment)
-	{
-		int k, n;
-		boolean isSame;
+        int[] awork = new int[numSites];
+        int[] count = new int[tpmradix + 1];
 
-		n = 0;
-		k = patSort[n];
-		for (int i = 0; i < numSeqs; i++)
-		{
-			pattern[i][n] = (byte) stateData(alignment, i, k);
-		}
-		weight[n] = 1;
-		alias[k] = 0;
+        for (int j = 0; j < numSites; j++) {
+            patSort[j] = j;
+        }
+        for (int i = numSeqs - 1; i >= 0; i--) {
+            for (int k = 0; k < tpmradix + 1; k++) {
+                count[k] = 0;
+            }
+            for (int j = 0; j < numSites; j++) {
+                count[stateData(alignment, i, patSort[j])]++;
+            }
+            for (int k = 1; k < tpmradix + 1; k++) {
+                count[k] += count[k - 1];
+            }
+            for (int j = numSites - 1; j >= 0; j--) {
+                awork[--count[stateData(alignment, i, patSort[j])]] = patSort[j];
+            }
+            for (int j = 0; j < numSites; j++) {
+                patSort[j] = awork[j];
+            }
+        }
+        awork = null;
+        count = null;
 
-		for (int j = 1; j < numSites; j++)
-		{
-			k = patSort[j];
+        numPatterns = 1;
+        for (int j = 1; j < numSites; j++) {
+            int s = patSort[j - 1];
+            int t = patSort[j];
+            for (int i = 0; i < numSeqs; i++) {
+                if (stateData(alignment, i, t) !=
+                        stateData(alignment, i, s)) {
+                    numPatterns++;
+                    break;
+                }
+            }
+        }
+    }
 
-			isSame = true;
-			for (int i = 0; i < numSeqs; i++)
-			{
-				if (pattern[i][n] != (byte) stateData(alignment, i, k))
-				{
-					isSame = false;
-					break;
-				}
-			}
+    void copypattern(Alignment alignment) {
+        int k, n;
+        boolean isSame;
 
-			if (isSame)
-			{
-				weight[n]++;
-				alias[k] = n;
-			}
-			else
-			{
-				n++;
-				for (int i = 0; i < numSeqs; i++)
-				{
-					pattern[i][n] = (byte) stateData(alignment, i, k);
-				}
-				weight[n] = 1;
-				alias[k] = n;
-			}
-		}
-	}
+        n = 0;
+        k = patSort[n];
+        for (int i = 0; i < numSeqs; i++) {
+            pattern[i][n] = (byte) stateData(alignment, i, k);
+        }
+        weight[n] = 1;
+        alias[k] = 0;
 
-	// ====================================== Static Methods ===========================
-	/**
-		@param a An alignment
-		@return alignment as a site pattern if it isn't already one (other wise just returns alighnment)
-	*/
-	public static final SitePattern getSitePattern(Alignment a) {
-		if(a instanceof SitePattern) {
-			return (SitePattern)a;
-		}
-		return new SitePattern(a);
-	}
+        for (int j = 1; j < numSites; j++) {
+            k = patSort[j];
+
+            isSame = true;
+            for (int i = 0; i < numSeqs; i++) {
+                if (pattern[i][n] != (byte) stateData(alignment, i, k)) {
+                    isSame = false;
+                    break;
+                }
+            }
+
+            if (isSame) {
+                weight[n]++;
+                alias[k] = n;
+            } else {
+                n++;
+                for (int i = 0; i < numSeqs; i++) {
+                    pattern[i][n] = (byte) stateData(alignment, i, k);
+                }
+                weight[n] = 1;
+                alias[k] = n;
+            }
+        }
+    }
+
+    // ====================================== Static Methods ===========================
+
+    /**
+     * @param a An alignment
+     * @return alignment as a site pattern if it isn't already one (other wise just returns alighnment)
+     */
+    public static final SitePattern getSitePattern(Alignment a) {
+        if (a instanceof SitePattern) {
+            return (SitePattern) a;
+        }
+        return new SitePattern(a);
+    }
 }

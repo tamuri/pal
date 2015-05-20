@@ -8,19 +8,18 @@
 
 package pal.alignment;
 
-import java.io.*;
+import pal.datatype.DataType;
+import pal.misc.IdGroup;
 
-import pal.datatype.*;
-import pal.misc.*;
+import java.io.Serializable;
 
 
 /**
  * interface for any alignment data.
  *
- * @version $Id: Alignment.java,v 1.15 2003/03/23 00:12:57 matt Exp $
- *
  * @author Alexei Drummond
  * @author Korbinian Strimmer
+ * @version $Id: Alignment.java,v 1.15 2003/03/23 00:12:57 matt Exp $
  * @note Removed setDataType(), setFrequencies(), and getFrequencies() from interface
  * As they seem better placed in concrete implementations only and should not be a requirement of an alignment, or in the case of Frequencies, can be
  * found using Alignment.Utils.estimateFrequencies(Alignment)
@@ -30,26 +29,36 @@ public interface Alignment extends Serializable, IdGroup {
     // Public stuff
     //
 
-    /** character used to designate gaps */
+    /**
+     * character used to designate gaps
+     */
     char GAP = DataType.PRIMARY_SUGGESTED_GAP_CHARACTER;
 
-    /** character used to designate unknown characters */
+    /**
+     * character used to designate unknown characters
+     */
     char UNKNOWN = DataType.UNKNOWN_CHARACTER;
-    /** character used to designate unknown characters */
+    /**
+     * character used to designate unknown characters
+     */
     String UNKNOWN_TLA = DataType.UNKNOWN_TLA;
 
     /**
      * A three letter acronym version of a gap.
      */
-    String GAP_TLA = ""+GAP+GAP+GAP;
+    String GAP_TLA = "" + GAP + GAP + GAP;
 
 
-    /** Characters that might be used as gaps */
+    /**
+     * Characters that might be used as gaps
+     */
     String GAPS = "_-?.";
 
     // Abstract method
 
-    /** sequence alignment at (sequence, site) */
+    /**
+     * sequence alignment at (sequence, site)
+     */
     char getData(int seq, int site);
 
     /**

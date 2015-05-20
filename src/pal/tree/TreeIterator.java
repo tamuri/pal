@@ -14,15 +14,13 @@ package pal.tree;
  * array.
  *
  * @version $Id: TreeIterator.java,v 1.2 2004/04/25 22:53:14 matt Exp $
- *
  * @author Matthew Goode
  */
-import pal.util.AlgorithmCallback;
 
 public interface TreeIterator extends TreeGenerator {
 
-	/**
-	 * @return true if more trees to come
-	 */
-	public boolean isMoreTrees();
+    /**
+     * @return true if more trees to come
+     */
+    public boolean isMoreTrees();
 }

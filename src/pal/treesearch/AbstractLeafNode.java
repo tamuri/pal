@@ -10,39 +10,54 @@ package pal.treesearch;
 /**
  * <p>Title: AbstractLeafNode </p>
  * <p>Description: </p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import pal.eval.*;
+
+import pal.eval.MolecularClockLikelihoodModel;
+import pal.eval.PatternInfo;
+import pal.eval.UnconstrainedLikelihoodModel;
 
 public abstract class AbstractLeafNode {
-	private final String id_;
-	private final int[] patternStateMatchup_;
-	private final int uniqueCount_;
+    private final String id_;
+    private final int[] patternStateMatchup_;
+    private final int uniqueCount_;
 
-	private final int[] sequence_;
-	private final PatternInfo pattern_;
-	public AbstractLeafNode(String id, GeneralConstructionTool tool) {
-	  this.id_ = id;
-		this.sequence_ = tool.getSequence(id);
-		final int numberOfStates = tool.getNumberOfStates();
-		final int numberOfSites = tool.getNumberOfSites();
+    private final int[] sequence_;
+    private final PatternInfo pattern_;
 
-		patternStateMatchup_ = new int[numberOfStates+1];
-		final int[] sitePatternMatchup = new int[numberOfSites];
+    public AbstractLeafNode(String id, GeneralConstructionTool tool) {
+        this.id_ = id;
+        this.sequence_ = tool.getSequence(id);
+        final int numberOfStates = tool.getNumberOfStates();
+        final int numberOfSites = tool.getNumberOfSites();
 
-		this.uniqueCount_ = SearcherUtils.createMatchups( numberOfSites, numberOfStates, sitePatternMatchup, patternStateMatchup_, sequence_ );
-		this.pattern_ = new PatternInfo( sitePatternMatchup, uniqueCount_	);
-  }
-	protected final UnconstrainedLikelihoodModel.Leaf createNewFreeLeafCalculator( GeneralConstructionTool tool) {
-		return tool.createNewFreeLeafCalculator(patternStateMatchup_,uniqueCount_);
-	}
-	protected final MolecularClockLikelihoodModel.Leaf createNewConstrainedLeafCalculator(ConstraintModel.GroupManager parentGroup) {
-		return parentGroup.createNewClockLeaf(pattern_, patternStateMatchup_);
-	}
+        patternStateMatchup_ = new int[numberOfStates + 1];
+        final int[] sitePatternMatchup = new int[numberOfSites];
 
-	public final String getLabel() { return id_; }
-	public final PatternInfo getPatternInfo() { return pattern_; }
-	public final int getNumberOfPatterns() { return pattern_.getNumberOfPatterns(); }
+        this.uniqueCount_ = SearcherUtils.createMatchups(numberOfSites, numberOfStates, sitePatternMatchup, patternStateMatchup_, sequence_);
+        this.pattern_ = new PatternInfo(sitePatternMatchup, uniqueCount_);
+    }
+
+    protected final UnconstrainedLikelihoodModel.Leaf createNewFreeLeafCalculator(GeneralConstructionTool tool) {
+        return tool.createNewFreeLeafCalculator(patternStateMatchup_, uniqueCount_);
+    }
+
+    protected final MolecularClockLikelihoodModel.Leaf createNewConstrainedLeafCalculator(ConstraintModel.GroupManager parentGroup) {
+        return parentGroup.createNewClockLeaf(pattern_, patternStateMatchup_);
+    }
+
+    public final String getLabel() {
+        return id_;
+    }
+
+    public final PatternInfo getPatternInfo() {
+        return pattern_;
+    }
+
+    public final int getNumberOfPatterns() {
+        return pattern_.getNumberOfPatterns();
+    }
 
 }

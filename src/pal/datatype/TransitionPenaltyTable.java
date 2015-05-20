@@ -11,14 +11,14 @@ package pal.datatype;
 
 /**
  * Implements a table of transition penalties for a particular datatype.
- * Used for alignment scoring. 
- *
- * @version $Id: TransitionPenaltyTable.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
+ * Used for alignment scoring.
  *
  * @author Alexei Drummond
+ * @version $Id: TransitionPenaltyTable.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
  */
-public interface TransitionPenaltyTable  {
-    
-	double penalty(int a, int b);
-	DataType getDataType();
+public interface TransitionPenaltyTable {
+
+    double penalty(int a, int b);
+
+    DataType getDataType();
 }

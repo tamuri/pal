@@ -8,18 +8,21 @@
 
 package pal.alignment;
 
-import java.io.*;
+import pal.datatype.DataType;
+import pal.misc.IdGroup;
+import pal.misc.Identifier;
+import pal.misc.Report;
 
-import pal.datatype.*;
-import pal.misc.*;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
 
 /**
  * abstract base class for any alignment data.
  *
- * @version $Id: AbstractAlignment.java,v 1.7 2003/03/23 00:12:57 matt Exp $
- *
  * @author Alexei Drummond
  * @author Korbinian Strimmer
+ * @version $Id: AbstractAlignment.java,v 1.7 2003/03/23 00:12:57 matt Exp $
  */
 abstract public class AbstractAlignment implements Alignment, Serializable, IdGroup, Report {
     //
@@ -29,16 +32,24 @@ abstract public class AbstractAlignment implements Alignment, Serializable, IdGr
     //
     // Protected stuff
     //
-    /** number of sequences */
+    /**
+     * number of sequences
+     */
     protected int numSeqs;
 
-    /** length of each sequence */
+    /**
+     * length of each sequence
+     */
     protected int numSites;
 
-    /** sequence identifiers */
+    /**
+     * sequence identifiers
+     */
     protected IdGroup idGroup;
 
-    /** data type */
+    /**
+     * data type
+     */
     private DataType dataType;
 
     //
@@ -56,32 +67,35 @@ abstract public class AbstractAlignment implements Alignment, Serializable, IdGr
         out.writeObject(dataType);
     }
 
-    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException{
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
         byte version = in.readByte();
-        switch(version) {
-            case 1 : {
+        switch (version) {
+            case 1: {
                 numSeqs = in.readInt();
                 numSites = in.readInt();
-                idGroup = (IdGroup)in.readObject();
-                double[] frequencyDummy = (double[])in.readObject();
-                dataType = (DataType)in.readObject();
+                idGroup = (IdGroup) in.readObject();
+                double[] frequencyDummy = (double[]) in.readObject();
+                dataType = (DataType) in.readObject();
                 break;
             }
-            default : {
+            default: {
                 numSeqs = in.readInt();
                 numSites = in.readInt();
-                idGroup = (IdGroup)in.readObject();
-                dataType = (DataType)in.readObject();
+                idGroup = (IdGroup) in.readObject();
+                dataType = (DataType) in.readObject();
                 break;
             }
         }
     }
 
-    public AbstractAlignment(){	}
+    public AbstractAlignment() {
+    }
 
     // Abstract method
 
-    /** sequence alignment at (sequence, site) */
+    /**
+     * sequence alignment at (sequence, site)
+     */
     abstract public char getData(int seq, int site);
 
     /**
@@ -91,38 +105,51 @@ abstract public class AbstractAlignment implements Alignment, Serializable, IdGr
         return dataType.isGapChar(getData(seq, site));
     }
 
-    /** Guess data type */
-    public void guessDataType()
-    {
+    /**
+     * Guess data type
+     */
+    public void guessDataType() {
         dataType = AlignmentUtils.getSuitableInstance(this);
     }
+
     /**
      * Same as getDataType().getChar(state)
      */
-    protected final char getChar(int state) {		return dataType.getChar(state); 	}
+    protected final char getChar(int state) {
+        return dataType.getChar(state);
+    }
 
     /**
      * Same as getDataType().getState(char)
      */
-    protected final int getState(char c) {		return dataType.getState(c); 	}
+    protected final int getState(char c) {
+        return dataType.getState(c);
+    }
+
     /**
      * Same as getDataType().isUnknownState(state)
      */
-    protected final boolean isUnknownState(int state) {		return dataType.isUnknownState(state); 	}
+    protected final boolean isUnknownState(int state) {
+        return dataType.isUnknownState(state);
+    }
 
-    /** Returns the datatype of this alignment */
-    public final DataType getDataType()
-    {
+    /**
+     * Returns the datatype of this alignment
+     */
+    public final DataType getDataType() {
         return dataType;
     }
 
-    /** Sets the datatype of this alignment */
-    public final void setDataType(DataType d)
-    {
+    /**
+     * Sets the datatype of this alignment
+     */
+    public final void setDataType(DataType d) {
         dataType = d;
     }
 
-    /** returns representation of this alignment as a string */
+    /**
+     * returns representation of this alignment as a string
+     */
     public String toString() {
 
         StringWriter sw = new StringWriter();
@@ -133,8 +160,7 @@ abstract public class AbstractAlignment implements Alignment, Serializable, IdGr
 
     // interface Report
 
-    public void report(PrintWriter out)
-    {
+    public void report(PrintWriter out) {
         AlignmentUtils.report(this, out);
     }
 
@@ -179,11 +205,13 @@ abstract public class AbstractAlignment implements Alignment, Serializable, IdGr
 
     /**
      * Return number of sites for each sequence in this alignment
+     *
      * @note for people who like accessor methods over public instance variables...
      */
     public final int getSiteCount() {
         return numSites;
     }
+
     /**
      * Returns a string representing a single sequence (including gaps)
      * from this alignment.
@@ -197,9 +225,20 @@ abstract public class AbstractAlignment implements Alignment, Serializable, IdGr
     }
 
     //IdGroup interface
-    public Identifier getIdentifier(int i) {return idGroup.getIdentifier(i);}
-    public void setIdentifier(int i, Identifier ident) { idGroup.setIdentifier(i, ident); }
-    public int getIdCount() { return idGroup.getIdCount(); }
-    public int whichIdNumber(String name) { return idGroup.whichIdNumber(name); }
+    public Identifier getIdentifier(int i) {
+        return idGroup.getIdentifier(i);
+    }
+
+    public void setIdentifier(int i, Identifier ident) {
+        idGroup.setIdentifier(i, ident);
+    }
+
+    public int getIdCount() {
+        return idGroup.getIdCount();
+    }
+
+    public int whichIdNumber(String name) {
+        return idGroup.whichIdNumber(name);
+    }
 
 }

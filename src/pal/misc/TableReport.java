@@ -10,32 +10,31 @@ package pal.misc;
 /**
  * interface for classes with data that can be presented in tables
  *
- * @version $Id: TableReport.java,v 1.3 2001/11/20 19:58:45 alexi Exp $
- *
  * @author Ed Buckler
+ * @version $Id: TableReport.java,v 1.3 2001/11/20 19:58:45 alexi Exp $
  */
 
 public interface TableReport {
 
-  /**
-   * get the names of the columns
-   *
-   * @return columns names
-   */
-  Object[] getTableColumnNames() ;
+    /**
+     * get the names of the columns
+     *
+     * @return columns names
+     */
+    Object[] getTableColumnNames();
 
     /**
-   * get the data elements
-   *
-   * @return the data elements
-   */
-  Object[][] getTableData();
+     * get the data elements
+     *
+     * @return the data elements
+     */
+    Object[][] getTableData();
 
-      /**
-   * get the title of the table
-   *
-   * @return a String title
-   */
-  String getTableTitle();
+    /**
+     * get the title of the table
+     *
+     * @return a String title
+     */
+    String getTableTitle();
 
 }

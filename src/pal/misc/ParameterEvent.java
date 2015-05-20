@@ -9,15 +9,14 @@ package pal.misc;
 /**
  * An event used by ExternalParameterListeners
  *
- * @version $Id: ParameterEvent.java,v 1.2 2001/10/10 07:50:02 matt Exp $
- *
  * @author Matthew Goode
+ * @version $Id: ParameterEvent.java,v 1.2 2001/10/10 07:50:02 matt Exp $
  */
 
 
 public class ParameterEvent extends java.util.EventObject {
 
-	public ParameterEvent(Object source) {
-		super(source);
-	}
+    public ParameterEvent(Object source) {
+        super(source);
+    }
 }

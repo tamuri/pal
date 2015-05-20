@@ -8,140 +8,135 @@
 
 package pal.substmodel;
 
-import pal.misc.*;
-import pal.util.*;
+import pal.util.XMLConstants;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.Serializable;
 
 
 /**
  * Hasegawa-Kishino-Yano model of nucleotide evolution
  * <i>Hasegawa, M., H. Kishino, and T. Yano. 1985. Dating of the human-ape splitting by a molecular clock of mitchondrial DNA. J. Mol. Evol. 22:160-174. </i>
- * @version $Id: HKY.java,v 1.11 2003/11/30 05:29:22 matt Exp $
- * <p>
- * <em>Parameters</em>
- * <ol>
- *  <li> Kappa </li> <!-- 0 -->
- * </ol>
- * </p>
+ *
  * @author Korbinian Strimmer
  * @author Alexei Drummond
+ * @version $Id: HKY.java,v 1.11 2003/11/30 05:29:22 matt Exp $
+ *          <p>
+ *          <em>Parameters</em>
+ *          <ol>
+ *          <li> Kappa </li> <!-- 0 -->
+ *          </ol>
+ *          </p>
  */
 public class HKY extends NucleotideModel implements Serializable, XMLConstants {
-	public static final int KAPPA_PARAMETER_INDEX = 0;
-	/**
-	 * Constructor 1
-	 *
-	 * @param kappa transition/transversion rate ratio
-	 * @param freq nucleotide frequencies
-	 */
-	public HKY(double kappa, double[] freq)
-	{
-		super(freq);
-		this.kappa = kappa;
-		setParameters(new double[] { kappa });
+    public static final int KAPPA_PARAMETER_INDEX = 0;
 
-		showSE = false;
-	}
+    /**
+     * Constructor 1
+     *
+     * @param kappa transition/transversion rate ratio
+     * @param freq  nucleotide frequencies
+     */
+    public HKY(double kappa, double[] freq) {
+        super(freq);
+        this.kappa = kappa;
+        setParameters(new double[]{kappa});
 
-	/**
-	 * Constructor 2
-	 *
-	 * @param params parameter list
-	 * @param freq nucleotide frequencies
-	 */
-	public HKY(double[] params, double[] freq)
-	{
-		this(params[0], freq);
-	}
+        showSE = false;
+    }
 
-
-	public Object clone() {
-		return new HKY(this);
-	}
-
-	private HKY(HKY hky) {
-		this(hky.kappa, hky.getEquilibriumFrequencies());
-	}
-
-	// Get numerical code describing the model type
-	public int getModelID()
-	{
-		return 2;
-	}
+    /**
+     * Constructor 2
+     *
+     * @param params parameter list
+     * @param freq   nucleotide frequencies
+     */
+    public HKY(double[] params, double[] freq) {
+        this(params[0], freq);
+    }
 
 
-	// interface Report
+    public Object clone() {
+        return new HKY(this);
+    }
 
-	public void report(PrintWriter out)
-	{
-		out.println("Model of substitution: HKY (Hasegawa et al. 1985)");
-		out.print("Transition/transversion rate ratio kappa: ");
-		format.displayDecimal(out, kappa, 2);
-		if (showSE)
-		{
-			out.print("  (S.E. ");
-			format.displayDecimal(out, kappaSE, 2);
-			out.print(")");
-		}
-		out.println();
+    private HKY(HKY hky) {
+        this(hky.kappa, hky.getEquilibriumFrequencies());
+    }
 
-		out.println();
-		printFrequencies(out);
-		printRatios(out);
-	}
+    // Get numerical code describing the model type
+    public int getModelID() {
+        return 2;
+    }
 
-	// interface Parameterized
 
-	public int getNumParameters()
-	{
-		return 1;
-	}
+    // interface Report
 
-	public void setParameterSE(double paramSE, int n)
-	{
-		kappaSE = paramSE;
+    public void report(PrintWriter out) {
+        out.println("Model of substitution: HKY (Hasegawa et al. 1985)");
+        out.print("Transition/transversion rate ratio kappa: ");
+        format.displayDecimal(out, kappa, 2);
+        if (showSE) {
+            out.print("  (S.E. ");
+            format.displayDecimal(out, kappaSE, 2);
+            out.print(")");
+        }
+        out.println();
 
-		showSE = true;
-	}
+        out.println();
+        printFrequencies(out);
+        printRatios(out);
+    }
 
-	public double getLowerLimit(int n)
-	{
-		return 0.0001;
-	}
+    // interface Parameterized
 
-	public double getUpperLimit(int n)
-	{
-		return 100.0;
-	}
+    public int getNumParameters() {
+        return 1;
+    }
 
-	public double getDefaultValue(int n)
-	{
-		return 4.0;
-	}
+    public void setParameterSE(double paramSE, int n) {
+        kappaSE = paramSE;
 
-	public String getParameterName(int i) {
-		if (i == 0) return KAPPA;
-		return UNKNOWN;
-	}
+        showSE = true;
+    }
 
-	public String getUniqueName() {
-		return HKY;
-	}
+    public double getLowerLimit(int n) {
+        return 0.0001;
+    }
 
-	//
-	// Private stuff
-	//
+    public double getUpperLimit(int n) {
+        return 100.0;
+    }
 
-	private boolean showSE;
-	private double kappa, kappaSE;
+    public double getDefaultValue(int n) {
+        return 4.0;
+    }
 
-	// Make HKY model
-	protected void rebuildRateMatrix(double[][] rate, double[] parameters)	{
-		this.kappa = parameters[KAPPA_PARAMETER_INDEX];
-		// Q matrix
-		rate[0][1] = 1; rate[0][2] = kappa; rate[0][3] = 1;
-		rate[1][2] = 1; rate[1][3] = kappa;
-		rate[2][3] = 1;
-	}
+    public String getParameterName(int i) {
+        if (i == 0) return KAPPA;
+        return UNKNOWN;
+    }
+
+    public String getUniqueName() {
+        return HKY;
+    }
+
+    //
+    // Private stuff
+    //
+
+    private boolean showSE;
+    private double kappa, kappaSE;
+
+    // Make HKY model
+    protected void rebuildRateMatrix(double[][] rate, double[] parameters) {
+        this.kappa = parameters[KAPPA_PARAMETER_INDEX];
+        // Q matrix
+        rate[0][1] = 1;
+        rate[0][2] = kappa;
+        rate[0][3] = 1;
+        rate[1][2] = 1;
+        rate[1][3] = kappa;
+        rate[2][3] = 1;
+    }
 }

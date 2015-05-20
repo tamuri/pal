@@ -10,24 +10,22 @@ package pal.treesearch;
 /**
  * <p>Title: NodeAccess </p>
  * <p>Description: </p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import pal.tree.*;
-import pal.alignment.*;
-import pal.substmodel.*;
 
 public interface NodeAccess {
-	/**
-	 * Set the annotation for this branch (will be used when instructing TreeInterfaces
-	 * @param annotation The annotation object (dependent on the TreeInterface instructed)
-	 */
-	public void setAnnotation(Object annotation);
+    /**
+     * Set the annotation for this branch (will be used when instructing TreeInterfaces
+     * @param annotation The annotation object (dependent on the TreeInterface instructed)
+     */
+    public void setAnnotation(Object annotation);
 
-	public Object getAnnotation();
+    public Object getAnnotation();
 
-	public boolean isLeaf();
+    public boolean isLeaf();
 
-	public String getLabel();
+    public String getLabel();
 
 }

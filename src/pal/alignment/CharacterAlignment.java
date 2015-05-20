@@ -7,9 +7,11 @@
 
 package pal.alignment;
 
-import java.io.*;
+import pal.misc.IdGroup;
+import pal.misc.Report;
+import pal.misc.TableReport;
 
-import pal.misc.*;
+import java.io.Serializable;
 
 /**
  * This interface is designed to hold quantitative character states. * Each trait (a quantitative character) has two
@@ -17,13 +19,12 @@ import pal.misc.*;
  * placed in these two labels, however for printing purposes * traitName is printed first.  Double.NaN is assumed to be
  * the missing value.
  *
- * @version $Id: CharacterAlignment.java,v 1.2 2001/09/02 13:19:41 korbinian Exp $
- *
  * @author Ed Buckler
+ * @version $Id: CharacterAlignment.java,v 1.2 2001/09/02 13:19:41 korbinian Exp $
  */
 
 public interface CharacterAlignment extends Serializable, IdGroup, Report, TableReport {
-    double MISSING=Double.NaN;
+    double MISSING = Double.NaN;
 
     /**
      * Return name of the trait for this trait number
@@ -45,7 +46,8 @@ public interface CharacterAlignment extends Serializable, IdGroup, Report, Table
      */
     int getSequenceCount();
 
-    /** Return number of traits for each sequence in this alignment
+    /**
+     * Return number of traits for each sequence in this alignment
      */
     int getTraitCount();
 }

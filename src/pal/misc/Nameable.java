@@ -7,28 +7,24 @@
 
 package pal.misc;
 
-import java.io.*;
-
 /**
  * interface for classes that can be named.
  *
- * @version $Id: Nameable.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
- *
  * @author Alexei Drummond
+ * @version $Id: Nameable.java,v 1.2 2001/07/13 14:39:13 korbinian Exp $
  */
-public interface Nameable
-{
-	/**
-	 * get the name of this object.
-	 *
-	 * @return name of this object.
-	 */
-	String getName();
+public interface Nameable {
+    /**
+     * get the name of this object.
+     *
+     * @return name of this object.
+     */
+    String getName();
 
-	/**
-	 * set the name of this object.
-	 *
-	 * @param name the new name.
-	 */
-	void setName(String name);
+    /**
+     * set the name of this object.
+     *
+     * @param name the new name.
+     */
+    void setName(String name);
 }

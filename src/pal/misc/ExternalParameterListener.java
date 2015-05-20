@@ -10,12 +10,11 @@ package pal.misc;
 /**
  * Defines objects that listen to exteneral ParameterEvents
  *
- * @version $Id: ExternalParameterListener.java,v 1.3 2001/10/10 07:50:02 matt Exp $
- *
  * @author Matthew Goode
+ * @version $Id: ExternalParameterListener.java,v 1.3 2001/10/10 07:50:02 matt Exp $
  */
 
 
 public interface ExternalParameterListener {
-	void parameterChanged(ParameterEvent pe);
+    void parameterChanged(ParameterEvent pe);
 }

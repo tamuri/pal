@@ -10,11 +10,13 @@ package pal.treesearch;
 /**
  * <p>Title: GeneralTreeComponent</p>
  * <p>Description: </p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import java.util.*;
+
+import java.util.ArrayList;
 
 public interface GeneralTreeComponent {
-	public void getAllComponents(ArrayList store, Class componentType);
+    public void getAllComponents(ArrayList store, Class componentType);
 }

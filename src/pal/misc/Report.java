@@ -8,22 +8,20 @@
 
 package pal.misc;
 
-import java.io.*;
+import java.io.PrintWriter;
 
 /**
  * interface for classes that can print out a human readable report of itself
  *
- * @version $Id: Report.java,v 1.4 2002/12/05 04:27:28 matt Exp $
- *
  * @author Korbinian Strimmer
+ * @version $Id: Report.java,v 1.4 2002/12/05 04:27:28 matt Exp $
  */
-public interface Report
-{
-	/**
-	 * print human readable report (e.g., on parameters and associated model)
-	 *
-	 * @param out output stream
-	 */
-	void report(PrintWriter out);
+public interface Report {
+    /**
+     * print human readable report (e.g., on parameters and associated model)
+     *
+     * @param out output stream
+     */
+    void report(PrintWriter out);
 
 }

@@ -7,19 +7,16 @@
 
 package pal.misc;
 
-import java.io.*;
-
 /**
  * interface for classes that can provide the related Units used, (as
  *
- * @version $Id: UnitsProvider.java,v 1.1 2002/02/05 22:02:36 matt Exp $
- *
  * @author Matthew Goode
+ * @version $Id: UnitsProvider.java,v 1.1 2002/02/05 22:02:36 matt Exp $
  */
 public interface UnitsProvider extends Units {
 
-	/**
-	 * @return the units relating to this object.
-	 */
-	int getUnits();
+    /**
+     * @return the units relating to this object.
+     */
+    int getUnits();
 }

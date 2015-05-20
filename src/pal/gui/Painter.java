@@ -7,8 +7,7 @@
 
 package pal.gui;
 
-import java.awt.Graphics;
-import java.awt.Dimension;
+import java.awt.*;
 
 
 /**
@@ -19,8 +18,10 @@ import java.awt.Dimension;
  */
 
 public interface Painter {
-	void paint(Graphics g, int displayWidth, int displayHeight);
-	void paint(Graphics g, int displayWidth, int displayHeight, LayoutTracker lt);
-	Dimension getPreferredSize();
+    void paint(Graphics g, int displayWidth, int displayHeight);
+
+    void paint(Graphics g, int displayWidth, int displayHeight, LayoutTracker lt);
+
+    Dimension getPreferredSize();
 
 }

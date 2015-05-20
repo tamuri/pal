@@ -10,69 +10,73 @@ package pal.statistics;
 /**
  * <p>Title: RELLTopologyPool </p>
  * <p>Description: For non-parameteric RELL analysis </p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import pal.misc.Utils;
-import pal.tree.*;
-import pal.alignment.*;
-import pal.eval.*;
-import pal.util.AlgorithmCallback;
+
+import pal.eval.SiteDetails;
 import pal.math.MersenneTwisterFast;
+import pal.util.AlgorithmCallback;
 
 public class RELLTopologyPool implements TopologyTestEngine.TopologyPool {
-	private final SiteDetails[] baseTopologies_;
-	private final double[] logLikelihoods_;
-	private final int numberOfSites_;
-	private final MersenneTwisterFast random_ = new MersenneTwisterFast();
-	public RELLTopologyPool( SiteDetails[] topologies, int numberOfSites) {
-		this.numberOfSites_ = numberOfSites;
-		this.baseTopologies_ = new SiteDetails[topologies.length];
-		System.arraycopy( topologies, 0, baseTopologies_, 0, topologies.length );
-		this.logLikelihoods_ = new double[topologies.length];
-		calculateOriginalLogLikelihoods();
-	}
+    private final SiteDetails[] baseTopologies_;
+    private final double[] logLikelihoods_;
+    private final int numberOfSites_;
+    private final MersenneTwisterFast random_ = new MersenneTwisterFast();
 
-	private void calculateOriginalLogLikelihoods() {
+    public RELLTopologyPool(SiteDetails[] topologies, int numberOfSites) {
+        this.numberOfSites_ = numberOfSites;
+        this.baseTopologies_ = new SiteDetails[topologies.length];
+        System.arraycopy(topologies, 0, baseTopologies_, 0, topologies.length);
+        this.logLikelihoods_ = new double[topologies.length];
+        calculateOriginalLogLikelihoods();
+    }
 
-		for( int i = 0; i<baseTopologies_.length; i++ ) {
+    private void calculateOriginalLogLikelihoods() {
 
-			logLikelihoods_[i] = pal.misc.Utils.getSum(baseTopologies_[i].getSiteLogLikelihoods());
-		}
-	}
+        for (int i = 0; i < baseTopologies_.length; i++) {
 
-	public int getNumberOfTopologies() {	return baseTopologies_.length; }
+            logLikelihoods_[i] = pal.misc.Utils.getSum(baseTopologies_[i].getSiteLogLikelihoods());
+        }
+    }
 
-	public double[] getOriginalOptimisedLogLikelihoods() {	return logLikelihoods_; }
-	private final double getReplicateLogLikelihood(int[] siteLookup,int topology) {
-	  double[] siteLogLikelihoods = baseTopologies_[topology].getSiteLogLikelihoods();
-		double total = 0;
-		for(int i = 0 ; i < numberOfSites_ ; i++) {
-		  total += siteLogLikelihoods[siteLookup[i]];
-		}
-		return total;
-	}
-	public double[] getNewReplicateLogLikelihoods(  AlgorithmCallback callback ) {
-		double[] replicateLogLikelihoods = new double[baseTopologies_.length];
-		int[] siteLookup = new int[numberOfSites_];
-		for(int i = 0 ; i < numberOfSites_ ; i++) {
-		  siteLookup[i] = random_.nextInt(numberOfSites_);
-		}
+    public int getNumberOfTopologies() {
+        return baseTopologies_.length;
+    }
 
-		for(int topology = 0; topology < baseTopologies_.length ; topology++) {
-			callback.updateProgress(topology/(double)baseTopologies_.length);
+    public double[] getOriginalOptimisedLogLikelihoods() {
+        return logLikelihoods_;
+    }
 
-			replicateLogLikelihoods[topology] = getReplicateLogLikelihood(siteLookup, topology);
-		}
-		return replicateLogLikelihoods;
-	}
+    private final double getReplicateLogLikelihood(int[] siteLookup, int topology) {
+        double[] siteLogLikelihoods = baseTopologies_[topology].getSiteLogLikelihoods();
+        double total = 0;
+        for (int i = 0; i < numberOfSites_; i++) {
+            total += siteLogLikelihoods[siteLookup[i]];
+        }
+        return total;
+    }
+
+    public double[] getNewReplicateLogLikelihoods(AlgorithmCallback callback) {
+        double[] replicateLogLikelihoods = new double[baseTopologies_.length];
+        int[] siteLookup = new int[numberOfSites_];
+        for (int i = 0; i < numberOfSites_; i++) {
+            siteLookup[i] = random_.nextInt(numberOfSites_);
+        }
+
+        for (int topology = 0; topology < baseTopologies_.length; topology++) {
+            callback.updateProgress(topology / (double) baseTopologies_.length);
+
+            replicateLogLikelihoods[topology] = getReplicateLogLikelihood(siteLookup, topology);
+        }
+        return replicateLogLikelihoods;
+    }
 
 // ===============================================================================================
 
 
-
-
-	// ======
+    // ======
 
 
 }

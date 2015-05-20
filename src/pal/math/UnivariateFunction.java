@@ -14,28 +14,26 @@ package pal.math;
  *
  * @author Korbinian Strimmer
  */
-public interface UnivariateFunction
-{
-	/**
-	 * compute function value
-	 *
-	 * @param function argument
-	 * 
-	 * @return function value
-	 */
-	double evaluate(double argument);
-	
-	/**
-	 * get lower bound of argument
-	 *
-	 * @return lower bound
-	 */
-	double getLowerBound();
-	
-	/**
-	 * get upper bound of argument
-	 *
-	 * @return upper bound
-	 */
-	double getUpperBound();
+public interface UnivariateFunction {
+    /**
+     * compute function value
+     *
+     * @param function argument
+     * @return function value
+     */
+    double evaluate(double argument);
+
+    /**
+     * get lower bound of argument
+     *
+     * @return lower bound
+     */
+    double getLowerBound();
+
+    /**
+     * get upper bound of argument
+     *
+     * @return upper bound
+     */
+    double getUpperBound();
 }

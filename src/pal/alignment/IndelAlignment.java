@@ -7,10 +7,12 @@
 
 package pal.alignment;
 
-import java.util.*;
+import pal.datatype.NumericDataType;
+import pal.misc.IdGroup;
+import pal.misc.SimpleIdGroup;
 
-import pal.datatype.*;
-import pal.misc.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class extracts indels (insertion/deletion) out of an alignment, and creates
@@ -20,13 +22,14 @@ import pal.misc.*;
  * will be identified as the same indel locus.  If anchored is false, then the same indel
  * start and end at the exact same position.
  *
- * @version $Id: IndelAlignment.java,v 1.4 2002/10/14 06:54:24 matt Exp $
- *
  * @author Ed Buckler
+ * @version $Id: IndelAlignment.java,v 1.4 2002/10/14 06:54:24 matt Exp $
  */
 
 public class IndelAlignment extends AbstractAlignment {
-    /** The sequences */
+    /**
+     * The sequences
+     */
     String[] sequences;
 
     /**
@@ -45,11 +48,12 @@ public class IndelAlignment extends AbstractAlignment {
 
     /**
      * Basic constructor.
+     *
      * @param anchored sets to score anchored indels as same position
      */
     public IndelAlignment(Alignment a, boolean anchored) {
-        rawAlignment=a;
-        this.anchored=anchored;
+        rawAlignment = a;
+        this.anchored = anchored;
         setDataType(new NumericDataType());
         sequences = new String[a.getIdCount()];
         findIndels();
@@ -59,67 +63,71 @@ public class IndelAlignment extends AbstractAlignment {
     }
 
     private void findIndels() {
-        indel=new ArrayList<>();
-        StringBuilder[] tempSeq=new StringBuilder[rawAlignment.getSequenceCount()];
-        char c0,c1,cc;
-        int rawNumSites=rawAlignment.getSiteCount();
-        for(int i=0; i<rawAlignment.getSequenceCount(); i++)
-        {tempSeq[i]=new StringBuilder();}
-        for(int j=1; j<rawNumSites; j++)
-        {for(int i=0; i<rawAlignment.getSequenceCount(); i++)
-        {
-            if(rawAlignment.getData(i,j)==GAP)
-            {
-                if(rawAlignment.getData(i,j-1)!=GAP)  //this is the beginning of a gap
-                {int p=j+1;
-                    while((rawAlignment.getData(i,p)==GAP)&&(p<(rawNumSites-1))) {p++;}
-                    IndelPosition currIndel=new IndelPosition(j,p-1,anchored);
-                    if(!indel.contains(currIndel))
-                    {indel.add(currIndel);
-                        scoreIndelsInAllSequence(currIndel, tempSeq);
+        indel = new ArrayList<>();
+        StringBuilder[] tempSeq = new StringBuilder[rawAlignment.getSequenceCount()];
+        char c0, c1, cc;
+        int rawNumSites = rawAlignment.getSiteCount();
+        for (int i = 0; i < rawAlignment.getSequenceCount(); i++) {
+            tempSeq[i] = new StringBuilder();
+        }
+        for (int j = 1; j < rawNumSites; j++) {
+            for (int i = 0; i < rawAlignment.getSequenceCount(); i++) {
+                if (rawAlignment.getData(i, j) == GAP) {
+                    if (rawAlignment.getData(i, j - 1) != GAP)  //this is the beginning of a gap
+                    {
+                        int p = j + 1;
+                        while ((rawAlignment.getData(i, p) == GAP) && (p < (rawNumSites - 1))) {
+                            p++;
+                        }
+                        IndelPosition currIndel = new IndelPosition(j, p - 1, anchored);
+                        if (!indel.contains(currIndel)) {
+                            indel.add(currIndel);
+                            scoreIndelsInAllSequence(currIndel, tempSeq);
+                        }
                     }
-                }
-            }//end c1==gap
-        }//end of i
+                }//end c1==gap
+            }//end of i
         }//end of j
-        NumericDataType theNumericDataType=new NumericDataType();
+        NumericDataType theNumericDataType = new NumericDataType();
         for (int i = 0; i < sequences.length; i++) {
             sequences[i] = tempSeq[i].toString();
         }
     }
 
     private void scoreIndelsInAllSequence(IndelPosition currIndel, StringBuilder[] tempSeq) {
-        int j, forwardSize, backwardSize,size;
-        int nSites=rawAlignment.getSiteCount()-1;
-        NumericDataType theNumericDataType=new NumericDataType();
+        int j, forwardSize, backwardSize, size;
+        int nSites = rawAlignment.getSiteCount() - 1;
+        NumericDataType theNumericDataType = new NumericDataType();
         //this finds anchored indels, indels must only share a flanking end
-        if(anchored)  {
-            for(int i=0; i<rawAlignment.getSequenceCount(); i++) {
-                forwardSize=backwardSize=0;
-                if((rawAlignment.getData(i,currIndel.start-1)!=GAP)&&(rawAlignment.getData(i,currIndel.start)==GAP)) {
+        if (anchored) {
+            for (int i = 0; i < rawAlignment.getSequenceCount(); i++) {
+                forwardSize = backwardSize = 0;
+                if ((rawAlignment.getData(i, currIndel.start - 1) != GAP) && (rawAlignment.getData(i, currIndel.start) == GAP)) {
                     //System.out.println("currIndel s="+currIndel.start+" e="+currIndel.end+" i="+i+" shares the start at "+currIndel.start);
-                    j=currIndel.start;
-                    while((rawAlignment.getData(i,j)==GAP)&&(j<nSites)) {
-                        forwardSize++; j++;
+                    j = currIndel.start;
+                    while ((rawAlignment.getData(i, j) == GAP) && (j < nSites)) {
+                        forwardSize++;
+                        j++;
                     }
-                    if(rawAlignment.getData(i,j)=='?') {
+                    if (rawAlignment.getData(i, j) == '?') {
                         tempSeq[i].append('?');
                     } else {
                         tempSeq[i].append(theNumericDataType.getNumericCharFromNumericIndex(forwardSize));
                     }
-                } else if((rawAlignment.getData(i,currIndel.end+1)!=GAP)&&(rawAlignment.getData(i,currIndel.end)==GAP)) {
+                } else if ((rawAlignment.getData(i, currIndel.end + 1) != GAP) && (rawAlignment.getData(i, currIndel.end) == GAP)) {
                     //System.out.println("currIndel s="+currIndel.start+" e="+currIndel.end+" i="+i+" shares the end at "+currIndel.end);
-                    j=currIndel.end;
-                    while((rawAlignment.getData(i,j)==GAP)&&(j>0)) {
-                        backwardSize++; j--;
+                    j = currIndel.end;
+                    while ((rawAlignment.getData(i, j) == GAP) && (j > 0)) {
+                        backwardSize++;
+                        j--;
                     }
-                    if(rawAlignment.getData(i,j)=='?') {
+                    if (rawAlignment.getData(i, j) == '?') {
                         tempSeq[i].append('?');
                     } else {
                         tempSeq[i].append(theNumericDataType.getNumericCharFromNumericIndex(backwardSize));
                     }
-                } else if((rawAlignment.getData(i,currIndel.start-1)==GAP)||(rawAlignment.getData(i,currIndel.end+1)==GAP)||
-                        (rawAlignment.getData(i,currIndel.start)=='?')||(rawAlignment.getData(i,currIndel.end)=='?')) {
+                } else if ((rawAlignment.getData(i, currIndel.start - 1) == GAP) || (rawAlignment.getData(i, currIndel.end + 1) == GAP) ||
+                        (rawAlignment.getData(i, currIndel.start) == '?') || (rawAlignment.getData(i, currIndel.end) == '?')) {
                     //System.out.println("currIndel s="+currIndel.start+" e="+currIndel.end+" i="+i+" is beyond gap");
                     tempSeq[i].append('?');
                 } else {
@@ -129,32 +137,33 @@ public class IndelAlignment extends AbstractAlignment {
             }
         } else {
             //This finding perfectly matched indels
-            for(int i=0; i<rawAlignment.getSequenceCount(); i++) {
-                forwardSize=backwardSize=0;
-                if((rawAlignment.getData(i,currIndel.start-1)==GAP)&&(rawAlignment.getData(i,currIndel.end+1)==GAP))  {
+            for (int i = 0; i < rawAlignment.getSequenceCount(); i++) {
+                forwardSize = backwardSize = 0;
+                if ((rawAlignment.getData(i, currIndel.start - 1) == GAP) && (rawAlignment.getData(i, currIndel.end + 1) == GAP)) {
                     //if the GAP extend beyond both then this is not the same gap
                     tempSeq[i].append('?');
                     continue;
                 }
-                j=currIndel.start;
-                while((rawAlignment.getData(i,j)==GAP)&&(j<nSites)) {
-                    forwardSize++; j++;
+                j = currIndel.start;
+                while ((rawAlignment.getData(i, j) == GAP) && (j < nSites)) {
+                    forwardSize++;
+                    j++;
                 }
                 //if missing data within set to missing
-                if(rawAlignment.getData(i,j)=='?') {
+                if (rawAlignment.getData(i, j) == '?') {
                     tempSeq[i].append('?');
                     continue;
                 }
-                j=currIndel.end;
-                while((rawAlignment.getData(i,j)==GAP)&&(j>0)) {
+                j = currIndel.end;
+                while ((rawAlignment.getData(i, j) == GAP) && (j > 0)) {
                     backwardSize++;
                     j--;
                 }
-                if(rawAlignment.getData(i,j)=='?') {
+                if (rawAlignment.getData(i, j) == '?') {
                     tempSeq[i].append('?');
                     continue;
                 }
-                size=(forwardSize!=backwardSize)?0:backwardSize;
+                size = (forwardSize != backwardSize) ? 0 : backwardSize;
                 tempSeq[i].append(theNumericDataType.getNumericCharFromNumericIndex(size));
             }
         }
@@ -169,7 +178,9 @@ public class IndelAlignment extends AbstractAlignment {
         AlignmentUtils.estimateFrequencies(this);
     }
 
-    /** sequence alignment at (sequence, site) */
+    /**
+     * sequence alignment at (sequence, site)
+     */
     public char getData(int seq, int site) {
         return sequences[seq].charAt(site);
     }
@@ -180,23 +191,24 @@ public class IndelAlignment extends AbstractAlignment {
 
 }
 
-class IndelPosition  implements java.io.Serializable {
-    int start,end;
+class IndelPosition implements java.io.Serializable {
+    int start, end;
     boolean anchored;
 
     IndelPosition(int s, int e, boolean a) {
-        start=s;
-        end=e;
-        anchored=a;
+        start = s;
+        end = e;
+        anchored = a;
     }
 
     public boolean equals(Object obj) {
         if (obj instanceof IndelPosition) {
-            IndelPosition pt = (IndelPosition)obj;
-            if(anchored)
-            {return (start == pt.start) || (end == pt.end);}
-            else
-            {return (start == pt.start) && (end == pt.end);}
+            IndelPosition pt = (IndelPosition) obj;
+            if (anchored) {
+                return (start == pt.start) || (end == pt.end);
+            } else {
+                return (start == pt.start) && (end == pt.end);
+            }
         }
         return super.equals(obj);
     }

@@ -14,12 +14,11 @@ package pal.xml;
  *
  * @author Alexei Drummond
  */
-public class XmlParseException extends Exception
-{
-	public XmlParseException() {}
+public class XmlParseException extends Exception {
+    public XmlParseException() {
+    }
 
-	public XmlParseException(String msg)
-	{
-		super(msg);
-	}
+    public XmlParseException(String msg) {
+        super(msg);
+    }
 }

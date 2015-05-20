@@ -14,37 +14,42 @@ package pal.tree;
  * array.
  *
  * @version $Id: TreeGenerator.java,v 1.4 2004/05/04 02:43:28 matt Exp $
- *
  * @author Matthew Goode
  */
+
+import pal.distance.DistanceMatrix;
+import pal.distance.DistanceMatrixGenerator;
 import pal.util.AlgorithmCallback;
-import pal.distance.*;
 
 public interface TreeGenerator {
-	public Tree getNextTree( AlgorithmCallback callback);
-	// ==============================================================================
-	// ==================== Utilities ===============================================
-	// ==============================================================================
-	public static final class Utils {
-	  public static final TreeGenerator createNeighbourJoiningGenerator(DistanceMatrixGenerator dataGenerator, String[] outgroupNames) {
-	    return new NJGenerator(dataGenerator,outgroupNames);
-		}
-		// ==================================================
-		// === NJ Generator
-		// ==================================================
-		private static final class NJGenerator implements TreeGenerator {
-			private final DistanceMatrixGenerator dataGenerator_;
-			private final String[] outgroupNames_;
-		  public NJGenerator( DistanceMatrixGenerator dataGenerator, String[] outgroupNames ) {
-			  this.dataGenerator_ = dataGenerator;
-				this.outgroupNames_ = outgroupNames;
-			}
-			public Tree getNextTree( AlgorithmCallback callback) {
-			  DistanceMatrix dm = dataGenerator_.generateNextMatrix(callback);
-				Tree t = new NeighborJoiningTree(dm);
-				TreeManipulator tm = new TreeManipulator(t,TreeManipulator.REDUCE_CONSTRUCTION);
-				return tm.getTreeRootedBy(outgroupNames_);
-			}
-		} //End of class NJGenerator
- 	} //End of class Utils
+    public Tree getNextTree(AlgorithmCallback callback);
+
+    // ==============================================================================
+    // ==================== Utilities ===============================================
+    // ==============================================================================
+    public static final class Utils {
+        public static final TreeGenerator createNeighbourJoiningGenerator(DistanceMatrixGenerator dataGenerator, String[] outgroupNames) {
+            return new NJGenerator(dataGenerator, outgroupNames);
+        }
+
+        // ==================================================
+        // === NJ Generator
+        // ==================================================
+        private static final class NJGenerator implements TreeGenerator {
+            private final DistanceMatrixGenerator dataGenerator_;
+            private final String[] outgroupNames_;
+
+            public NJGenerator(DistanceMatrixGenerator dataGenerator, String[] outgroupNames) {
+                this.dataGenerator_ = dataGenerator;
+                this.outgroupNames_ = outgroupNames;
+            }
+
+            public Tree getNextTree(AlgorithmCallback callback) {
+                DistanceMatrix dm = dataGenerator_.generateNextMatrix(callback);
+                Tree t = new NeighborJoiningTree(dm);
+                TreeManipulator tm = new TreeManipulator(t, TreeManipulator.REDUCE_CONSTRUCTION);
+                return tm.getTreeRootedBy(outgroupNames_);
+            }
+        } //End of class NJGenerator
+    } //End of class Utils
 } //End of interface TreeGenerator

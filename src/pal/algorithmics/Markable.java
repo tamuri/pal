@@ -8,11 +8,13 @@ package pal.algorithmics;
 /**
  * <p>Title: Markable </p>
  * <p>Description: An interface for objects that can have their state marked</p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
 
 public interface Markable {
-	void mark();
-	void undoToMark();
+    void mark();
+
+    void undoToMark();
 }

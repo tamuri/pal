@@ -10,84 +10,93 @@ package pal.treesearch;
 /**
  * <p>Title: FreeNode </p>
  * <p>Description: </p>
+ *
  * @author Matthew Goode
  * @version 1.0
  */
-import java.util.*;
 
-import pal.eval.*;
-import pal.tree.*;
+import pal.eval.ConditionalProbabilityStore;
+import pal.eval.PatternInfo;
+import pal.eval.UnconstrainedLikelihoodModel;
+import pal.tree.Node;
+
+import java.util.ArrayList;
 
 
 public interface FreeNode extends GeneralTreeComponent {
-	public PatternInfo getPatternInfo(GeneralConstructionTool tool, FreeBranch caller);
-	public boolean hasConnection(FreeBranch c, FreeBranch caller);
-	public FreeBranch getLeftBranch(FreeBranch caller);
-	public FreeBranch getRightBranch(FreeBranch caller);
+    public PatternInfo getPatternInfo(GeneralConstructionTool tool, FreeBranch caller);
 
-	/**
-	 * Recurse to all neighbours but caller
-	 * @return the maximum number of patterns from any neighbour
-	 */
+    public boolean hasConnection(FreeBranch c, FreeBranch caller);
+
+    public FreeBranch getLeftBranch(FreeBranch caller);
+
+    public FreeBranch getRightBranch(FreeBranch caller);
+
+    /**
+     * Recurse to all neighbours but caller
+     * @return the maximum number of patterns from any neighbour
+     */
 //	public int rebuildPattern( GeneralConstructionTool tool, FreeBranch caller, boolean firstPass);
 //
 //	public int rebuildPattern(GeneralConstructionTool tool);
+    public void getAllComponents(ArrayList store, Class componentType, FreeBranch connection);
 
-	public void getAllComponents(ArrayList store, Class componentType, FreeBranch connection);
+    public void testLikelihood(FreeBranch caller, GeneralConstructionTool tool);
 
-	public void testLikelihood(FreeBranch caller, GeneralConstructionTool tool);
-
-	/**
-	 * This should only be called by another leaf node on the other end of the connection.
-	 * In this case we don't have to do much (tree is two node tree)
-	 */
+    /**
+     * This should only be called by another leaf node on the other end of the connection.
+     * In this case we don't have to do much (tree is two node tree)
+     */
 //	public int redirectRebuildPattern(GeneralConstructionTool tool);
 
 //	public ConditionalProbabilityStore getLeftExtendedConditionalProbabilities(FreeBranch callingConnection, UnconstrainedLikelihoodModel.External external, ConditionalProbabilityStore resultStore);
 //	public ConditionalProbabilityStore getRightExtendedConditionalProbabilities( FreeBranch callingConnection, UnconstrainedLikelihoodModel.External external, ConditionalProbabilityStore resultStore);
 
-	/**
+    /**
 
-	 * @param caller
-	 * @return Get the pattern info for the relative left (from the caller's perspective), or null if not left pattern info
-	 */
-	public PatternInfo getLeftPatternInfo(GeneralConstructionTool tool, FreeBranch caller);
-	/**
-	 * @param caller
-	 * @return Get the pattern info for the relative right (from the caller's perspective), or null if not right pattern info
-	 */
-	public PatternInfo getRightPatternInfo(GeneralConstructionTool tool, FreeBranch caller);
+     * @param caller
+     * @return Get the pattern info for the relative left (from the caller's perspective), or null if not left pattern info
+     */
+    public PatternInfo getLeftPatternInfo(GeneralConstructionTool tool, FreeBranch caller);
 
-	public ConditionalProbabilityStore getExtendedConditionalProbabilities( double distance, FreeBranch callingConnection, GeneralConstructionTool tool);
-	public ConditionalProbabilityStore getExtendedConditionalProbabilities( double distance, FreeBranch callingConnection, UnconstrainedLikelihoodModel.External external, ConditionalProbabilityStore resultStore, GeneralConstructionTool tool);
+    /**
+     * @param caller
+     * @return Get the pattern info for the relative right (from the caller's perspective), or null if not right pattern info
+     */
+    public PatternInfo getRightPatternInfo(GeneralConstructionTool tool, FreeBranch caller);
 
-	/**
-	 * Instruct the node to extract itself from the two connections that aren't the caller
-	 * One of the other two connections will become redunant.
-	 * @return the redundant connection, or null of this node can't extract
-	 */
-	public FreeBranch extract(FreeBranch caller);
+    public ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, FreeBranch callingConnection, GeneralConstructionTool tool);
+
+    public ConditionalProbabilityStore getExtendedConditionalProbabilities(double distance, FreeBranch callingConnection, UnconstrainedLikelihoodModel.External external, ConditionalProbabilityStore resultStore, GeneralConstructionTool tool);
+
+    /**
+     * Instruct the node to extract itself from the two connections that aren't the caller
+     * One of the other two connections will become redunant.
+     * @return the redundant connection, or null of this node can't extract
+     */
+    public FreeBranch extract(FreeBranch caller);
 
 
-	public Node buildPALNodeES(double branchLength_,FreeBranch caller);
-	public Node buildPALNodeBase(double branchLength_,FreeBranch caller);
+    public Node buildPALNodeES(double branchLength_, FreeBranch caller);
 
-	public ConditionalProbabilityStore getFlatConditionalProbabilities(FreeBranch caller, GeneralConstructionTool tool);
+    public Node buildPALNodeBase(double branchLength_, FreeBranch caller);
 
-	public String toString(FreeBranch caller);
+    public ConditionalProbabilityStore getFlatConditionalProbabilities(FreeBranch caller, GeneralConstructionTool tool);
 
-	public void setConnectingBranches(FreeBranch[] store, int number);
+    public String toString(FreeBranch caller);
 
-	public boolean hasDirectConnection(FreeBranch query);
+    public void setConnectingBranches(FreeBranch[] store, int number);
 
-	/**
-	 * Should not do anything but swap branches around
-	 */
-	public void swapConnection(FreeBranch original,FreeBranch newConnection);
+    public boolean hasDirectConnection(FreeBranch query);
 
-	/**
-	 * Should preserve tree integrity
-	 */
-	public void swapConnection(FreeBranch original, FreeNode nodeToReplace, FreeBranch newConnection);
+    /**
+     * Should not do anything but swap branches around
+     */
+    public void swapConnection(FreeBranch original, FreeBranch newConnection);
+
+    /**
+     * Should preserve tree integrity
+     */
+    public void swapConnection(FreeBranch original, FreeNode nodeToReplace, FreeBranch newConnection);
 
 }
