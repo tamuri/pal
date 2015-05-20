@@ -259,15 +259,15 @@ public class RootedTreeUtils {
                 StringBuilder buffer = new StringBuilder();
                 collectLeafNames(node, buffer);
                 double pr = (double) cladeCount / (double) trees.size();
-                tree.setAttribute(node, AttributeNode.CLADE_PROBABILITY, new Double(pr));
+                tree.setAttribute(node, AttributeNode.CLADE_PROBABILITY, pr);
 
                 double meanCladeHeight = getMeanCladeHeight(node, trees);
-                tree.setAttribute(node, AttributeNode.MEAN_CLADE_HEIGHT, new Double(meanCladeHeight));
+                tree.setAttribute(node, AttributeNode.MEAN_CLADE_HEIGHT, meanCladeHeight);
 
             }
             int subtreeCount = subtreeCount(node, trees);
             double pr = (double) subtreeCount / (double) trees.size();
-            tree.setAttribute(node, AttributeNode.SUBTREE_PROBABILITY, new Double(pr));
+            tree.setAttribute(node, AttributeNode.SUBTREE_PROBABILITY, pr);
         }
     }
 
