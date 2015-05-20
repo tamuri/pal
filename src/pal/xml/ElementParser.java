@@ -66,14 +66,19 @@ public class ElementParser implements XMLConstants {
             dataType = DataType.Utils.getInstance(Integer.parseInt(dataTypeId));
         } else if (hasAttribute(e, DATA_TYPE)) {
             String dataTypeStr = e.getAttribute(DATA_TYPE);
-            if (dataTypeStr.equals(DataType.NUCLEOTIDE_DESCRIPTION)) {
-                dataType = Nucleotides.DEFAULT_INSTANCE;
-            } else if (dataTypeStr.equals(DataType.AMINO_ACID_DESCRIPTION)) {
-                dataType = AminoAcids.DEFAULT_INSTANCE;
-            } else if (dataTypeStr.equals(DataType.CODON_DESCRIPTION)) {
-                dataType = new Codons();
-            } else if (dataTypeStr.equals(DataType.TWO_STATE_DESCRIPTION)) {
-                dataType = new TwoStates();
+            switch (dataTypeStr) {
+                case DataType.NUCLEOTIDE_DESCRIPTION:
+                    dataType = Nucleotides.DEFAULT_INSTANCE;
+                    break;
+                case DataType.AMINO_ACID_DESCRIPTION:
+                    dataType = AminoAcids.DEFAULT_INSTANCE;
+                    break;
+                case DataType.CODON_DESCRIPTION:
+                    dataType = new Codons();
+                    break;
+                case DataType.TWO_STATE_DESCRIPTION:
+                    dataType = new TwoStates();
+                    break;
             }
         }
 
@@ -140,21 +145,28 @@ public class ElementParser implements XMLConstants {
         for (int i = 0; i < nodes.getLength(); i++) {
             Element param = (Element) nodes.item(i);
             String name = getNameAttr(param);
-            if (name.equals(POPULATION_SIZE)) {
-                populationSize = getDoubleValue(param);
-            } else if (name.equals(GROWTH_RATE)) {
-                growthParam = getDoubleValue(param);
-            } else if (name.equals(ALPHA)) {
-                ancestral = getDoubleValue(param);
-            } else if (name.equals(ANCESTRAL_POP_SIZE)) {
-                ancestral = getDoubleValue(param);
-                parameterization = parameterization | ConstExpGrowth.N1_PARAMETERIZATION;
-            } else if (name.equals(CURRENT_POP_SIZE_DURATION)) {
-                tx = getDoubleValue(param);
-            } else if (name.equals(GROWTH_PHASE_DURATION)) {
-                growthParam = getDoubleValue(param);
-                System.out.println("Found LX=" + growthParam);
-                parameterization = parameterization | ConstExpGrowth.LX_PARAMETERIZATION;
+            switch (name) {
+                case POPULATION_SIZE:
+                    populationSize = getDoubleValue(param);
+                    break;
+                case GROWTH_RATE:
+                    growthParam = getDoubleValue(param);
+                    break;
+                case ALPHA:
+                    ancestral = getDoubleValue(param);
+                    break;
+                case ANCESTRAL_POP_SIZE:
+                    ancestral = getDoubleValue(param);
+                    parameterization = parameterization | ConstExpGrowth.N1_PARAMETERIZATION;
+                    break;
+                case CURRENT_POP_SIZE_DURATION:
+                    tx = getDoubleValue(param);
+                    break;
+                case GROWTH_PHASE_DURATION:
+                    growthParam = getDoubleValue(param);
+                    System.out.println("Found LX=" + growthParam);
+                    parameterization = parameterization | ConstExpGrowth.LX_PARAMETERIZATION;
+                    break;
             }
         }
 
@@ -260,12 +272,16 @@ public class ElementParser implements XMLConstants {
         for (int i = 0; i < nodes.getLength(); i++) {
             Element param = (Element) nodes.item(i);
             String name = getNameAttr(param);
-            if (name.equals(MUTATION_RATE)) {
-                mutationRate = getDoubleValue(param);
-            } else if (name.equals(MU_STEP_TIME)) {
-                stepTime = getDoubleValue(param);
-            } else if (name.equals(ANCESTRAL_MU_RATE)) {
-                ancestralRate = getDoubleValue(param);
+            switch (name) {
+                case MUTATION_RATE:
+                    mutationRate = getDoubleValue(param);
+                    break;
+                case MU_STEP_TIME:
+                    stepTime = getDoubleValue(param);
+                    break;
+                case ANCESTRAL_MU_RATE:
+                    ancestralRate = getDoubleValue(param);
+                    break;
             }
         }
         String type = e.getAttribute(TYPE);
@@ -300,28 +316,31 @@ public class ElementParser implements XMLConstants {
 
         validateTagName(e, RATE_DISTRIBUTION);
         String type = e.getAttribute(TYPE);
-        if (type.equals(UNIFORM_RATE_DISTRIBUTION)) {
-            return new pal.substmodel.UniformRate();
-        } else if (type.equals(GAMMA_DISTRIBUTION)) {
-            double alpha = 1.0;
-            int ncat = 4;
-            NodeList nodes = e.getElementsByTagName(PARAMETER);
-            System.out.println("Found " + nodes.getLength() + " parameters in rate distribution");
-            for (int i = 0; i < nodes.getLength(); i++) {
-                Element param = (Element) nodes.item(i);
-                String name = getNameAttr(param);
-                if (name.equals(GAMMA_ALPHA)) {
-                    alpha = getDoubleValue(param);
-                    System.out.println("Found alpha=" + alpha);
+        switch (type) {
+            case UNIFORM_RATE_DISTRIBUTION:
+                return new pal.substmodel.UniformRate();
+            case GAMMA_DISTRIBUTION:
+                double alpha = 1.0;
+                int ncat = 4;
+                NodeList nodes = e.getElementsByTagName(PARAMETER);
+                System.out.println("Found " + nodes.getLength() + " parameters in rate distribution");
+                for (int i = 0; i < nodes.getLength(); i++) {
+                    Element param = (Element) nodes.item(i);
+                    String name = getNameAttr(param);
+                    if (name.equals(GAMMA_ALPHA)) {
+                        alpha = getDoubleValue(param);
+                        System.out.println("Found alpha=" + alpha);
+                    }
+                    if (name.equals(NUMBER_CATEGORIES)) {
+                        ncat = getIntegerValue(param);
+                        System.out.println("Found ncats=" + ncat);
+                    }
                 }
-                if (name.equals(NUMBER_CATEGORIES)) {
-                    ncat = getIntegerValue(param);
-                    System.out.println("Found ncats=" + ncat);
-                }
-            }
-            return new pal.substmodel.GammaRates(ncat, alpha);
-        } else throw new XmlParseException("Unrecognized rate distribution type! Should be one of\n'" +
-                UNIFORM_RATE_DISTRIBUTION + "', '" + GAMMA_DISTRIBUTION + "'.");
+                return new pal.substmodel.GammaRates(ncat, alpha);
+            default:
+                throw new XmlParseException("Unrecognized rate distribution type! Should be one of\n'" +
+                        UNIFORM_RATE_DISTRIBUTION + "', '" + GAMMA_DISTRIBUTION + "'.");
+        }
     }
 
     /**
@@ -349,39 +368,53 @@ public class ElementParser implements XMLConstants {
             frequencies = AlignmentUtils.estimateFrequencies(a);
         } else throw new XmlParseException("Must have either frequency element or an associated alignment!");
 
-        if (type.equals(F81)) {
-            rateMatrix = new pal.substmodel.F81(frequencies);
-        } else if (type.equals(F84)) {
-            rateMatrix = new pal.substmodel.F84(1.0, frequencies);
-        } else if (type.equals(HKY)) {
-            rateMatrix = new pal.substmodel.HKY(1.0, frequencies);
-        } else if (type.equals(GTR)) {
-            rateMatrix = new pal.substmodel.GTR(1.0, 1.0, 1.0, 1.0, 1.0, frequencies);
-        } else {
-            throw new XmlParseException("rate matrix model '" + type + "' unexpected!");
+        switch (type) {
+            case F81:
+                rateMatrix = new pal.substmodel.F81(frequencies);
+                break;
+            case F84:
+                rateMatrix = new pal.substmodel.F84(1.0, frequencies);
+                break;
+            case HKY:
+                rateMatrix = new pal.substmodel.HKY(1.0, frequencies);
+                break;
+            case GTR:
+                rateMatrix = new pal.substmodel.GTR(1.0, 1.0, 1.0, 1.0, 1.0, frequencies);
+                break;
+            default:
+                throw new XmlParseException("rate matrix model '" + type + "' unexpected!");
         }
         NodeList nodes = e.getElementsByTagName(PARAMETER);
         for (int i = 0; i < nodes.getLength(); i++) {
             Element param = (Element) nodes.item(i);
             String name = getNameAttr(param);
-            if (name.equals(KAPPA)) {
-                rateMatrix.setParameter(getDoubleValue(param), 0);
-            } else if (name.equals(TS_TV_RATIO)) {
-                rateMatrix.setParameter(getDoubleValue(param), 0);
-            } else if (name.equals(A_TO_C)) {
-                rateMatrix.setParameter(getDoubleValue(param), 0);
-            } else if (name.equals(A_TO_G)) {
-                rateMatrix.setParameter(getDoubleValue(param), 1);
-            } else if (name.equals(A_TO_T)) {
-                rateMatrix.setParameter(getDoubleValue(param), 2);
-            } else if (name.equals(C_TO_G)) {
-                rateMatrix.setParameter(getDoubleValue(param), 3);
-            } else if (name.equals(C_TO_T)) {
-                rateMatrix.setParameter(getDoubleValue(param), 4);
-            } else if (name.equals(G_TO_T)) {
-                rateMatrix.setParameter(getDoubleValue(param), 5);
-            } else {
-                throw new XmlParseException("rate matrix parameter '" + name + "' unexpected!");
+            switch (name) {
+                case KAPPA:
+                    rateMatrix.setParameter(getDoubleValue(param), 0);
+                    break;
+                case TS_TV_RATIO:
+                    rateMatrix.setParameter(getDoubleValue(param), 0);
+                    break;
+                case A_TO_C:
+                    rateMatrix.setParameter(getDoubleValue(param), 0);
+                    break;
+                case A_TO_G:
+                    rateMatrix.setParameter(getDoubleValue(param), 1);
+                    break;
+                case A_TO_T:
+                    rateMatrix.setParameter(getDoubleValue(param), 2);
+                    break;
+                case C_TO_G:
+                    rateMatrix.setParameter(getDoubleValue(param), 3);
+                    break;
+                case C_TO_T:
+                    rateMatrix.setParameter(getDoubleValue(param), 4);
+                    break;
+                case G_TO_T:
+                    rateMatrix.setParameter(getDoubleValue(param), 5);
+                    break;
+                default:
+                    throw new XmlParseException("rate matrix parameter '" + name + "' unexpected!");
             }
         }
         return rateMatrix;
@@ -480,14 +513,19 @@ public class ElementParser implements XMLConstants {
         int units = pal.misc.Units.GENERATIONS;
         if (hasAttribute(e, UNITS)) {
             String unitsAttr = e.getAttribute(UNITS);
-            if (unitsAttr.equals(YEARS)) {
-                units = pal.misc.Units.YEARS;
-            } else if (unitsAttr.equals(MONTHS)) {
-                units = pal.misc.Units.MONTHS;
-            } else if (unitsAttr.equals(DAYS)) {
-                units = pal.misc.Units.DAYS;
-            } else if (unitsAttr.equals(MUTATIONS)) {
-                units = pal.misc.Units.EXPECTED_SUBSTITUTIONS;
+            switch (unitsAttr) {
+                case YEARS:
+                    units = pal.misc.Units.YEARS;
+                    break;
+                case MONTHS:
+                    units = pal.misc.Units.MONTHS;
+                    break;
+                case DAYS:
+                    units = pal.misc.Units.DAYS;
+                    break;
+                case MUTATIONS:
+                    units = pal.misc.Units.EXPECTED_SUBSTITUTIONS;
+                    break;
             }
         }
         return units;

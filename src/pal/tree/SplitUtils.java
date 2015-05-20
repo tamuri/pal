@@ -96,8 +96,7 @@ public class SplitUtils {
      */
     public static boolean isSame(boolean[] s1, boolean[] s2) {
         boolean reverse;
-        if (s1[0] == s2[0]) reverse = false;
-        else reverse = true;
+        reverse = s1[0] != s2[0];
 
         if (s1.length != s2.length)
             throw new IllegalArgumentException("Splits must be of the same length!");
