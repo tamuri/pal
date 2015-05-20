@@ -50,7 +50,9 @@ public class VariableIndependentSingleSplitDistribution implements SingleSplitDi
                 }
             } else if (initialParameters.length == numberOfBaseTransitionCategories * 2) {
                 //Full values supplied
-                System.arraycopy(initialParameters, 0, parameterStore_, 0, numberOfBaseTransitionCategories * 2);
+                for (int i = 0; i < numberOfBaseTransitionCategories * 2; i++) {
+                    parameterStore_[i] = initialParameters[i];
+                }
             } else {
                 throw new IllegalArgumentException("Cannot handle " + initialParameters.length + " initial parameters");
             }

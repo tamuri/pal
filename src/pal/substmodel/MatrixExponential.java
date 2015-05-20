@@ -105,7 +105,9 @@ public class MatrixExponential implements Cloneable, java.io.Serializable {
     public void updateByRelativeRates(double[][] relativeRates) {
         /* compute eigenvalues and eigenvectors */
         for (int i = 0; i < dimension_; i++) {
-            System.arraycopy(relativeRates[i], 0, amat[i], 0, dimension_);
+            for (int j = 0; j < dimension_; j++) {
+                amat[i][j] = relativeRates[i][j];
+            }
         }
 
         elmhes(amat, ordr, dimension_);

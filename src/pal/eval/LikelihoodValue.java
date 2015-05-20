@@ -980,8 +980,12 @@ class CombinedLikelihood implements MultivariateFunction {
     }
 
     public double evaluate(double[] params) {
-        System.arraycopy(params, 0, f1Params_, 0, f1Params_.length);
-        System.arraycopy(params, 0 - f1Params_.length, f2Params_, 0, f2Params_.length);
+        for (int i = 0; i < f1Params_.length; i++) {
+            f1Params_[i] = params[i];
+        }
+        for (int i = 0; i < f2Params_.length; i++) {
+            f2Params_[i] = params[i - f1Params_.length];
+        }
         return -lv.compute();
     }
 

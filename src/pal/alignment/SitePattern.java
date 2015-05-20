@@ -184,7 +184,9 @@ public class SitePattern extends AbstractAlignment {
             for (int j = numSites - 1; j >= 0; j--) {
                 awork[--count[stateData(alignment, i, patSort[j])]] = patSort[j];
             }
-            System.arraycopy(awork, 0, patSort, 0, numSites);
+            for (int j = 0; j < numSites; j++) {
+                patSort[j] = awork[j];
+            }
         }
         awork = null;
         count = null;

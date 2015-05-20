@@ -44,10 +44,14 @@ public class SaturatedSingleSplitDistribution implements SingleSplitDistribution
 
             if (initialParameters.length == numberOfBaseTransitionCategories) {
                 //Traditional values supplied
-                System.arraycopy(initialParameters, 0, parameterStore_, 0, numberOfBaseTransitionCategories);
+                for (int i = 0; i < numberOfBaseTransitionCategories; i++) {
+                    parameterStore_[i * numberOfBaseTransitionCategories + i] = initialParameters[i];
+                }
             } else if (initialParameters.length == numberOfBaseTransitionCategories * numberOfBaseTransitionCategories) {
                 //Saturated values supplied-
-                System.arraycopy(initialParameters, 0, parameterStore_, 0, parameterStore_.length);
+                for (int i = 0; i < parameterStore_.length; i++) {
+                    parameterStore_[i] = initialParameters[i];
+                }
             } else {
                 throw new IllegalArgumentException("Cannot handle " + initialParameters.length + " initial parameters");
             }
