@@ -33,7 +33,7 @@ public class CodonTableUtils {
      * Translates a Nucleotide sequence into a Amino Acid sequence
      *
      * @param nucleotideSequence - the base nucleotide sequence as a char array
-     * @param starting           position - the starting position to begin reading from
+     * @param startingPosition   - the starting position to begin reading from
      * @param length             - the length of the reading frame (in nucleotide units -
      *                           should be a multiple of 3, if not remainder is truncated!)
      * @param reverse            - if true works backwards with codon at starting

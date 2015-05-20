@@ -810,11 +810,6 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
         private final Connection[] shuffledConnections_;
         private final MersenneTwisterFast random_;
 
-        /**
-         * @param solution a reference to the UnconstrainedOptiser
-         * @param assessor a means of assessing the solution (assumes gives true likelihood)
-         * @note I choose to use a static inner class and have funny references because of personal style (I like writing inner classes I can ship out to separate files if I need to)
-         */
         public SweepSPRAction(Connection[] allConnections, SPRAction baseAction, MersenneTwisterFast random) {
             this.baseAction_ = baseAction;
             this.random_ = random;
@@ -901,11 +896,6 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
         private final Connection[] allConnections_;
         private boolean lastActionSuccessful_ = false;
 
-        /**
-         * @param solution a reference to the UnconstrainedOptiser
-         * @param assessor a means of assessing the solution (assumes gives true likelihood)
-         * @note I choose to use a static inner class and have funny references because of personal style (I like writing inner classes I can ship out to separate files if I need to)
-         */
         public FullSweepSPRAction(Connection[] allConnections, SPRAction baseAction) {
             this.baseAction_ = baseAction;
             this.allConnections_ = allConnections;
@@ -1395,8 +1385,8 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
         /**
          * The constructor for the internal node that is added to attach a new sub tree with the altered tree stuff
          * @param parentConnection The newly create parent connection (the root of the recursion, the caller), forming one of the children from this node
-         * @param newSubtree The PAL node of the sub tree which forms one of the children from this node
-         * @param originalParentConnection The original parent connection
+         * @param newSubTree The PAL node of the sub tree which forms one of the children from this node
+         * @param originalOtherChildParentConnection The original parent connection
          * @param originalOtherChild The remaining child, to be cloned from an original
          * @param otherChildLength the length of the connection to the "other child"
          * @param tool to aid in construction

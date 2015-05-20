@@ -50,11 +50,6 @@ public class TopologyTestEngine {
         private final double[] baseTestStatistics_;
         private final double[] pValues_;
 
-        /**
-         *
-         * @param relatedData The related optimised trees
-         * @param replicateAssessments The raw assessments stored in form [replicate][topology] = Log likelihood, and order of topology matches relatedData
-         */
         public TestResultImpl(double[] baseTestStatistics, double[] pValues) {
             this.baseTestStatistics_ = baseTestStatistics;
             this.pValues_ = pValues;

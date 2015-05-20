@@ -56,8 +56,6 @@ public class MatrixExponential implements Cloneable, java.io.Serializable {
 
     /**
      * create module
-     *
-     * @param r rate matrix
      */
     public MatrixExponential(int dimension) {
         this.dimension_ = dimension;

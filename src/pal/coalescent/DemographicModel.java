@@ -174,7 +174,6 @@ public abstract class DemographicModel implements Units,
      * of this demographic model. If the model is
      * inconsistent then a RuntimeException will be thrown.
      *
-     * @param model   the demographic model to test.
      * @param steps   the number of steps between 0.0 and maxTime to test.
      * @param maxTime the maximum time to test.
      */

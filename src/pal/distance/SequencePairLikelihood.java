@@ -37,7 +37,7 @@ public class SequencePairLikelihood implements UnivariateFunction, java.io.Seria
     /**
      * update model of substitution
      *
-     * @param model of substitution
+     * @param m model of substitution
      */
     public void updateModel(SubstitutionModel m) {
         model = m;
@@ -56,7 +56,7 @@ public class SequencePairLikelihood implements UnivariateFunction, java.io.Seria
     /**
      * update site pattern
      *
-     * @param site pattern
+     * @param sp site pattern
      */
     public void updateSitePattern(SitePattern sp) {
         sitePattern = sp;
@@ -94,30 +94,6 @@ public class SequencePairLikelihood implements UnivariateFunction, java.io.Seria
 
     }
 
-    /**
-     * compute (negative) log-likelihood for a given distance
-     * between the two sequences
-     *
-     * @param arc expected distance
-     * @return negative log-likelihood
-     */
-    /*public double evaluate(double arc)
-	{
-		model.setDistance(arc);
-
-		double loglkl = 0;
-		for (int i = 0; i < numPatterns; i++)
-		{
-			double sumprob = 0;
-			for (int r = 0; r < numRates; r++)
-			{
-				sumprob += rateProb[r]*probConfig(r, seqPat1[i], seqPat2[i]);
-			}
-			loglkl += weight[i]*Math.log(sumprob);
-		}
-
-		return -loglkl;
-	}*/
     private void clearFastMatchCount(final int numStates) {
         for (int i = 0; i < numStates; i++) {
             for (int j = 0; j < numStates; j++) {

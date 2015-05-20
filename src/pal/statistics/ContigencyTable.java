@@ -48,7 +48,7 @@ public class ContigencyTable {
      * sets the data for the contigency table, must be set before other methods are called.
      * If tcontig has a greater count than maxSize, then the contig is set to null
      *
-     * @param contig is the array of integers with observed states
+     * @param tcontig is the array of integers with observed states
      */
     public void setMatrix(int[][] tcontig) {  //this permutes of rowDist to rapidly do the permutations
         int i, j, k, count = 0;
@@ -217,7 +217,7 @@ public class ContigencyTable {
      * It runs for 1000 permutations unless it find 10 values that beat the observed, and
      * then it stops and calculates the p-value.  This slighly biases the P-values but makes it much more rapid.
      *
-     * @param reps is the number of permutations used to the probability
+     * @param maxPermutations is the number of permutations used to the probability
      * @return P-value (NaN is returned if bad contig was set)
      */
     public double calcRapidMonteCarloExactTest(int maxPermutations)

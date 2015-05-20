@@ -43,7 +43,7 @@ public abstract class CachedRateMatrix implements RateMatrix, PalObjectListener 
     boolean modelChanged_ = false;
 
     /**
-     * @param model the underlying substitution model
+     * @param rateMatrix the underlying substitution model
      * @param cache the caching method used
      */
     public CachedRateMatrix(RateMatrix rateMatrix, DoubleKeyCache cache) {
@@ -54,14 +54,14 @@ public abstract class CachedRateMatrix implements RateMatrix, PalObjectListener 
     }
 
     /**
-     * @param model the underlying substitution model
+     * @param rateMatrix the underlying substitution model
      */
     public CachedRateMatrix(RateMatrix rateMatrix, int maxCacheSize) {
         this(rateMatrix, new DefaultCache(maxCacheSize));
     }
 
     /**
-     * @param model the previous cached model.
+     * @param cachedRateMatrix the previous cached model.
      * @return a clone of this cached model.
      */
     public CachedRateMatrix(CachedRateMatrix cachedRateMatrix) {

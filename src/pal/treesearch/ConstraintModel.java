@@ -24,7 +24,7 @@ import pal.misc.NeoParameterized;
 public interface ConstraintModel {
     /**
      * Enquire about the clock constraint grouping of the leaf
-     * @param leafLabel the label of the leaf
+     * @param leafLabelSet the label of the leaf
      * @return the grouping of the leaf, or null if outside the leaf is unconstrained (free)
      */
     GroupManager getGlobalClockConstraintGrouping(String[] leafLabelSet);

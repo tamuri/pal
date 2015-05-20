@@ -262,7 +262,7 @@ public class ConstExpGrowth extends ExponentialGrowth implements Report, Paramet
     /**
      * Sets the parameterization.
      *
-     * @param parameterization is a combination of bits representing the parameterization. Valid values are:<BR>
+     * @param p is a combination of bits representing the parameterization. Valid values are:<BR>
      *                         ALPHA_PARAMETERIZATION<BR>
      *                         N1_PARAMETERIZATION<BR>
      *                         ALPHA_PARAMETERIZATION | LX_PARAMETERIZATION<BR>

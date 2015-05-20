@@ -51,7 +51,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
      * @param tree the PAL node tree to base this tree on
      * @param parentConnection The connection with the rest of tree (must be free, otherwise this shouldn't be the pivot)
      * @param tool A general construction tool object for objtaining/building various components
-     * @param groupConstraints The constraints object that manages the leaf constraints
+     * @param constraintGroupManager The constraints object that manages the leaf constraints
      */
     public PivotNode(Node tree, FreeBranch parentConnection, GeneralConstructionTool tool, GeneralConstraintGroupManager constraintGroupManager, GeneralConstraintGroupManager.Store store) {
         super(tree, tool, store, constraintGroupManager);
@@ -97,7 +97,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
      * The root constructor, only used when the whole tree is constrained
      * @param tool A general construction tool object for objtaining/building various components
      * @param subTree The subtree
-     * @param groupConstraints The constraints object that manages the leaf constraints
+     * @param groupManager The constraints object that manages the leaf constraints
      */
     public PivotNode(Node subTree, GeneralConstructionTool tool, GeneralConstraintGroupManager groupManager, GeneralConstraintGroupManager.Store store) {
         this(subTree, null, tool, groupManager, store);

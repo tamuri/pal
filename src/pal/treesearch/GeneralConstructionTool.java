@@ -46,14 +46,6 @@ public class GeneralConstructionTool {
 
     private final UnconstrainedLikelihoodModel.External freeCalcExternal_;
 
-    /**
-     * The constructor
-     * @param alignment the base alignment
-     * @param numberOfStates the number of states
-     * @param numberOfCategories the number of model classes
-     * @param freeCalculatorGenerator The generator for free calculation (may be null if no free components)
-     * @param constrainedCalcGenerator The generator for constrained calculation (assuming a Molecular Clock, and may be null if no constrained components)
-     */
     public GeneralConstructionTool(ConstraintModel constraints, Alignment alignment) {
         this.constraints_ = constraints;
         this.dataType_ = alignment.getDataType();

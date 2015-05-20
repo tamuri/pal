@@ -75,8 +75,6 @@ public class AlignmentDistanceMatrix extends DistanceMatrix implements Serializa
      *
      * @param sp               site pattern
      * @param m                evolutionary model
-     * @param immediateCompute - signifies whether to calculate distances from within constructor
-     *                         (if no should call recompute() at some point!)
      */
     public AlignmentDistanceMatrix(SitePattern sp, SubstitutionModel m) {
         this(sp, m, null);
