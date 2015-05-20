@@ -666,11 +666,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
         }
 
         public boolean isSplit(double beforeSplitBaseHeight) {
-            if (splitHeight_ >= beforeSplitBaseHeight || splitHeight_ <= afterSplitBaseHeight_) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(splitHeight_ >= beforeSplitBaseHeight || splitHeight_ <= afterSplitBaseHeight_);
         }
 
         private void getSplitTransitionProbabilitiesDescendentImpl(boolean isTranspose, double[][][] tableStore) {

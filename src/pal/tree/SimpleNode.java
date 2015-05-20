@@ -458,11 +458,7 @@ public class SimpleNode implements AttributeNode {
      * @return result (true or false)
      */
     public boolean isRoot() {
-        if (parent == null) {
-            return true;
-        } else {
-            return false;
-        }
+        return parent == null;
     }
 
 

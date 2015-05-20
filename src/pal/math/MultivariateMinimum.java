@@ -211,11 +211,7 @@ public abstract class MultivariateMinimum {
     }
 
     private boolean fxStop(double fx, double fxold, double tolfx) {
-        if (Math.abs(fx - fxold) > tolfx) {
-            return false;
-        } else {
-            return true;
-        }
+        return Math.abs(fx - fxold) <= tolfx;
     }
 // ===========================================================================
 // ==== Factory interface

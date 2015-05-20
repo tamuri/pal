@@ -68,7 +68,6 @@ public class LogParameterizedTree
     }
 
     public void setParameterSE(double paramSE, int n) {
-        return; // DEBUG - not yet done
     }
 
     public double getLowerLimit(int n) {

@@ -35,6 +35,7 @@ import pal.misc.Units;
 import pal.util.AlgorithmCallback;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TreeManipulator implements UnrootedTreeInterface.Instructee, RootedTreeInterface.Instructee {
@@ -146,7 +147,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     private TreeManipulator(TreeManipulator base, Connection baseSubTreeConnector, Node subTree, int constructionMode) {
         SimpleNode simpleSubTree = new PALNodeWrapper(subTree);
         this.unrootedTree_ = base.unrootedTree_.getAttached(baseSubTreeConnector, simpleSubTree, constructionMode);
-        this.inputTreeUnrooted_ = (base.unrootedTree_ == baseSubTreeConnector ? true : base.inputTreeUnrooted_);
+        this.inputTreeUnrooted_ = (base.unrootedTree_ == baseSubTreeConnector || base.inputTreeUnrooted_);
         this.firstChildNodeLength_ = base.firstChildNodeLength_;
         this.units_ = base.units_;
         this.unrootedTree_.clearPathInfo();
@@ -255,7 +256,6 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * @param outgroupNames the names of the members of the outgroup
      * @return the tree rooted by an outgroup defined by the mrca of a set of nodes
-     * @throws IllegalArgument exception if outgroup names does not contain any valid node names
      * @note If the outgroup is not well defined, this may not be the only rooting
      */
     public Node getRootedBy(String[] outgroupNames) {
@@ -267,7 +267,6 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * @param outgroupNames the names of the members of the outgroup
      * @return the tree rooted by an outgroup defined by the mrca of a set of nodes
-     * @throws IllegalArgument exception if outgroup names does not contain any valid node names
      * @note If the outgroup is not well defined, this may not be the only rooting
      */
     public void instructRootedBy(RootedTreeInterface rootedInterface, String[] outgroupNames) {
@@ -278,7 +277,6 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
      * @param outgroupNames the names of the members of the outgroup
      * @param ingroupBranchLength the maximum length of the branch leading to the ingroup clade
      * @return the tree rooted by an outgroup defined by the mrca of a set of nodes
-     * @throws IllegalArgument exception if outgroup names does not contain any valid node names
      * @note If the outgroup is not well defined, this may not be the only rooting
      */
     public Node getRootedBy(String[] outgroupNames, double ingroupBranchLength) {
@@ -288,7 +286,6 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * @param outgroupNames the names of the members of the outgroup
      * @return all the trees rooted by an outgroup defined by the mrca of a set of nodes
-     * @throws IllegalArgument exception if outgroup names does not contain any valid node names
      */
     public Node[] getAllRootedBy(String[] outgroupNames) {
         return unrootedTree_.getAllRootedAroundMRCA(outgroupNames);
@@ -372,9 +369,8 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     }
 
     /**
-     * @param Node n, a node from the original base tree that this TreeManipulator was
+     * @param base a node from the original base tree that this TreeManipulator was
      * constructed on
-     * @throws Illegal argument exception if input node was not in original base tree
      */
     public Node getRootedAbove(Node base) {
         UndirectedNode match = unrootedTree_.getRelatedNode(base);
@@ -387,9 +383,8 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     }
 
     /**
-     * @param Node n, a node from the original base tree that this TreeManipulator was
+     * @param n a node from the original base tree that this TreeManipulator was
      * constructed on
-     * @throws Illegal argument exception if input node was not in original base tree
      */
     public Tree getTreeRootedAbove(Node n) {
         return constructTree(getRootedAbove(n), units_);
@@ -409,7 +404,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * Returns the mid point rooting of a tree. This is the rooting that divides
      * the data between the two most distinct taxa
-     * @see http://www.mun.ca/biology/scarr/Panda_midpoint_rooting.htm
+     * @link http://www.mun.ca/biology/scarr/Panda_midpoint_rooting.htm
      * @param base The input tree that may or may not be unrooted
      * @return an unrooted tree (has a trification at base)
      */
@@ -460,7 +455,6 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * Roots a tree by an outgroup
      * @param base The input tree that may or may not be unrooted
-     * @param ingroupBranchLength the maximum length of the branch leading to the ingroup clade
      * @param outgroupNames The names of the members of the outgroup. Names not matching taxa in the tree are ignored. The node that is the MCRA of
      * members of the outgroup will influence the rooting.
      * @return every possible interpretation of rooting a tree by the given outgroup. If the outgroup is well defined there will be only one tree.
@@ -1542,7 +1536,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
 
         /**
          * Build a tree starting at this node and not going via blockingNode, with a branch length as set by distance
-         * @param blockingNode The sibling node not to include in the tree
+         * @param blockingConnection The sibling node not to include in the tree
          * @param distance the branch length for the root
          */
         public Node buildTree(Connection blockingConnection, double distance) {
@@ -1811,7 +1805,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     private static final class InstructableNode implements SimpleNode, RootedTreeInterface.RNode, UnrootedTreeInterface.UNode {
         private final InstructableBranch parent_;
         private String label_;
-        private ArrayList children_ = null;
+        private List<InstructableNode> children_ = null;
 
         public Object annotation_;
 
@@ -1849,7 +1843,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
         }
 
         public SimpleNode getChild(int child) {
-            return (SimpleNode) children_.get(child);
+            return children_.get(child);
         }
 
         public SimpleBranch getParentBranch() {
@@ -1878,7 +1872,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
         private InstructableNode createChildImpl() {
             InstructableNode child = new InstructableNode(this);
             if (children_ == null) {
-                children_ = new ArrayList();
+                children_ = new ArrayList<>();
             }
             children_.add(child);
             return child;

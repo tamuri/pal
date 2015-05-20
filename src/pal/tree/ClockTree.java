@@ -85,7 +85,6 @@ public class ClockTree extends ParameterizedTree.ParameterizedTreeBase implement
     }
 
     public void setParameterSE(double paramSE, int n) {
-        return; // we are not interested in these SEs
     }
 
     public double getLowerLimit(int n) {

@@ -485,11 +485,7 @@ public class LikelihoodValue {
             Node center = currentBranch.getParent();
             currentBranch = getNextBranchOrRoot(currentBranch, center);
 
-            if (currentBranch == center) {
-                down = false;
-            } else {
-                down = true;
-            }
+            down = currentBranch != center;
         }
     }
 

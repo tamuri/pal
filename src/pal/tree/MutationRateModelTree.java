@@ -161,7 +161,7 @@ public class MutationRateModelTree extends ParameterizedTree.ParameterizedTreeBa
 
     public void setParameterSE(double paramSE, int n) {
         if (n < getInternalNodeCount()) {
-            return; //Todo
+            // TODO
         } else {
             model.setParameterSE(paramSE, n - getInternalNodeCount());
         }

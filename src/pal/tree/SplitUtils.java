@@ -81,10 +81,7 @@ public class SplitUtils {
         // standardize split (i.e. first index is alway true)
         if (!split[0]) {
             for (int i = 0; i < split.length; i++) {
-                if (!split[i])
-                    split[i] = true;
-                else
-                    split[i] = false;
+                split[i] = !split[i];
             }
         }
     }

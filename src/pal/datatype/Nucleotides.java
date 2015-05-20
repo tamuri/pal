@@ -149,28 +149,16 @@ public class Nucleotides extends SimpleDataType implements MolecularDataType {
     public final boolean isTransitionByState(int firstState, int secondState) {
         switch (firstState) {
             case A_STATE: {
-                if (secondState == G_STATE) {
-                    return true;
-                }
-                return false;
+                return secondState == G_STATE;
             }
             case C_STATE: {
-                if (secondState == UT_STATE) {
-                    return true;
-                }
-                return false;
+                return secondState == UT_STATE;
             }
             case G_STATE: {
-                if (secondState == A_STATE) {
-                    return true;
-                }
-                return false;
+                return secondState == A_STATE;
             }
             case UT_STATE: {
-                if (secondState == C_STATE) {
-                    return true;
-                }
-                return false;
+                return secondState == C_STATE;
             }
         }
         return false;
