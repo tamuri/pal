@@ -577,7 +577,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
      * time order character data.
      */
     public double[] getUniqueTimeArray() {
-        int count = getSampleCount();
+        int count = getOrdinalCount();
         double[] utimes = new double[count];
         for (int i = 0; i < times.length; i++) {
             utimes[getTimeOrdinal(i)] = times[i];

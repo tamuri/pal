@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class DefaultCache implements DoubleKeyCache {
 
-    ArrayList list;
+    List<DoubleKey> list;
     int maxSize;
     DoubleKey nearest, nearBelow, nearAbove;
     double dist, distToBelow, distToAbove;
@@ -31,7 +31,7 @@ public class DefaultCache implements DoubleKeyCache {
 
     private DefaultCache(DefaultCache toCopy) {
         this.maxSize = toCopy.maxSize;
-        this.list = new ArrayList(maxSize);
+        this.list = new ArrayList<>(maxSize);
     }
 
     public DefaultCache() {
@@ -40,7 +40,7 @@ public class DefaultCache implements DoubleKeyCache {
 
     public DefaultCache(int maxSize) {
         this.maxSize = maxSize;
-        list = new ArrayList(maxSize);
+        list = new ArrayList<>(maxSize);
     }
 
     public Object getNearest(double key, double tolerance) {
@@ -63,18 +63,18 @@ public class DefaultCache implements DoubleKeyCache {
 
         index = binarySearch(list, d);
 
-        if (index >= 0) return (DoubleKey) list.get(index);
+        if (index >= 0) return list.get(index);
 
         // convert failed index to nearest insertion point;
         index = -index - 1;
 
         if (index == 0) {
-            nearest = (DoubleKey) list.get(0);
+            nearest = list.get(0);
         } else if (index == list.size()) {
-            nearest = (DoubleKey) list.get(list.size() - 1);
+            nearest = list.get(list.size() - 1);
         } else {
-            nearBelow = (DoubleKey) list.get(index - 1);
-            nearAbove = (DoubleKey) list.get(index);
+            nearBelow = list.get(index - 1);
+            nearAbove = list.get(index);
             distToBelow = Math.abs(nearBelow.getKey() - d.getKey());
             distToAbove = Math.abs(nearAbove.getKey() - d.getKey());
             if (distToBelow < distToAbove) {
@@ -173,17 +173,27 @@ public class DefaultCache implements DoubleKeyCache {
             return value_;
         }
 
-        public int compareTo(Object other) {
-            if (other instanceof SimpleDoubleKey) {
-                SimpleDoubleKey ok = (SimpleDoubleKey) other;
-                if (ok.key_ < key_) {
+        public int compareTo(SimpleDoubleKey other) {
+            if (other != null) {
+                if (other.key_ < key_) {
                     return -1;
-                } else if (ok.key_ > key_) {
+                } else if (other.key_ > key_) {
                     return 1;
                 }
                 return 0;
             }
             throw new RuntimeException("Assertion error ! Object other should be a SimpleDoubleKey");
+        }
+
+        @Override
+        public int compareTo(Double o) {
+            if (o == null) throw new RuntimeException("Double o should not be null");
+            if (key_ < key_) {
+                return -1;
+            } else if (key_ > key_) {
+                return 1;
+            }
+            return 0;
         }
     }
 
@@ -194,14 +204,14 @@ public class DefaultCache implements DoubleKeyCache {
     /**
      * this method reserves the right to be non-threadsafe!
      */
-    private static int binarySearch(List list, Object key) {
+    private static int binarySearch(List<DoubleKey> list, DoubleKey key) {
         int low = 0;
         int high = list.size() - 1;
 
         while (low <= high) {
             int mid = (low + high) >> 1;
-            Object midVal = list.get(mid);
-            int cmp = ((java.lang.Comparable) midVal).compareTo(key);
+            DoubleKey midVal = list.get(mid);
+            int cmp = midVal.compareTo(key.getKey());
 
             if (cmp < 0)
                 low = mid + 1;

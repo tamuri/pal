@@ -140,7 +140,7 @@ public abstract class MutationRateModel implements Units,
         if (getUnits() != toScale.getUnits()) {
             throw new IllegalArgumentException("Incompatible units, expecting " + getUnits() + ", found (in toScale) " + toScale.getUnits());
         }
-        TimeOrderCharacterData scaled = toScale.clone(toScale);
+        TimeOrderCharacterData scaled = TimeOrderCharacterData.clone(toScale);
         double[] times = new double[scaled.getIdCount()];
         for (int i = 0; i < times.length; i++) {
             times[i] = getExpectedSubstitutions(scaled.getTime(i));
@@ -153,7 +153,7 @@ public abstract class MutationRateModel implements Units,
      * sets units of measurement.
      *
      * @param u   units
-     * @param the maximumMutationRate that is allowable, given the units. This needs to be given intelligently.
+     * @param maximumMutationRate the maximumMutationRate that is allowable, given the units. This needs to be given intelligently.
      * @throws IllegalArgumentException if units are ExpectedSubstitutions
      */
     public final void setUnits(int u, double maximumMutationRate) {
@@ -180,7 +180,7 @@ public abstract class MutationRateModel implements Units,
     }
 
     /**
-     * Overide if there is any orthogonal hint information available
+     * Override if there is any orthogonal hint information available
      *
      * @return null
      */

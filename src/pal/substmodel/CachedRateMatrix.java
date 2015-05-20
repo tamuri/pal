@@ -214,12 +214,9 @@ public abstract class CachedRateMatrix implements RateMatrix, PalObjectListener 
             return d;
         }
 
-        public int compareTo(Object o) {
-            DoubleKey dk = (DoubleKey) o;
-            double d2 = dk.getKey();
-
-            if (d < d2) return -1;
-            if (d == d2) return 0;
+        public int compareTo(Double o) {
+            if (d < o) return -1;
+            if (d == o) return 0;
             return 1;
         }
     }
@@ -238,12 +235,9 @@ public abstract class CachedRateMatrix implements RateMatrix, PalObjectListener 
             return distance;
         }
 
-        public int compareTo(Object o) {
-            DoubleKey dk = (DoubleKey) o;
-            double d2 = dk.getKey();
-
-            if (distance < d2) return -1;
-            if (distance == d2) return 0;
+        public int compareTo(Double o) {
+            if (distance < o) return -1;
+            if (distance == o) return 0;
             return 1;
         }
     }

@@ -54,7 +54,6 @@ public class CodonTableUtils {
         if (reverse) {
             for (int i = 0; i < numberOfAminoAcids; i++) {
                 int index = i * 3 + startingPosition;
-                ;
                 for (int j = 0; j < 3; j++) {
                     work[j] = nucleotideSequence[(index + 2 - j) % nucleotideSequence.length];
                 }

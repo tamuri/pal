@@ -152,20 +152,15 @@ public class TreeUtils {
 
     /**
      * Takes a tree (in mutation units) and returns a scaled version of it (in generation units).
-     *
-     * @param mutationRateModel the mutation rate model used for scaling
-     *                          and the desired units are expected substitutions then this scale
-     *                          factor should be equal to the mutation rate.
-     * @param newUnits          the new units of the tree.
      */
     public static Tree mutationsToGenerations(Tree mutationTree, MutationRateModel muModel) {
-        return scale(mutationTree, muModel, Units.GENERATIONS);
+        return getScaled(mutationTree, muModel, Units.GENERATIONS);
     }
 
     /**
      * Takes a tree (in generation units) and returns a scaled version of it (in mutation units).
      *
-     * @param mutationRateModel the mutation rate model.
+     * @param muModel the mutation rate model.
      *                          The mutation rate must be in units of mutations per site per generation.
      */
     public static Tree generationsToMutations(Tree generationTree, MutationRateModel muModel) {
@@ -180,7 +175,7 @@ public class TreeUtils {
     /**
      * Takes a tree (in generation units) and returns a scaled version of it (in mutation units).
      *
-     * @param mutationRateModel the mutation rate model in calendar units.
+     * @param muModel the mutation rate model in calendar units.
      * @param generationTime    the length of a generation in calendar units.
      *                          If the mutation rate is in mutations per site per year, then the
      *                          generation time will be in generations per year.
@@ -262,7 +257,7 @@ public class TreeUtils {
     /**
      * Takes a tree and returns a scaled version of it.
      *
-     * @param rate scale factor. If the original tree is in generations
+     * @param muModel rate scale factor. If the original tree is in generations
      *             and the desired units are expected substitutions then this scale
      *             factor should be equal to the mutation rate.
      * @note resulting units is defined by muModel's units
@@ -281,7 +276,7 @@ public class TreeUtils {
     /**
      * Takes a tree and returns a scaled version of it.
      *
-     * @param rate     scale factor. If the original tree is in generations
+     * @param muModel     scale factor. If the original tree is in generations
      *                 and the desired units are expected substitutions then this scale
      *                 factor should be equal to the mutation rate.
      * @param newUnits the new units of the tree. (Such as the mutationTree is measured in expected substitutions/newUnits)
@@ -1081,7 +1076,6 @@ public class TreeUtils {
      *                           use in calculating clade support (does not include base tree)
      * @param callback           An AlgorithmCallback object for monitoring progress
      * @note if algorithm callback requrests early stop this methods will return input baseTree with no annotation
-     * @see pal.gui.TreePainter.BOOTSTRAP_ATTRIBUTE_NAME
      */
     public static final Tree getReplicateCladeSupport(final String attributeName, final Tree baseTree, final TreeGenerator treeGenerator, final int numberOfReplicates, final AlgorithmCallback callback) {
         SimpleTree result = new SimpleTree(baseTree);

@@ -12,7 +12,7 @@ package pal.util;
  * @author Alexei Drummond
  * @version $Id: DoubleKey.java,v 1.1 2001/09/17 23:48:18 alexi Exp $
  */
-public interface DoubleKey extends java.lang.Comparable {
+public interface DoubleKey extends java.lang.Comparable<Double> {
 
     double getKey();
 }
