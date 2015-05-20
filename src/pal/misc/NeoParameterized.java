@@ -34,7 +34,7 @@ public interface NeoParameterized {
     /**
      * get model parameter
      *
-     * @param parameters the array holding the parameters
+     * @param parameterStore the array holding the parameters
      * @param startIndex the index into the array that the related parameters start at
      */
     void getParameters(double[] parameterStore, int startIndex);

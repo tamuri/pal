@@ -25,13 +25,13 @@ public interface MolecularDataType extends DataType {
     int[] getNucleotideStates(int[] molecularStates);
 
     /**
-     * @param the IUPAC nucleotidestates
+     * @param nucleotideStates the IUPAC nucleotidestates
      * @returns the input converted to states of <emph>this</emph> data type
      */
     int[] getMolecularStatesFromIUPACNucleotides(int[] nucleotideStates, int startingIndex);
 
     /**
-     * @param the Simple nucleotide states (eg 0,1,2,3 or A,C,G,T)
+     * @param nucleotideStates the Simple nucleotide states (eg 0,1,2,3 or A,C,G,T)
      * @returns the input converted to states of <emph>this</emph> data type
      */
     int[] getMolecularStatesFromSimpleNucleotides(int[] nucleotideStates, int startingIndex);

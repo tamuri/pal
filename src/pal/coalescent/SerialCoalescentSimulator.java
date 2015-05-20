@@ -8,7 +8,6 @@
 package pal.coalescent;
 
 import pal.math.MersenneTwisterFast;
-import pal.misc.IdGroup;
 import pal.misc.TimeOrderCharacterData;
 import pal.tree.*;
 import pal.util.HeapSort;
