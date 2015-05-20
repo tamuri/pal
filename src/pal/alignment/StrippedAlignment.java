@@ -74,9 +74,7 @@ public class StrippedAlignment extends AbstractAlignment {
             }
 
             // Drop s and shift the remaining part
-            for (int i = n; i < getSiteCount(); i++) {
-                alias[i] = alias[i + 1];
-            }
+            System.arraycopy(alias, n + 1, alias, n, getSiteCount() - n);
             alias[getSiteCount()] = -1;
         }
     }
