@@ -12,14 +12,14 @@ public class GeneralObjectState implements ObjectState {
     /**
      * Perform an action
      * @param currentScore the current score before doing the action
-     * @param desparationValue An indication of how desparate we are, values closer to 1 mean more desparate while values towards 0 mean less desparate
+     * @param desperationValue An indication of how desperate we are, values closer to 1 mean more desperate while values towards 0 mean less desperate
      * @return the current score after doing the action
      */
-    public double doAction(double currentScore, double desparationValue) {
+    public double doAction(double currentScore, double desperationValue) {
         boolean succeeded = false;
         double score = currentScore;
         while(!succeeded) {
-            score = action_.doAction(currentScore,desparationValue);
+            score = action_.doAction(currentScore,desperationValue);
             succeeded = action_.isActionSuccessful();
         }
         return score;

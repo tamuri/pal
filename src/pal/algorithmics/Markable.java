@@ -1,5 +1,3 @@
-// Markable.java
-//
 // (c) 1999-2001 PAL Development Core Team
 //
 // This package may be distributed under the
