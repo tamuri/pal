@@ -80,7 +80,7 @@ public class NumericDataType extends SimpleDataType {
      * Returns numeric index (size) from a unique ascii character
      */
     public final int getNumericIndexFromNumericChar(char c) {
-        return (int) (c - 64);
+        return (c - 64);
     }
 
     /**

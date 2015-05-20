@@ -69,7 +69,7 @@ public abstract class CachedRateMatrix implements RateMatrix, PalObjectListener 
         this.rateMatrix = (RateMatrix) cachedRateMatrix.rateMatrix.clone();
         this.rateMatrix.addPalObjectListener(this);
         this.dimension = cachedRateMatrix.dimension;
-        this.cache = (DoubleKeyCache) cachedRateMatrix.cache;
+        this.cache = cachedRateMatrix.cache;
     }
 
     // interface Report

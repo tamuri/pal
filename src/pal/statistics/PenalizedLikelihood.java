@@ -53,7 +53,7 @@ public class PenalizedLikelihood {
     public static double AICC(double l, int k, int n) {
         if (k > n - 2) throw new IllegalArgumentException("k must be smaller than n-1");
 
-        return l - k - (double) (k * (k + 1.0)) / (double) (n - k - 1.0);
+        return l - k - (k * (k + 1.0)) / (n - k - 1.0);
     }
 
 }

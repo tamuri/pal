@@ -354,7 +354,7 @@ public final class AlignmentReaders {
         if (line == null) {
             return null;
         }
-        while (line != null && line.trim().length() == 0) {
+        while (line.trim().length() == 0) {
             line = r.readLine();
             if (line == null) {
                 return null;
