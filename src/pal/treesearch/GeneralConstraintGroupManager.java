@@ -200,9 +200,8 @@ public class GeneralConstraintGroupManager {
                 throw new RuntimeException("Assertion error : rootAccess is null, need to call setup at some point!");
             }
             parameterAccess_.setParameters(argument, 0);
-            double result = -scoreAccess_.calculateLikelihoodScore();
-//			System.out.println("Evaluating with :"+pal.misc.Utils.toString(argument)+"  = "+result);
-            return result;
+            //			System.out.println("Evaluating with :"+pal.misc.Utils.toString(argument)+"  = "+result);
+            return -scoreAccess_.calculateLikelihoodScore();
         }
 
         public int getNumArguments() {

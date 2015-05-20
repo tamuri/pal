@@ -62,9 +62,7 @@ public class DemographicClockTree extends ClockTree implements DemographicTree {
 
         CoalescentIntervals ci = IntervalsExtractor.extractFromTree(this);
 
-        double value = ci.computeLogLikelihood(model);
-
-        return value;
+        return ci.computeLogLikelihood(model);
     }
 
     // interface Parameterized

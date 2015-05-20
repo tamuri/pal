@@ -108,9 +108,7 @@ public class DistanceMatrixUtils implements Serializable {
             counti += 1;
         }
 
-        DistanceMatrix smaller = new DistanceMatrix(distances, new SimpleIdGroup(ids));
-
-        return smaller;
+        return new DistanceMatrix(distances, new SimpleIdGroup(ids));
     }
 
 }

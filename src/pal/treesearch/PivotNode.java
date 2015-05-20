@@ -502,8 +502,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
         // Univariate Function stuff
         public double evaluate(double height) {
             ConditionalProbabilityStore descendentExtended = internal_.calculatePostExtendedFlatConditionals(height, maxChildHeight_, descendentPattern_, leftBaseExtended_, rightBaseExtended_);
-            double result = -external_.calculateLogLikelihoodNonRoot(height, centerPattern_, ascendentFlat_, descendentExtended);
-            return result;
+            return -external_.calculateLogLikelihoodNonRoot(height, centerPattern_, ascendentFlat_, descendentExtended);
         }
 
         public double getLowerBound() {
@@ -573,8 +572,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
         // Univariate Function stuff
         public double evaluate(double height) {
             ConditionalProbabilityStore descendentExtended = internal_.calculatePostExtendedFlatConditionals(height, maxChildHeight_, descendentPattern_, leftBaseExtended_, rightBaseExtended_);
-            double result = -external_.calculateLogLikelihoodSingle(height, descendentPattern_, descendentExtended);
-            return result;
+            return -external_.calculateLogLikelihoodSingle(height, descendentPattern_, descendentExtended);
         }
 
         public double getLowerBound() {
@@ -663,8 +661,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
             final double adjustedHeight = baseHeight_ + offset;
             ConditionalProbabilityStore left = leftChild_.getDescendentExtendedConditionalsWithAdjustedInternalHeights(adjustedHeight, tool_, this, false);
             ConditionalProbabilityStore right = rightChild_.getDescendentExtendedConditionalsWithAdjustedInternalHeights(adjustedHeight, tool_, this, false);
-            double result = -external_.calculateLogLikelihood(adjustedHeight, descendentPattern_, left, right);
-            return result;
+            return -external_.calculateLogLikelihood(adjustedHeight, descendentPattern_, left, right);
         }
 
         public double getLowerBound() {
@@ -808,8 +805,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
             final double adjustedHeight = baseHeight_ + offset;
             ConditionalProbabilityStore left = leftChild_.getDescendentExtendedConditionalsWithAdjustedInternalHeights(adjustedHeight, tool_, this, false);
             ConditionalProbabilityStore right = rightChild_.getDescendentExtendedConditionalsWithAdjustedInternalHeights(adjustedHeight, tool_, this, false);
-            double result = -external_.calculateLogLikelihood(adjustedHeight, descendentPattern_, left, right);
-            return result;
+            return -external_.calculateLogLikelihood(adjustedHeight, descendentPattern_, left, right);
         }
 
         public double getLowerBound() {

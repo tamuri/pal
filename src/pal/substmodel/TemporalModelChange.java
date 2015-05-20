@@ -93,8 +93,7 @@ public interface TemporalModelChange extends java.io.Serializable {
                 final double startHeight = sampleHeights[intervalFirstSample_];
                 final double heightRange = sampleHeights[intervalFirstSample_ + 1] - startHeight;
                 final double rate = heightRange / intervalWidth_;
-                double changeHeight = startHeight + (timeDiff_ * rate);
-                return changeHeight;
+                return startHeight + (timeDiff_ * rate);
             }
 
             public String toString() {

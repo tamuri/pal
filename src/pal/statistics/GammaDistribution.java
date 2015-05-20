@@ -92,31 +92,31 @@ public class GammaDistribution {
         // Best DJ & Roberts DE (1975) The percentage points of the
         // Chi2 distribution.  Applied Statistics 24: 385-388.  (AS91)
 
-        double e = 0.5e-6, aa = 0.6931471805, p = prob, g;
+        double e = 0.5e-6, aa = 0.6931471805, g;
         double xx, c, ch, a = 0, q = 0, p1 = 0, p2 = 0, t = 0, x = 0, b = 0, s1, s2, s3, s4, s5, s6;
 
-        if (p < 0.000002 || p > 0.999998 || v <= 0) {
+        if (prob < 0.000002 || prob > 0.999998 || v <= 0) {
             throw new IllegalArgumentException("Arguments out of range");
         }
         g = GammaFunction.lnGamma(v / 2);
         xx = v / 2;
         c = xx - 1;
-        if (v < -1.24 * Math.log(p)) {
-            ch = Math.pow((p * xx * Math.exp(g + xx * aa)), 1 / xx);
+        if (v < -1.24 * Math.log(prob)) {
+            ch = Math.pow((prob * xx * Math.exp(g + xx * aa)), 1 / xx);
             if (ch - e < 0) {
                 return ch;
             }
         } else {
             if (v > 0.32) {
-                x = NormalDistribution.quantile(p, 0, 1);
+                x = NormalDistribution.quantile(prob, 0, 1);
                 p1 = 0.222222 / v;
                 ch = v * Math.pow((x * Math.sqrt(p1) + 1 - p1), 3.0);
                 if (ch > 2.2 * v + 6) {
-                    ch = -2 * (Math.log(1 - p) - c * Math.log(.5 * ch) + g);
+                    ch = -2 * (Math.log(1 - prob) - c * Math.log(.5 * ch) + g);
                 }
             } else {
                 ch = 0.4;
-                a = Math.log(1 - p);
+                a = Math.log(1 - prob);
 
                 do {
                     q = ch;
@@ -134,7 +134,7 @@ public class GammaDistribution {
             if ((t = GammaFunction.incompleteGammaP(xx, p1, g)) < 0) {
                 throw new IllegalArgumentException("Arguments out of range: t < 0");
             }
-            p2 = p - t;
+            p2 = prob - t;
             t = p2 * Math.exp(xx * aa + g + p1 - c * Math.log(ch));
             b = t / ch;
             a = 0.5 * t - b * c;

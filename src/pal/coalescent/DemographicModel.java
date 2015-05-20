@@ -83,9 +83,8 @@ public abstract class DemographicModel implements Units,
         binom.setMax(numLin);
 
         double tmp = -Math.log(U) / binom.getNChoose2(numLin) + getIntensity(timeOfLastCoal);
-        double interval = getInverseIntensity(tmp) - timeOfLastCoal;
 
-        return interval;
+        return getInverseIntensity(tmp) - timeOfLastCoal;
     }
 
     /**

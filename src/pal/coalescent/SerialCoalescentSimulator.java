@@ -52,10 +52,9 @@ public class SerialCoalescentSimulator implements Serializable {
             tree = null;
         } else {
             nodes = new Node[times.length];
-            IdGroup ids = tocd;
-            for (int i = 0; i < ids.getIdCount(); i++) {
+            for (int i = 0; i < tocd.getIdCount(); i++) {
                 nodes[i] = new SimpleNode();
-                nodes[i].setIdentifier(ids.getIdentifier(i));
+                nodes[i].setIdentifier(tocd.getIdentifier(i));
             }
             currentTreeNodes = new Vector();
         }

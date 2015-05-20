@@ -134,8 +134,7 @@ public abstract class RateDistribution extends PalObjectListener.EventGenerator 
 
     public Object clone() {
         try {
-            RateDistribution rd = (RateDistribution) super.clone();
-            return rd;
+            return (RateDistribution) super.clone();
         } catch (CloneNotSupportedException e) {
             // this shouldn't happen
             throw new InternalError();

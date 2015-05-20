@@ -265,8 +265,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
         );
         partialSubTreeShiftOptimisationHandler_.optimise(minimiser);
         recursivelyAdjustNodeHeight(partialSubTreeShiftOptimisationHandler_);
-        double l = partialSubTreeShiftOptimisationHandler_.getLogLikelihood();
-        return l;
+        return partialSubTreeShiftOptimisationHandler_.getLogLikelihood();
     }
 
 
@@ -349,8 +348,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
         public double evaluate(double height) {
             ConditionalProbabilityStore descendentExtended = internal_.calculatePostExtendedFlatConditionals(height, maxChildHeight_, descendentPattern_, leftBaseExtended_, rightBaseExtended_);
             external_.calculateSingleAscendentExtendedConditionalsIndirect(parentHeight_, height, ascendentPattern_, ascendentFlat_, tempConditionals_);
-            double result = -external_.calculateLogLikelihoodNonRoot(height, centerPattern_, tempConditionals_, descendentExtended);
-            return result;
+            return -external_.calculateLogLikelihoodNonRoot(height, centerPattern_, tempConditionals_, descendentExtended);
         }
 
         public double getLowerBound() {
@@ -442,8 +440,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
         public double evaluate(double height) {
             ConditionalProbabilityStore descendentExtended = internal_.calculatePostExtendedFlatConditionals(height, maxChildHeight_, descendentPattern_, leftBaseExtended_, rightBaseExtended_);
             external_.calculateSingleAscendentExtendedConditionalsIndirect(parentHeight_, height, ascendentPattern_, ascendentFlat_, tempConditionals_);
-            double result = -external_.calculateLogLikelihoodNonRoot(height, centerPattern_, tempConditionals_, descendentExtended);
-            return result;
+            return -external_.calculateLogLikelihoodNonRoot(height, centerPattern_, tempConditionals_, descendentExtended);
         }
 
         public double getLowerBound() {
@@ -555,8 +552,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
             ConditionalProbabilityStore right = rightChild_.getDescendentExtendedConditionalsWithAdjustedInternalHeights(adjustedHeight, tool_, this, false);
             ConditionalProbabilityStore descendentExtended = internal_.calculateFlatConditionals(descendentPattern_, left, right);
             external_.calculateSingleAscendentExtendedConditionalsIndirect(parentHeight_, adjustedHeight, ascendentPattern_, ascendentFlat_, tempConditionals_);
-            double result = -external_.calculateLogLikelihoodNonRoot(adjustedHeight, centerPattern_, tempConditionals_, descendentExtended);
-            return result;
+            return -external_.calculateLogLikelihoodNonRoot(adjustedHeight, centerPattern_, tempConditionals_, descendentExtended);
         }
 
         private void test() {
@@ -730,8 +726,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
             ConditionalProbabilityStore right = rightChild_.getDescendentExtendedConditionalsWithAdjustedInternalHeights(adjustedHeight, tool_, this, false);
             ConditionalProbabilityStore descendentExtended = internal_.calculateFlatConditionals(descendentPattern_, left, right);
             external_.calculateSingleAscendentExtendedConditionalsIndirect(parentHeight_, adjustedHeight, ascendentPattern_, ascendentFlat_, tempConditionals_);
-            double result = -external_.calculateLogLikelihoodNonRoot(adjustedHeight, centerPattern_, tempConditionals_, descendentExtended);
-            return result;
+            return -external_.calculateLogLikelihoodNonRoot(adjustedHeight, centerPattern_, tempConditionals_, descendentExtended);
         }
 
         private void test() {

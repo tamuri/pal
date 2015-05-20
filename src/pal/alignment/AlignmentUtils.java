@@ -674,8 +674,7 @@ public class AlignmentUtils {
                 base += alignments[i].getSiteCount();
             }
         }
-        SimpleAlignment sa = new SimpleAlignment(maxAlignment, sequences, dt);
-        return sa;
+        return new SimpleAlignment(maxAlignment, sequences, dt);
 
     }
 
