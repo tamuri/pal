@@ -42,9 +42,7 @@ public class ConstantIndependentSingleSplitDistribution implements SingleSplitDi
 
             if (initialParameters.length == numberOfBaseTransitionCategories) {
                 //Traditional values supplied
-                for (int i = 0; i < numberOfBaseTransitionCategories; i++) {
-                    parameterStore_[i] = initialParameters[i];
-                }
+                System.arraycopy(initialParameters, 0, parameterStore_, 0, numberOfBaseTransitionCategories);
             } else {
                 throw new IllegalArgumentException("Cannot handle " + initialParameters.length + " initial parameters");
             }

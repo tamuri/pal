@@ -291,9 +291,7 @@ abstract public class AbstractRateMatrix implements RateMatrix, ExternalParamete
     }
 
     protected void setFrequencies(double[] f) {
-        for (int i = 0; i < dimension; i++) {
-            frequency[i] = f[i];
-        }
+        System.arraycopy(f, 0, frequency, 0, dimension);
         checkFrequencies();
         scheduleRebuild();
     }

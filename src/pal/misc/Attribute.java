@@ -56,7 +56,7 @@ public class Attribute {
                 }
             }
         } else if (type.equals(BOOLEAN)) {
-            value = new Boolean(val);
+            value = Boolean.valueOf(val);
         } else if (type.equals(INTEGER)) {
             value = new Integer(val);
         } else if (type.equals(DOUBLE)) {
