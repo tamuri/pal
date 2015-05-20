@@ -25,7 +25,7 @@ public class SimpleModelFastFourStateLHCalculator implements LHCalculator {
     private final static int FOUR_STATES = 4;
     private final static int ONE_CATEGORY = 1;
 
-    private static final void calculateSingleExtendedIndirectImpl(
+    private static void calculateSingleExtendedIndirectImpl(
             double distance, SubstitutionModel model,
             int numberOfPatterns,
             ConditionalProbabilityStore baseConditionalProbabilities,
@@ -68,7 +68,7 @@ public class SimpleModelFastFourStateLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculateExtendedImpl(final double[][]
+    private static void calculateExtendedImpl(final double[][]
                                                             transitionProbabilityStore, final PatternInfo centerPattern,
                                                     final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
                                                     final ConditionalProbabilityStore
@@ -108,7 +108,7 @@ public class SimpleModelFastFourStateLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculateFlatImpl(final PatternInfo centerPattern,
+    private static void calculateFlatImpl(final PatternInfo centerPattern,
                                                 final ConditionalProbabilityStore
                                                         leftConditionalProbabilityProbabilties,
                                                 final ConditionalProbabilityStore
@@ -212,7 +212,7 @@ public class SimpleModelFastFourStateLHCalculator implements LHCalculator {
             this.transitionProbabilityStore_ = new double[FOUR_STATES][FOUR_STATES];
         }
 
-        private final double[][] getResultStoreValues(double distance,
+        private double[][] getResultStoreValues(double distance,
                                                       SubstitutionModel model,
                                                       PatternInfo centerPattern,
                                                       ConditionalProbabilityStore leftFlatConditionalProbabilities,

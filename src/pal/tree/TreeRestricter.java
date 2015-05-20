@@ -41,7 +41,7 @@ public class TreeRestricter {
         this(t.getRoot(), t.getUnits(), names, inclusion);
     }
 
-    private static final boolean isAccept(String query, String[] names, boolean inclusion) {
+    private static boolean isAccept(String query, String[] names, boolean inclusion) {
         boolean found = false;
         for (int i = 0; i < names.length; i++) {
             if (query.equals(names[i])) {

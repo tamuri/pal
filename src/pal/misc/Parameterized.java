@@ -253,7 +253,7 @@ public interface Parameterized {
             }
         }
 
-        private final void sizeError() {
+        private void sizeError() {
             throw new IllegalArgumentException("All arrays do not match in size");
         }
 

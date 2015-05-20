@@ -136,7 +136,7 @@ public final class PatternInfo {
     /**
      * @return the index of mathcing pattern (if already found), or -1 otherwise.
      */
-    private static final int getMatchingPattern(final int leftPattern, final int rightPattern, final int[] patternLookup, final int numberOfPatternsFoundSoFar) {
+    private static int getMatchingPattern(final int leftPattern, final int rightPattern, final int[] patternLookup, final int numberOfPatternsFoundSoFar) {
         int index = 0;
         for (int i = 0; i < numberOfPatternsFoundSoFar; i++) {
             boolean matchLeft = patternLookup[index++] == leftPattern;

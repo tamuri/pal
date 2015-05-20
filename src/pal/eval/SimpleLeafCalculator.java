@@ -62,7 +62,7 @@ public class SimpleLeafCalculator implements LHCalculator.Leaf {
     }
 
     // ====================================
-    private static final ConditionalProbabilityStore createFlat(int[] patternStateMatchup, int numberOfPatterns, int numberOfCategories, int numberOfStates, LHCalculator.Generator parent) {
+    private static ConditionalProbabilityStore createFlat(int[] patternStateMatchup, int numberOfPatterns, int numberOfCategories, int numberOfStates, LHCalculator.Generator parent) {
         ConditionalProbabilityStore flatConditionalProbabilities = parent.createAppropriateConditionalProbabilityStore(true);
         final double[] gapStore = new double[numberOfStates];
         for (int i = 0; i < gapStore.length; i++) {
@@ -90,7 +90,7 @@ public class SimpleLeafCalculator implements LHCalculator.Leaf {
         return flatConditionalProbabilities;
     }
 
-    private static final ConditionalProbabilityStore createExtended(double[][][] transitionProbabilityStore, int[] patternStateMatchup, int numberOfPatterns, int numberOfCategories, int numberOfStates, LHCalculator.Generator parent) {
+    private static ConditionalProbabilityStore createExtended(double[][][] transitionProbabilityStore, int[] patternStateMatchup, int numberOfPatterns, int numberOfCategories, int numberOfStates, LHCalculator.Generator parent) {
         ConditionalProbabilityStore extendedConditionalProbabilities = parent.createAppropriateConditionalProbabilityStore(true);
         final double[] gapStore = new double[numberOfStates];
         for (int i = 0; i < gapStore.length; i++) {

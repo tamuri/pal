@@ -28,11 +28,11 @@ import java.io.PrintWriter;
 
 
 public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockLikelihoodModel {
-    private static final boolean isUseLowerModelOnly(double changeHeight, double beforeSplitHeight, double lowerHeight) {
+    private static boolean isUseLowerModelOnly(double changeHeight, double beforeSplitHeight, double lowerHeight) {
         return (changeHeight >= beforeSplitHeight);
     }
 
-    private static final boolean isUseUpperSampleOnly(double changeHeight, double beforeSplitHeight, double afterSplitHeight) {
+    private static boolean isUseUpperSampleOnly(double changeHeight, double beforeSplitHeight, double afterSplitHeight) {
         return (changeHeight <= afterSplitHeight);
     }
 
@@ -491,7 +491,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             this.needsRebuild_ = true;
         }
 
-        private final void checkRebuild() {
+        private void checkRebuild() {
             if (needsRebuild_) {
                 rebuildCategoryProbabilities();
                 afterSplitMatrices_.updateParameters(afterSplitCategoryProbabilities_);
@@ -500,7 +500,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final void rebuildCategoryProbabilities() {
+        private void rebuildCategoryProbabilities() {
             double[][] baseProbabilities = parent_.getBaseCategoryProbabilities();
             int index = 0;
             for (int beforeSplit = 0; beforeSplit < numberOfBaseTransitionCategories_; beforeSplit++) {
@@ -605,13 +605,13 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             return overallCategoryProbabilities_;
         }
 
-        private final void copy(double[][] source, double[][] destination) {
+        private void copy(double[][] source, double[][] destination) {
             for (int i = 0; i < numberOfStates_; i++) {
                 System.arraycopy(source[i], 0, destination[i], 0, numberOfStates_);
             }
         }
 
-        private final void combine(double[][] beforeSplit, double[][] afterSplit, double[][] result) {
+        private void combine(double[][] beforeSplit, double[][] afterSplit, double[][] result) {
             for (int from = 0; from < numberOfStates_; from++) {
                 for (int to = 0; to < numberOfStates_; to++) {
                     double total = 0;
@@ -623,7 +623,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final void combineTranspose(double[][] beforeSplit, double[][] afterSplit, double[][] result) {
+        private void combineTranspose(double[][] beforeSplit, double[][] afterSplit, double[][] result) {
             for (int from = 0; from < numberOfStates_; from++) {
                 for (int to = 0; to < numberOfStates_; to++) {
                     double total = 0;
@@ -635,11 +635,11 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final int resultIndex(int beforeSplit, int afterSplit) {
+        private int resultIndex(int beforeSplit, int afterSplit) {
             return beforeSplit * numberOfBaseTransitionCategories_ + afterSplit;
         }
 
-        private final void getTransitionProbabilities(double branchLength, double[][][] transitionStore, RateMatrixGroup group, boolean transpose) {
+        private void getTransitionProbabilities(double branchLength, double[][][] transitionStore, RateMatrixGroup group, boolean transpose) {
             if (transpose) {
                 group.getTransitionProbabilitiesTranspose(branchLength, transitionStore);
             } else {
@@ -647,7 +647,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final void getTransitionProbabilities(double branchLength, int category, double[][] transitionStore, RateMatrixGroup group, boolean transpose) {
+        private void getTransitionProbabilities(double branchLength, int category, double[][] transitionStore, RateMatrixGroup group, boolean transpose) {
             if (transpose) {
                 group.getTransitionProbabilitiesTranspose(branchLength, category, transitionStore);
             } else {
@@ -655,7 +655,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final double sum(double[][] tableStore) {
+        private double sum(double[][] tableStore) {
             double total = 0;
             for (int j = 0; j < numberOfStates_; j++) {
                 for (int i = 0; i < numberOfStates_; i++) {
@@ -673,7 +673,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final void getSplitTransitionProbabilitiesDescendentImpl(boolean isTranspose, double[][][] tableStore) {
+        private void getSplitTransitionProbabilitiesDescendentImpl(boolean isTranspose, double[][][] tableStore) {
             if (isTranspose) {
                 for (int first = 0; first < numberOfBaseTransitionCategories_; first++) {
                     for (int second = 0; second < numberOfBaseTransitionCategories_; second++) {
@@ -689,7 +689,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final void getSplitTransitionProbabilitiesAscendentImpl(boolean isTranspose, double[][][] tableStore) {
+        private void getSplitTransitionProbabilitiesAscendentImpl(boolean isTranspose, double[][][] tableStore) {
             if (isTranspose) {
                 for (int first = 0; first < numberOfBaseTransitionCategories_; first++) {
                     for (int second = 0; second < numberOfBaseTransitionCategories_; second++) {
@@ -711,7 +711,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
          * @param tableStore
          * @param isTranspose
          */
-        private final void getTransitionProbabilitiesImpl(double branchLength, double[][][] tableStore, boolean isTranspose) {
+        private void getTransitionProbabilitiesImpl(double branchLength, double[][][] tableStore, boolean isTranspose) {
             //Convert back after tricking...
             final double beforeSplitBaseHeight = afterSplitBaseHeight_ + branchLength;
 //			System.out.println(afterSplitBaseHeight_+" - "+beforeSplitBaseHeight+"    ("+splitHeight_+")");
@@ -745,7 +745,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
             }
         }
 
-        private final void getTransitionProbabilitiesImpl(double branchLength, int category, double[][] tableStore, boolean isTranspose) {
+        private void getTransitionProbabilitiesImpl(double branchLength, int category, double[][] tableStore, boolean isTranspose) {
             double beforeSplitBaseHeight = afterSplitBaseHeight_ + branchLength;
             int beforeSplit = category / numberOfBaseTransitionCategories_;
             int afterSplit = category % numberOfBaseTransitionCategories_;
@@ -841,7 +841,7 @@ public class SingleSplitMolecularClockLikelihoodModel implements MolecularClockL
         }
     } //End of class CombineModel
 
-    private static final void transpose(final double[][] matrix, final int numberOfStates) {
+    private static void transpose(final double[][] matrix, final int numberOfStates) {
         for (int from = 0; from < numberOfStates; from++) {
             for (int to = from; to < numberOfStates; to++) {
                 double temp = matrix[from][to];

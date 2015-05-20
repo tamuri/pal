@@ -57,7 +57,7 @@ public class ClusterTree extends SimpleTree {
         setRoot(root);
     }
 
-    private static final BuildNode[] generateInitialNodes(DistanceMatrix dm) {
+    private static BuildNode[] generateInitialNodes(DistanceMatrix dm) {
         double[][] distances = dm.getClonedDistances();
         BuildNode[] nodes = new BuildNode[distances.length];
         for (int i = 0; i < nodes.length; i++) {
@@ -66,7 +66,7 @@ public class ClusterTree extends SimpleTree {
         return nodes;
     }
 
-    private static final Node generateTree(BuildNode[] nodes, ClusteringMethod cm) {
+    private static Node generateTree(BuildNode[] nodes, ClusteringMethod cm) {
         int numberOfClusters = nodes.length;
 
         while (numberOfClusters != 1) {
@@ -291,7 +291,7 @@ public class ClusterTree extends SimpleTree {
             id_ = null;
         }
 
-        private final void setDistances(double[] distances, final int myIndex) {
+        private void setDistances(double[] distances, final int myIndex) {
             this.distanceStore_ = distances;
             this.numberOfDistances_ = distances.length;
             updateClosest(myIndex);

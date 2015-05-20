@@ -78,7 +78,7 @@ public final class ConditionalProbabilityStore implements java.io.Serializable {
      *
      * @param numberOfPatterns
      */
-    private final void ensureSize(int numberOfPatterns, boolean createStateArray) {
+    private void ensureSize(int numberOfPatterns, boolean createStateArray) {
         if (numberOfPatterns > patternCapacity_) {
             if (fix_) {
                 throw new IllegalArgumentException("Cannot resize to accomodate " + numberOfPatterns + " patterns (store has been fixed)");

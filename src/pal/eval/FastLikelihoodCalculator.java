@@ -390,7 +390,7 @@ public class FastLikelihoodCalculator implements PalObjectListener, LikelihoodCa
             return false;
         }
 
-        private final boolean populateChildSiteStateProbs() {
+        private boolean populateChildSiteStateProbs() {
             double[][] ss;
             boolean allNull = true;
             for (int i = 0; i < children_.length; i++) {

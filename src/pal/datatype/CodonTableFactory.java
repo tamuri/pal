@@ -222,7 +222,7 @@ class UniversalTranslator implements CodonTable {
         this.organismTypeID_ = id;
     }
 
-    private final int[] createSimpleStates(int aminoAcidState) {
+    private int[] createSimpleStates(int aminoAcidState) {
         for (int i = 0; i < translations_.length; i++) {
             if (translations_[i] == aminoAcidState) {
                 return Codons.getNucleotideStatesFromCodonIndex(i);

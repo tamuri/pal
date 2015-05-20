@@ -72,7 +72,7 @@ public interface RootedTreeInterface {
          * @param palNode
          * @param displayNode
          */
-        private final static void create(Node palNode, RNode rNode) {
+        private static void create(Node palNode, RNode rNode) {
 
             int numberOfChildren = palNode.getChildCount();
             rNode.resetChildren();

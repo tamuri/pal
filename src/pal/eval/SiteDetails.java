@@ -131,7 +131,7 @@ public interface SiteDetails {
                 return patternPosteriors_[sitePatternMatchup_[site]];
             }
 
-            private final static double[][] convertLogged(double[][] loggedStore, int numberOfCategories, int numberOfPatterns) {
+            private static double[][] convertLogged(double[][] loggedStore, int numberOfCategories, int numberOfPatterns) {
                 double[][] result = new double[numberOfCategories][numberOfPatterns];
                 for (int c = 0; c < numberOfCategories; c++) {
                     for (int p = 0; p < numberOfPatterns; p++) {

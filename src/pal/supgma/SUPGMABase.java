@@ -137,7 +137,7 @@ public class SUPGMABase {
             this.rateHandler_ = rateHandler;
         }
 
-        private final static double[] getResults(ThetaHandler thetaHandler, RateHandler rateHandler, double[][] distanceMatrix, TimeOrderCharacterData tocd, LMSSolver solver) {
+        private static double[] getResults(ThetaHandler thetaHandler, RateHandler rateHandler, double[][] distanceMatrix, TimeOrderCharacterData tocd, LMSSolver solver) {
             int num = tocd.getIdCount();
             int totalNumberOfDistances = num * (num - 1) / 2;
 
@@ -215,7 +215,7 @@ public class SUPGMABase {
             this.thetaHandler_ = thetaHandler;
         }
 
-        private final static int getNumberOfDeltas(TimeOrderCharacterData tocd) {
+        private static int getNumberOfDeltas(TimeOrderCharacterData tocd) {
             return tocd.getSampleCount() - 1;
         }
 

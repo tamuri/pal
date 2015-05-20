@@ -255,7 +255,7 @@ public class OrthogonalSearch extends MultivariateMinimum {
             this.order_ = orthogonalOrderingFactory_.createOrderEnumerator(base_.getNumArguments());
         }
 
-        private final double getNormalMin(UnivariateMinimum um, double argumentValue, double tolx) {
+        private double getNormalMin(UnivariateMinimum um, double argumentValue, double tolx) {
             return (
                     useCurrentInUnivariateMinimisation_ ?
                             um.optimize(argumentValue, olf_, tolx) :
@@ -263,7 +263,7 @@ public class OrthogonalSearch extends MultivariateMinimum {
             );
         }
 
-        private final double getBoundedMin(UnivariateMinimum um, double argumentValue, double tolx, double min, double max) {
+        private double getBoundedMin(UnivariateMinimum um, double argumentValue, double tolx, double min, double max) {
             if (useCurrentInUnivariateMinimisation_ && (min <= argumentValue && max >= argumentValue)) {
                 return um.optimize(argumentValue, olf_, tolx, min, max);
             }

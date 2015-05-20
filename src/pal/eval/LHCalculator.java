@@ -290,7 +290,7 @@ public interface LHCalculator {
                     );
         }
 
-        private final double[] calculateSiteLikelihoods(double[][] conditionals, final double[] catProbabilities, int numberOfCategories, int[] sitePatternMatchup, int numberOfSites) {
+        private double[] calculateSiteLikelihoods(double[][] conditionals, final double[] catProbabilities, int numberOfCategories, int[] sitePatternMatchup, int numberOfSites) {
             final double[] siteLikeihoods = new double[numberOfSites];
             for (int site = 0; site < numberOfSites; site++) {
                 double total = 0;

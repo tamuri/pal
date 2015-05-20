@@ -472,7 +472,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
         }
     }
 
-    private final boolean equal(double a, double b, double epsilon) {
+    private boolean equal(double a, double b, double epsilon) {
         return (Math.abs(a - b) < epsilon);
     }
 
@@ -802,7 +802,7 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
             };
         }
 
-        private static final int[] getIndexes(final TimeOrderCharacterData parent, final String[] subgroupInfo) {
+        private static int[] getIndexes(final TimeOrderCharacterData parent, final String[] subgroupInfo) {
             int count = 0;
             for (int i = 0; i < subgroupInfo.length; i++) {
                 if (parent.whichIdNumber(subgroupInfo[i]) >= 0) {

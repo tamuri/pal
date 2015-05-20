@@ -21,7 +21,7 @@ import pal.substmodel.SubstitutionModel;
 public final class FastFourStateLHCalculator implements LHCalculator {
     private final static int FOUR_STATES = 4;
 
-    private final static void calculateSingleExtendedIndirectImpl(
+    private static void calculateSingleExtendedIndirectImpl(
             double distance, SubstitutionModel model,
             int numberOfPatterns,
             ConditionalProbabilityStore baseConditionalProbabilities,
@@ -69,7 +69,7 @@ public final class FastFourStateLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculateFlatImpl(PatternInfo centerPattern,
+    private static void calculateFlatImpl(PatternInfo centerPattern,
                                                 final ConditionalProbabilityStore
                                                         leftConditionalProbabilityProbabilties,
                                                 final ConditionalProbabilityStore
@@ -107,7 +107,7 @@ public final class FastFourStateLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculateExtendedImpl(double[][][]
+    private static void calculateExtendedImpl(double[][][]
                                                             transitionProbabilityStore,
                                                     PatternInfo centerPattern,
                                                     final ConditionalProbabilityStore
@@ -348,7 +348,7 @@ public final class FastFourStateLHCalculator implements LHCalculator {
                     numberOfCategories_);
         }
 
-        private final double[][][] getResultStoreValues(double distance,
+        private double[][][] getResultStoreValues(double distance,
                                                         SubstitutionModel model,
                                                         PatternInfo centerPattern,
                                                         ConditionalProbabilityStore leftFlatConditionalProbabilities,

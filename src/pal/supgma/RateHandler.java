@@ -71,7 +71,7 @@ public interface RateHandler {
         /**
          * @return the interval change times (drops the first time if it is zero essentially...)
          */
-        private static final double[] getIntervalChangeTimes(double[] times) {
+        private static double[] getIntervalChangeTimes(double[] times) {
             if (times[0] < 0.000001) {
                 return pal.misc.Utils.getCopy(times, 1);
             }
@@ -138,7 +138,7 @@ public interface RateHandler {
                 return 0;
             }
 
-            private final void checkTimes(TimeOrderCharacterData tocd) {
+            private void checkTimes(TimeOrderCharacterData tocd) {
                 if (!tocd.hasTimes()) {
                     throw new RuntimeException("Assertion error : SetRateHanlder used on untimed data!");
                 }

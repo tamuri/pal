@@ -254,7 +254,7 @@ public final class Matrix {
         }
     }
 
-    private final static boolean equalsZero(final double value) {
+    private static boolean equalsZero(final double value) {
         return ((value < 0.0000001) && (value > -0.0000001));
     }
 

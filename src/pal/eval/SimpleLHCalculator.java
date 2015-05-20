@@ -24,7 +24,7 @@ public class SimpleLHCalculator implements LHCalculator {
     private static final SimpleFactory FACTORY_INSTANCE = new SimpleFactory();
 
 
-    private final static void calculateSingleExtendedIndirectImpl(
+    private static void calculateSingleExtendedIndirectImpl(
             double distance, SubstitutionModel model,
             int numberOfPatterns,
             ConditionalProbabilityStore baseConditionalProbabilities,
@@ -58,7 +58,7 @@ public class SimpleLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculateFlatImpl(final PatternInfo centerPattern,
+    private static void calculateFlatImpl(final PatternInfo centerPattern,
                                                 final ConditionalProbabilityStore
                                                         leftConditionalProbabilityProbabilties,
                                                 final ConditionalProbabilityStore
@@ -99,7 +99,7 @@ public class SimpleLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculateExtendedImpl(final double[][][] transitionProbabilityStore,
+    private static void calculateExtendedImpl(final double[][][] transitionProbabilityStore,
                                                     final PatternInfo centerPattern,
                                                     final ConditionalProbabilityStore
                                                             leftConditionalProbabilityProbabilties,
@@ -157,7 +157,7 @@ public class SimpleLHCalculator implements LHCalculator {
         }
     }
 
-    private static final void calculatePostExtendedFlatImpl(
+    private static void calculatePostExtendedFlatImpl(
             double distance,
             SubstitutionModel model,
             final double[][][] transitionProbabilityStore,
@@ -309,7 +309,7 @@ public class SimpleLHCalculator implements LHCalculator {
             calculateSingleExtendedIndirectImpl(distance, model, numberOfPatterns, baseConditionalProbabilities, resultConditionalProbabilities, transitionProbabilityStore_, numberOfCategories_, numberOfStates_);
         }
 
-        private final double[][][] getResultStoreValues(double distance, SubstitutionModel model,
+        private double[][][] getResultStoreValues(double distance, SubstitutionModel model,
                                                         PatternInfo centerPattern,
                                                         ConditionalProbabilityStore
                                                                 leftFlatConditionalProbabilities,

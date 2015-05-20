@@ -657,7 +657,7 @@ public class TreeUtils {
     // and b-root is NOT contained because this node does
     // not contain a branch of the path)
     // The length of the path is also returned
-    private static final int findPath(Tree tree, int a, int b) {
+    private static int findPath(Tree tree, int a, int b) {
         // clean path
         for (int i = 0; i < path.length; i++) {
             path[i] = null;
@@ -706,7 +706,7 @@ public class TreeUtils {
         return len;
     }
 
-    private static final int findInPath(Node node) {
+    private static int findInPath(Node node) {
         for (int i = 0; i < path.length; i++) {
             if (path[i] == node) {
                 return i;

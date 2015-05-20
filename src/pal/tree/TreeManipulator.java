@@ -152,7 +152,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
         this.unrootedTree_.clearPathInfo();
     }
 
-    private static final Connection construct(SimpleNode n, int constructionMode) {
+    private static Connection construct(SimpleNode n, int constructionMode) {
         if (n.isLeaf()) {
             throw new IllegalArgumentException("Tree must contain more than a single OTU!");
         }
@@ -827,7 +827,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
             }
         }
 
-        private final int addToStore(Connection c, Connection[] store, int numberInStore) {
+        private int addToStore(Connection c, Connection[] store, int numberInStore) {
             for (int i = 0; i < numberInStore; i++) {
                 if (store[i] == c) {
                     return numberInStore;
@@ -1124,7 +1124,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * @return a new tree constructions with node n as root
      */
-    private final static Tree constructTree(Node n, int units) {
+    private static Tree constructTree(Node n, int units) {
         SimpleTree st = new SimpleTree(n);
         st.setUnits(units);
         return st;
@@ -1133,7 +1133,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
     /**
      * @return tre if name is in names
      */
-    private static final boolean contains(String[] names, String name) {
+    private static boolean contains(String[] names, String name) {
         for (int i = 0; i < names.length; i++) {
             if (name.equals(names[i])) {
                 return true;
@@ -1284,7 +1284,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
             return new UndirectedNode(this, attachmentPoint, subTree, constructionMode, parent);
         }
 
-        private static final int countReducedChildren(SimpleNode base) {
+        private static int countReducedChildren(SimpleNode base) {
             int count = 0;
             int childCount = base.getNumberOfChildren();
             for (int i = 0; i < childCount; i++) {
@@ -1298,7 +1298,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
             return count;
         }
 
-        private static final SimpleNode getReducedChild(SimpleNode base, int childIndex) {
+        private static SimpleNode getReducedChild(SimpleNode base, int childIndex) {
             int childCount = base.getNumberOfChildren();
             for (int i = 0; i < childCount; i++) {
                 SimpleNode c = base.getChild(i);
@@ -1483,7 +1483,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
             return index;
         }
 
-        private final Connection getMidPointConnection(Connection callingConnection, Connection best) {
+        private Connection getMidPointConnection(Connection callingConnection, Connection best) {
             for (int i = 0; i < connectedNodes_.length; i++) {
                 Connection c = connectedNodes_[i];
                 if (c != callingConnection) {
@@ -1875,7 +1875,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
             }
         }
 
-        private final InstructableNode createChildImpl() {
+        private InstructableNode createChildImpl() {
             InstructableNode child = new InstructableNode(this);
             if (children_ == null) {
                 children_ = new ArrayList();

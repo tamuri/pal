@@ -318,7 +318,7 @@ public class DistanceMatrix implements Serializable, IdGroup {
         return getClosestIndex(index, exclusionIndexes);
     }
 
-    private final boolean isIn(int value, int[] set) {
+    private boolean isIn(int value, int[] set) {
         if (set == null) {
             return false;
         }

@@ -74,7 +74,7 @@ public class CircularGraphics {
         g_.drawLine(getScreenX(angle, radiusStart), getScreenY(angle, radiusStart), getScreenX(angle, radiusEnd), getScreenY(angle, radiusEnd));
     }
 
-    private final double convertRadius(double radius) {
+    private double convertRadius(double radius) {
         //return radius;
         return worldRadius_ - radius;
     }

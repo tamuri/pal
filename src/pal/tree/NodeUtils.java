@@ -164,7 +164,7 @@ public class NodeUtils {
      *
      * @note: first value is assumed to be minimum length, second value is assumed to be maximum length
      */
-    private static final void getLengthInfo(Node root, double lengthFromRoot, double[] lengthInfo) {
+    private static void getLengthInfo(Node root, double lengthFromRoot, double[] lengthInfo) {
         if (root.isLeaf()) {
             if (lengthFromRoot < lengthInfo[1]) {
                 if (lengthFromRoot < lengthInfo[0]) {
@@ -792,7 +792,7 @@ public class NodeUtils {
         lengths2Heights(node);
     }
 
-    private static final void convertNegativeBranchLengthsToZeroLengthImpl(Node node) {
+    private static void convertNegativeBranchLengthsToZeroLengthImpl(Node node) {
         if (node.getBranchLength() < 0) {
             node.setBranchLength(0);
         }

@@ -65,7 +65,7 @@ public class FormattedOutput implements Serializable {
         return nf.format(number);
     }
 
-    private static final double round(double number, int sf) {
+    private static double round(double number, int sf) {
         double decimals = Math.floor(Math.log(number) / Math.log(10.0));
         double power = Math.pow(10, decimals - sf + 1);
         number /= power;

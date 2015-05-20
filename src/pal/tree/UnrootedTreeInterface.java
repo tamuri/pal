@@ -88,7 +88,7 @@ public interface UnrootedTreeInterface {
          * @param palNode
          * @param displayNode
          */
-        private final static void create(Node palNode, UNode uNode) {
+        private static void create(Node palNode, UNode uNode) {
 
             int numberOfChildren = palNode.getChildCount();
             uNode.resetChildren();

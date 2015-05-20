@@ -79,7 +79,7 @@ public class TreeDistanceMatrix extends DistanceMatrix {
     /**
      * recompute distances (actual branch lengths)
      */
-    private static final double[][] computeDistances(Tree tree, IdGroup idGroup) {
+    private static double[][] computeDistances(Tree tree, IdGroup idGroup) {
         return computeDistances(tree, idGroup, false, 0.0);
     }
 
@@ -98,7 +98,7 @@ public class TreeDistanceMatrix extends DistanceMatrix {
      *                   threshold length are counted (each with weight 1.0)
      * @param epsilon    minimum branch length for a which an edge is counted
      */
-    private static final double[][] computeDistances(Tree tree, IdGroup idGroup, boolean countEdges, double epsilon) {
+    private static double[][] computeDistances(Tree tree, IdGroup idGroup, boolean countEdges, double epsilon) {
         int numSeqs = idGroup.getIdCount();
         double[][] distance = new double[numSeqs][numSeqs];
 

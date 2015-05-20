@@ -41,7 +41,7 @@ public class LikelihoodOptimiser {
         this.model_ = model;
     }
 
-    private final double[] setup(Parameterized parameters) {
+    private double[] setup(Parameterized parameters) {
         function_.setParameters(parameters);
         argumentStore_ = function_.getCurrentArgumentStore(argumentStore_);
         return argumentStore_;
@@ -138,7 +138,7 @@ public class LikelihoodOptimiser {
         return lastResult;
     }
 
-    private static final double optimise(LikelihoodOptimiser lo, Parameterized parameters, MultivariateMinimum minimiser, int fxFracDigits, int xFracDigits, MinimiserMonitor monitor) {
+    private static double optimise(LikelihoodOptimiser lo, Parameterized parameters, MultivariateMinimum minimiser, int fxFracDigits, int xFracDigits, MinimiserMonitor monitor) {
         if (monitor == null) {
             return lo.optimiseLogLikelihood(parameters, minimiser, fxFracDigits, xFracDigits);
         } else {
@@ -193,7 +193,7 @@ public class LikelihoodOptimiser {
         return lo.optimiseLogLikelihood(model, minimiser, fxFracDigits, xFracDigits, monitor);
     }
 
-    private static final double generateEpsilon(int fracDigits) {
+    private static double generateEpsilon(int fracDigits) {
         double x = 1;
         for (int i = 0; i < fracDigits; i++) {
             x /= 10.0;
@@ -249,7 +249,7 @@ public class LikelihoodOptimiser {
             return current;
         }
 
-        private final double[] check(double[] array, int size) {
+        private double[] check(double[] array, int size) {
             if (array == null || array.length < size) {
                 return new double[size];
             }

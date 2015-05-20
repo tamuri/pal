@@ -187,7 +187,7 @@ public class GeneralLikelihoodCalculator implements PalObjectListener, Likelihoo
     /**
      * Static implementation of calculateFinalSummary (for use by InternalNode, and BificatingInternal node)
      */
-    private static final LikelihoodSummary calculateFinalSummaryImpl(DataType dt, double[] equilibriumProbabilities, int numberOfPatterns, double[] categoryProbabilities, int[] patternWeights, double[][][][] childPatternProbs, int[] patterns, int[] sitePatternMatchup) {
+    private static LikelihoodSummary calculateFinalSummaryImpl(DataType dt, double[] equilibriumProbabilities, int numberOfPatterns, double[] categoryProbabilities, int[] patternWeights, double[][][][] childPatternProbs, int[] patterns, int[] sitePatternMatchup) {
         final int numberOfTransitionCategories = categoryProbabilities.length;
         double[][] individualLikelihoods = new double[numberOfPatterns][numberOfTransitionCategories];
         final int numberOfChildren = childPatternProbs.length;
@@ -320,7 +320,7 @@ public class GeneralLikelihoodCalculator implements PalObjectListener, Likelihoo
             throw new RuntimeException("Cannot generate Likelihood Summary from leaf node");
         }
 
-        private final void setSequence(int[] sequence, final DataType dt) {
+        private void setSequence(int[] sequence, final DataType dt) {
             final int numberOfStates = dt.getNumStates();
             sequence = normalise(sequence, dt);
             int[] stateCount = new int[numberOfStates + 1];
@@ -362,7 +362,7 @@ public class GeneralLikelihoodCalculator implements PalObjectListener, Likelihoo
             }
         }
 
-        private final int[] normalise(final int[] sequence, final DataType dt) {
+        private int[] normalise(final int[] sequence, final DataType dt) {
             int[] normal = new int[sequence.length];
             int numberOfStates = dt.getNumStates();
             for (int i = 0; i < normal.length; i++) {
@@ -384,7 +384,7 @@ public class GeneralLikelihoodCalculator implements PalObjectListener, Likelihoo
         }
     }
 
-    private static final boolean matches(final int[] patternStore, final int[] pattern, int patternIndex, final int patternSize) {
+    private static boolean matches(final int[] patternStore, final int[] pattern, int patternIndex, final int patternSize) {
         for (int i = 0; i < patternSize; i++) {
             if (patternStore[patternIndex++] != pattern[i]) {
                 return false;
