@@ -80,7 +80,7 @@ public class VariableIndependentSingleSplitDistribution implements SingleSplitDi
         return probabilityStore_;
     }
 
-    private final void updateProbabilityStore() {
+    private void updateProbabilityStore() {
         double beforeTotal = 0;
         double afterTotal = 0;
 
@@ -121,7 +121,7 @@ public class VariableIndependentSingleSplitDistribution implements SingleSplitDi
         return PARAMETER_MAXIMUM;
     }
 
-    private static final void correctParameters(double[] parameters) {
+    private static void correctParameters(double[] parameters) {
         for (int i = 0; i < parameters.length; i++) {
             double p = parameters[i] + PARAMETER_BASE;
             if (p < PARAMETER_MINIMUM) {

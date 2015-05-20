@@ -118,7 +118,7 @@ public class SequencePairLikelihood implements UnivariateFunction, java.io.Seria
 
 		return -loglkl;
 	}*/
-    private final void clearFastMatchCount(final int numStates) {
+    private void clearFastMatchCount(final int numStates) {
         for (int i = 0; i < numStates; i++) {
             for (int j = 0; j < numStates; j++) {
                 fastMatchCount_[i][j] = 0;
@@ -126,7 +126,7 @@ public class SequencePairLikelihood implements UnivariateFunction, java.io.Seria
         }
     }
 
-    private final double evaluateAmbiguous(double arc) {
+    private double evaluateAmbiguous(double arc) {
         AmbiguousDataType adt = patternDataType_.getAmbiguousVersion();
         DataType specificDataType = adt.getSpecificDataType();
         int numberOfSpecficStates = specificDataType.getNumStates();

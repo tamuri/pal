@@ -147,7 +147,7 @@ abstract public class AbstractRateMatrix implements RateMatrix, ExternalParamete
         scheduleRebuild();
     }
 
-    private final void scheduleRebuild() {
+    private void scheduleRebuild() {
         rebuildModel_ = true;
     }
 
@@ -211,7 +211,7 @@ abstract public class AbstractRateMatrix implements RateMatrix, ExternalParamete
         return matrixExp_.getTransitionProbability(fromState, toState);
     }
 
-    private final void handleRebuild() {
+    private void handleRebuild() {
         if (matrixExp_ == null) {
             matrixExp_ = new MatrixExponential(this);
         }
@@ -255,7 +255,7 @@ abstract public class AbstractRateMatrix implements RateMatrix, ExternalParamete
         matrixExp_.getTransitionProbabilities(probabilityStore);
     }
 
-    private final static void cleanup(double[][] tableStore, int numberOfStates) {
+    private static void cleanup(double[][] tableStore, int numberOfStates) {
         for (int i = 0; i < numberOfStates; i++) {
             for (int j = 0; j < numberOfStates; j++) {
                 if (Double.isNaN(tableStore[i][j])) {
@@ -352,7 +352,7 @@ abstract public class AbstractRateMatrix implements RateMatrix, ExternalParamete
         fireParametersChangedEvent();
     }
 
-    private final void checkParameters() {
+    private void checkParameters() {
         if (parameterStore_ == null) {
             parameterStore_ = new double[getNumParameters()];
             for (int i = 0; i < parameterStore_.length; i++) {

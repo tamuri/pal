@@ -105,7 +105,7 @@ public class ConstrainedLeafNode extends AbstractLeafNode implements Constrained
         return getPatternInfo();
     }
 
-    private final void checkAdd(ArrayList store, Class componentType) {
+    private void checkAdd(ArrayList store, Class componentType) {
         if (componentType.isAssignableFrom(getClass())) {
             store.add(this);
         }

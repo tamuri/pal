@@ -28,7 +28,7 @@ public class ShimodairaHasegawaStatistics implements TopologyTestEngine.Statisti
         return testStatistics;
     }
 
-    private final static double[][] createCentered(double[][] replicateLogLiklihoods, int numberOfReplicates, int numberOfTopologies) {
+    private static double[][] createCentered(double[][] replicateLogLiklihoods, int numberOfReplicates, int numberOfTopologies) {
         double[][] result = new double[numberOfReplicates][numberOfTopologies];
         for (int topology = 0; topology < numberOfTopologies; topology++) {
             double total = 0;
@@ -43,7 +43,7 @@ public class ShimodairaHasegawaStatistics implements TopologyTestEngine.Statisti
         return result;
     }
 
-    private final static double[][] createReplicateStatistics(double[][] centeredValues, int numberOfReplicates, int numberOfTopologies) {
+    private static double[][] createReplicateStatistics(double[][] centeredValues, int numberOfReplicates, int numberOfTopologies) {
         double[][] result = new double[numberOfReplicates][numberOfTopologies];
         for (int replicate = 0; replicate < numberOfReplicates; replicate++) {
             double max = pal.misc.Utils.getMax(centeredValues[replicate]);

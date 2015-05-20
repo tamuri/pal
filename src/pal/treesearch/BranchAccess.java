@@ -90,7 +90,7 @@ public interface BranchAccess {
     public int[] getSplitInformation(String[] leafNames);
 
     public static final class Utils {
-        private static final boolean isContained(String[] set, String query) {
+        private static boolean isContained(String[] set, String query) {
             for (int i = 0; i < set.length; i++) {
                 if (query.equals(set[i])) {
                     return true;

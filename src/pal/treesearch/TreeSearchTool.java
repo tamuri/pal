@@ -194,7 +194,7 @@ public final class TreeSearchTool {
         return gls.buildPALTreeES();
     }
 
-    private final static Tree doBasicMLSearch(UnrootedMLSearcher ut, boolean optimiseModel, AlgorithmCallback callback) {
+    private static Tree doBasicMLSearch(UnrootedMLSearcher ut, boolean optimiseModel, AlgorithmCallback callback) {
         SearchEngine searcher = new SearchEngine(ProbabilityIterator.Utils.getHillClimb());
         Ranker r = new Ranker(1);
         UndoableAction[] actions;

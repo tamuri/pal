@@ -123,7 +123,7 @@ public class AlignmentDistanceMatrix extends DistanceMatrix implements Serializa
         setDistances(computeDistances(sp, model, callback));
     }
 
-    private static final double[][] computeDistances(SitePattern sp, SubstitutionModel m, AlgorithmCallback callback) {
+    private static double[][] computeDistances(SitePattern sp, SubstitutionModel m, AlgorithmCallback callback) {
         int numSeqs = sp.getSequenceCount();
         double[][] distance = new double[numSeqs][numSeqs];
         PairwiseDistance pwd;

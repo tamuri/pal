@@ -95,23 +95,23 @@ public class SRDTGlobalClockModel implements ConstraintModel, ConstraintModel.Gr
         this.metaRate_ = 1;
     }
 
-    private final void setBaseRate(double value) {
+    private void setBaseRate(double value) {
         this.rate_ = allowMetaRate_ ? value * metaRate_ : value;
     }
 
-    private final void setBaseUpperRate(double value) {
+    private void setBaseUpperRate(double value) {
         this.upperRate_ = allowMetaRate_ ? value * metaRate_ : value;
     }
 
-    private final double getBaseRate() {
+    private double getBaseRate() {
         return allowMetaRate_ ? rate_ / metaRate_ : rate_;
     }
 
-    private final double getBaseUpperRate() {
+    private double getBaseUpperRate() {
         return allowMetaRate_ ? upperRate_ / metaRate_ : upperRate_;
     }
 
-    private final void setMetaRate(double value) {
+    private void setMetaRate(double value) {
         if (!allowMetaRate_) {
             throw new RuntimeException("Assertion error : should be calling meta rate stuff as meta rate not allowed");
         }
@@ -120,7 +120,7 @@ public class SRDTGlobalClockModel implements ConstraintModel, ConstraintModel.Gr
         this.metaRate_ = value;
     }
 
-    private final void setBaseUpperRateAndMetaRate(double upperValue, double metaValue) {
+    private void setBaseUpperRateAndMetaRate(double upperValue, double metaValue) {
         if (!allowMetaRate_) {
             throw new RuntimeException("Assertion error : should be calling meta rate stuff as meta rate not allowed");
         }
@@ -129,7 +129,7 @@ public class SRDTGlobalClockModel implements ConstraintModel, ConstraintModel.Gr
         this.metaRate_ = metaValue;
     }
 
-    private final double getMetaRate() {
+    private double getMetaRate() {
         if (!allowMetaRate_) {
             throw new RuntimeException("Assertion error : should be calling meta rate stuff as meta rate not allowed");
         }

@@ -61,7 +61,7 @@ public class SerialCoalescentGenerator implements java.io.Serializable {
         this.alignmentFactory_ = alignmentFactory;
     }
 
-    private final Tree generateNewTree() {
+    private Tree generateNewTree() {
         SerialCoalescentSimulator scs = new SerialCoalescentSimulator();
         scs.simulateIntervals(tocd_, demographicModel_, true);
         return treeFinisher_.operateOn(scs.getTree());
@@ -94,7 +94,7 @@ public class SerialCoalescentGenerator implements java.io.Serializable {
     /**
      * If callback request stop then returns results creating thus far
      */
-    private final Results generateTreeAndAlignmentResults(AlgorithmCallback callback) {
+    private Results generateTreeAndAlignmentResults(AlgorithmCallback callback) {
         Tree[] trees = new Tree[numberOfTreesToGenerate_];
         Alignment[] alignments = new Alignment[numberOfTreesToGenerate_];
         callback.clearProgress();
@@ -119,7 +119,7 @@ public class SerialCoalescentGenerator implements java.io.Serializable {
     /**
      * If callback request stop then returns results creating thus far
      */
-    private final Results generateTreeOnlyResults(AlgorithmCallback callback) {
+    private Results generateTreeOnlyResults(AlgorithmCallback callback) {
         Tree[] trees = new Tree[numberOfTreesToGenerate_];
         callback.clearProgress();
         double total = trees.length;

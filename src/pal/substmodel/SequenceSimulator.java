@@ -134,7 +134,7 @@ public class SequenceSimulator {
 // =--=-= Internal Utils -==-=--=
 
     //Selects an index according to a distribution (that should sum to one), by cumulative method
-    private final int cumulativeSelect(double[] distribution, int numberInDistribution) {
+    private int cumulativeSelect(double[] distribution, int numberInDistribution) {
         double r = random_.nextDouble();
         double total = 0;
         for (int i = 0; i < numberInDistribution; i++) {

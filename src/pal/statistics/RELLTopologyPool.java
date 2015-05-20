@@ -49,7 +49,7 @@ public class RELLTopologyPool implements TopologyTestEngine.TopologyPool {
         return logLikelihoods_;
     }
 
-    private final double getReplicateLogLikelihood(int[] siteLookup, int topology) {
+    private double getReplicateLogLikelihood(int[] siteLookup, int topology) {
         double[] siteLogLikelihoods = baseTopologies_[topology].getSiteLogLikelihoods();
         double total = 0;
         for (int i = 0; i < numberOfSites_; i++) {

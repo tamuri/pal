@@ -31,7 +31,7 @@ public class StateRemover extends SimpleDataType implements java.io.Serializable
         createTranslationTables(toAdjust.getNumStates(), statesToRemove);
     }
 
-    private final void createTranslationTables(int numberOfOriginalStates, int[] statesToRemove) {
+    private void createTranslationTables(int numberOfOriginalStates, int[] statesToRemove) {
         originalToAdjusted_ = new int[numberOfOriginalStates];
         adjustedToOriginal_ = new int[numberOfOriginalStates - statesToRemove.length];
         int currentAdjustedState = 0;

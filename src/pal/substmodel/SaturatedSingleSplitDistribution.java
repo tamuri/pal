@@ -78,7 +78,7 @@ public class SaturatedSingleSplitDistribution implements SingleSplitDistribution
         return probabilityStore_;
     }
 
-    private final void updateProbabilityStore() {
+    private void updateProbabilityStore() {
         double total = 0;
         for (int i = 0; i < parameterStore_.length; i++) {
             total += parameterStore_[i];
@@ -112,7 +112,7 @@ public class SaturatedSingleSplitDistribution implements SingleSplitDistribution
         return PARAMETER_MAXIMUM;
     }
 
-    private static final void correctParameters(double[] parameters) {
+    private static void correctParameters(double[] parameters) {
         for (int i = 0; i < parameters.length; i++) {
             double p = parameters[i] + PARAMETER_BASE;
             if (p < PARAMETER_MINIMUM) {

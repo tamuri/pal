@@ -68,7 +68,7 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
         return equilibriumFrequencies_;
     }
 
-    private final void checkMatrix() {
+    private void checkMatrix() {
         if (updateMatrix_) {
             rateMatrix_.createRelativeRates(relativeRateStore_, parameters_, 0);
             fromQToR(relativeRateStore_, equilibriumFrequencies_, qMatrixStore_, dimension_, reversible_);
@@ -104,7 +104,7 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
      * - only upper triangular is used
      * Also updates related MatrixExponential
      */
-    private static final void fromQToR(double[][] relativeRates, double[] equilibriumFrequencies, double[][] qMatrix, int dimension, boolean reversible) {
+    private static void fromQToR(double[][] relativeRates, double[] equilibriumFrequencies, double[][] qMatrix, int dimension, boolean reversible) {
         if (reversible) {
             for (int i = 0; i < dimension; i++) {
                 for (int j = i + 1; j < dimension; j++) {
@@ -130,7 +130,7 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
     /** Make it a valid rate matrix (make sum of rows = 0)
      * @return current rate scale
      */
-    private static final double makeValid(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
+    private static double makeValid(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
         double total = 0;
         for (int i = 0; i < dimension; i++) {
             double sum = 0.0;
@@ -145,7 +145,7 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
         return total;
     }
 
-    private final static double calculateNormalScale(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
+    private static double calculateNormalScale(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
         double scale = 0.0;
 
         for (int i = 0; i < dimension; i++) {
@@ -155,12 +155,12 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
     }
 
     // Normalize rate matrix to one expected substitution per unit time
-    private static final void normalize(final double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
+    private static void normalize(final double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
         scale(relativeRates, dimension, calculateNormalScale(relativeRates, equilibriumFrequencies, dimension));
     }
 
     // Normalize rate matrix by a certain scale to acheive an overall scale (used with a complex site class model)
-    private static final void scale(final double[][] relativeRates, int dimension, double scale) {
+    private static void scale(final double[][] relativeRates, int dimension, double scale) {
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 relativeRates[i][j] = relativeRates[i][j] / scale;
@@ -174,7 +174,7 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
      * This avoids potentiak problems later when eigenvalues
      * are computed.
      */
-    private static final void checkFrequencies(final double[] frequencies, final int dimension) {
+    private static void checkFrequencies(final double[] frequencies, final int dimension) {
         // required frequency difference
         final double MINFDIFF = 1e-10;
 
@@ -215,7 +215,7 @@ public class RateMatrixHandler implements Parameterized, java.io.Serializable {
         out.println("Reporting Not functioning yet...");
     }
 
-    private final void parametersChanged() {
+    private void parametersChanged() {
         this.updateMatrix_ = true;
     }
 

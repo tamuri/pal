@@ -345,7 +345,7 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
      * @param omega The omega value
      * @return The current expected number of substitutions per time unit
      */
-    private final double setParametersIncomplete(double kappa, double omega) {
+    private double setParametersIncomplete(double kappa, double omega) {
         parameterStore_[KAPPA_PARAMETER] = kappa;
         parameterStore_[OMEGA_PARAMETER] = omega;
         return setParametersNoScale(parameterStore_);
@@ -356,7 +356,7 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
      *
      * @param substitutionScale The total number of expected number of substitutions per time unit
      */
-    private final void finishSetParameters(double substitutionScale) {
+    private void finishSetParameters(double substitutionScale) {
         scale(substitutionScale);
     }
 
@@ -492,18 +492,18 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
             return new SimplePositiveSelection(this);
         }
 
-        private final void scheduleRebuild() {
+        private void scheduleRebuild() {
             this.needsRebuild_ = true;
         }
 
-        private final void check() {
+        private void check() {
             if (needsRebuild_) {
                 rebuild();
                 needsRebuild_ = false;
             }
         }
 
-        private final void rebuild() {
+        private void rebuild() {
             double total = p0_ + p1_ + p2_;
             if (total == 0) {
                 probabilities_[0] = 0.33;
@@ -772,18 +772,18 @@ public class YangCodonModel extends CodonModel implements Serializable, XMLConst
             scheduleRebuild();
         }
 
-        private final void scheduleRebuild() {
+        private void scheduleRebuild() {
             this.needsRebuild_ = true;
         }
 
-        private final void check() {
+        private void check() {
             if (needsRebuild_) {
                 rebuild();
                 needsRebuild_ = false;
             }
         }
 
-        private final void rebuild() {
+        private void rebuild() {
             //Speciallised scaling to make sure it's scaled to one substitution per time unit
             probabilities_[0] = p_;
             probabilities_[1] = (1 - p_);

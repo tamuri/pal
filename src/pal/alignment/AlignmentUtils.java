@@ -747,7 +747,7 @@ public class AlignmentUtils {
         return count;
     }
 
-    private static final void stripLeadingIncompleteCodon(int[] states, int unknownState) {
+    private static void stripLeadingIncompleteCodon(int[] states, int unknownState) {
         int numberOfCodons = states.length / 3;
         final Nucleotides n = Nucleotides.DEFAULT_INSTANCE;
         for (int codon = 0; codon < numberOfCodons; codon++) {
@@ -789,7 +789,7 @@ public class AlignmentUtils {
     }
     // PRIVATE METHODS
 
-    private static final void outputChar(PrintWriter out, char c, int number) {
+    private static void outputChar(PrintWriter out, char c, int number) {
         for (int i = 0; i < number; i++) {
             out.print(c);
         }
@@ -843,7 +843,7 @@ public class AlignmentUtils {
     }
 
     //=================================================================
-    private static final boolean isGoodSite(Alignment a, DataType dt, int site) {
+    private static boolean isGoodSite(Alignment a, DataType dt, int site) {
         int numberOfSequences = a.getSequenceCount();
         for (int i = 0; i < numberOfSequences; i++) {
             char c = a.getData(i, site);

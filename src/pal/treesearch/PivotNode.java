@@ -207,7 +207,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
     // ==================================================================================================
 // ===== Free Node stuff ============================================================================
 // ==================================================================================================
-    private final void checkCaller(FreeBranch caller) {
+    private void checkCaller(FreeBranch caller) {
         if (caller != freeConnection_) {
             throw new RuntimeException("Assertion error : caller is not free connection!");
         }
@@ -360,7 +360,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
         }
     }
 
-    private final double optimiseSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
+    private double optimiseSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
         double minOffset = getMinimumLeafChildSeperation();
         double baseHeight = getNodeHeight();
 
@@ -379,7 +379,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
         return subTreeShiftOptimisationHandler_.getLogLikelihood();
     }
 
-    private final double optimisePartialSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
+    private double optimisePartialSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
         double minOffset = getMinimumLeafChildSeperation();
         double baseHeight = getNodeHeight();
 
@@ -398,7 +398,7 @@ public class PivotNode extends AbstractParentableConstrainedNode implements Gene
         return partialSubTreeShiftOptimisationHandler_.getLogLikelihood();
     }
 
-    private final double optimiseLocalShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
+    private double optimiseLocalShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
         double maxChildHeight = getMaxChildHeight();
         final ConditionalProbabilityStore leftDescendentBaseExtended = getLeftDescendentExtendedConditionals(maxChildHeight, tool, false);
         final ConditionalProbabilityStore rightDescendentBaseExtended = getRightDescendentExtendedConditionals(maxChildHeight, tool, false);

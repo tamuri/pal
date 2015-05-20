@@ -306,7 +306,7 @@ public final class FreeBranch implements RootAccess, GeneralOptimisable {
     /**
      * @return -1 if null
      */
-    private final static int getIndex(FreeBranch c) {
+    private static int getIndex(FreeBranch c) {
         if (c == null) {
             return -1;
         }

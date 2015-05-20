@@ -125,7 +125,7 @@ public class GeneralLikelihoodSearcher {
         return logLikelihood;
     }
 
-    private final boolean isAnyConstraingGroupOptimisable() {
+    private boolean isAnyConstraingGroupOptimisable() {
         for (int i = 0; i < constraintGroupManagers_.length; i++) {
             if (constraintGroupManagers_[i].isOptimisable()) {
                 return true;

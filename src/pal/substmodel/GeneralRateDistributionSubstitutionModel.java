@@ -67,7 +67,7 @@ public class GeneralRateDistributionSubstitutionModel extends Parameterized.Para
         setup();
     }
 
-    private final void setup() {
+    private void setup() {
         this.parameterization_ = new MultiParameterized(handler_, rateDistribution_);
         this.numberOfCategories_ = rateDistribution_.getNumberOfRates();
         setParameterizedBase(this.parameterization_);

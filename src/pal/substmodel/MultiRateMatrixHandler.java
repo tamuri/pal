@@ -94,7 +94,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
         parametersChanged();
     }
 
-    private final void normaliseSubstitutionClassProbabilities() {
+    private void normaliseSubstitutionClassProbabilities() {
         double total = 0;
         for (int i = 0; i < substitutionClassProbabilities_.length; i++) {
             total += substitutionClassProbabilities_[i];
@@ -131,7 +131,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
         return equilibriumFrequencies_;
     }
 
-    private final void checkMatrix() {
+    private void checkMatrix() {
         if (updateMatrix_) {
             System.out.println("Updating parameters:" + pal.misc.Utils.toString(rateParameters_));
             int index = 0;
@@ -192,7 +192,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
      * - only upper triangular is used
      * Also updates related MatrixExponential
      */
-    private static final void fromQToR(double[][] relativeRates, double[] equilibriumFrequencies, double[][] qMatrix, int dimension, boolean reversible) {
+    private static void fromQToR(double[][] relativeRates, double[] equilibriumFrequencies, double[][] qMatrix, int dimension, boolean reversible) {
         if (reversible) {
             for (int i = 0; i < dimension; i++) {
                 for (int j = i + 1; j < dimension; j++) {
@@ -218,7 +218,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
     /** Make it a valid rate matrix (make sum of rows = 0)
      * @return current rate scale
      */
-    private static final double makeValid(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
+    private static double makeValid(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
         double total = 0;
         for (int i = 0; i < dimension; i++) {
             double sum = 0.0;
@@ -233,7 +233,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
         return total;
     }
 
-    private final static double calculateNormalScale(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
+    private static double calculateNormalScale(double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
         double scale = 0.0;
 
         for (int i = 0; i < dimension; i++) {
@@ -243,12 +243,12 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
     }
 
     // Normalize rate matrix to one expected substitution per unit time
-    private static final void normalize(final double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
+    private static void normalize(final double[][] relativeRates, double[] equilibriumFrequencies, int dimension) {
         scale(relativeRates, dimension, calculateNormalScale(relativeRates, equilibriumFrequencies, dimension));
     }
 
     // Normalize rate matrix by a certain scale to acheive an overall scale (used with a complex site class model)
-    private static final void scale(final double[][] relativeRates, int dimension, double scale) {
+    private static void scale(final double[][] relativeRates, int dimension, double scale) {
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
                 relativeRates[i][j] = relativeRates[i][j] / scale;
@@ -262,7 +262,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
      * This avoids potentiak problems later when eigenvalues
      * are computed.
      */
-    private static final void checkFrequencies(final double[] frequencies, final int dimension) {
+    private static void checkFrequencies(final double[] frequencies, final int dimension) {
         // required frequency difference
         final double MINFDIFF = 1e-10;
 
@@ -303,7 +303,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
         out.println("Reporting Not functioning yet...");
     }
 
-    private final void parametersChanged() {
+    private void parametersChanged() {
         this.updateMatrix_ = true;
     }
 
@@ -354,7 +354,7 @@ public class MultiRateMatrixHandler implements NeoParameterized, java.io.Seriali
         System.arraycopy(defaultRateParameters_, 0, store, startIndex, defaultRateParameters_.length);
     }
 
-    private final static void setupLookups(NeoRateMatrix[] bases, int[] baseLookup, int[] parameterIndexLookup, int totalNumberOfParameters) {
+    private static void setupLookups(NeoRateMatrix[] bases, int[] baseLookup, int[] parameterIndexLookup, int totalNumberOfParameters) {
         int baseIndex = 0;
         int parameterIndex = 0;
         for (int i = 0; i < totalNumberOfParameters; i++) {

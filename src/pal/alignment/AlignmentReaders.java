@@ -67,7 +67,7 @@ public final class AlignmentReaders {
                 );
     }
 
-    private static final String readNextNonEmptyLine(BufferedReader br) throws IOException {
+    private static String readNextNonEmptyLine(BufferedReader br) throws IOException {
         String line = br.readLine();
         if (line == null) {
             return null;
@@ -133,7 +133,7 @@ public final class AlignmentReaders {
         return br.getReceivedAlignments();
     }
 
-    private static final boolean processWhiteSpaceStartingLine(String line, AlignmentBuilder builder) {
+    private static boolean processWhiteSpaceStartingLine(String line, AlignmentBuilder builder) {
         String[] components = toWords(line);
         if ((builder.hasSequences()) && (!Character.isDigit(components[0].charAt(0))) &&
                 ((components.length == 1) || (compareLength(components, 0, components.length - 1) == 10))
@@ -159,7 +159,7 @@ public final class AlignmentReaders {
     /**
      * @return true if a delimiter line
      */
-    private static final boolean processNormalLine(String line, AlignmentBuilder builder) throws AlignmentParseException {
+    private static boolean processNormalLine(String line, AlignmentBuilder builder) throws AlignmentParseException {
         //First character is not a space
         String[] components = toWords(line);
         if (components.length == 1) {
@@ -203,7 +203,7 @@ public final class AlignmentReaders {
     /**
      * @ return true if a delimiter
      */
-    private static final boolean processLine(String line, AlignmentBuilder builder) throws AlignmentParseException {
+    private static boolean processLine(String line, AlignmentBuilder builder) throws AlignmentParseException {
         if (Character.isWhitespace(line.charAt(0))) {
             return processWhiteSpaceStartingLine(line, builder);
         } else {
@@ -338,7 +338,7 @@ public final class AlignmentReaders {
         }
     }
 
-    private static final String remove(String target, String lint) {
+    private static String remove(String target, String lint) {
         StringBuilder newString = new StringBuilder();
         for (int i = 0; i < target.length(); i++) {
             if (lint.indexOf(target.charAt(i)) == -1) {
@@ -348,7 +348,7 @@ public final class AlignmentReaders {
         return new String(newString);
     }
 
-    private static final String nextNonEmptyLine(BufferedReader r) throws IOException {
+    private static String nextNonEmptyLine(BufferedReader r) throws IOException {
         String line = r.readLine();
         if (line == null) {
             return null;
@@ -363,7 +363,7 @@ public final class AlignmentReaders {
     }
 
 
-    private static final int maxLength(String[] ss) {
+    private static int maxLength(String[] ss) {
         int count = 0;
         for (int i = 0; i < ss.length; i++) {
             count = Math.max(count, ss[i].length());
@@ -371,7 +371,7 @@ public final class AlignmentReaders {
         return count;
     }
 
-    private static final String pad(String s, char toPadWith, int length) {
+    private static String pad(String s, char toPadWith, int length) {
         StringBuilder sb = new StringBuilder(length);
         sb.append(s);
         while (sb.length() < length) {
@@ -380,7 +380,7 @@ public final class AlignmentReaders {
         return sb.toString();
     }
 
-    private static final String[] pad(String[] ss, char toPadWith, int length) {
+    private static String[] pad(String[] ss, char toPadWith, int length) {
         String[] result = new String[ss.length];
         for (int i = 0; i < ss.length; i++) {
             result[i] = pad(ss[i], toPadWith, length);
@@ -391,7 +391,7 @@ public final class AlignmentReaders {
     /**
      * Concatenate a set of words into one string
      */
-    private static final String concat(String[] words) {
+    private static String concat(String[] words) {
         return concat(words, 0, words.length);
     }
 
@@ -399,7 +399,7 @@ public final class AlignmentReaders {
      * @param text to check if is a number
      * @return true if text represents an integer number
      */
-    private static final boolean isNumber(String text) {
+    private static boolean isNumber(String text) {
         try {
             Integer.parseInt(text);
             return true;
@@ -413,7 +413,7 @@ public final class AlignmentReaders {
      *
      * @param start the starting index into words
      */
-    private static final String concat(String[] words, int start) {
+    private static String concat(String[] words, int start) {
         return concat(words, start, words.length);
     }
 
@@ -423,7 +423,7 @@ public final class AlignmentReaders {
      * @param start the starting index into words
      * @param end   the ending index into words
      */
-    private static final String concat(String[] words, int start, int end) {
+    private static String concat(String[] words, int start, int end) {
         StringBuilder sb = new StringBuilder();
         for (int i = start; i < end; i++) {
             sb.append(words[i]);
@@ -436,7 +436,7 @@ public final class AlignmentReaders {
      * and returns an array of strings where each string is a single word with no
      * white space
      */
-    private static final String[] toWords(String text) {
+    private static String[] toWords(String text) {
         String[] words = new String[countNonWhiteSpaceBlocks(text)];
         int count = 0;
         boolean inBlock = false;
@@ -467,7 +467,7 @@ public final class AlignmentReaders {
      *
      * @param s - the string to check
      */
-    private static final int countNonWhiteSpaceBlocks(String s) {
+    private static int countNonWhiteSpaceBlocks(String s) {
         int count = 0;
         boolean inBlock = false;
         for (int i = 0; i < s.length(); i++) {
@@ -486,21 +486,21 @@ public final class AlignmentReaders {
     /**
      * @return -1 if all words not the same length, else return length
      */
-    private static final int compareLength(String[] words) {
+    private static int compareLength(String[] words) {
         return compareLength(words, 0, words.length);
     }
 
     /**
      * @return -1 if all words not the same length, else return length
      */
-    private static final int compareLength(String[] words, int start) {
+    private static int compareLength(String[] words, int start) {
         return compareLength(words, start, words.length);
     }
 
     /**
      * @return -1 if all words not the same length, else return length
      */
-    private static final int compareLength(String[] words, int start, int end) {
+    private static int compareLength(String[] words, int start, int end) {
         int length = words[start].length();
         for (int i = start + 1; i < end; i++) {
             if (words[i].length() != length) {

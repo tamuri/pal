@@ -137,7 +137,7 @@ public class MatrixExponential implements Cloneable, java.io.Serializable {
         pal.misc.Utils.copy(transProb, probabilityStore);
     }
 
-    private final void setIdentity() {
+    private void setIdentity() {
         for (int i = 0; i < transProb.length; i++) {
             final double[] row = transProb[i];
             for (int j = 0; j < row.length; j++) {

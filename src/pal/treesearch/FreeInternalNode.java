@@ -69,7 +69,7 @@ public class FreeInternalNode implements FreeNode {
         topologyChanged();
     }
 
-    private final void topologyChanged() {
+    private void topologyChanged() {
         this.topologyChangedSinceLastFlat_ = true;
         this.topologyChangedSincleLastExtended_ = true;
     }
@@ -150,7 +150,7 @@ public class FreeInternalNode implements FreeNode {
         return getPatternInfo(tool, getCallerIndex(caller));
     }
 
-    private final PatternInfo getPatternInfo(final GeneralConstructionTool tool, final int callerIndex) {
+    private PatternInfo getPatternInfo(final GeneralConstructionTool tool, final int callerIndex) {
 
         if (!patternsValid_[callerIndex]) {
             //Need to rebuild
@@ -220,7 +220,7 @@ public class FreeInternalNode implements FreeNode {
 
 // ==============
 
-    private final int getCallerIndex(FreeBranch caller) {
+    private int getCallerIndex(FreeBranch caller) {
         if (caller == null) {
             throw new IllegalArgumentException("getCallerIndex() called on null object");
         }

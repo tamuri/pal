@@ -160,7 +160,7 @@ public class GeneralREVRateMatrix implements NeoRateMatrix {
         System.out.println("Number of effective parameters:" + numberOfEffectiveParameters_);
     }
 
-    private static final int[] createDefaultConstraints(int dimension) {
+    private static int[] createDefaultConstraints(int dimension) {
         int[] result = new int[dimension * (dimension - 1) / 2];
         for (int i = 0; i < result.length; i++) {
             result[i] = i;

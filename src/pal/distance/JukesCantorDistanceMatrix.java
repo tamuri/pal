@@ -67,7 +67,7 @@ public class JukesCantorDistanceMatrix extends DistanceMatrix {
                 sitePattern.getDataType().getNumStates());
     }
 
-    private static final double[][] computeDistances(final DistanceMatrix dist, final int numberOfStates) {
+    private static double[][] computeDistances(final DistanceMatrix dist, final int numberOfStates) {
         final int numSeqs = dist.getSize();
         final double[][] distance = new double[numSeqs][numSeqs];
         final double[][] obsDistance = dist.getDistances();
@@ -83,7 +83,7 @@ public class JukesCantorDistanceMatrix extends DistanceMatrix {
     }
 
 
-    private static final double jccorrection(final double const1, final double const2, double obsdist) {
+    private static double jccorrection(final double const1, final double const2, double obsdist) {
         if (obsdist == 0.0) return 0.0;
 
         if (obsdist >= const1) {

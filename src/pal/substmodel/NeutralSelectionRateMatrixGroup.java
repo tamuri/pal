@@ -90,7 +90,7 @@ public class NeutralSelectionRateMatrixGroup implements RateMatrixGroup {
         neutralModel_.getTransitionProbabilities(tableStore[1]);
     }
 
-    private final RateMatrix getRelatedMatrix(int category) {
+    private RateMatrix getRelatedMatrix(int category) {
         return (category == 0 ? purifyingModel_ : neutralModel_);
     }
 

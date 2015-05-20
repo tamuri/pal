@@ -256,7 +256,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
         treeAccess_.setup(tool_, allConnections_);
     }
 
-    private final Connection getRandomConnection() {
+    private Connection getRandomConnection() {
         return allConnections_[random_.nextInt(allConnections_.length)];
     }
 
@@ -350,7 +350,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             }
         }
 
-        private final int fillIn(Connection[] store, int nodeIndex, Connection[] allConnections) {
+        private int fillIn(Connection[] store, int nodeIndex, Connection[] allConnections) {
             int found = 0;
 
             for (int i = 0; i < allConnections.length; i++) {
@@ -839,7 +839,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             return false;
         }
 
-        private final void shuffle(Connection[] cs) {
+        private void shuffle(Connection[] cs) {
             for (int i = 0; i < cs.length; i++) {
                 int j = random_.nextInt(cs.length - i) + i;
                 Connection t = cs[i];
@@ -1053,14 +1053,14 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
     // -=-=-=-=-=-==--==--==--=-=-==-=--=-=-=-==-=-=--==-=-=--==--==-=-=--==--==--=
 // == Static Utility Methods ===
 // =--=-==-=--=-==--=-==--=-=-=-=-==-=-=--=-==-=-=-=--==-=-=-=-=--==-=-=-=-=-=-
-    private static final UNode createUNode(Node n, Connection parentConnection, ConstructionTool tool) {
+    private static UNode createUNode(Node n, Connection parentConnection, ConstructionTool tool) {
         if (n.isLeaf()) {
             return new LeafNode(n, parentConnection, tool);
         }
         return new InternalNode(n, parentConnection, tool);
     }
 
-    private static final UNode createUNode(String[] leafNames, Connection parentConnection, ConstructionTool tool, MersenneTwisterFast r) {
+    private static UNode createUNode(String[] leafNames, Connection parentConnection, ConstructionTool tool, MersenneTwisterFast r) {
         if (leafNames.length == 1) {
             return new LeafNode(leafNames[0], parentConnection, tool);
         }
@@ -1487,7 +1487,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             topologyChanged();
         }
 
-        private final void topologyChanged() {
+        private void topologyChanged() {
             this.topologyChangedSinceLastFlat_ = true;
             this.topologyChangedSincleLastExtended_ = true;
         }
@@ -1646,7 +1646,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             }
         }
 
-        private final int getCallerIndex(Connection caller) {
+        private int getCallerIndex(Connection caller) {
             if (caller == null) {
                 throw new IllegalArgumentException("getCallerIndex() called on null object");
             }
@@ -1883,7 +1883,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
          * @param patternStateMatchup Should be of length numberOfStates+1
          * @return
          */
-        private final int createMatchups(final int numberOfSites, final int numberOfStates, final int[] sitePatternMatchup, final int[] patternStateMatchup) {
+        private int createMatchups(final int numberOfSites, final int numberOfStates, final int[] sitePatternMatchup, final int[] patternStateMatchup) {
             final int[] stateCount = new int[numberOfStates + 1];
             // StatePatternMatchup matches a state to it's new pattern (is undefined if state does not occur)
             final int[] statePatternMatchup = new int[numberOfStates + 1];
@@ -2439,7 +2439,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             return rightNode_;
         }
 
-        private final String[] getLeafNames(UNode base) {
+        private String[] getLeafNames(UNode base) {
             ArrayList al = new ArrayList();
             base.getLeafNames(al, this);
             String[] result = new String[al.size()];
@@ -2677,7 +2677,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
         /**
          * @return -1 if null
          */
-        private final static int getIndex(Connection c) {
+        private static int getIndex(Connection c) {
             if (c == null) {
                 return -1;
             }
@@ -2982,7 +2982,7 @@ public class UnrootedMLSearcher implements Markable, StateProvider, UnrootedTree
             this.um_ = new UnivariateMinimum();
         }
 
-        private final ConditionalProbabilityStore calculateFlat(PatternInfo patternInfo, ConditionalProbabilityStore resultStore, ConditionalProbabilityStore leftExtend, ConditionalProbabilityStore rightExtend) {
+        private ConditionalProbabilityStore calculateFlat(PatternInfo patternInfo, ConditionalProbabilityStore resultStore, ConditionalProbabilityStore leftExtend, ConditionalProbabilityStore rightExtend) {
             calculator_.calculateFlat(patternInfo, leftExtend, rightExtend, resultStore);
             return resultStore;
         }

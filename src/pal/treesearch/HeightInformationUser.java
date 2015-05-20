@@ -27,7 +27,7 @@ public final class HeightInformationUser {
     public HeightInformationUser() {
     }
 
-    private final void checkSize() {
+    private void checkSize() {
         if (heights_.length == numberOfDatas_) {
             double[] newHeights = new double[numberOfDatas_ + INCREMENT_SIZE];
             String[] newLabels = new String[numberOfDatas_ + INCREMENT_SIZE];

@@ -63,7 +63,7 @@ public class MRDTGlobalClockModel implements ConstraintModel, ConstraintModel.Gr
         this.likelihoodModel_ = likelihoodModel;
     }
 
-    private final static double[] createSimpleTimes(SampleInformation si) {
+    private static double[] createSimpleTimes(SampleInformation si) {
         int numberOfBaseRates = si.getNumberOfSamples() - 1;
         double[] rateChangeTimes = new double[numberOfBaseRates];
         for (int i = 0; i < numberOfBaseRates; i++) {
@@ -237,7 +237,7 @@ public class MRDTGlobalClockModel implements ConstraintModel, ConstraintModel.Gr
         updateHeightTotals();
     }
 
-    private final void updateHeightTotals() {
+    private void updateHeightTotals() {
         double total = 0;
         for (int i = 0; i < numberOfBaseRates_; i++) {
             total += rateChangeIntervalSizes_[i] * rates_[i];

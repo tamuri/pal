@@ -62,7 +62,7 @@ public class GeneralConstraintGroupManager {
     }
 
 
-    private static final Function createFunction(NeoParameterized parameterAccess) {
+    private static Function createFunction(NeoParameterized parameterAccess) {
         if (parameterAccess != null) {
             return new Function(parameterAccess);
         } else {
@@ -80,13 +80,13 @@ public class GeneralConstraintGroupManager {
 // - - - - - - - - - - - - - - -- - - - - - - - - -- - - - - - - - - - - - - - - - - - - -
 
 
-    private final void obtainLeafInformation(HeightInformationUser user) {
+    private void obtainLeafInformation(HeightInformationUser user) {
         for (int i = 0; i < leaders_.length; i++) {
             leaders_[i].obtainLeafInformation(user);
         }
     }
 
-    private final void postSetupNotify() {
+    private void postSetupNotify() {
         for (int i = 0; i < leaders_.length; i++) {
             leaders_[i].postSetupNotify(relatedGroup_);
         }
@@ -157,7 +157,7 @@ public class GeneralConstraintGroupManager {
         return optimiseGlobalClockConstraintsImpl(primaryOptimisationFunction_, minimiser, scoreAccess, fxFracDigits, xFracDigits, rateMonitor);
     }
 
-    private final double optimiseGlobalClockConstraintsImpl(Function f, MultivariateMinimum minimiser, LikelihoodScoreAccess scoreAccess, int fxFracDigits, int xFracDigits, MinimiserMonitor rateMonitor) {
+    private double optimiseGlobalClockConstraintsImpl(Function f, MultivariateMinimum minimiser, LikelihoodScoreAccess scoreAccess, int fxFracDigits, int xFracDigits, MinimiserMonitor rateMonitor) {
         if (f != null && f.getNumArguments() > 0) {
             f.setup(scoreAccess);
             final double[] arguments = f.getArgumentStore();

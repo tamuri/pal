@@ -58,14 +58,14 @@ public class SearcherUtils {
         };
     }
 
-    private final static String[] subset(String[] array, int starting, int width) {
+    private static String[] subset(String[] array, int starting, int width) {
         String[] subset = new String[width];
         System.arraycopy(array, starting, subset, 0, width);
         return subset;
     }
 
 
-    private final static String[] subset(String[] array, int starting) {
+    private static String[] subset(String[] array, int starting) {
         return subset(array, starting, array.length - starting);
     }
 

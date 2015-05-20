@@ -169,7 +169,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
         }
     }
 
-    private final double optimiseLocalShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
+    private double optimiseLocalShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
         double maxChildHeight = getMaxChildHeight();
         double parentHeight = parentNode_.getNodeHeight();
         if (maxChildHeight >= parentHeight) {
@@ -199,7 +199,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
         return localShiftOptimisationHandler_.getLogLikelihood();
     }
 
-    private final double optimiseSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
+    private double optimiseSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
         final double minOffset = getMinimumLeafChildSeperation();
         final double parentHeight = parentNode_.getNodeHeight();
         final double maxChildHeight = getMaxChildHeight();
@@ -232,7 +232,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
         return subTreeShiftOptimisationHandler_.getLogLikelihood();
     }
 
-    private final double optimisePartialSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
+    private double optimisePartialSubTreeShift(UnivariateMinimum minimiser, GeneralConstructionTool tool, int fracDigits) {
 //		final double minOffset = getMinimumLeafChildSeperation();
         final double parentHeight = parentNode_.getNodeHeight();
         final double maxChildHeight = getMaxChildHeight();
@@ -559,7 +559,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
             return result;
         }
 
-        private final void test() {
+        private void test() {
             ConditionalProbabilityStore left = leftChild_.getDescendentExtendedConditionals(baseHeight_, tool_, false);
             ConditionalProbabilityStore right = rightChild_.getDescendentExtendedConditionals(baseHeight_, tool_, false);
             ConditionalProbabilityStore descendentExtended = internal_.calculateFlatConditionals(descendentPattern_, left, right);
@@ -734,7 +734,7 @@ public class ConstrainedInternalNode extends AbstractParentableConstrainedNode i
             return result;
         }
 
-        private final void test() {
+        private void test() {
             ConditionalProbabilityStore left = leftChild_.getDescendentExtendedConditionals(baseHeight_, tool_, false);
             ConditionalProbabilityStore right = rightChild_.getDescendentExtendedConditionals(baseHeight_, tool_, false);
             ConditionalProbabilityStore descendentExtended = internal_.calculateFlatConditionals(descendentPattern_, left, right);
