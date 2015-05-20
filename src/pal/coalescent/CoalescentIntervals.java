@@ -262,7 +262,7 @@ public class CoalescentIntervals implements Units, Report, Serializable {
     public void poolIntervals(boolean[] smallInterval) {
         int uniqueIntervals = 0;
         for (int i = 0; i < intervals.length; i++) {
-            if (smallInterval[i] == false) uniqueIntervals++;
+            if (!smallInterval[i]) uniqueIntervals++;
         }
         if (uniqueIntervals == 0) uniqueIntervals = 1;
 
@@ -282,7 +282,7 @@ public class CoalescentIntervals implements Units, Report, Serializable {
             newIntervals[count] = intervals[i] + newIntervals[count];
             newNumLineages[count] = numLines;
 
-            if (smallInterval[i] == false) {
+            if (!smallInterval[i]) {
                 count++;
                 if (count == uniqueIntervals) count--;
                 numLines = numLines - coalescences;
