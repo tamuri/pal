@@ -25,7 +25,7 @@ public class CodonTableUtils {
     public static final String convertNucleotideToAminoAcid(String
                                                                     nucleotideSequence, int startingPosition, int length, boolean reverse,
                                                             CodonTable translator) {
-        return (convertNucleotideToAminoAcid(nucleotideSequence.toCharArray(), startingPosition, length, reverse, translator)).toString();
+        return new String(convertNucleotideToAminoAcid(nucleotideSequence.toCharArray(), startingPosition, length, reverse, translator));
     }
 
 
