@@ -18,25 +18,25 @@ package pal.eval;
 import pal.substmodel.SubstitutionModel;
 
 public interface SiteDetails {
-    public SubstitutionModel getRelatedModel();
+    SubstitutionModel getRelatedModel();
 
-    public double[] getSitePosteriors(int site);
+    double[] getSitePosteriors(int site);
 
     /**
      * Get the likelihoods for each site (not the log likelihoods)
      * @return a double array of likelihoods matching each site
      */
-    public double[] getSiteLikelihoods();
+    double[] getSiteLikelihoods();
 
     /**
      * Get the likelihoods for each site (logged)
      * @return a double array of log likelihoods matching each site
      */
-    public double[] getSiteLogLikelihoods();
+    double[] getSiteLogLikelihoods();
 
 
     // -=-=-==--==-
-    public static final class Utils {
+    final class Utils {
         /**
          * Create a Postriors object
          * @param categoryPatternConditionalProbabilities An array arranged [category][pattern] that holds the conditional probabilities for each category at each site
@@ -145,7 +145,7 @@ public interface SiteDetails {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < numberOfSites_; i++) {
                     double[] sitePosteriors = getSitePosteriors(i);
-                    sb.append(pal.misc.Utils.argmax(sitePosteriors));
+                    sb.append(pal.misc.Utils.getArgmax(sitePosteriors));
                     sb.append(" - ");
                     sb.append("Site ");
                     sb.append((i + 1));
