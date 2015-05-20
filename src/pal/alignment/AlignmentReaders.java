@@ -183,7 +183,7 @@ public final class AlignmentReaders {
                     builder.setSize(Integer.parseInt(name), Integer.parseInt(sequenceSegment));
                     return true;
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    // TODO: Surely a better way to test for numbers? e.printStackTrace();
                 }
             }
             builder.append(name, sequenceSegment);
