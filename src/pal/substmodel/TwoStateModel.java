@@ -72,7 +72,6 @@ public class TwoStateModel extends AbstractRateMatrix implements RateMatrix, XML
 
 
     public void setParameterSE(double paramSE, int n) {
-        return;
     }
 
     public double getLowerLimit(int n) {

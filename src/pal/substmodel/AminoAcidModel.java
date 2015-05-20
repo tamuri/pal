@@ -99,7 +99,6 @@ public abstract class AminoAcidModel extends AbstractRateMatrix implements RateM
 
 
     public void setParameterSE(double paramSE, int n) {
-        return;
     }
 
     public double getLowerLimit(int n) {

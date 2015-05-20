@@ -46,7 +46,6 @@ public class UniformRate extends RateDistribution implements Serializable {
     }
 
     public void setParameter(double param, int n) {
-        return;
     }
 
     public double getParameter(int n) {
@@ -54,7 +53,6 @@ public class UniformRate extends RateDistribution implements Serializable {
     }
 
     public void setParameterSE(double paramSE, int n) {
-        return;
     }
 
     public double getLowerLimit(int n) {

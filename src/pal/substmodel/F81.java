@@ -58,7 +58,6 @@ public class F81 extends NucleotideModel implements Serializable, XMLConstants {
 
 
     public void setParameterSE(double paramSE, int n) {
-        return;
     }
 
     public double getLowerLimit(int n) {
