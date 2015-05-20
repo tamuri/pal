@@ -110,7 +110,7 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
                 }
             }
         }
-        lowerProb = (ldMeasure == P_VALUE) ? true : false;
+        lowerProb = (ldMeasure == P_VALUE);
     }
 
     /**
@@ -139,7 +139,7 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
                 }
             }
         }
-        upperProb = (ldMeasure == P_VALUE) ? true : false;
+        upperProb = (ldMeasure == P_VALUE);
     }
 
     /**
