@@ -228,7 +228,6 @@ public final class AlignmentReaders {
         while (line != null) {
             boolean isDelimiter = false;
             String trimmedLine = line.trim();
-            ;
             if (trimmedLine.startsWith("CLUSTAL")) {
                 isDelimiter = true;
             }
