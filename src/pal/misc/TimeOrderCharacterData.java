@@ -629,11 +629,9 @@ public class TimeOrderCharacterData implements Serializable, BranchLimits, Units
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Identifier\t" + (hasTimes() ? "Times\t" : "") + "Sample\n");
+        sb.append("Identifier\t").append(hasTimes() ? "Times\t" : "").append("Sample\n");
         for (int i = 0; i < taxa.getIdCount(); i++) {
-            sb.append(taxa.getIdentifier(i) + "\t" +
-                    (hasTimes() ? getTime(i) + "\t" : "") +
-                    getTimeOrdinal(i) + "\n");
+            sb.append(taxa.getIdentifier(i)).append("\t").append(hasTimes() ? getTime(i) + "\t" : "").append(getTimeOrdinal(i)).append("\n");
         }
         return new String(sb);
     }
