@@ -7,32 +7,20 @@
 
 package pal.eval;
 
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2003</p>
- * <p>Company: </p>
- *
- * @author not attributable
- * @version 1.0
- */
-
 import pal.datatype.DataType;
 import pal.substmodel.SubstitutionModel;
 
 public class SimpleLHCalculator implements LHCalculator {
     private static final SimpleFactory FACTORY_INSTANCE = new SimpleFactory();
 
-
-    private static void calculateSingleExtendedIndirectImpl(
-            double distance, SubstitutionModel model,
-            int numberOfPatterns,
-            ConditionalProbabilityStore baseConditionalProbabilities,
-            ConditionalProbabilityStore resultConditionalProbabilities,
-            double[][][] transitionProbabilityStore,
-            int numberOfCategories,
-            int numberOfStates
-    ) {
+    private static void calculateSingleExtendedIndirectImpl(double distance,
+                                                            SubstitutionModel model,
+                                                            int numberOfPatterns,
+                                                            ConditionalProbabilityStore baseConditionalProbabilities,
+                                                            ConditionalProbabilityStore resultConditionalProbabilities,
+                                                            double[][][] transitionProbabilityStore,
+                                                            int numberOfCategories,
+                                                            int numberOfStates) {
         model.getTransitionProbabilities(distance, transitionProbabilityStore);
 
         double[][][] resultStoreValues = resultConditionalProbabilities.getConditionalProbabilityAccess(numberOfPatterns, false);
@@ -59,97 +47,66 @@ public class SimpleLHCalculator implements LHCalculator {
     }
 
     private static void calculateFlatImpl(final PatternInfo centerPattern,
-                                                final ConditionalProbabilityStore
-                                                        leftConditionalProbabilityProbabilties,
-                                                final ConditionalProbabilityStore
-                                                        rightConditionalProbabilityProbabilties,
-                                                final ConditionalProbabilityStore
-                                                        resultStore, int numberOfCategories, int numberOfStates) {
+                                          final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                          final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                          final ConditionalProbabilityStore resultStore,
+                                          int numberOfCategories, int numberOfStates) {
         final int[] patternLookup = centerPattern.getPatternLookup();
         final int numberOfPatterns = centerPattern.getNumberOfPatterns();
-        double[][][] resultStoreValues = resultStore.
-                getConditionalProbabilityAccess(
-                        numberOfPatterns, false);
+        double[][][] resultStoreValues = resultStore.getConditionalProbabilityAccess(numberOfPatterns, false);
 
         for (int category = 0; category < numberOfCategories; category++) {
             int patternAccess = 0;
-            final double[][] myPatternStateProbabilities = resultStoreValues[
-                    category];
-            final double[][] leftPatternStateProbabilities =
-                    leftConditionalProbabilityProbabilties.
-                            getCurrentConditionalProbabilities(category);
-            final double[][] rightPatternStateProbabilities =
-                    rightConditionalProbabilityProbabilties.
-                            getCurrentConditionalProbabilities(category);
+            final double[][] myPatternStateProbabilities = resultStoreValues[category];
+            final double[][] leftPatternStateProbabilities = leftConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
+            final double[][] rightPatternStateProbabilities = rightConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
             for (int pattern = 0; pattern < numberOfPatterns; pattern++) {
                 final int leftPattern = patternLookup[patternAccess++];
                 final int rightPattern = patternLookup[patternAccess++];
-                final double[] myStateProbabilities = myPatternStateProbabilities[
-                        pattern];
-                final double[] leftStateProbabilities = leftPatternStateProbabilities[
-                        leftPattern];
-                final double[] rightStateProbabilities =
-                        rightPatternStateProbabilities[rightPattern];
+                final double[] myStateProbabilities = myPatternStateProbabilities[pattern];
+                final double[] leftStateProbabilities = leftPatternStateProbabilities[leftPattern];
+                final double[] rightStateProbabilities = rightPatternStateProbabilities[rightPattern];
 
                 for (int endState = 0; endState < numberOfStates; endState++) {
-                    myStateProbabilities[endState] = leftStateProbabilities[endState] *
-                            rightStateProbabilities[endState];
+                    myStateProbabilities[endState] = leftStateProbabilities[endState] * rightStateProbabilities[endState];
                 }
             }
         }
     }
 
     private static void calculateExtendedImpl(final double[][][] transitionProbabilityStore,
-                                                    final PatternInfo centerPattern,
-                                                    final ConditionalProbabilityStore
-                                                            leftConditionalProbabilityProbabilties,
-                                                    final ConditionalProbabilityStore
-                                                            rightConditionalProbabilityProbabilties,
-                                                    final ConditionalProbabilityStore
-                                                            resultStore,
-                                                    int numberOfCategories,
-                                                    int numberOfStates,
-                                                    double[] endStateProbabilityStore) {
+                                              final PatternInfo centerPattern,
+                                              final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                              final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                              final ConditionalProbabilityStore resultStore,
+                                              int numberOfCategories, int numberOfStates,
+                                              double[] endStateProbabilityStore) {
         final int[] patternLookup = centerPattern.getPatternLookup();
         final int numberOfPatterns = centerPattern.getNumberOfPatterns();
 
-        double[][][] resultStoreValues = resultStore.
-                getConditionalProbabilityAccess(
-                        numberOfPatterns, false);
+        double[][][] resultStoreValues = resultStore.getConditionalProbabilityAccess(numberOfPatterns, false);
         for (int category = 0; category < numberOfCategories; category++) {
             int patternAccess = 0;
-            final double[][] myPatternStateProbabilities = resultStoreValues[
-                    category];
-            final double[][] leftPatternStateProbabilities =
-                    leftConditionalProbabilityProbabilties.
-                            getCurrentConditionalProbabilities(category);
-            final double[][] rightPatternStateProbabilities =
-                    rightConditionalProbabilityProbabilties.
-                            getCurrentConditionalProbabilities(category);
+            final double[][] myPatternStateProbabilities = resultStoreValues[category];
+            final double[][] leftPatternStateProbabilities = leftConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
+            final double[][] rightPatternStateProbabilities = rightConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
             final double[][] transProb = transitionProbabilityStore[category];
             for (int pattern = 0; pattern < numberOfPatterns; pattern++) {
                 final int leftPattern = patternLookup[patternAccess++];
                 final int rightPattern = patternLookup[patternAccess++];
-                final double[] myStateProbabilities = myPatternStateProbabilities[
-                        pattern];
-                final double[] leftStateProbabilities = leftPatternStateProbabilities[
-                        leftPattern];
-                final double[] rightStateProbabilities =
-                        rightPatternStateProbabilities[
-                                rightPattern];
+                final double[] myStateProbabilities = myPatternStateProbabilities[pattern];
+                final double[] leftStateProbabilities = leftPatternStateProbabilities[leftPattern];
+                final double[] rightStateProbabilities = rightPatternStateProbabilities[rightPattern];
 
                 for (int endState = 0; endState < numberOfStates; endState++) {
-                    endStateProbabilityStore[endState] =
-                            leftStateProbabilities[endState] *
-                                    rightStateProbabilities[endState];
+                    endStateProbabilityStore[endState] = leftStateProbabilities[endState] * rightStateProbabilities[endState];
                 }
 
                 for (int startState = 0; startState < numberOfStates; startState++) {
                     double probTotal = 0;
                     final double[] speedupArray = transProb[startState];
                     for (int endState = 0; endState < numberOfStates; endState++) {
-                        probTotal += speedupArray[endState] *
-                                endStateProbabilityStore[endState];
+                        probTotal += speedupArray[endState] * endStateProbabilityStore[endState];
                     }
                     myStateProbabilities[startState] = probTotal;
                 }
@@ -157,19 +114,15 @@ public class SimpleLHCalculator implements LHCalculator {
         }
     }
 
-    private static void calculatePostExtendedFlatImpl(
-            double distance,
-            SubstitutionModel model,
-            final double[][][] transitionProbabilityStore,
-            final PatternInfo centerPattern,
-            final ConditionalProbabilityStore
-                    leftConditionalProbabilityProbabilties,
-            final ConditionalProbabilityStore
-                    rightConditionalProbabilityProbabilties,
-            final ConditionalProbabilityStore
-                    resultStore,
-            int numberOfCategories,
-            int numberOfStates) {
+    private static void calculatePostExtendedFlatImpl(double distance,
+                                                      SubstitutionModel model,
+                                                      final double[][][] transitionProbabilityStore,
+                                                      final PatternInfo centerPattern,
+                                                      final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                                      final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                                      final ConditionalProbabilityStore resultStore,
+                                                      int numberOfCategories, int numberOfStates) {
+
         model.getTransitionProbabilities(distance, transitionProbabilityStore);
 
         final int[] patternLookup = centerPattern.getPatternLookup();
@@ -179,10 +132,8 @@ public class SimpleLHCalculator implements LHCalculator {
         for (int category = 0; category < numberOfCategories; category++) {
             int patternAccess = 0;
             final double[][] myPatternStateProbabilities = resultStoreValues[category];
-            final double[][] leftPatternStateProbabilities =
-                    leftConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
-            final double[][] rightPatternStateProbabilities =
-                    rightConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
+            final double[][] leftPatternStateProbabilities = leftConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
+            final double[][] rightPatternStateProbabilities = rightConditionalProbabilityProbabilties.getCurrentConditionalProbabilities(category);
             final double[][] transProb = transitionProbabilityStore[category];
             for (int pattern = 0; pattern < numberOfPatterns; pattern++) {
                 final int leftPattern = patternLookup[patternAccess++];
@@ -220,8 +171,7 @@ public class SimpleLHCalculator implements LHCalculator {
             this.numberOfCategories_ = numberOfCategories;
             this.numberOfStates_ = numberOfStates;
             this.stateProbabilityStore_ = new double[numberOfStates];
-            this.transitionProbabilityStore_ = new double[numberOfCategories][
-                    numberOfStates][numberOfStates];
+            this.transitionProbabilityStore_ = new double[numberOfCategories][numberOfStates][numberOfStates];
 //			//this.myResultStore_ = new ConditionalProbabilityStore( numberOfCategories,
 //			//	numberOfStates );
         }
@@ -229,12 +179,9 @@ public class SimpleLHCalculator implements LHCalculator {
         public final void calculateExtended(final double distance,
                                             final SubstitutionModel model,
                                             final PatternInfo centerPattern,
-                                            final ConditionalProbabilityStore
-                                                    leftConditionalProbabilityProbabilties,
-                                            final ConditionalProbabilityStore
-                                                    rightConditionalProbabilityProbabilties,
-                                            final ConditionalProbabilityStore
-                                                    resultStore) {
+                                            final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                            final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                            final ConditionalProbabilityStore resultStore) {
             model.getTransitionProbabilities(distance, transitionProbabilityStore_);
             calculateExtendedImpl(transitionProbabilityStore_, centerPattern, leftConditionalProbabilityProbabilties, rightConditionalProbabilityProbabilties, resultStore, numberOfCategories_, numberOfStates_, stateProbabilityStore_);
         }
@@ -246,12 +193,9 @@ public class SimpleLHCalculator implements LHCalculator {
          * @return either possible result store if results built from cached information
          */
         public final void calculateFlat(final PatternInfo centerPattern,
-                                        final ConditionalProbabilityStore
-                                                leftConditionalProbabilityProbabilties,
-                                        final ConditionalProbabilityStore
-                                                rightConditionalProbabilityProbabilties,
-                                        final ConditionalProbabilityStore
-                                                resultStore) {
+                                        final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                        final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                        final ConditionalProbabilityStore resultStore) {
             calculateFlatImpl(centerPattern, leftConditionalProbabilityProbabilties, rightConditionalProbabilityProbabilties, resultStore, numberOfCategories_, numberOfStates_);
 
         }
@@ -262,11 +206,11 @@ public class SimpleLHCalculator implements LHCalculator {
          * @param model The model to use
          * @param conditionalProbabilities The probabilities to extend
          */
-        public void calculateSingleExtendedDirect(
-                double distance, SubstitutionModel model,
-                int numberOfPatterns,
-                ConditionalProbabilityStore conditionalProbabilities
-        ) {
+        public void calculateSingleExtendedDirect(double distance,
+                                                  SubstitutionModel model,
+                                                  int numberOfPatterns,
+                                                  ConditionalProbabilityStore conditionalProbabilities) {
+
             model.getTransitionProbabilities(distance, transitionProbabilityStore_);
 
             double[][][] baseStoreValues = conditionalProbabilities.getCurrentConditionalProbabilities();
@@ -297,23 +241,20 @@ public class SimpleLHCalculator implements LHCalculator {
          * @param baseConditionalProbabilities The probabilities to extend
          * @param resultConditionalProbabilities The probabilities to extend
          */
-        public void calculateSingleExtendedIndirect(
-                double distance, SubstitutionModel model,
-                int numberOfPatterns,
-                ConditionalProbabilityStore baseConditionalProbabilities,
-                ConditionalProbabilityStore resultConditionalProbabilities
-        ) {
+        public void calculateSingleExtendedIndirect(double distance,
+                                                    SubstitutionModel model,
+                                                    int numberOfPatterns,
+                                                    ConditionalProbabilityStore baseConditionalProbabilities,
+                                                    ConditionalProbabilityStore resultConditionalProbabilities) {
             calculateSingleExtendedIndirectImpl(distance, model, numberOfPatterns, baseConditionalProbabilities, resultConditionalProbabilities, transitionProbabilityStore_, numberOfCategories_, numberOfStates_);
         }
 
-        private double[][][] getResultStoreValues(double distance, SubstitutionModel model,
-                                                        PatternInfo centerPattern,
-                                                        ConditionalProbabilityStore
-                                                                leftFlatConditionalProbabilities,
-                                                        ConditionalProbabilityStore
-                                                                rightFlatConditionalProbabilities,
-                                                        ConditionalProbabilityStore tempStore
-        ) {
+        private double[][][] getResultStoreValues(double distance,
+                                                  SubstitutionModel model,
+                                                  PatternInfo centerPattern,
+                                                  ConditionalProbabilityStore leftFlatConditionalProbabilities,
+                                                  ConditionalProbabilityStore rightFlatConditionalProbabilities,
+                                                  ConditionalProbabilityStore tempStore) {
             final int[] patternWeights = centerPattern.getPatternWeights();
             final int[] patternLookup = centerPattern.getPatternLookup();
             final int numberOfPatterns = centerPattern.getNumberOfPatterns();
@@ -347,14 +288,12 @@ public class SimpleLHCalculator implements LHCalculator {
             return resultStoreValues;
         }
 
-        public double calculateLogLikelihood(double distance, SubstitutionModel model,
+        public double calculateLogLikelihood(double distance,
+                                             SubstitutionModel model,
                                              PatternInfo centerPattern,
-                                             ConditionalProbabilityStore
-                                                     leftFlatConditionalProbabilities,
-                                             ConditionalProbabilityStore
-                                                     rightFlatConditionalProbabilities,
-                                             ConditionalProbabilityStore tempStore
-        ) {
+                                             ConditionalProbabilityStore leftFlatConditionalProbabilities,
+                                             ConditionalProbabilityStore rightFlatConditionalProbabilities,
+                                             ConditionalProbabilityStore tempStore) {
             final int[] patternWeights = centerPattern.getPatternWeights();
             final int numberOfPatterns = centerPattern.getNumberOfPatterns();
             final double[][][] resultStoreValues = getResultStoreValues(distance, model, centerPattern, leftFlatConditionalProbabilities, rightFlatConditionalProbabilities, tempStore);
@@ -364,8 +303,7 @@ public class SimpleLHCalculator implements LHCalculator {
             for (int pattern = 0; pattern < numberOfPatterns; pattern++) {
                 double total = 0;
                 for (int cat = 0; cat < numberOfCategories_; cat++) {
-                    final double[] states = resultStoreValues[
-                            cat][pattern];
+                    final double[] states = resultStoreValues[cat][pattern];
                     double prob = 0;
                     for (int state = 0; state < numberOfStates_; state++) {
                         prob += equilibriumFrequencies[state] * states[state];
@@ -378,15 +316,13 @@ public class SimpleLHCalculator implements LHCalculator {
         }
 
 
-        protected void calculateCategoryPatternProbabilities(double distance, SubstitutionModel model,
+        protected void calculateCategoryPatternProbabilities(double distance,
+                                                             SubstitutionModel model,
                                                              PatternInfo centerPattern,
-                                                             ConditionalProbabilityStore
-                                                                     leftFlatConditionalProbabilities,
-                                                             ConditionalProbabilityStore
-                                                                     rightFlatConditionalProbabilities,
+                                                             ConditionalProbabilityStore leftFlatConditionalProbabilities,
+                                                             ConditionalProbabilityStore rightFlatConditionalProbabilities,
                                                              ConditionalProbabilityStore tempStore,
-                                                             double[][] categoryPatternLogLikelihoods
-        ) {
+                                                             double[][] categoryPatternLogLikelihoods) {
             final int[] patternWeights = centerPattern.getPatternWeights();
             final int numberOfPatterns = centerPattern.getNumberOfPatterns();
             final double[][][] resultStoreValues = getResultStoreValues(distance, model, centerPattern, leftFlatConditionalProbabilities, rightFlatConditionalProbabilities, tempStore);
@@ -415,13 +351,14 @@ public class SimpleLHCalculator implements LHCalculator {
          * @param conditionalProbabilityStore The conditionals
          * @return the Log likelihood
          */
-        public double calculateLogLikelihoodSingle(SubstitutionModel model, int[] patternWeights, int numberOfPatterns,
+        public double calculateLogLikelihoodSingle(SubstitutionModel model,
+                                                   int[] patternWeights,
+                                                   int numberOfPatterns,
                                                    ConditionalProbabilityStore conditionalProbabilityStore) {
             final double[] equilibriumFrequencies = model.getEquilibriumFrequencies();
             final double[] probabilities = model.getTransitionCategoryProbabilities();
             double logLikelihood = 0;
-            double[][][] conditionalProbabilities =
-                    conditionalProbabilityStore.getCurrentConditionalProbabilities();
+            double[][][] conditionalProbabilities = conditionalProbabilityStore.getCurrentConditionalProbabilities();
             for (int pattern = 0; pattern < numberOfPatterns; pattern++) {
                 double total = 0;
                 for (int cat = 0; cat < numberOfCategories_; cat++) {
@@ -439,10 +376,8 @@ public class SimpleLHCalculator implements LHCalculator {
 
         public double calculateLogLikelihood(SubstitutionModel model,
                                              PatternInfo centerPattern,
-                                             ConditionalProbabilityStore
-                                                     leftConditionalProbabilitiesStore,
-                                             ConditionalProbabilityStore
-                                                     rightConditionalProbabilitiesStore) {
+                                             ConditionalProbabilityStore leftConditionalProbabilitiesStore,
+                                             ConditionalProbabilityStore rightConditionalProbabilitiesStore) {
             final int[] patternWeights = centerPattern.getPatternWeights();
             final int[] patternLookup = centerPattern.getPatternLookup();
             final int numberOfPatterns = centerPattern.getNumberOfPatterns();
@@ -450,12 +385,8 @@ public class SimpleLHCalculator implements LHCalculator {
             final double[] equilibriumFrequencies = model.getEquilibriumFrequencies();
             final double[] probabilities = model.getTransitionCategoryProbabilities();
             double logLikelihood = 0;
-            double[][][] leftConditionalProbabilities =
-                    leftConditionalProbabilitiesStore.
-                            getCurrentConditionalProbabilities();
-            double[][][] rightConditionalProbabilities =
-                    rightConditionalProbabilitiesStore.
-                            getCurrentConditionalProbabilities();
+            double[][][] leftConditionalProbabilities = leftConditionalProbabilitiesStore.getCurrentConditionalProbabilities();
+            double[][][] rightConditionalProbabilities = rightConditionalProbabilitiesStore.getCurrentConditionalProbabilities();
             int patternIndex = 0;
             for (int pattern = 0; pattern < numberOfPatterns; pattern++) {
                 double total = 0;
@@ -478,10 +409,8 @@ public class SimpleLHCalculator implements LHCalculator {
 
         public void calculateCategoryPatternProbabilities(SubstitutionModel model,
                                                           PatternInfo centerPattern,
-                                                          ConditionalProbabilityStore
-                                                                  leftConditionalProbabilitiesStore,
-                                                          ConditionalProbabilityStore
-                                                                  rightConditionalProbabilitiesStore,
+                                                          ConditionalProbabilityStore leftConditionalProbabilitiesStore,
+                                                          ConditionalProbabilityStore rightConditionalProbabilitiesStore,
                                                           double[][] categoryPatternLogLikelihoods) {
 
             final int[] patternLookup = centerPattern.getPatternLookup();
@@ -528,29 +457,26 @@ public class SimpleLHCalculator implements LHCalculator {
             this.numberOfCategories_ = numberOfCategories;
             this.numberOfStates_ = numberOfStates;
             this.endStateProbabilityStore_ = new double[numberOfStates];
-            this.transitionProbabilityStore_ = new double[numberOfCategories][
-                    numberOfStates][numberOfStates];
+            this.transitionProbabilityStore_ = new double[numberOfCategories][numberOfStates][numberOfStates];
             this.myResultStore_ = parentGenerator.createAppropriateConditionalProbabilityStore(false);
         }
 
-        public final ConditionalProbabilityStore calculateSingleExtended(
-                final double distance, final SubstitutionModel model,
-                final PatternInfo centerPattern,
-                final ConditionalProbabilityStore baseConditionalProbabilityProbabilties,
-                final boolean modelChangedSinceLastCall
-        ) {
+        public final ConditionalProbabilityStore calculateSingleExtended(final double distance,
+                                                                         final SubstitutionModel model,
+                                                                         final PatternInfo centerPattern,
+                                                                         final ConditionalProbabilityStore baseConditionalProbabilityProbabilties,
+                                                                         final boolean modelChangedSinceLastCall) {
             return baseConditionalProbabilityProbabilties;
 //			calculateSingleExtendedIndirectImpl(distance,model,numberOfCategories_,baseConditionalProbabilityProbabilties,myResultStore_,transitionProbabilityStore_,numberOfCategories_,numberOfStates_);
 //			return myResultStore_;
         }
 
-        public final ConditionalProbabilityStore calculateExtended(
-                final double distance, final SubstitutionModel model,
-                final PatternInfo centerPattern,
-                final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
-                final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
-                final boolean modelChangedSinceLastCall
-        ) {
+        public final ConditionalProbabilityStore calculateExtended(final double distance,
+                                                                   final SubstitutionModel model,
+                                                                   final PatternInfo centerPattern,
+                                                                   final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                                                   final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                                                   final boolean modelChangedSinceLastCall) {
 
             if (modelChangedSinceLastCall || distance != lastDistance_ || lastDistance_ < 0) {
                 model.getTransitionProbabilities(distance, transitionProbabilityStore_);
@@ -560,25 +486,20 @@ public class SimpleLHCalculator implements LHCalculator {
             return myResultStore_;
         }
 
-        public final ConditionalProbabilityStore calculatePostExtendedFlat(
-                final double distance, final SubstitutionModel model,
-                final PatternInfo centerPattern,
-                final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
-                final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
-                final boolean modelChangedSinceLastCall
-        ) {
+        public final ConditionalProbabilityStore calculatePostExtendedFlat(final double distance,
+                                                                           final SubstitutionModel model,
+                                                                           final PatternInfo centerPattern,
+                                                                           final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                                                           final ConditionalProbabilityStore rightConditionalProbabilityProbabilties,
+                                                                           final boolean modelChangedSinceLastCall) {
             calculatePostExtendedFlatImpl(distance, model, transitionProbabilityStore_, centerPattern, leftConditionalProbabilityProbabilties, rightConditionalProbabilityProbabilties, myResultStore_, numberOfCategories_, numberOfStates_);
             return myResultStore_;
         }
 
-        public final ConditionalProbabilityStore calculateFlat(
-                final PatternInfo centerPattern,
-                final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
-                final ConditionalProbabilityStore rightConditionalProbabilityProbabilties
-        ) {
-            calculateFlatImpl(centerPattern,
-                    leftConditionalProbabilityProbabilties,
-                    rightConditionalProbabilityProbabilties, myResultStore_, numberOfCategories_, numberOfStates_);
+        public final ConditionalProbabilityStore calculateFlat(final PatternInfo centerPattern,
+                                                               final ConditionalProbabilityStore leftConditionalProbabilityProbabilties,
+                                                               final ConditionalProbabilityStore rightConditionalProbabilityProbabilties) {
+            calculateFlatImpl(centerPattern, leftConditionalProbabilityProbabilties, rightConditionalProbabilityProbabilties, myResultStore_, numberOfCategories_, numberOfStates_);
             return myResultStore_;
         }
 
@@ -644,13 +565,10 @@ public class SimpleLHCalculator implements LHCalculator {
 
         public Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns) {
             return new SimpleLeafCalculator(patternStateMatchup, numberOfPatterns, numberOfStates_, numberOfCategories_, this);
-//		  return new pebble.eval.OldSchoolLeafCalculator(patternStateMatchup,numberOfPatterns, numberOfStates_, numberOfCategories_,this);
         }
 
         public Leaf createNewLeaf(int[] patternStateMatchup, int numberOfPatterns, Generator parentGenerator) {
             return parentGenerator.createNewLeaf(patternStateMatchup, numberOfPatterns);
-//		  return new pebble.eval.OldSchoolLeafCalculator(patternStateMatchup,numberOfPatterns, numberOfStates_, numberOfCategories_,parentGenerator);
-//		  return new SimpleLeafCalculator(patternStateMatchup,numberOfPatterns, numberOfStates_, numberOfCategories_,parentGenerator);
         }
 
         public LHCalculator.External createNewExternal() {
