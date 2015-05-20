@@ -18,10 +18,9 @@ package pal.treesearch;
 import pal.tree.Node;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface RootAccess {
-    void getAllComponents(List<GeneralOptimisable> store, Class componentType);
+    void getAllComponents(ArrayList store, Class componentType);
 
     double calculateLogLikelihood(GeneralConstructionTool tool);
 

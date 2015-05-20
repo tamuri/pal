@@ -24,7 +24,6 @@ import pal.misc.Identifier;
 import pal.tree.Node;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GeneralConstructionTool {
 
@@ -209,14 +208,14 @@ public class GeneralConstructionTool {
      * @note assumes bificating tree
      */
     public String[] getLeafLabelSet(Node peer) {
-        List<String> al = new ArrayList<>();
+        ArrayList al = new ArrayList();
         getLeafLabelSet(peer, al);
         String[] result = new String[al.size()];
         al.toArray(result);
         return result;
     }
 
-    public void getLeafLabelSet(Node peer, List<String> al) {
+    public void getLeafLabelSet(Node peer, ArrayList al) {
         if (peer.isLeaf()) {
             al.add(peer.getIdentifier().getName());
         } else {
