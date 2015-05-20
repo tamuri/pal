@@ -104,7 +104,7 @@ public class SimpleCharacterAlignment implements CharacterAlignment, Serializabl
      * @param environNames array of environment names
      */
     public SimpleCharacterAlignment(IdGroup group, double[][] traitValues, String[] traitNames, String[] environNames) {
-        System.out.println("Starting CharacterAlignment(IdGroup group, double[][] traitValues, String[] traitNames, String[] environNames)" + environmentNames);
+        System.out.println("Starting CharacterAlignment(IdGroup group, double[][] traitValues, String[] traitNames, String[] environNames)" + String.join(",", environmentNames);
         if (group.getIdCount() != traitValues.length) return;
         idGroup = group;
         this.traitNames = traitNames;
