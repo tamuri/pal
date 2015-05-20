@@ -115,7 +115,7 @@ public class FormattedInput implements Serializable {
         int c = skipWhiteSpace(input);
 
         if (c == EOF) {
-            new IOException("End of file/stream");
+            throw new IOException("End of file/stream");
         }
         return c;
     }
