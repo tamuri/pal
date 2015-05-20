@@ -61,7 +61,8 @@ public final class TreeTool {
      * @return A tree formed by the UPGMA process using the input distance matrix
      */
     public static final Tree createUPGMA(DistanceMatrix dm) {
-        return new UPGMATree(dm);
+        // return new UPGMATree(dm);
+        return new ClusterTree(dm, ClusterTree.UPGMA);
     }
 
 
@@ -84,7 +85,8 @@ public final class TreeTool {
      * @return A tree formed by the neighbour-joining process using the input distance matrix
      */
     public static final Tree createUPGMATree(double[][] dm, String[] otuNames) {
-        return new UPGMATree(new DistanceMatrix(dm, new SimpleIdGroup(otuNames)));
+        // return new UPGMATree(new DistanceMatrix(dm, new SimpleIdGroup(otuNames)));
+        return new ClusterTree(new DistanceMatrix(dm, new SimpleIdGroup(otuNames)), ClusterTree.UPGMA);
     }
 
     /**
