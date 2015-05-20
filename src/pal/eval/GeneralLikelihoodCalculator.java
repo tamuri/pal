@@ -146,6 +146,7 @@ public class GeneralLikelihoodCalculator implements PalObjectListener, Likelihoo
             model_.removePalObjectListener(this);
             model_ = null;
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 

@@ -110,6 +110,7 @@ public class FastLikelihoodCalculator implements PalObjectListener, LikelihoodCa
             model_.removePalObjectListener(this);
             model_ = null;
         } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 

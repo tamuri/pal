@@ -1137,6 +1137,7 @@ public class TreeUtils {
                     minIndex = number;
                 }
             } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
         }
         int changes = 0;
@@ -1149,7 +1150,7 @@ public class TreeUtils {
                     changes++;
                 }
             } catch (NumberFormatException e) {
-
+                e.printStackTrace();
             }
         }
         if (changes == 0) {
