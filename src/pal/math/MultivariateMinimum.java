@@ -201,7 +201,7 @@ public abstract class MultivariateMinimum {
     private boolean xStop(double[] x, double[] xold, double tolx) {
         boolean stop = true;
 
-        for (int i = 0; i < x.length && stop == true; i++) {
+        for (int i = 0; (i < x.length) && (stop); i++) {
             if (Math.abs(x[i] - xold[i]) > tolx) {
                 stop = false;
             }

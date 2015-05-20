@@ -97,7 +97,7 @@ public class UrnModel implements java.io.Serializable {
         int k = -1;
         do {
             next++;
-            if (isAvailable[next] == true) {
+            if (isAvailable[next]) {
                 k++;
             }
         }

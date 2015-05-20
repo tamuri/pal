@@ -102,7 +102,7 @@ public class SplitSystem {
 
         for (int i = 0; i < splitCount; i++) {
             for (int j = 0; j < labelCount; j++) {
-                if (splits[i][j] == true)
+                if (splits[i][j])
                     pw.print('*');
                 else
                     pw.print('.');

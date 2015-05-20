@@ -387,7 +387,7 @@ public class LinkageDisequilibriumComponent extends Component implements Printab
         g.fillRect(xPos[0], yPos[0], xPos[totalVariableSites] - xPos[0], yPos[totalVariableSites] - yPos[0] + 2);
         for (int r = 0; r < totalVariableSites; r++) {
             for (int c = 0; c < totalVariableSites; c++) {
-                if (((c < r) && (upperProb == true)) || ((c > r) && (lowerProb == true))) {
+                if (((c < r) && (upperProb)) || ((c > r) && (lowerProb))) {
                     g.setColor(getProbabilityColor(r, c));
                 } else if (r == c) {
                     g.setColor(theColor.black);

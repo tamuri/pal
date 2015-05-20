@@ -96,7 +96,7 @@ public class CladeSystem {
 
         for (int i = 0; i < getCladeCount(); i++) {
             for (int j = 0; j < getLabelCount(); j++) {
-                if (clades[i][j] == true)
+                if (clades[i][j])
                     pw.print('*');
                 else
                     pw.print('.');

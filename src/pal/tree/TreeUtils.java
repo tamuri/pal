@@ -803,7 +803,7 @@ public class TreeUtils {
 
         // check if some SE values differ from the default zero
         boolean showSE = false;
-        for (int i = 0; i < numExternalNodes && showSE == false; i++) {
+        for (int i = 0; i < numExternalNodes && !showSE; i++) {
             if (tree.getExternalNode(i).getBranchLengthSE() != 0.0) {
                 showSE = true;
             }

@@ -781,7 +781,7 @@ public class ConjugateDirectionSearch extends MultivariateMinimum {
                         break;
                 }
 
-                if (skipNext == false) {
+                if (!skipNext) {
 
                     c = 0.0;
                     s = 1.0;
