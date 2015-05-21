@@ -599,6 +599,14 @@ public class NodeUtils {
 
                 column += FormattedOutput.getInstance().displayDecimal(out, node.getBranchLength(), 7);
             }
+        } else if (printInternalLabels) {
+            // is root node!
+            if (breakLines) column = breakLine(out, column);
+            String id = node.getIdentifier().toString();
+            if (null != id && id.length() > 0) {
+                out.print(id);
+                column += id.length();
+            }
         }
 
         return column;
