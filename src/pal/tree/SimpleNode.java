@@ -15,6 +15,7 @@ import pal.misc.LabelMapping;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -575,7 +576,7 @@ public class SimpleNode implements AttributeNode {
      * node has no attributes.
      */
     public final Iterator<String> getAttributeNames() {
-        if (attributes == null) return null;
+        if (attributes == null) return Collections.emptyIterator();
         return attributes.keySet().iterator();
     }
 
