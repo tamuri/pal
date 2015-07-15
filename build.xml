@@ -31,7 +31,7 @@
     <target name="compile" depends="init" description="compile the source">
         <!-- Compile the java code from ${src} into ${build} -->
         <!-- for jvm 1.6: <javac srcdir="${src}" destdir="${build}" includeantruntime="false" bootclasspath="/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Classes/classes.jar" /> -->
-        <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+        <javac srcdir="${src}" destdir="${build}" includeantruntime="false" debug="on">
             <!-- warnings:
             <compilerarg value="-Xlint:deprecation" />
             <compilerarg value="-Xlint:unchecked" />
