@@ -792,7 +792,7 @@ public class TreeManipulator implements UnrootedTreeInterface.Instructee, Rooted
 
             Connection first = firstNode_.getMRCAConnection(this, nodeNames);
             Connection second = secondNode_.getMRCAConnection(this, nodeNames);
-            System.out.println("Traverse:" + first + "   " + second);
+            // System.out.println("Traverse:" + first + "   " + second);
 
             if (first != null) {
                 if (second == null) {
